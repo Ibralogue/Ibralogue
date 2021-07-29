@@ -13,14 +13,6 @@ namespace Ibralogue
         {
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(TemplatePath + DefaultScript, "New Dialogue.ibra");
         }
-        
-        // [OnOpenAsset(2)]
-        // private static bool OpenDialogue(int instanceID, int line)
-        // {
-        //     string objectPath = AssetDatabase.GetAssetPath(EditorUtility.InstanceIDToObject(instanceID));
-        //     string objectExtension = Path.GetExtension(objectPath);
-        //     return objectExtension == ".ibra";
-        // }
     }
 }
 #endif

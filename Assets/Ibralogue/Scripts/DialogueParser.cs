@@ -31,44 +31,45 @@ namespace Ibralogue
       /// The ParseDialogue function returns an array of dialogues and associates information
       /// with each element in the array. Speaker Name, Sentence, Image etc.
       /// </summary>
-      public static List<Dialog> ParseDialogue(TextAsset dialogueAsset)
+      public static List<Dialogue> ParseDialogue(TextAsset dialogueAsset)
       {
          string dialogueText = dialogueAsset.text;
          string[] fLines = dialogueText.Split('\n');
          
-         List<Dialog> dialogue = new List<Dialog>();
-         Dialog dialog = new Dialog {sentences = new List<string>()};
+         List<Dialogue> dialogues = new List<Dialogue>();
+         Dialogue dialogue = new Dialogue{sentences = new List<string>()};
 
          for (int index = 0; index < fLines.Length; index++)
          {
             string line = fLines[index];
             Tokens token = GetLineToken(line);
+            
             string processedLine = Regex.Replace(line, "^~|-|!$", string.Empty);
             
             switch (token)
             {
-               case Tokens.SPEAKER when dialog.speaker == null:
-                  dialog.speaker = processedLine;
+               case Tokens.SPEAKER when dialogue.speaker == null:
+                  dialogue.speaker = processedLine;
                   break;
                case Tokens.SPEAKER:
-                  dialogue.Add(dialog);
-                  dialog = new Dialog {sentences = new List<string>()};
-                  dialog.speaker = processedLine;
+                  dialogues.Add(dialogue);
+                  dialogue = new Dialogue{sentences = new List<string>()};
+                  dialogue.speaker = processedLine;
                   break;
                case Tokens.SENTENCE:
-                  dialog.sentences.Add(processedLine);
+                  dialogue.sentences.Add(processedLine);
                   break;
                case Tokens.IMAGE:
-                  dialog.speakerImage = Resources.Load("BlaBla/Epic") as Sprite;
+                  dialogue.speakerImage = Resources.Load("BlaBla/Epic") as Sprite;
                   break;
                case Tokens.ILLEGAL:
                   throw new Exception($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");
                default:
                   throw new ArgumentOutOfRangeException($"[Ibralogue] Unexpected Argument Receibed at {line}");
             }
-            if (index == fLines.Length - 1) dialogue.Add(dialog); 
+            if (index == fLines.Length - 1) dialogues.Add(dialogue); 
          }
-         return dialogue;
+         return dialogues;
       }
    }
 }

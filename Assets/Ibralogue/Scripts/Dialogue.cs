@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Ibralogue
 {
-    public struct Dialog
+    public struct Dialogue
     {
         public string speaker;
         public Sprite speakerImage;
