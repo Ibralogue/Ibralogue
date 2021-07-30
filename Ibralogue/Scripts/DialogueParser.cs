@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -18,7 +19,12 @@ namespace Ibralogue
          SENTENCE,
          IMAGE,
       }
-
+      
+      
+      /// <summary>
+      /// The GetLineToken function checks what the line it is given starts with and associates a "token" with it
+      /// according to that.
+      /// </summary>
       private static Tokens GetLineToken(string line)
       {
          if (line.StartsWith("~")) return Tokens.SPEAKER;
@@ -44,7 +50,7 @@ namespace Ibralogue
             string line = fLines[index];
             Tokens token = GetLineToken(line);
             
-            string processedLine = Regex.Replace(line, "^~|-|!$", string.Empty);
+            string processedLine = Regex.Replace(line, "^(~|-|!)", string.Empty);
             
             switch (token)
             {
@@ -60,12 +66,14 @@ namespace Ibralogue
                   dialogue.sentences.Add(processedLine);
                   break;
                case Tokens.IMAGE:
-                  dialogue.speakerImage = Resources.Load("BlaBla/Epic") as Sprite;
+                  string imagePath = Regex.Replace(processedLine.Replace("\"", ""), @"\s+", "");
+                  if(Resources.Load(imagePath) == null) throw new Exception($"[Ibralogue] Invalid image path {processedLine} at {index+1}");
+                  dialogue.speakerImage = Resources.Load<Sprite>(imagePath);
                   break;
                case Tokens.ILLEGAL:
                   throw new Exception($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");
                default:
-                  throw new ArgumentOutOfRangeException($"[Ibralogue] Unexpected Argument Receibed at {line}");
+                  throw new ArgumentOutOfRangeException($"[Ibralogue] Unexpected Argument Received at {line+1}");
             }
             if (index == fLines.Length - 1) dialogues.Add(dialogue); 
          }

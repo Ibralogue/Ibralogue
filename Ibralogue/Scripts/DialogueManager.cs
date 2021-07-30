@@ -20,7 +20,8 @@ namespace Ibralogue
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private Image speakerPortrait;
-
+        
+        
         protected void Awake()
         {
             if (Instance != null && Instance != this)
@@ -45,33 +46,37 @@ namespace Ibralogue
             
             nameText.text = parsedDialogue[currentDialogueIndex].speaker;
             sentenceText.text = parsedDialogue[currentDialogueIndex].sentences[currentSentenceIndex];
+            DisplaySpeakerImage();
 
             foreach(char unused in parsedDialogue[currentDialogueIndex].sentences[currentSentenceIndex])
             {
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(0.1f);
-                // yield return new WaitForSeconds(parsedDialogue.conversationBlock[currentIndex].scrollSpeed);
+                yield return new WaitForSeconds(0.1f); 
             }
             yield return null;
-        } 
+        }
 
         public void DisplayNextLine()
         {
             ClearDialogueBox();
-            
             if (currentSentenceIndex < parsedDialogue[currentDialogueIndex].sentences.Count - 1)
             {
                 currentSentenceIndex++;
                 StartCoroutine(DisplayDialogue());
                 return;
             }
-
             if (currentDialogueIndex < parsedDialogue.Count - 1)
             {
                 currentDialogueIndex++;
                 currentSentenceIndex = 0;
                 StartCoroutine(DisplayDialogue());
             }
+        }
+        
+        private void DisplaySpeakerImage()
+        {
+            speakerPortrait.color = parsedDialogue[currentDialogueIndex].speakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = parsedDialogue[currentDialogueIndex].speakerImage;
         }
 
         private void ClearDialogueBox()
