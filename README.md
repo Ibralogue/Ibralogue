@@ -35,9 +35,11 @@ Ibralogue is extremely early in development so it is missing a few features, tho
 | Dialogue Parsing           |         ✔️         |
 | Dialogue Interaction       |         ✔️         |
 | Custom Dialogue File Syntax|         ✔️         |
-| Character Portrait Support |         Planned     
+| Character Portrait Support |         ✔️     
 | Scrolling Text Effect      |         ✔️         |
+| Global Variables           |         ✔️
 | Animated Text Effects      |         Planned     |
+| Markdown Support           |         ✔️
 | Dialogue Audio             |         Planned     |
 | Choice System              |         Planned     |
    
