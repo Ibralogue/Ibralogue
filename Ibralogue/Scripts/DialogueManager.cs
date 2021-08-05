@@ -13,9 +13,12 @@ namespace Ibralogue
 
         private string[] _currentDialogueLines;
         
-        private List<Dialogue> parsedDialogue;
-        private int currentDialogueIndex;
-        private int currentSentenceIndex;
+        private List<Dialogue> _parsedDialogues;
+
+        public static Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+
+        private int _currentDialogueIndex;
+        private int _currentSentenceIndex;
 
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private TextMeshProUGUI nameText;
@@ -36,19 +39,18 @@ namespace Ibralogue
 
         public void StartConversation(TextAsset interactionDialogue)
         {
-            parsedDialogue = DialogueParser.ParseDialogue(interactionDialogue);
+            _parsedDialogues = DialogueParser.ParseDialogue(interactionDialogue);
             ClearDialogueBox();
             StartCoroutine(DisplayDialogue());
         }
 
         private IEnumerator DisplayDialogue()
-        { 
-            
-            nameText.text = parsedDialogue[currentDialogueIndex].speaker;
-            sentenceText.text = parsedDialogue[currentDialogueIndex].sentences[currentSentenceIndex];
+        {
+            nameText.text = _parsedDialogues[_currentDialogueIndex].speaker;
+            sentenceText.text = _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex];
             DisplaySpeakerImage();
 
-            foreach(char unused in parsedDialogue[currentDialogueIndex].sentences[currentSentenceIndex])
+            foreach(char unused in _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex])
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(0.1f); 
@@ -59,24 +61,24 @@ namespace Ibralogue
         public void DisplayNextLine()
         {
             ClearDialogueBox();
-            if (currentSentenceIndex < parsedDialogue[currentDialogueIndex].sentences.Count - 1)
+            if (_currentSentenceIndex < _parsedDialogues[_currentDialogueIndex].sentences.Count - 1)
             {
-                currentSentenceIndex++;
+                _currentSentenceIndex++;
                 StartCoroutine(DisplayDialogue());
                 return;
             }
-            if (currentDialogueIndex < parsedDialogue.Count - 1)
+            if (_currentDialogueIndex < _parsedDialogues.Count - 1)
             {
-                currentDialogueIndex++;
-                currentSentenceIndex = 0;
+                _currentDialogueIndex++;
+                _currentSentenceIndex = 0;
                 StartCoroutine(DisplayDialogue());
             }
         }
         
         private void DisplaySpeakerImage()
         {
-            speakerPortrait.color = parsedDialogue[currentDialogueIndex].speakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
-            speakerPortrait.sprite = parsedDialogue[currentDialogueIndex].speakerImage;
+            speakerPortrait.color = _parsedDialogues[_currentDialogueIndex].speakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = _parsedDialogues[_currentDialogueIndex].speakerImage;
         }
 
         private void ClearDialogueBox()
