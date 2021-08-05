@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67eed47b06889f146a4c76ed213198f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionDialogue: {fileID: 2811297602134710623, guid: c73a8071bc1840c48833c2a801557459, type: 3}
+  _interactionDialogue: {fileID: 2811297602134710623, guid: 12565551d17e76b47964c183a7364141, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

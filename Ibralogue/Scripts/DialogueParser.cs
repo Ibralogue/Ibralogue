@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -63,6 +63,21 @@ namespace Ibralogue
                   dialogue.speaker = processedLine;
                   break;
                case Tokens.SENTENCE:
+                  foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
+                  {
+                     string processedVariable = match.ToString().Replace("%", string.Empty);
+                     
+                     if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
+                     { 
+                        Debug.Log(keyValue);
+                        Debug.Log(match.ToString());
+                        processedLine = processedLine.Replace(match.ToString(), keyValue);
+                     }
+                     else
+                     {
+                        Debug.LogWarning($"[Ibralogue] Variable declaration detected ({match}), but no entry found in dictionary!");
+                     }
+                  }
                   dialogue.sentences.Add(processedLine);
                   break;
                case Tokens.IMAGE:
