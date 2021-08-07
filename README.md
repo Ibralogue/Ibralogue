@@ -18,7 +18,7 @@ Ibralogue
   <a href="#about">About</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
-  <a href="#license">Support</a> •
+  <a href="#support">Support</a>   
 </p>
  
 ## About
