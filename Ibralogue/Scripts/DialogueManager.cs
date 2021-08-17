@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Ibralogue
@@ -10,7 +10,12 @@ namespace Ibralogue
     public class DialogueManager : MonoBehaviour
     {
         public static DialogueManager Instance { get; private set; }
-        public static Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+        public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+
+        public static UnityEvent OnDialogueStart = new UnityEvent();
+        public static UnityEvent OnDialogueEnd = new UnityEvent();
+        
+        public static UnityEvent<int> OnDialogueChange;
 
         private string[] _currentDialogueLines;
         private List<Dialogue> _parsedDialogues;

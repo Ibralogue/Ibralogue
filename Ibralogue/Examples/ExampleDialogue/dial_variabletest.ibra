@@ -1,7 +1,7 @@
 ~Wizard
 -Hello traveller. 
 -What is your name?
-~???
+~%PLAYERNAME%
 -They call me... %PLAYERNAME%.
 ~Wizard
 -%PLAYERNAME%, interesting. 
