@@ -35,7 +35,7 @@ namespace Ibralogue
          if (line.StartsWith("!")) return Tokens.IMAGE;
          if (line.StartsWith("!")) return Tokens.IMAGE;
          if (line.StartsWith("#")) return Tokens.COMMENT;
-         
+         if (Regex.IsMatch(line, @"[a-zA-Z]+\(+\)")) return Tokens.FUNCTION;
          return Tokens.ILLEGAL;
       }   
       
@@ -102,6 +102,9 @@ namespace Ibralogue
                   dialogue.speakerImage = Resources.Load<Sprite>(imagePath);
                   break;
                case Tokens.COMMENT:
+                  break;
+               case Tokens.FUNCTION:
+                  Debug.Log("This token type has not been implemented yet!");
                   break;
                case Tokens.ILLEGAL:
                   throw new Exception($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");
