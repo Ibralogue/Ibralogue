@@ -19,6 +19,7 @@ namespace Ibralogue
          SENTENCE,
          IMAGE,
          COMMENT,
+         FUNCTION,
       }
       
       
@@ -34,6 +35,7 @@ namespace Ibralogue
          if (line.StartsWith("!")) return Tokens.IMAGE;
          if (line.StartsWith("!")) return Tokens.IMAGE;
          if (line.StartsWith("#")) return Tokens.COMMENT;
+         if (Regex.IsMatch(line, @"[a-zA-Z]+\(+\)")) return Tokens.FUNCTION;
          return Tokens.ILLEGAL;
       }   
       
@@ -64,13 +66,25 @@ namespace Ibralogue
                case Tokens.SPEAKER:
                   dialogues.Add(dialogue);
                   dialogue = new Dialogue{sentences = new List<string>()};
+                  foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
+                  {
+                     string processedVariable = match.ToString().Replace("%", string.Empty);
+                     if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
+                     {
+                        processedLine = processedLine.Replace(match.ToString(), keyValue);
+                     }
+                     else
+                     {
+                        Debug.LogWarning(
+                           $"[Ibralogue] Variable declaration detected ({match}), but no entry found in dictionary!");
+                     }
+                  }
                   dialogue.speaker = processedLine;
                   break;
                case Tokens.SENTENCE:
                   foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
                   {
                      string processedVariable = match.ToString().Replace("%", string.Empty);
-                     
                      if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
                      {
                         processedLine = processedLine.Replace(match.ToString(), keyValue);
@@ -88,6 +102,9 @@ namespace Ibralogue
                   dialogue.speakerImage = Resources.Load<Sprite>(imagePath);
                   break;
                case Tokens.COMMENT:
+                  break;
+               case Tokens.FUNCTION:
+                  Debug.Log("This token type has not been implemented yet!");
                   break;
                case Tokens.ILLEGAL:
                   throw new Exception($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Ibralogue
@@ -10,7 +10,12 @@ namespace Ibralogue
     public class DialogueManager : MonoBehaviour
     {
         public static DialogueManager Instance { get; private set; }
-        public static Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+        public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+
+        public static UnityEvent OnDialogueStart = new UnityEvent();
+        public static UnityEvent OnDialogueEnd = new UnityEvent();
+        
+        public static UnityEvent<int> OnDialogueChange;
 
         private string[] _currentDialogueLines;
         private List<Dialogue> _parsedDialogues;
@@ -22,8 +27,6 @@ namespace Ibralogue
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private Image speakerPortrait;
-        
-
 
         protected void Awake()
         {
@@ -45,6 +48,7 @@ namespace Ibralogue
         {
             _parsedDialogues = DialogueParser.ParseDialogue(interactionDialogue);
             ClearDialogueBox();
+            OnDialogueStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
         
@@ -62,7 +66,7 @@ namespace Ibralogue
             foreach(char unused in _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex])
             {
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(0.1f); 
+                yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
             }
             _linePlaying = false;
             yield return null;
@@ -87,6 +91,10 @@ namespace Ibralogue
                 _currentDialogueIndex++;
                 _currentSentenceIndex = 0;
                 StartCoroutine(DisplayDialogue());
+            }
+            else
+            {
+                OnDialogueEnd.Invoke();
             }
         }
         
