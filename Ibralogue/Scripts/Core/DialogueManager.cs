@@ -63,7 +63,7 @@ namespace Ibralogue
             sentenceText.text = _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex];
             DisplaySpeakerImage();
 
-            foreach(char unused in _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex])
+            foreach(char _ in _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex])
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
