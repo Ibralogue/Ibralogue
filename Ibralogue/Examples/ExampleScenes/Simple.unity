@@ -891,6 +891,9 @@ MonoBehaviour:
   sentenceText: {fileID: 575064700}
   nameText: {fileID: 1681295514}
   speakerPortrait: {fileID: 562461649}
+  searchAllAssemblies: 0
+  includedAssemblies:
+  - Interactions
 --- !u!4 &1515395012
 Transform:
   m_ObjectHideFlags: 0
