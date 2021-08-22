@@ -143,12 +143,13 @@ namespace Ibralogue
                     }
                 }
             }
-            IEnumerable<MethodInfo> methods = new List<MethodInfo>();
+            List<MethodInfo> methods = new List<MethodInfo>();
             foreach (Assembly assembly in assemblies)
             {
-                methods = assembly.GetTypes()
+                IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
                     .Where(m => m.GetCustomAttributes(typeof(DialogueFunction), false).Length > 0);
+                methods.AddRange(allMethods);
             }
             return methods;
         }    
