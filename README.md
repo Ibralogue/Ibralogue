@@ -9,7 +9,7 @@ Ibralogue
 
 <p align="center" style="margin-top: 25px;">
  <a href="https://unity3d.com/get-unity/download">
- <img src="https://img.shields.io/badge/unity-2018.3%2B-blue.svg" alt="Unity Version Support">
+ <img src="https://img.shields.io/badge/unity-2019.1%2B-blue.svg" alt="Unity Version Support">
  <a href="https://github.com/ibra/Ibralogue/blob/master/LICENSE">
  <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="MIT License">
 </p>

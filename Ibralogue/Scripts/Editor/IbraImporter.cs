@@ -12,4 +12,3 @@ public class IbraImporter : ScriptedImporter
         ctx.SetMainObject(subAsset);
     }
 }
-
