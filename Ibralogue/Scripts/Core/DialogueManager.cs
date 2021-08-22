@@ -146,10 +146,10 @@ namespace Ibralogue
             List<MethodInfo> methods = new List<MethodInfo>();
             foreach (Assembly assembly in assemblies)
             {
-                methods = new List<MethodInfo>(assembly.GetTypes()
+                IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
-                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunction), false).Length > 0)
-                    .ToArray());
+                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunction), false).Length > 0);
+                methods.AddRange(allMethods);
             }
             return methods;
         }    
