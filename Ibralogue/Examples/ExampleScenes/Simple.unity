@@ -262,7 +262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 185.81}
+  m_AnchoredPosition: {x: 0, y: 60.28}
   m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &371977645
@@ -310,7 +310,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 371977648}
-        m_TargetAssemblyTypeName: Ibralogue.DialogueInteraction, Assembly-CSharp
+        m_TargetAssemblyTypeName: Ibralogue.DialogueInteraction, Interactions
         m_MethodName: StartDialogue
         m_Mode: 1
         m_Arguments:
@@ -383,8 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67eed47b06889f146a4c76ed213198f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionDialogue: {fileID: 2811297602134710623, guid: 12565551d17e76b47964c183a7364141, type: 3}
-  playerName: Candice
+  _interactionDialogues:
+  - {fileID: 2811297602134710623, guid: fe9333dea6ca1b34582005dd77a7ef88, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

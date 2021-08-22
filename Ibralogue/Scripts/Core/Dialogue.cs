@@ -5,8 +5,9 @@ namespace Ibralogue
 {
     public struct Dialogue
     {
-        public string speaker;
-        public Sprite speakerImage;
-        public List<string> sentences;
+        public string Speaker;
+        public Sprite SpeakerImage;
+        public List<string> Sentences;
+        public Dictionary<int,string> FunctionInvocations;
     }
 }

@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ namespace Ibralogue
          string[] fLines = dialogueText.Split('\n');
          
          List<Dialogue> dialogues = new List<Dialogue>();
-         Dialogue dialogue = new Dialogue{sentences = new List<string>()};
+         Dialogue dialogue = new Dialogue{Sentences = new List<string>()};
 
          for (int index = 0; index < fLines.Length; index++)
          {
@@ -60,12 +59,12 @@ namespace Ibralogue
             
             switch (token)
             {
-               case Tokens.SPEAKER when dialogue.speaker == null:
-                  dialogue.speaker = processedLine;
+               case Tokens.SPEAKER when dialogue.Speaker == null:
+                  dialogue.Speaker = processedLine;
                   break;
                case Tokens.SPEAKER:
                   dialogues.Add(dialogue);
-                  dialogue = new Dialogue{sentences = new List<string>()};
+                  dialogue = new Dialogue{Sentences = new List<string>()};
                   foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
                   {
                      string processedVariable = match.ToString().Replace("%", string.Empty);
@@ -76,10 +75,10 @@ namespace Ibralogue
                      else
                      {
                         Debug.LogWarning(
-                           $"[Ibralogue] Variable declaration detected ({match}), but no entry found in dictionary!");
+                           $"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
                      }
                   }
-                  dialogue.speaker = processedLine;
+                  dialogue.Speaker = processedLine;
                   break;
                case Tokens.SENTENCE:
                   foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
@@ -91,25 +90,30 @@ namespace Ibralogue
                      }
                      else
                      {
-                        Debug.LogWarning($"[Ibralogue] Variable declaration detected ({match}), but no entry found in dictionary!");
+                        Debug.LogWarning($"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
                      }
                   }
-                  dialogue.sentences.Add(processedLine);
+                  dialogue.Sentences.Add(processedLine);
                   break;
                case Tokens.IMAGE:
                   string imagePath = Regex.Replace(processedLine.Replace("\"", ""), @"\s+", "");
-                  if(Resources.Load(imagePath) == null) throw new Exception($"[Ibralogue] Invalid image path {processedLine} at {index+1}");
-                  dialogue.speakerImage = Resources.Load<Sprite>(imagePath);
+                  if(Resources.Load(imagePath) == null) Debug.LogError($"[Ibralogue] Invalid image path {processedLine} at {index+1} in {dialogueAsset.name}.");
+                  dialogue.SpeakerImage = Resources.Load<Sprite>(imagePath);
                   break;
                case Tokens.COMMENT:
                   break;
                case Tokens.FUNCTION:
-                  Debug.Log("This token type has not been implemented yet!");
+                  foreach (Match match in Regex.Matches(processedLine, @"[a-zA-Z]+\(+\)"))
+                  {
+                     string processedInvocation = match.ToString().Replace("(", string.Empty).Replace(")",string.Empty);
+                     if(dialogue.FunctionInvocations == null) 
+                        dialogue.FunctionInvocations = new Dictionary<int, string>();
+                     dialogue.FunctionInvocations.Add(dialogue.Sentences.Count-1, processedInvocation);
+                  }
                   break;
                case Tokens.ILLEGAL:
-                  throw new Exception($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");
-               default:
-                  throw new ArgumentOutOfRangeException($"[Ibralogue] Unexpected Argument Received at {line+1}");
+                  Debug.LogError($"[Ibralogue] Illegal Starter Token at Line {index+1} in {dialogueAsset.name}");
+                  break;
             }
             if (index == fLines.Length - 1) dialogues.Add(dialogue); 
          }

@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,12 +13,12 @@ namespace Ibralogue
     public class DialogueManager : MonoBehaviour
     {
         public static DialogueManager Instance { get; private set; }
+        
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+        public static readonly Dictionary<string, MethodInfo> DialogueFunctions = new Dictionary<string, MethodInfo>();
 
         public static UnityEvent OnDialogueStart = new UnityEvent();
         public static UnityEvent OnDialogueEnd = new UnityEvent();
-        
-        public static UnityEvent<int> OnDialogueChange;
 
         private string[] _currentDialogueLines;
         private List<Dialogue> _parsedDialogues;
@@ -24,9 +27,15 @@ namespace Ibralogue
         private int _currentSentenceIndex;
         private bool _linePlaying;
 
+        [Header("Dialogue UI")]
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private Image speakerPortrait;
+
+        [Header("Function Invocations")] [SerializeField]
+        private bool searchAllAssemblies;
+        [SerializeField] private List<string> includedAssemblies;
+        
 
         protected void Awake()
         {
@@ -37,6 +46,12 @@ namespace Ibralogue
             else
             {
                 Instance = this;
+            }
+            
+            IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
+            foreach (MethodInfo methodInfo in allDialogueMethods)
+            {
+                DialogueFunctions.Add(methodInfo.Name,methodInfo);
             }
         }
 
@@ -58,12 +73,22 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
-            nameText.text = _parsedDialogues[_currentDialogueIndex].speaker;
+            nameText.text = _parsedDialogues[_currentDialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex];
+            sentenceText.text = _parsedDialogues[_currentDialogueIndex].Sentences[_currentSentenceIndex];
+            
+            Dictionary<int,string> functionInvocations = _parsedDialogues[_currentDialogueIndex].FunctionInvocations;
+            if (functionInvocations != null && functionInvocations
+                    .TryGetValue(_currentSentenceIndex, out string functionName))
+            {
+                if(DialogueFunctions.TryGetValue(functionName, out MethodInfo methodInfo))
+                {
+                    methodInfo.Invoke(null, null); //TODO: Function invocation for nonstatic methods.
+                }
+            }
+            
             DisplaySpeakerImage();
-
-            foreach(char _ in _parsedDialogues[_currentDialogueIndex].sentences[_currentSentenceIndex])
+            foreach(char _ in _parsedDialogues[_currentDialogueIndex].Sentences[_currentSentenceIndex])
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
@@ -80,7 +105,7 @@ namespace Ibralogue
         {
             if (_linePlaying) return;
             ClearDialogueBox();
-            if (_currentSentenceIndex < _parsedDialogues[_currentDialogueIndex].sentences.Count - 1)
+            if (_currentSentenceIndex < _parsedDialogues[_currentDialogueIndex].Sentences.Count - 1)
             {
                 _currentSentenceIndex++;
                 StartCoroutine(DisplayDialogue());
@@ -97,14 +122,45 @@ namespace Ibralogue
                 OnDialogueEnd.Invoke();
             }
         }
-        
+
+        /// <summary>
+        /// Gets ALL methods in ALL classes for the current assembly and checks them against the
+        /// DialogueFunction attribute. Use this function with caution.
+        /// </summary>
+        private IEnumerable<MethodInfo> GetDialogueMethods()
+        {
+            List<Assembly> assemblies = new List<Assembly>();
+            Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            if(searchAllAssemblies) assemblies.AddRange(allAssemblies);
+            else
+            {
+                foreach (Assembly assembly in allAssemblies)
+                {
+                    string name = assembly.GetName().Name;
+                    if (name == "Assembly-CSharp" || includedAssemblies.Contains(name) || assembly == Assembly.GetExecutingAssembly())
+                    {
+                        assemblies.Add(assembly);
+                    }
+                }
+            }
+            List<MethodInfo> methods = new List<MethodInfo>();
+            foreach (Assembly assembly in assemblies)
+            {
+                methods = new List<MethodInfo>(assembly.GetTypes()
+                    .SelectMany(t => t.GetMethods())
+                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunction), false).Length > 0)
+                    .ToArray());
+            }
+            return methods;
+        }    
+
         /// <summary>
         /// Sets the speaker image and makes the Image transparent if there is no speaker image.
         /// </summary>
         private void DisplaySpeakerImage()
         {
-            speakerPortrait.color = _parsedDialogues[_currentDialogueIndex].speakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
-            speakerPortrait.sprite = _parsedDialogues[_currentDialogueIndex].speakerImage;
+            speakerPortrait.color = _parsedDialogues[_currentDialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = _parsedDialogues[_currentDialogueIndex].SpeakerImage;
         }
 
         /// <summary>
