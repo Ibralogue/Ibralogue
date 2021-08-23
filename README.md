@@ -40,6 +40,7 @@ Ibralogue is extremely early in development so it is missing a few features, tho
 | Character Portrait Support |         ✔️         |
 | Scrolling Text Effect      |         ✔️         |
 | Global Variables           |         ✔️
+| Function Invocation            |         ✔️         | 
 | Animated Text Effects      |         Planned     |
 | Markdown Support           |         ✔️         | 
 | Comment Support            |         ✔️         | 
