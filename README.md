@@ -20,7 +20,9 @@ Ibralogue
   <a href="#features">Features</a> •
   <a href="#support">Support</a>   
 </p>
- 
+   
+> :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
+
 ## About
 Ibralogue is a simple and extendable dialogue system library for Unity. Dialogue is written in `.ibra` files which have their own syntax which you can
 learn more about in the [wiki](https://github.com/ibra/Ibralogue/wiki).
