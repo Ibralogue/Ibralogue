@@ -85,6 +85,7 @@ namespace Ibralogue
                   break;
                }
                case Tokens.SPEAKER:
+                  processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue.Sentence = string.Join("\n", sentences.ToArray());
                   dialogues.Add(dialogue);
                   sentences.Clear();
@@ -92,19 +93,7 @@ namespace Ibralogue
                   break;
                case Tokens.SENTENCE:
                {
-                  foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
-                  {
-                     string processedVariable = match.ToString().Replace("%", string.Empty);
-                     if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
-                     {
-                        processedLine = processedLine.Replace(match.ToString(), keyValue);
-                     }
-                     else
-                     {
-                        Debug.LogWarning(
-                           $"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
-                     }
-                  }
+                  processedLine = ReplaceGlobalVariables(processedLine);
                   sentences.Add(processedLine);
                   break;
                }
@@ -149,6 +138,24 @@ namespace Ibralogue
                break;
             default:
                throw new ArgumentOutOfRangeException(nameof(token), token, null);
+         }
+         return line;
+      }
+
+      private static string ReplaceGlobalVariables(string line)
+      {
+         foreach (Match match in Regex.Matches(line, @"(%\w+%)"))
+         {
+            string processedVariable = match.ToString().Replace("%", string.Empty);
+            if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
+            {
+               line = line.Replace(match.ToString(), keyValue);
+            }
+            else
+            {
+               Debug.LogWarning(
+                  $"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
+            }
          }
          return line;
       }
