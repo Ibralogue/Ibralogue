@@ -24,7 +24,6 @@ namespace Ibralogue
         private List<Dialogue> _parsedDialogues;
         
         private int _currentDialogueIndex;
-        private int _currentSentenceIndex;
         private bool _linePlaying;
 
         [Header("Dialogue UI")]
@@ -75,11 +74,11 @@ namespace Ibralogue
         {
             nameText.text = _parsedDialogues[_currentDialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _parsedDialogues[_currentDialogueIndex].Sentences[_currentSentenceIndex];
+            sentenceText.text = _parsedDialogues[_currentDialogueIndex].Sentence;
             
             Dictionary<int,string> functionInvocations = _parsedDialogues[_currentDialogueIndex].FunctionInvocations;
             if (functionInvocations != null && functionInvocations
-                    .TryGetValue(_currentSentenceIndex, out string functionName))
+                    .TryGetValue(_currentDialogueIndex, out string functionName))
             {
                 if(DialogueFunctions.TryGetValue(functionName, out MethodInfo methodInfo))
                 {
@@ -88,7 +87,7 @@ namespace Ibralogue
             }
             
             DisplaySpeakerImage();
-            foreach(char _ in _parsedDialogues[_currentDialogueIndex].Sentences[_currentSentenceIndex])
+            foreach(char _ in _parsedDialogues[_currentDialogueIndex].Sentence)
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
@@ -105,16 +104,9 @@ namespace Ibralogue
         {
             if (_linePlaying) return;
             ClearDialogueBox();
-            if (_currentSentenceIndex < _parsedDialogues[_currentDialogueIndex].Sentences.Count - 1)
-            {
-                _currentSentenceIndex++;
-                StartCoroutine(DisplayDialogue());
-                return;
-            }
             if (_currentDialogueIndex < _parsedDialogues.Count - 1)
             {
                 _currentDialogueIndex++;
-                _currentSentenceIndex = 0;
                 StartCoroutine(DisplayDialogue());
             }
             else

@@ -7,7 +7,7 @@ namespace Ibralogue
     {
         public string Speaker;
         public Sprite SpeakerImage;
-        public List<string> Sentences;
+        public string Sentence;
         public Dictionary<int,string> FunctionInvocations;
     }
 }
