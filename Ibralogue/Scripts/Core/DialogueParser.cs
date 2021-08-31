@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -114,6 +115,7 @@ namespace Ibralogue
                }
             }
          }
+         if(sentences.Count == 0) throw new SyntaxErrorException("Speaker is missing a body (sentence)!");
          dialogue.Sentence = string.Join("\n", sentences.ToArray());
          dialogues.Add(dialogue); 
          sentences.Clear();
@@ -125,7 +127,7 @@ namespace Ibralogue
          switch (token)
          {
             case Tokens.SPEAKER:
-               if (line.Length > 2) {
+               if (line.Length >= 2) {
                   line = line.Trim().Substring(1, line.Length-3);
                } 
                break;
