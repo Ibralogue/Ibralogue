@@ -1,8 +1,9 @@
-~Wizard
--Hello traveller. 
--What is your name?
-~%PLAYERNAME%
--They call me... %PLAYERNAME%.
-~Wizard
--%PLAYERNAME%, interesting. 
--I will watch your journey with great interest, %PLAYERNAME%.
+[Wizard]
+Hello traveller. 
+What is your name?
+[%PLAYERNAME%]
+They call me... %PLAYERNAME%.
+[Wizard]
+%PLAYERNAME%, interesting. 
+[Wizard]
+I will watch your journey with great interest, %PLAYERNAME%.

@@ -384,7 +384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactionDialogues:
-  - {fileID: 2811297602134710623, guid: fe9333dea6ca1b34582005dd77a7ef88, type: 3}
+  - {fileID: 2811297602134710623, guid: c73a8071bc1840c48833c2a801557459, type: 3}
+  playerName: Ibrahim
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
