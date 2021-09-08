@@ -32,20 +32,17 @@ Ibralogue is _currently_ only available as a unity package, and you can grab the
 Ibralogue is extremely early in development so it is missing a few features, though it is built with user extendability in mind. Heres a table of features that have been either implemented or have been planned.
    
   
-|                            |  Implemented or Planned  | 
+|        Implemented ✅      |   Planned 🚧      | 
 | -------------------------- | :----------------: | 
-| Dialogue Parsing           |         ✔️         |
-| Dialogue Interaction       |         ✔️         |
-| Custom Dialogue File Syntax|         ✔️         |
-| Character Portrait Support |         ✔️         |
-| Scrolling Text Effect      |         ✔️         |
-| Global Variables           |         ✔️
-| Function Invocation            |         ✔️         | 
-| Animated Text Effects      |         Planned     |
-| Markdown Support           |         ✔️         | 
-| Comment Support            |         ✔️         | 
-| Dialogue Audio             |         Planned     |
-| Choice System              |         Planned     |
+| Dialogue Parsing           | Animated Text Effects|
+| Dialogue Interaction       |     Choice System|
+| Custom Dialogue File Syntax|    Dialogue Audio|
+| Character Portrait Support | Localization Integration|
+| Scrolling Text Effect      |
+| Global Variables           |
+| Function Invocation        |
+| Markdown Support           |
+| Comment Support            | 
    
 ## Support
 Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
