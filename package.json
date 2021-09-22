@@ -1,6 +1,6 @@
 {
   "name": "com.ibra.ibralogue",
-  "displayName": "HierarchyDecorator",
+  "displayName": "Ibralogue",
   "version": "0.6.0",
   "unity": "2019.1",
   "description": "Ibralogue is a dialogue library for the Unity Game Engine.",
