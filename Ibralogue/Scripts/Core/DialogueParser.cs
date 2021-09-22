@@ -24,8 +24,7 @@ namespace Ibralogue
          DialogueNameInvoke,
          EndInvoke
       }
-
-
+      
       /// <returns>
       /// The GetLineToken function checks what character the line it is given starts with and returns a "token" with it
       /// according to that.
@@ -52,16 +51,18 @@ namespace Ibralogue
       }   
       
       /// <summary>
-      /// The ParseDialogue function returns an array of dialogues and associates information
-      /// with each element in the array. Speaker Name, Sentence, Image etc.
+      /// The ParseDialogue function returns an array of conversations and associates information
+      /// with each element in the dialogue array. Speaker Name, Sentence, Image etc. as well as additional per-conversation metadata.
       /// </summary>
-      public static List<Dialogue> ParseDialogue(TextAsset dialogueAsset)
+      public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)
       {
          string dialogueText = dialogueAsset.text;
          string[] fLines = dialogueText.Split('\n');
+         
          List<string> sentences = new List<string>();
-
-         List<Dialogue> dialogues = new List<Dialogue>();
+         List<Conversation> conversations = new List<Conversation>();
+         
+         Conversation conversation = new Conversation();
          Dialogue dialogue = new Dialogue();
 
          for (int i = 0; i < fLines.Length; i++)
@@ -93,12 +94,14 @@ namespace Ibralogue
                   break;
                }
                case Tokens.Speaker:
+               {
                   processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue.Sentence = string.Join("\n", sentences.ToArray());
-                  dialogues.Add(dialogue);
+                  conversation.Dialogues.Add(dialogue);
                   sentences.Clear();
                   dialogue = new Dialogue {Speaker = processedLine};
                   break;
+               }
                case Tokens.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
@@ -120,13 +123,39 @@ namespace Ibralogue
                   dialogue.FunctionInvocations.Add(sentences.Count - 1, processedLine);
                   break;
                }
+               case Tokens.DialogueNameInvoke:
+               {
+                  conversation.Name = processedLine;
+                  break;
+               }
+               case Tokens.EndInvoke:
+               {
+                  conversations.Add(conversation);
+                  conversation = new Conversation();
+                  break;
+               }
+               case Tokens.Comment:
+                  break;
+               case Tokens.Choice:
+                  break;
+               default:
+                  throw new ArgumentOutOfRangeException();
             }
          }
-         if(sentences.Count == 0) throw new SyntaxErrorException("Speaker is missing a body (sentence)!");
+         if(sentences.Count == 0) 
+            throw new SyntaxErrorException("Speaker is missing a body (sentence)!");
          dialogue.Sentence = string.Join("\n", sentences.ToArray());
-         dialogues.Add(dialogue); 
+         conversation.Dialogues.Add(dialogue);
          sentences.Clear();
-         return dialogues;
+         foreach (Conversation convo in conversations)
+         {
+            Debug.Log(conversation.Name);
+            foreach (Dialogue dial in conversation.Dialogues)
+            {
+               Debug.Log(dial.Sentence);
+            }
+         }
+         return conversations;
       }
 
       private static string GetProcessedLine(Tokens token, string line)
@@ -156,7 +185,7 @@ namespace Ibralogue
          }
          return line;
       }
-
+      
       private static string ReplaceGlobalVariables(string line)
       {
          foreach (Match match in Regex.Matches(line, @"(%\w+%)"))

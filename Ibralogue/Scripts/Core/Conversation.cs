@@ -5,6 +5,6 @@ namespace Ibralogue
     public struct Conversation
     {
         public string Name;
-        public List<Dialogue> ConversationDialogues;
+        public List<Dialogue> Dialogues;
     }
 }

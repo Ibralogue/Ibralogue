@@ -21,7 +21,8 @@ namespace Ibralogue
         public static UnityEvent OnDialogueEnd = new UnityEvent();
 
         private string[] _currentDialogueLines;
-        private List<Dialogue> _parsedDialogues;
+        private List<Conversation> _parsedConversations;
+        private Conversation _currentConversation;
         
         private int _currentDialogueIndex;
         private bool _linePlaying;
@@ -60,7 +61,7 @@ namespace Ibralogue
         /// <param name="interactionDialogue">The initial Dialogue that we want to use in the conversation</param>
         public void StartConversation(TextAsset interactionDialogue)
         {
-            _parsedDialogues = DialogueParser.ParseDialogue(interactionDialogue);
+            _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
             ClearDialogueBox();
             OnDialogueStart.Invoke();
             StartCoroutine(DisplayDialogue());
@@ -72,11 +73,11 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
-            nameText.text = _parsedDialogues[_currentDialogueIndex].Speaker;
+            nameText.text = _currentConversation.Dialogues[_currentDialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _parsedDialogues[_currentDialogueIndex].Sentence;
+            sentenceText.text = _currentConversation.Dialogues[_currentDialogueIndex].Sentence;
             
-            Dictionary<int,string> functionInvocations = _parsedDialogues[_currentDialogueIndex].FunctionInvocations;
+            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_currentDialogueIndex].FunctionInvocations;
             if (functionInvocations != null && functionInvocations
                     .TryGetValue(_currentDialogueIndex, out string functionName))
             {
@@ -85,9 +86,8 @@ namespace Ibralogue
                     methodInfo.Invoke(null, null); //TODO: Function invocation for nonstatic methods.
                 }
             }
-            
             DisplaySpeakerImage();
-            foreach(char _ in _parsedDialogues[_currentDialogueIndex].Sentence)
+            foreach(char _ in _currentConversation.Dialogues[_currentDialogueIndex].Sentence)
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
@@ -104,7 +104,7 @@ namespace Ibralogue
         {
             if (_linePlaying) return;
             ClearDialogueBox();
-            if (_currentDialogueIndex < _parsedDialogues.Count - 1)
+            if (_currentDialogueIndex < _currentConversation.Dialogues.Count - 1)
             {
                 _currentDialogueIndex++;
                 StartCoroutine(DisplayDialogue());
@@ -151,8 +151,8 @@ namespace Ibralogue
         /// </summary>
         private void DisplaySpeakerImage()
         {
-            speakerPortrait.color = _parsedDialogues[_currentDialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
-            speakerPortrait.sprite = _parsedDialogues[_currentDialogueIndex].SpeakerImage;
+            speakerPortrait.color = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage;
         }
 
         /// <summary>
