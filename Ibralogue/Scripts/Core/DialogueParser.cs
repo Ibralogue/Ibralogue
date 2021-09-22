@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -14,11 +15,14 @@ namespace Ibralogue
       /// </summary>
       private enum Tokens
       {
-         SPEAKER,
-         SENTENCE,
-         IMAGE,
-         COMMENT,
-         INVOKE,
+         Speaker,
+         Sentence,
+         Choice,
+         Comment,
+         Invoke,
+         ImageInvoke,
+         DialogueNameInvoke,
+         EndInvoke
       }
 
 
@@ -29,19 +33,22 @@ namespace Ibralogue
       /// <param name="line">The line of the dialogue we need the token of.</param>
       private static Tokens GetLineToken(string line)
       {
-         if (line.StartsWith("#")) return Tokens.COMMENT;
-         if (Regex.IsMatch(line, @"^\[(.+?)\]")) return Tokens.SPEAKER;
-         if (Regex.IsMatch(line, @"^<<(.+?)>>"))
+         if (line.StartsWith("#")) return Tokens.Comment;
+         if (Regex.IsMatch(line, @"^\[(.+)\]")) return Tokens.Speaker;
+         if (Regex.IsMatch(line, @"^<<(.+)>>"))
          {
-            string[] arguments = line.Trim().Substring(2, line.Length-5).Split(',');
+            string processedLine = line.Trim().Substring(2);
+            string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(',');
             return arguments[0] switch
             {
-               "Invoke" => Tokens.INVOKE,
-               "Image" => Tokens.IMAGE,
-               _ => Tokens.INVOKE
+               "Invoke" => Tokens.Invoke,
+               "Image" => Tokens.ImageInvoke,
+               "DialogueName" => Tokens.DialogueNameInvoke,
+               "end" => Tokens.EndInvoke,
+               _ => Tokens.Invoke
             };
          }
-         return Tokens.SENTENCE;
+         return Tokens.Sentence;
       }   
       
       /// <summary>
@@ -66,7 +73,7 @@ namespace Ibralogue
 
             switch (token)
             {
-               case Tokens.SPEAKER when dialogue.Speaker == null:
+               case Tokens.Speaker when dialogue.Speaker == null:
                {
                   foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
                   {
@@ -85,20 +92,20 @@ namespace Ibralogue
                   dialogue.Speaker = processedLine;
                   break;
                }
-               case Tokens.SPEAKER:
+               case Tokens.Speaker:
                   processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue.Sentence = string.Join("\n", sentences.ToArray());
                   dialogues.Add(dialogue);
                   sentences.Clear();
                   dialogue = new Dialogue {Speaker = processedLine};
                   break;
-               case Tokens.SENTENCE:
+               case Tokens.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
                   sentences.Add(processedLine);
                   break;
                }
-               case Tokens.IMAGE:
+               case Tokens.ImageInvoke:
                {
                   if (Resources.Load(processedLine) == null)
                      Debug.LogError(
@@ -106,7 +113,7 @@ namespace Ibralogue
                   dialogue.SpeakerImage = Resources.Load<Sprite>(processedLine);
                   break;
                }
-               case Tokens.INVOKE:
+               case Tokens.Invoke:
                {
                   if (dialogue.FunctionInvocations == null)
                      dialogue.FunctionInvocations = new Dictionary<int, string>();
@@ -126,17 +133,23 @@ namespace Ibralogue
       {
          switch (token)
          {
-            case Tokens.SPEAKER:
+            case Tokens.Speaker:
                if (line.Length >= 2) {
                   line = line.Trim().Substring(1, line.Length-3);
                } 
                break;
-            case Tokens.INVOKE:
-            case Tokens.IMAGE:
-               line = Regex.Replace(line.Trim().Substring(2, line.Length-5), @"^(.*?),", string.Empty).Trim();
+            case Tokens.Invoke:
+            case Tokens.ImageInvoke:
+               line = Regex.Replace(line.Trim().Substring(2, line.Length-5), @"^(.*?),", string.Empty);
                break;
-            case Tokens.COMMENT:
-            case Tokens.SENTENCE:
+            case Tokens.Comment:
+            case Tokens.Sentence:
+               break;
+            case Tokens.Choice:
+               break;
+            case Tokens.DialogueNameInvoke:
+               break;
+            case Tokens.EndInvoke:
                break;
             default:
                throw new ArgumentOutOfRangeException(nameof(token), token, null);

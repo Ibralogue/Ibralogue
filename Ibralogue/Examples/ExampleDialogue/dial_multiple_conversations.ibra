@@ -1,0 +1,12 @@
+<<DialogueName,FirstDialogue>>
+[NPC]
+Hey!
+[NPC]
+You're cool.
+<<end>>
+<<DialogueName,SecondDialogue>>
+[NPC]
+Yo.
+[NPC]
+You suck...
+<<end>>
