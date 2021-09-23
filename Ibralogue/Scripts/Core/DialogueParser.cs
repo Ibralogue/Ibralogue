@@ -137,9 +137,9 @@ namespace Ibralogue
                   throw new ArgumentOutOfRangeException();
             }
          }
-         if(sentences.Count == 0) 
-            throw new SyntaxErrorException("Speaker is missing a body (sentence)!");
-         dialogue.Sentence = string.Join("\n", sentences.ToArray());
+         if(sentences.Count != 0) dialogue.Sentence = 
+            string.Join("\n", sentences.ToArray());
+
          foreach (Dialogue dial in conversations[0].Dialogues)
          {
             Debug.Log($"{dial.Speaker}: {dial.Sentence}");
@@ -148,6 +148,10 @@ namespace Ibralogue
          return conversations;
       }
 
+      /// <summary>
+      /// The GetProcessedLine function takes in a token and a line, and removes/adds anything that requires removal or addition in the
+      /// final processed line.
+      /// </summary>
       private static string GetProcessedLine(Tokens token, string line)
       {
          switch (token)
@@ -177,6 +181,9 @@ namespace Ibralogue
          return line;
       }
       
+      /// <summary>
+      /// Replaces all Global Variable "Keys" with all of their stored "Values".
+      /// </summary>
       private static string ReplaceGlobalVariables(string line)
       {
          foreach (Match match in Regex.Matches(line, @"(%\w+%)"))
