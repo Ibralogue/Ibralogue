@@ -62,6 +62,7 @@ namespace Ibralogue
         public void StartConversation(TextAsset interactionDialogue)
         {
             _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+            _currentConversation = _parsedConversations[1];
             ClearDialogueBox();
             OnDialogueStart.Invoke();
             StartCoroutine(DisplayDialogue());

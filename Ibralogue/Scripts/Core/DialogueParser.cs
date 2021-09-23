@@ -61,14 +61,13 @@ namespace Ibralogue
          
          List<string> sentences = new List<string>();
          List<Conversation> conversations = new List<Conversation>();
-         
-         Conversation conversation = new Conversation();
+
+         Conversation conversation = new Conversation {Dialogues = new List<Dialogue>()};
          Dialogue dialogue = new Dialogue();
 
          for (int i = 0; i < fLines.Length; i++)
          {
             string line = fLines[i];
-            
             Tokens token = GetLineToken(line);
             string processedLine = GetProcessedLine(token, line);
 
@@ -76,30 +75,19 @@ namespace Ibralogue
             {
                case Tokens.Speaker when dialogue.Speaker == null:
                {
-                  foreach (Match match in Regex.Matches(processedLine, @"(%\w+%)"))
-                  {
-                     string processedVariable = match.ToString().Replace("%", string.Empty);
-                     if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
-                     {
-                        processedLine = processedLine.Replace(match.ToString(), keyValue);
-                     }
-                     else
-                     {
-                        Debug.LogWarning(
-                           $"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
-                     }
-                  }
-
+                  processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue.Speaker = processedLine;
                   break;
                }
                case Tokens.Speaker:
                {
-                  processedLine = ReplaceGlobalVariables(processedLine);
+                  //Handle the previous Dialogue before handling this one.
                   dialogue.Sentence = string.Join("\n", sentences.ToArray());
                   conversation.Dialogues.Add(dialogue);
-                  sentences.Clear();
+                  
+                  processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue = new Dialogue {Speaker = processedLine};
+                  sentences.Clear();
                   break;
                }
                case Tokens.Sentence:
@@ -125,13 +113,20 @@ namespace Ibralogue
                }
                case Tokens.DialogueNameInvoke:
                {
+                  Debug.Log("Dialogue Name Invoke");
                   conversation.Name = processedLine;
                   break;
                }
                case Tokens.EndInvoke:
                {
+                  dialogue.Sentence = string.Join("\n", sentences.ToArray());
+                  sentences.Clear();
+                  
+                  conversation.Dialogues.Add(dialogue);
+                  dialogue = new Dialogue();
+                  
                   conversations.Add(conversation);
-                  conversation = new Conversation();
+                  conversation = new Conversation {Dialogues = new List<Dialogue>()};
                   break;
                }
                case Tokens.Comment:
@@ -145,16 +140,11 @@ namespace Ibralogue
          if(sentences.Count == 0) 
             throw new SyntaxErrorException("Speaker is missing a body (sentence)!");
          dialogue.Sentence = string.Join("\n", sentences.ToArray());
-         conversation.Dialogues.Add(dialogue);
-         sentences.Clear();
-         foreach (Conversation convo in conversations)
+         foreach (Dialogue dial in conversations[0].Dialogues)
          {
-            Debug.Log(conversation.Name);
-            foreach (Dialogue dial in conversation.Dialogues)
-            {
-               Debug.Log(dial.Sentence);
-            }
+            Debug.Log($"{dial.Speaker}: {dial.Sentence}");
          }
+         sentences.Clear();
          return conversations;
       }
 
@@ -164,19 +154,20 @@ namespace Ibralogue
          {
             case Tokens.Speaker:
                if (line.Length >= 2) {
-                  line = line.Trim().Substring(1, line.Length-3);
+                  line = line.Trim().Substring(1);
+                  line = line.Substring(0, line.Length - 1);
                } 
                break;
             case Tokens.Invoke:
             case Tokens.ImageInvoke:
-               line = Regex.Replace(line.Trim().Substring(2, line.Length-5), @"^(.*?),", string.Empty);
+            case Tokens.DialogueNameInvoke:
+               line = line.Trim().Substring(2);
+               line = line.Substring(0, line.Length - 2).Split(',')[1];
                break;
             case Tokens.Comment:
             case Tokens.Sentence:
                break;
             case Tokens.Choice:
-               break;
-            case Tokens.DialogueNameInvoke:
                break;
             case Tokens.EndInvoke:
                break;
