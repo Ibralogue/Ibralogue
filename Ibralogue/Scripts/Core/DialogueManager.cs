@@ -48,6 +48,8 @@ namespace Ibralogue
                 Instance = this;
             }
             
+            //Getting all methods in every assembly and adding them to our own local list for possible invocation.
+            //TODO: Call this at runtime _only_ if there is an actual invocation inside the dialogue file being parsed. 
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             foreach (MethodInfo methodInfo in allDialogueMethods)
             {
@@ -62,7 +64,7 @@ namespace Ibralogue
         public void StartConversation(TextAsset interactionDialogue)
         {
             _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
-            _currentConversation = _parsedConversations[1];
+            _currentConversation = _parsedConversations[0];
             ClearDialogueBox();
             OnDialogueStart.Invoke();
             StartCoroutine(DisplayDialogue());

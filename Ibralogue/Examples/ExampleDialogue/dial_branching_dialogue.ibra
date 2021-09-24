@@ -1,0 +1,8 @@
+<<DialogueName: InitialDialogue>>
+[Stranger]
+Hello traveller.
+[Stranger]
+How are you?
+- I'm fine -> FineDialogue
+- I'm sad -> SadDialogue
+<<end>>

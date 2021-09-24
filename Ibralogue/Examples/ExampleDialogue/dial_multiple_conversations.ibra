@@ -1,10 +1,10 @@
-<<DialogueName,FirstDialogue>> 
+<<DialogueName: FirstDialogue>> 
 [NPC]
 Hey!
 [NPC]
 You're cool.
 <<end>>
-<<DialogueName,SecondDialogue>>
+<<DialogueName: SecondDialogue>>
 [NPC]
 Yo.
 [NPC]
