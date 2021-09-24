@@ -57,7 +57,7 @@ namespace Ibralogue
       public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)
       {
          string dialogueText = dialogueAsset.text;
-         string[] fLines = dialogueText.Split('\n');
+         string[] textLines = dialogueText.Split('\n');
          
          List<string> sentences = new List<string>();
          List<Conversation> conversations = new List<Conversation>();
@@ -65,14 +65,16 @@ namespace Ibralogue
          Conversation conversation = new Conversation {Dialogues = new List<Dialogue>()};
          Dialogue dialogue = new Dialogue();
 
-         for (int i = 0; i < fLines.Length; i++)
+         for (int i = 0; i < textLines.Length; i++)
          {
-            string line = fLines[i];
+            string line = textLines[i];
             Tokens token = GetLineToken(line);
             string processedLine = GetProcessedLine(token, line);
 
             switch (token)
             {
+               case Tokens.Comment:
+                  break;
                case Tokens.Speaker when dialogue.Speaker == null:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
@@ -113,7 +115,6 @@ namespace Ibralogue
                }
                case Tokens.DialogueNameInvoke:
                {
-                  Debug.Log("Dialogue Name Invoke");
                   conversation.Name = processedLine;
                   break;
                }
@@ -129,9 +130,16 @@ namespace Ibralogue
                   conversation = new Conversation {Dialogues = new List<Dialogue>()};
                   break;
                }
-               case Tokens.Comment:
-                  break;
                case Tokens.Choice:
+                  Debug.Log(processedLine);
+                  // if (conversation.Choices == null)
+                  //    conversation.Choices = new List<Choice>();
+                  // string[] arguments = Regex.Split(processedLine, @"(->)");
+                  //
+                  // Choice choice = new Choice() {ChoiceName = arguments[0], LeadingConversationName = arguments[1]};
+                  // Debug.Log(choice.ChoiceName);
+                  // Debug.Log(choice.LeadingConversationName);
+                  // conversation.Choices.Add(choice);
                   break;
                default:
                   throw new ArgumentOutOfRangeException();
@@ -166,17 +174,21 @@ namespace Ibralogue
             case Tokens.ImageInvoke:
             case Tokens.DialogueNameInvoke:
                line = line.Trim().Substring(2);
-               line = line.Substring(0, line.Length - 2).Split(',')[1];
+               //We don't need to pass in the first argument since we already know the type of method being invoked;
+               line = line.Substring(0, line.Length - 2).Split(':')[1];
                break;
             case Tokens.Comment:
             case Tokens.Sentence:
                break;
             case Tokens.Choice:
+               line = line.Trim();
+               line = line.Substring(1);
                break;
             case Tokens.EndInvoke:
                break;
             default:
-               throw new ArgumentOutOfRangeException(nameof(token), token, null);
+               Debug.LogError($"Argument Out Of Range: {token}");
+               break;
          }
          return line;
       }
