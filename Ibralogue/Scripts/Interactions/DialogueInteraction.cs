@@ -15,9 +15,9 @@ namespace Ibralogue
             DialogueManager.Instance.StartConversation(_interactionDialogues[0]);
 
         [DialogueFunction]
-        public static void Kill()
+        public static void How()
         {
-            Debug.Log("Dead");
+            Debug.Log("Function Trigger");
         }
     }
 }

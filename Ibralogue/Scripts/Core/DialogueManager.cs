@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Ibralogue
 {
@@ -17,8 +18,8 @@ namespace Ibralogue
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
         public static readonly Dictionary<string, MethodInfo> DialogueFunctions = new Dictionary<string, MethodInfo>();
 
-        public static UnityEvent OnDialogueStart = new UnityEvent();
-        public static UnityEvent OnDialogueEnd = new UnityEvent();
+        public static UnityEvent OnConversationStart = new UnityEvent();
+        public static UnityEvent OnConversationEnd = new UnityEvent();
 
         private string[] _currentDialogueLines;
         private List<Conversation> _parsedConversations;
@@ -27,15 +28,18 @@ namespace Ibralogue
         private int _currentDialogueIndex;
         private bool _linePlaying;
 
-        [Header("Dialogue UI")]
-        [SerializeField] private TextMeshProUGUI sentenceText;
+        [Header("Dialogue UI")] 
+        [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
+        [Header("Prefabs")]
+        [SerializeField] private GameObject choiceButton;
 
         [Header("Function Invocations")] [SerializeField]
         private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
-        
+
 
         protected void Awake()
         {
@@ -47,9 +51,7 @@ namespace Ibralogue
             {
                 Instance = this;
             }
-            
-            //Getting all methods in every assembly and adding them to our own local list for possible invocation.
-            //TODO: Call this at runtime _only_ if there is an actual invocation inside the dialogue file being parsed. 
+            //Getting all methods in every assembly and adding them to our own local list for potential invocation.
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             foreach (MethodInfo methodInfo in allDialogueMethods)
             {
@@ -58,18 +60,36 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Starts a dialogue by clearing the dialogue box and starting the <see href="DisplayDialogue"/>DisplayDialogue</see> function.
+        /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see href="DisplayDialogue"/>DisplayDialogue</see> function.
         /// </summary>
-        /// <param name="interactionDialogue">The initial Dialogue that we want to use in the conversation</param>
-        public void StartConversation(TextAsset interactionDialogue)
+        /// <param name="interactionDialogue">The dialogue file that we want to use in the conversation</param>
+        /// <param name="startIndex">The index of the conversation you want to start.</param>
+        public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)
         {
             _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
-            _currentConversation = _parsedConversations[0];
+            _currentConversation = _parsedConversations[startIndex];
             ClearDialogueBox();
-            OnDialogueStart.Invoke();
+            OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
         
+        /// <summary>
+        /// Varies from StartConversation due to not requiring a conversation to start the Dialogue.
+        /// <remarks>
+        /// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
+        /// are started (yse the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
+        /// used to avoid parsing the whole file again.
+        /// </remarks>
+        /// </summary>
+        /// <param name="conversation"></param>
+        private void StartConversation(Conversation conversation)
+        {
+            _currentConversation = conversation;
+            ClearDialogueBox();
+            OnConversationStart.Invoke();
+            StartCoroutine(DisplayDialogue());
+        }
+
         /// <summary>
         /// The DisplayDialogue coroutine displays the dialogue character by character in a scrolling manner and sets all other
         /// relevant values.
@@ -111,10 +131,24 @@ namespace Ibralogue
             {
                 _currentDialogueIndex++;
                 StartCoroutine(DisplayDialogue());
-            }
+            } 
             else
             {
-                OnDialogueEnd.Invoke();
+                DisplayChoices();
+                OnConversationEnd.Invoke();
+            }
+        }
+
+        protected void DisplayChoices()
+        {
+            if (_currentConversation.Choices == null || _currentConversation.Choices.Any()) return;
+            foreach (Choice choice in _currentConversation.Choices)
+            {
+                Button choiceButtonInstance =
+                    Instantiate(choiceButton, choiceButtonHolder).GetComponent<Button>();
+                int conversationIndex = _currentConversation.Choices.FindIndex(choices => choices.LeadingConversationName == choice.ChoiceName);
+                choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
+                choiceButtonInstance.onClick.AddListener(() => StartConversation(_parsedConversations[conversationIndex])); 
             }
         }
 
@@ -152,7 +186,7 @@ namespace Ibralogue
         /// <summary>
         /// Sets the speaker image and makes the Image transparent if there is no speaker image.
         /// </summary>
-        private void DisplaySpeakerImage()
+        protected void DisplaySpeakerImage()
         {
             speakerPortrait.color = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
             speakerPortrait.sprite = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage;

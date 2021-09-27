@@ -1,8 +1,12 @@
-<<DialogueName: InitialDialogue>>
-[Stranger]
+<<DialogueName: InitialDial>>
+[NPC]
 Hello traveller.
-[Stranger]
+[NPC]
 How are you?
-- I'm fine -> FineDialogue
-- I'm sad -> SadDialogue
+- Fine -> FineDial
+- Sad -> SadDial
+<<end>>
+<<DialogueName: FineDial>>
+[NPC]
+Good to hear!
 <<end>>

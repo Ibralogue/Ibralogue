@@ -47,6 +47,7 @@ namespace Ibralogue
                _ => Tokens.Invoke
             };
          }
+         if (Regex.IsMatch(line, @"^-(.+)->(.+)")) return Tokens.Choice;
          return Tokens.Sentence;
       }   
       
@@ -108,9 +109,10 @@ namespace Ibralogue
                }
                case Tokens.Invoke:
                {
+                  Debug.Log(processedLine);
                   if (dialogue.FunctionInvocations == null)
                      dialogue.FunctionInvocations = new Dictionary<int, string>();
-                  dialogue.FunctionInvocations.Add(sentences.Count - 1, processedLine);
+                  dialogue.FunctionInvocations.Add(conversation.Dialogues.Count, processedLine);
                   break;
                }
                case Tokens.DialogueNameInvoke:
@@ -131,15 +133,12 @@ namespace Ibralogue
                   break;
                }
                case Tokens.Choice:
-                  Debug.Log(processedLine);
-                  // if (conversation.Choices == null)
-                  //    conversation.Choices = new List<Choice>();
-                  // string[] arguments = Regex.Split(processedLine, @"(->)");
-                  //
-                  // Choice choice = new Choice() {ChoiceName = arguments[0], LeadingConversationName = arguments[1]};
-                  // Debug.Log(choice.ChoiceName);
-                  // Debug.Log(choice.LeadingConversationName);
-                  // conversation.Choices.Add(choice);
+                  if (conversation.Choices == null)
+                     conversation.Choices = new List<Choice>();
+                  string[] arguments = Regex.Split(processedLine, @"(->)");
+                  
+                  Choice choice = new Choice() {ChoiceName = arguments[0], LeadingConversationName = arguments[2]};
+                  conversation.Choices.Add(choice);
                   break;
                default:
                   throw new ArgumentOutOfRangeException();
@@ -171,11 +170,22 @@ namespace Ibralogue
                } 
                break;
             case Tokens.Invoke:
+               line = line.Trim().Substring(2);
+               line = line.Substring(0, line.Length - 2);
+               break;
             case Tokens.ImageInvoke:
             case Tokens.DialogueNameInvoke:
-               line = line.Trim().Substring(2);
-               //We don't need to pass in the first argument since we already know the type of method being invoked;
-               line = line.Substring(0, line.Length - 2).Split(':')[1];
+               //Line has to be greater than four characters due to 
+               if (line.Length > 4)
+               {
+                  line = line.Trim().Substring(2);
+                  //We don't need to pass in the first argument since we already know the type of method being invoked;
+                  line = line.Substring(0, line.Length - 2).Split(':')[1];
+               }
+               else
+               {
+                  throw new ArgumentOutOfRangeException($"Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
+               }
                break;
             case Tokens.Comment:
             case Tokens.Sentence:
