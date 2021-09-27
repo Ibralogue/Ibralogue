@@ -137,7 +137,7 @@ namespace Ibralogue
                   if (conversation.Choices == null)
                      conversation.Choices = new Dictionary<Choice, int>();
                   string[] arguments = Regex.Split(processedLine, @"(->)");
-                  Choice choice = new Choice() {ChoiceName = arguments[0], LeadingConversationName = arguments[2]};
+                  Choice choice = new Choice() {ChoiceName = arguments[0].Trim(), LeadingConversationName = arguments[2].Trim()};
                   conversation.Choices.Add(choice,conversation.Dialogues.Count);
                   break;
                default:

@@ -3,9 +3,14 @@
 Hello traveller.
 [NPC]
 How are you?
-<<Invoke: QuestionFunction>>
+- Fine -> FineDial
+- Terrible -> TerribleDial
 <<end>>
 <<DialogueName: FineDial>>
 [NPC]
 Good to hear!
+<<end>>
+<<DialogueName: TerribleDial>>
+[NPC]
+Aw. Hope it gets better!
 <<end>>

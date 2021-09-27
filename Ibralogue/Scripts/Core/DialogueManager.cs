@@ -20,8 +20,7 @@ namespace Ibralogue
 
         public static UnityEvent OnConversationStart = new UnityEvent();
         public static UnityEvent OnConversationEnd = new UnityEvent();
-
-        private string[] _currentDialogueLines;
+        
         private List<Conversation> _parsedConversations;
         private Conversation _currentConversation;
         
@@ -29,12 +28,14 @@ namespace Ibralogue
         private bool _linePlaying;
 
         [Header("Dialogue UI")] 
+        private List<GameObject> _choiceButtonInstances;
         [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
         [Header("Prefabs")]
         [SerializeField] private GameObject choiceButton;
+        
 
         [Header("Function Invocations")] [SerializeField]
         private bool searchAllAssemblies;
@@ -57,6 +58,7 @@ namespace Ibralogue
             {
                 DialogueFunctions.Add(methodInfo.Name,methodInfo);
             }
+            _choiceButtonInstances = new List<GameObject>();
         }
 
         /// <summary>
@@ -129,6 +131,11 @@ namespace Ibralogue
             ClearDialogueBox();
             if (_currentDialogueIndex < _currentConversation.Dialogues.Count - 1)
             {
+                if (_currentDialogueIndex == _currentConversation.Choices
+                    .FirstOrDefault(x => x.Value == _currentDialogueIndex).Value)
+                {
+                    DisplayChoices();
+                }
                 _currentDialogueIndex++;
                 StartCoroutine(DisplayDialogue());
             } 
@@ -140,12 +147,15 @@ namespace Ibralogue
 
         protected void DisplayChoices()
         {
-            if (_currentConversation.Choices == null || _currentConversation.Choices.Any()) return;
+            if (_currentConversation.Choices == null || !_currentConversation.Choices.Any()) return;
             foreach (Choice choice in _currentConversation.Choices.Keys)
             {
                 Button choiceButtonInstance =
-                    Instantiate(choiceButton, choiceButtonHolder).GetComponent<Button>();
-                int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.ChoiceName);
+                    Instantiate(choiceButton,choiceButtonHolder).GetComponent<Button>();
+                _choiceButtonInstances.Add(choiceButtonInstance.gameObject);
+                int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                if(conversationIndex == -1)
+                    throw new ArgumentException($"No conversation called '{choice.LeadingConversationName}' found for choice '{choice.ChoiceName}' in '{_currentConversation.Name}'.");
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
                 choiceButtonInstance.onClick.AddListener(() => StartConversation(_parsedConversations[conversationIndex])); 
             }
@@ -196,11 +206,18 @@ namespace Ibralogue
         /// </summary>
         private void ClearDialogueBox()
         {
+            //Visual
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
             speakerPortrait.color = new Color(0, 0, 0, 0);
             sentenceText.maxVisibleCharacters = 0;
+            //Backend
             _linePlaying = false;
+            _currentDialogueIndex = 0;
+            foreach (GameObject buttonInstance in _choiceButtonInstances)
+            {
+                Destroy(buttonInstance);
+            }
         }
     }
 }
