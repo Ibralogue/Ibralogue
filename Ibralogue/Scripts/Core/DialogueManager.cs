@@ -134,7 +134,6 @@ namespace Ibralogue
             } 
             else
             {
-                DisplayChoices();
                 OnConversationEnd.Invoke();
             }
         }
@@ -142,11 +141,11 @@ namespace Ibralogue
         protected void DisplayChoices()
         {
             if (_currentConversation.Choices == null || _currentConversation.Choices.Any()) return;
-            foreach (Choice choice in _currentConversation.Choices)
+            foreach (Choice choice in _currentConversation.Choices.Keys)
             {
                 Button choiceButtonInstance =
                     Instantiate(choiceButton, choiceButtonHolder).GetComponent<Button>();
-                int conversationIndex = _currentConversation.Choices.FindIndex(choices => choices.LeadingConversationName == choice.ChoiceName);
+                int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.ChoiceName);
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
                 choiceButtonInstance.onClick.AddListener(() => StartConversation(_parsedConversations[conversationIndex])); 
             }

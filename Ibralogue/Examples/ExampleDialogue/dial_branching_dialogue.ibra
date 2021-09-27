@@ -3,8 +3,7 @@
 Hello traveller.
 [NPC]
 How are you?
-- Fine -> FineDial
-- Sad -> SadDial
+<<Invoke: QuestionFunction>>
 <<end>>
 <<DialogueName: FineDial>>
 [NPC]

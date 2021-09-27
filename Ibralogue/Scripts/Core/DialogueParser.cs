@@ -20,6 +20,7 @@ namespace Ibralogue
          Choice,
          Comment,
          Invoke,
+         ExplicitInvoke,
          ImageInvoke,
          DialogueNameInvoke,
          EndInvoke
@@ -37,10 +38,10 @@ namespace Ibralogue
          if (Regex.IsMatch(line, @"^<<(.+)>>"))
          {
             string processedLine = line.Trim().Substring(2);
-            string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(',');
+            string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(':');
             return arguments[0] switch
             {
-               "Invoke" => Tokens.Invoke,
+               "Invoke" => Tokens.ExplicitInvoke,
                "Image" => Tokens.ImageInvoke,
                "DialogueName" => Tokens.DialogueNameInvoke,
                "end" => Tokens.EndInvoke,
@@ -108,8 +109,8 @@ namespace Ibralogue
                   break;
                }
                case Tokens.Invoke:
+               case Tokens.ExplicitInvoke:
                {
-                  Debug.Log(processedLine);
                   if (dialogue.FunctionInvocations == null)
                      dialogue.FunctionInvocations = new Dictionary<int, string>();
                   dialogue.FunctionInvocations.Add(conversation.Dialogues.Count, processedLine);
@@ -134,11 +135,10 @@ namespace Ibralogue
                }
                case Tokens.Choice:
                   if (conversation.Choices == null)
-                     conversation.Choices = new List<Choice>();
+                     conversation.Choices = new Dictionary<Choice, int>();
                   string[] arguments = Regex.Split(processedLine, @"(->)");
-                  
                   Choice choice = new Choice() {ChoiceName = arguments[0], LeadingConversationName = arguments[2]};
-                  conversation.Choices.Add(choice);
+                  conversation.Choices.Add(choice,conversation.Dialogues.Count);
                   break;
                default:
                   throw new ArgumentOutOfRangeException();
@@ -175,12 +175,13 @@ namespace Ibralogue
                break;
             case Tokens.ImageInvoke:
             case Tokens.DialogueNameInvoke:
+            case Tokens.ExplicitInvoke:
                //Line has to be greater than four characters due to 
                if (line.Length > 4)
                {
                   line = line.Trim().Substring(2);
                   //We don't need to pass in the first argument since we already know the type of method being invoked;
-                  line = line.Substring(0, line.Length - 2).Split(':')[1];
+                  line = line.Substring(0, line.Length - 2).Split(':')[1].Trim();
                }
                else
                {

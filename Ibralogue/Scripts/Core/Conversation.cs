@@ -6,6 +6,6 @@ namespace Ibralogue
     {
         public string Name;
         public List<Dialogue> Dialogues;
-        public List<Choice> Choices;
+        public Dictionary<Choice, int> Choices;
     }
 }
