@@ -1,0 +1,14 @@
+{
+  "name": "com.ibra.ibralogue",
+  "displayName": "Ibralogue",
+  "version": "0.6.0",
+  "unity": "2019.1",
+  "description": "Ibralogue is a dialogue library for the Unity Game Engine.",
+  "keywords": [
+    "dialogue system",
+    "dialogue library",
+    "dialogue"
+  ],
+  "category": "Framework",
+  "dependencies": {}
+}

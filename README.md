@@ -54,7 +54,6 @@ Ibralogue is extremely early in development so it is missing a few features, tho
 | Rich Text                   |
 | Comments                    |
 | Choice System               |
-
 ## Support
 
 Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
