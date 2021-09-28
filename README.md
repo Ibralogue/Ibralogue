@@ -36,7 +36,7 @@ Ibralogue is available as a unity package, and you can grab the latest one from 
 You can also install it with OpenUPM:
 
 ```
-$ openupm add com.ibra.Ibralogue
+$ openupm add com.ibra.ibralogue
 ```
 
 ## Features
