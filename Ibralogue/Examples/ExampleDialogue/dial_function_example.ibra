@@ -1,0 +1,11 @@
+[NPC]
+Hi!
+[NPC]
+Did you know about function triggers?
+[NPC]
+You can trigger any static function explicitly from dialogue files by adding an attribute to the function!
+<<Invoke: TriggerFunction>>
+[NPC]
+Or implicitly!
+<<TriggerFunction>>
+<<end>>

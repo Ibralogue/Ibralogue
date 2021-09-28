@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using TMPro;
@@ -24,24 +25,24 @@ namespace Ibralogue
         private List<Conversation> _parsedConversations;
         private Conversation _currentConversation;
         
-        private int _currentDialogueIndex;
+        private int _dialogueIndex;
         private bool _linePlaying;
 
-        [Header("Dialogue UI")] 
-        private List<GameObject> _choiceButtonInstances;
+        [Header("Dialogue UI")]
+        [SerializeField] private float timeBetweenCharacters = 0.1f;
         [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
+        private List<GameObject> _choiceButtonInstances;
         [Header("Prefabs")]
         [SerializeField] private GameObject choiceButton;
         
 
-        [Header("Function Invocations")] [SerializeField]
-        private bool searchAllAssemblies;
+        [Header("Function Invocations")] 
+        [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
-
-
+        
         protected void Awake()
         {
             if (Instance != null && Instance != this)
@@ -70,7 +71,7 @@ namespace Ibralogue
         {
             _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
             _currentConversation = _parsedConversations[startIndex];
-            ClearDialogueBox();
+            ClearDialogueBox(true);
             OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
@@ -87,7 +88,7 @@ namespace Ibralogue
         private void StartConversation(Conversation conversation)
         {
             _currentConversation = conversation;
-            ClearDialogueBox();
+            ClearDialogueBox(true);
             OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
@@ -98,13 +99,13 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
-            nameText.text = _currentConversation.Dialogues[_currentDialogueIndex].Speaker;
+            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _currentConversation.Dialogues[_currentDialogueIndex].Sentence;
+            sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence;
             
-            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_currentDialogueIndex].FunctionInvocations;
+            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_dialogueIndex].FunctionInvocations;
             if (functionInvocations != null && functionInvocations
-                    .TryGetValue(_currentDialogueIndex, out string functionName))
+                    .TryGetValue(_dialogueIndex, out string functionName))
             {
                 if(DialogueFunctions.TryGetValue(functionName, out MethodInfo methodInfo))
                 {
@@ -112,10 +113,10 @@ namespace Ibralogue
                 }
             }
             DisplaySpeakerImage();
-            foreach(char _ in _currentConversation.Dialogues[_currentDialogueIndex].Sentence)
+            foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence)
             {
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(0.1f); //TODO: Make scroll speed modifiable
+                yield return new WaitForSeconds(timeBetweenCharacters); 
             }
             _linePlaying = false;
             yield return null;
@@ -128,16 +129,19 @@ namespace Ibralogue
         public void DisplayNextLine()
         {
             if (_linePlaying) return;
-            ClearDialogueBox();
-            if (_currentDialogueIndex < _currentConversation.Dialogues.Count - 1)
+            ClearDialogueBox(false);
+            if (_dialogueIndex < _currentConversation.Dialogues.Count - 1)
             {
-                if (_currentDialogueIndex == _currentConversation.Choices
-                    .FirstOrDefault(x => x.Value == _currentDialogueIndex).Value)
-                {
-                    DisplayChoices();
-                }
-                _currentDialogueIndex++;
+                _dialogueIndex++;
                 StartCoroutine(DisplayDialogue());
+                if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
+                {
+                    if (_dialogueIndex == _currentConversation.Choices
+                            .FirstOrDefault(x => x.Value == _dialogueIndex).Value)
+                    {
+                        DisplayChoices();
+                    }
+                }
             } 
             else
             {
@@ -197,23 +201,22 @@ namespace Ibralogue
         /// </summary>
         protected void DisplaySpeakerImage()
         {
-            speakerPortrait.color = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
-            speakerPortrait.sprite = _currentConversation.Dialogues[_currentDialogueIndex].SpeakerImage;
+            speakerPortrait.color = _currentConversation.Dialogues[_dialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = _currentConversation.Dialogues[_dialogueIndex].SpeakerImage;
         }
 
         /// <summary>
         /// Clears all text and Images in the dialogue box.
         /// </summary>
-        private void ClearDialogueBox()
+        private void ClearDialogueBox(bool newConversation = false)
         {
-            //Visual
+            _linePlaying = false;
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
             speakerPortrait.color = new Color(0, 0, 0, 0);
             sentenceText.maxVisibleCharacters = 0;
-            //Backend
-            _linePlaying = false;
-            _currentDialogueIndex = 0;
+            if (!newConversation) return;
+            _dialogueIndex = 0;
             foreach (GameObject buttonInstance in _choiceButtonInstances)
             {
                 Destroy(buttonInstance);

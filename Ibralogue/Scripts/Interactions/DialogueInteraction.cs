@@ -15,7 +15,7 @@ namespace Ibralogue
             DialogueManager.Instance.StartConversation(_interactionDialogues[0]);
 
         [DialogueFunction]
-        public static void QuestionFunction()
+        public static void TriggerFunction()
         {
             Debug.Log("Function Trigger");
         }

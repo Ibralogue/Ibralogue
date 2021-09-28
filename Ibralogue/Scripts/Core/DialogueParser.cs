@@ -146,11 +146,6 @@ namespace Ibralogue
          }
          if(sentences.Count != 0) dialogue.Sentence = 
             string.Join("\n", sentences.ToArray());
-
-         foreach (Dialogue dial in conversations[0].Dialogues)
-         {
-            Debug.Log($"{dial.Speaker}: {dial.Sentence}");
-         }
          sentences.Clear();
          return conversations;
       }

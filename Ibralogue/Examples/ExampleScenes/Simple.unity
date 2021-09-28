@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactionDialogues:
-  - {fileID: 2811297602134710623, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
+  - {fileID: 2811297602134710623, guid: 12565551d17e76b47964c183a7364141, type: 3}
   playerName: Ibrahim
 --- !u!1 &519420028
 GameObject:
@@ -952,6 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c15883baf93e446a1872a3f011d140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenCharacters: 0.05
   choiceButtonHolder: {fileID: 26815127}
   nameText: {fileID: 1681295514}
   sentenceText: {fileID: 575064700}
