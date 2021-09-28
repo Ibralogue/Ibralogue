@@ -123,6 +123,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &26815126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26815127}
+  - component: {fileID: 26815128}
+  m_Layer: 5
+  m_Name: ChoiceHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &26815127
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26815126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 91.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 34741671}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 395, y: -5.05}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &26815128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26815126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &34741667
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +278,7 @@ RectTransform:
   m_Children:
   - {fileID: 371977644}
   - {fileID: 1694175707}
+  - {fileID: 26815127}
   - {fileID: 562461648}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -384,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactionDialogues:
-  - {fileID: 2811297602134710623, guid: c73a8071bc1840c48833c2a801557459, type: 3}
+  - {fileID: 2811297602134710623, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
   playerName: Ibrahim
 --- !u!1 &519420028
 GameObject:
@@ -542,7 +605,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 34741671}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -889,9 +952,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c15883baf93e446a1872a3f011d140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sentenceText: {fileID: 575064700}
+  timeBetweenCharacters: 0.05
+  choiceButtonHolder: {fileID: 26815127}
   nameText: {fileID: 1681295514}
+  sentenceText: {fileID: 575064700}
   speakerPortrait: {fileID: 562461649}
+  choiceButton: {fileID: 6826497581176721293, guid: b6c33d346da503441b5a598f8ac974a2, type: 3}
   searchAllAssemblies: 0
   includedAssemblies:
   - Interactions

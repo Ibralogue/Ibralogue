@@ -24,25 +24,36 @@ Ibralogue
 > :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
 
 ## About
+
 Ibralogue is a simple and extendable dialogue system library for Unity. Dialogue is written in `.ibra` files which have their own syntax which you can
 learn more about in the [wiki](https://github.com/ibra/Ibralogue/wiki).
+
 ## Installation
-Ibralogue is _currently_ only available as a unity package, and you can grab the latest one from the [releases page](https://github.com/ibra/Ibralogue/releases).
+
+Ibralogue is available as a unity package, and you can grab the latest one from the [releases page](https://github.com/ibra/Ibralogue/releases).
+
+You can also install it with OpenUPM:
+
+```
+$ openupm add com.ibra.Ibralogue
+```
+
 ## Features
+
 Ibralogue is extremely early in development so it is missing a few features, though it is built with user extendability in mind. Heres a table of features that have been either implemented or have been planned.
-   
-  
-|        Implemented ✅      |   Planned 🚧      | 
-| -------------------------- | :----------------: | 
-| Dialogue Parsing           | Animated Text Effects|
-| Dialogue Interaction       |     Choice System|
-| Custom Dialogue File Syntax|    Dialogue Audio|
-| Character Portrait Support | Localization Integration|
-| Scrolling Text Effect      |
-| Global Variables           |
-| Function Invocation        |
-| Markdown Support           |
-| Comment Support            | 
-   
+
+| Implemented ✅              |      Planned 🚧       |
+| --------------------------- | :-------------------: |
+| Dialogue Parsing            | Animated Text Effects |
+| Dialogue Interaction        |    Dialogue Audio     |
+| Custom Dialogue File Syntax |                       |
+| Character Portraits         |                       |
+| Scrolling Text              |
+| Global Variables            |
+| Function Invocation         |
+| Rich Text                   |
+| Comments                    |
+| Choice System               |
 ## Support
+
 Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
