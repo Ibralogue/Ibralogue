@@ -56,5 +56,10 @@ Ibralogue is extremely early in development so it is missing a few features, tho
 | Comments                    |
 | Choice System               |
 ## Support
-
 Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
+### Backed By:
+<p align="center">
+   <a href="https://jb.gg/OpenSource">
+  <img style="width:200px;" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*mdm6fp*_ga*MzEwMDI5Mzc1LjE2Mjc1MTQzMTI.*_ga_V0XZL7QHEB*MTYzNTUwMDYxOC43LjEuMTYzNTUwMDY2Ni4xMg..&_ga=2.186347370.2123366820.1635500619-310029375.1627514312">
+</p>
+
