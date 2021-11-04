@@ -181,7 +181,7 @@ namespace Ibralogue
                }
                else
                {
-                  throw new ArgumentOutOfRangeException($"Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
+                  throw new ArgumentOutOfRangeException($"[Ibralogue] Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
                }
                break;
             case Tokens.Comment:
@@ -194,7 +194,7 @@ namespace Ibralogue
             case Tokens.EndInvoke:
                break;
             default:
-               Debug.LogError($"Argument Out Of Range: {token}");
+               Debug.LogError($"[Ibralogue] Argument Out Of Range: {token}");
                break;
          }
          return line;
