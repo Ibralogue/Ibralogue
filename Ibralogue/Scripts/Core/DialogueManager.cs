@@ -34,6 +34,7 @@ namespace Ibralogue
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
+        
         private List<GameObject> _choiceButtonInstances;
         [Header("Prefabs")]
         [SerializeField] private GameObject choiceButton;
@@ -101,9 +102,9 @@ namespace Ibralogue
         {
             nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence;
+            sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
             
-            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_dialogueIndex].FunctionInvocations;
+            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
             if (functionInvocations != null && functionInvocations
                     .TryGetValue(_dialogueIndex, out string functionName))
             {
@@ -113,7 +114,7 @@ namespace Ibralogue
                 }
             }
             DisplaySpeakerImage();
-            foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence)
+            foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence.Text)
             {
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(timeBetweenCharacters); 
@@ -129,7 +130,7 @@ namespace Ibralogue
         public void DisplayNextLine()
         {
             if (_linePlaying) return;
-            ClearDialogueBox(false);
+            ClearDialogueBox();
             if (_dialogueIndex < _currentConversation.Dialogues.Count - 1)
             {
                 _dialogueIndex++;

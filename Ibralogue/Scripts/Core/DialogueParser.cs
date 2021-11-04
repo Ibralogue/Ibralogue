@@ -86,7 +86,7 @@ namespace Ibralogue
                case Tokens.Speaker:
                {
                   //Handle the previous Dialogue before handling this one.
-                  dialogue.Sentence = string.Join("\n", sentences.ToArray());
+                  dialogue.Sentence.Text = string.Join("\n", sentences.ToArray());
                   conversation.Dialogues.Add(dialogue);
                   
                   processedLine = ReplaceGlobalVariables(processedLine);
@@ -111,9 +111,10 @@ namespace Ibralogue
                case Tokens.Invoke:
                case Tokens.ExplicitInvoke:
                {
-                  if (dialogue.FunctionInvocations == null)
-                     dialogue.FunctionInvocations = new Dictionary<int, string>();
-                  dialogue.FunctionInvocations.Add(conversation.Dialogues.Count, processedLine);
+                  if (dialogue.Sentence.Invocations == null)
+                     dialogue.Sentence.Invocations = new Dictionary<int, string>();
+                  //TODO: Implement per-character invocation here.
+                  dialogue.Sentence.Invocations.Add(conversation.Dialogues.Count, processedLine);
                   break;
                }
                case Tokens.DialogueNameInvoke:
@@ -123,7 +124,7 @@ namespace Ibralogue
                }
                case Tokens.EndInvoke:
                {
-                  dialogue.Sentence = string.Join("\n", sentences.ToArray());
+                  dialogue.Sentence.Text = string.Join("\n", sentences.ToArray());
                   sentences.Clear();
                   
                   conversation.Dialogues.Add(dialogue);
@@ -144,8 +145,8 @@ namespace Ibralogue
                   throw new ArgumentOutOfRangeException();
             }
          }
-         if(sentences.Count != 0) dialogue.Sentence = 
-            string.Join("\n", sentences.ToArray());
+         if(sentences.Count != 0) 
+            dialogue.Sentence.Text = string.Join("\n", sentences.ToArray());
          sentences.Clear();
          return conversations;
       }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Ibralogue
 {
@@ -14,7 +13,6 @@ namespace Ibralogue
     {
         public string Speaker;
         public Sprite SpeakerImage;
-        public string Sentence;
-        public Dictionary<int,string> FunctionInvocations;
+        public Sentence Sentence;
     }
 }
