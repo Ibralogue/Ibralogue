@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Reflection;
+using Ibralogue.Scripts.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Ibralogue
 {
@@ -17,7 +16,6 @@ namespace Ibralogue
         public static DialogueManager Instance { get; private set; }
         
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
-        public static readonly Dictionary<string, MethodInfo> DialogueFunctions = new Dictionary<string, MethodInfo>();
 
         public static UnityEvent OnConversationStart = new UnityEvent();
         public static UnityEvent OnConversationEnd = new UnityEvent();
@@ -54,13 +52,6 @@ namespace Ibralogue
             {
                 Instance = this;
             }
-            //Getting all methods in every assembly and adding them to our own local list for potential invocation.
-            IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
-            foreach (MethodInfo methodInfo in allDialogueMethods)
-            {
-                DialogueFunctions.Add(methodInfo.Name,methodInfo);
-            }
-            _choiceButtonInstances = new List<GameObject>();
         }
 
         /// <summary>
@@ -103,20 +94,24 @@ namespace Ibralogue
             nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             _linePlaying = true;
             sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
-            
+
+            IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
-            if (functionInvocations != null && functionInvocations
-                    .TryGetValue(_dialogueIndex, out string functionName))
-            {
-                if(DialogueFunctions.TryGetValue(functionName, out MethodInfo methodInfo))
-                {
-                    methodInfo.Invoke(null, null); //TODO: Function invocation for nonstatic methods.
-                }
-            }
+
             DisplaySpeakerImage();
             foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence.Text)
             {
                 sentenceText.maxVisibleCharacters++;
+                if (functionInvocations != null && functionInvocations
+                    .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
+                {
+                    foreach (MethodInfo methodInfo in allDialogueMethods)
+                    {
+                        if (methodInfo.Name != functionName) 
+                            continue;
+                        methodInfo.Invoke(null, null);
+                    }
+                }
                 yield return new WaitForSeconds(timeBetweenCharacters); 
             }
             _linePlaying = false;
@@ -150,6 +145,9 @@ namespace Ibralogue
             }
         }
 
+        /// <summary>
+        /// Uses the Unity UI system and TextMeshPro to render choice buttons.
+        /// </summary>
         protected void DisplayChoices()
         {
             if (_currentConversation.Choices == null || !_currentConversation.Choices.Any()) return;
@@ -167,8 +165,8 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Gets ALL methods in ALL classes for the current assembly and checks them against the
-        /// DialogueFunction attribute. Use this function with caution.
+        /// Gets all methods for the current assembly, other specified assemblies, or all assemblies, and checks them against the
+        /// DialogueFunction attribute.
         /// </summary>
         private IEnumerable<MethodInfo> GetDialogueMethods()
         {
@@ -191,7 +189,7 @@ namespace Ibralogue
             {
                 IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
-                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunction), false).Length > 0);
+                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunctionAttribute), false).Length > 0);
                 methods.AddRange(allMethods);
             }
             return methods;
@@ -218,6 +216,7 @@ namespace Ibralogue
             sentenceText.maxVisibleCharacters = 0;
             if (!newConversation) return;
             _dialogueIndex = 0;
+            if (_choiceButtonInstances == null) return;
             foreach (GameObject buttonInstance in _choiceButtonInstances)
             {
                 Destroy(buttonInstance);

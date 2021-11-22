@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -9,10 +7,15 @@ namespace Ibralogue
 {
    public static class DialogueParser
    {
+      private const string speakerPattern = @"^\[(.+)\]";
+      private const string invokePattern = @"^<<(.+)>>";
+      private const string choicePattern = @"^-(.+)->(.+)";
+      
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
       /// which provides additional information about the lexeme that the token represents. 
       /// </summary>
+      /// TODO: Make tokens their own class, allowing for sentences to have multiple tokens associated with them.
       private enum Tokens
       {
          Speaker,
@@ -34,8 +37,8 @@ namespace Ibralogue
       private static Tokens GetLineToken(string line)
       {
          if (line.StartsWith("#")) return Tokens.Comment;
-         if (Regex.IsMatch(line, @"^\[(.+)\]")) return Tokens.Speaker;
-         if (Regex.IsMatch(line, @"^<<(.+)>>"))
+         if (Regex.IsMatch(line, speakerPattern)) return Tokens.Speaker;
+         if (Regex.IsMatch(line, invokePattern))
          {
             string processedLine = line.Trim().Substring(2);
             string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(':');
@@ -48,7 +51,7 @@ namespace Ibralogue
                _ => Tokens.Invoke
             };
          }
-         if (Regex.IsMatch(line, @"^-(.+)->(.+)")) return Tokens.Choice;
+         if (Regex.IsMatch(line, choicePattern)) return Tokens.Choice;
          return Tokens.Sentence;
       }   
       
@@ -97,6 +100,7 @@ namespace Ibralogue
                case Tokens.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
+                  GatherInlineFunctions(processedLine);
                   sentences.Add(processedLine);
                   break;
                }
@@ -150,6 +154,11 @@ namespace Ibralogue
          sentences.Clear();
          return conversations;
       }
+      
+      ///Gathers all functions in a given line  
+      private static void GatherInlineFunctions(string line)
+      {
+      }
 
       /// <summary>
       /// The GetProcessedLine function takes in a token and a line, and removes/adds anything that requires removal or addition in the
@@ -172,7 +181,6 @@ namespace Ibralogue
             case Tokens.ImageInvoke:
             case Tokens.DialogueNameInvoke:
             case Tokens.ExplicitInvoke:
-               //Line has to be greater than four characters due to 
                if (line.Length > 4)
                {
                   line = line.Trim().Substring(2);
