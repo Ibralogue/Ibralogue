@@ -109,7 +109,14 @@ namespace Ibralogue
             {
                 if(DialogueFunctions.TryGetValue(functionName, out MethodInfo methodInfo))
                 {
-                    methodInfo.Invoke(null, null); //TODO: Function invocation for nonstatic methods.
+                    if (methodInfo.ReturnType == typeof(string))
+                    {
+                        string text = (string)methodInfo.Invoke(null, null);
+                    }
+                    else
+                    {
+                        methodInfo.Invoke(null, null); //TODO: Function invocation for nonstatic methods.
+                    }
                 }
             }
             DisplaySpeakerImage();
