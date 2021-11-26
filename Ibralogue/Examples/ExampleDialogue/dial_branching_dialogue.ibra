@@ -5,12 +5,12 @@ Hello traveller.
 How are you?
 - Fine -> FineDial
 - Terrible -> TerribleDial
-<<end>>
+<<DialogueEnd>>
 <<DialogueName: FineDial>>
 [NPC]
 Good to hear!
-<<end>>
+<<DialogueEnd>>
 <<DialogueName: TerribleDial>>
 [NPC]
 Aw. Hope it gets better!
-<<end>>
+<<DialogueEnd>>

@@ -8,4 +8,4 @@ They call me... %PLAYERNAME%.
 %PLAYERNAME%, interesting. 
 [Wizard]
 I will watch your journey with great interest, %PLAYERNAME%.
-<<end>>
+<<DialogueEnd>>
