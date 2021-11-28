@@ -96,14 +96,16 @@ namespace Ibralogue
             sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
 
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
-            Dictionary<int,string> functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
+            Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
+            functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
 
             DisplaySpeakerImage();
             foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence.Text)
             {
                 sentenceText.maxVisibleCharacters++;
+
                 if (functionInvocations != null && functionInvocations
-                    .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
+                        .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
                 {
                     foreach (MethodInfo methodInfo in allDialogueMethods)
                     {
