@@ -102,8 +102,6 @@ namespace Ibralogue
             DisplaySpeakerImage();
             foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence.Text)
             {
-                sentenceText.maxVisibleCharacters++;
-
                 if (functionInvocations != null && functionInvocations
                         .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
                 {
@@ -114,6 +112,7 @@ namespace Ibralogue
                         methodInfo.Invoke(null, null);
                     }
                 }
+                sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(timeBetweenCharacters); 
             }
             _linePlaying = false;
@@ -152,6 +151,7 @@ namespace Ibralogue
         /// </summary>
         protected void DisplayChoices()
         {
+            _choiceButtonInstances = new List<GameObject>();
             if (_currentConversation.Choices == null || !_currentConversation.Choices.Any()) return;
             foreach (Choice choice in _currentConversation.Choices.Keys)
             {
