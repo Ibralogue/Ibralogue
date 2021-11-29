@@ -265,6 +265,9 @@ namespace Ibralogue
          return inlineFunctionNames;
       }
 
+      /// <summary>
+      /// For every invocation all of our local sentences we add them to the dialogues sentence invocation.
+      /// </summary>
       private static void AddInvocationsToDialogue(IEnumerable<Sentence> sentences, Dialogue dialogue)
       {
          foreach (Sentence sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
