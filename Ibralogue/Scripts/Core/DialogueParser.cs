@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -9,6 +8,11 @@ namespace Ibralogue
 {
    public static class DialogueParser
    {
+      private const string SpeakerPattern = @"^\[(.+)\]";
+      private const string InvokePattern = @"^<<(.+)>>";
+      private const string InlineInvokePattern = @"<<(.+)>>";
+      private const string ChoicePattern = @"^-(.+)->(.+)";
+      
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
       /// which provides additional information about the lexeme that the token represents. 
@@ -19,8 +23,6 @@ namespace Ibralogue
          Sentence,
          Choice,
          Comment,
-         Invoke,
-         ExplicitInvoke,
          ImageInvoke,
          DialogueNameInvoke,
          EndInvoke
@@ -34,21 +36,20 @@ namespace Ibralogue
       private static Tokens GetLineToken(string line)
       {
          if (line.StartsWith("#")) return Tokens.Comment;
-         if (Regex.IsMatch(line, @"^\[(.+)\]")) return Tokens.Speaker;
-         if (Regex.IsMatch(line, @"^<<(.+)>>"))
+         if (Regex.IsMatch(line, SpeakerPattern)) return Tokens.Speaker;
+         if (Regex.IsMatch(line, InvokePattern))
          {
             string processedLine = line.Trim().Substring(2);
             string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(':');
             return arguments[0] switch
             {
-               "Invoke" => Tokens.ExplicitInvoke,
                "Image" => Tokens.ImageInvoke,
                "DialogueName" => Tokens.DialogueNameInvoke,
-               "end" => Tokens.EndInvoke,
-               _ => Tokens.Invoke
+               "DialogueEnd" => Tokens.EndInvoke,
+               _ => Tokens.Sentence
             };
          }
-         if (Regex.IsMatch(line, @"^-(.+)->(.+)")) return Tokens.Choice;
+         if (Regex.IsMatch(line, ChoicePattern)) return Tokens.Choice;
          return Tokens.Sentence;
       }   
       
@@ -61,15 +62,21 @@ namespace Ibralogue
          string dialogueText = dialogueAsset.text;
          string[] textLines = dialogueText.Split('\n');
          
-         List<string> sentences = new List<string>();
          List<Conversation> conversations = new List<Conversation>();
+         List<Sentence> sentences = new List<Sentence>();
 
          Conversation conversation = new Conversation {Dialogues = new List<Dialogue>()};
-         Dialogue dialogue = new Dialogue();
-
-         for (int i = 0; i < textLines.Length; i++)
+         Dialogue dialogue = new Dialogue
          {
-            string line = textLines[i];
+            Sentence = new Sentence
+            {
+               Invocations = new Dictionary<int, string>()
+            }
+         };
+         
+         for (int index = 0; index < textLines.Length; index++)
+         {
+            string line = textLines[index];
             Tokens token = GetLineToken(line);
             string processedLine = GetProcessedLine(token, line);
 
@@ -85,35 +92,40 @@ namespace Ibralogue
                }
                case Tokens.Speaker:
                {
-                  //Handle the previous Dialogue before handling this one.
-                  dialogue.Sentence = string.Join("\n", sentences.ToArray());
+                  dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  AddInvocationsToDialogue(sentences, dialogue);
+                  
                   conversation.Dialogues.Add(dialogue);
                   
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  dialogue = new Dialogue {Speaker = processedLine};
+                  dialogue = new Dialogue
+                  {
+                     Speaker = processedLine,
+                     Sentence = new Sentence
+                     {
+                        Invocations = new Dictionary<int, string>()
+                     }
+                  };
                   sentences.Clear();
                   break;
                }
                case Tokens.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  sentences.Add(processedLine);
+                  Sentence sentence = new Sentence
+                  {
+                     Text = processedLine, 
+                     Invocations = GatherInlineFunctionInvocations(line)
+                  };
+                  sentences.Add(sentence);
                   break;
                }
                case Tokens.ImageInvoke:
                {
                   if (Resources.Load(processedLine) == null)
                      Debug.LogError(
-                        $"[Ibralogue] Invalid image path {processedLine} at line {i + 1} in {dialogueAsset.name}.");
+                        $"[Ibralogue] Invalid image path {processedLine} at line {index + 1} in {dialogueAsset.name}.");
                   dialogue.SpeakerImage = Resources.Load<Sprite>(processedLine);
-                  break;
-               }
-               case Tokens.Invoke:
-               case Tokens.ExplicitInvoke:
-               {
-                  if (dialogue.FunctionInvocations == null)
-                     dialogue.FunctionInvocations = new Dictionary<int, string>();
-                  dialogue.FunctionInvocations.Add(conversation.Dialogues.Count, processedLine);
                   break;
                }
                case Tokens.DialogueNameInvoke:
@@ -123,11 +135,19 @@ namespace Ibralogue
                }
                case Tokens.EndInvoke:
                {
-                  dialogue.Sentence = string.Join("\n", sentences.ToArray());
-                  sentences.Clear();
+                  dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  AddInvocationsToDialogue(sentences, dialogue);
                   
+                  sentences.Clear();
+
                   conversation.Dialogues.Add(dialogue);
-                  dialogue = new Dialogue();
+                  dialogue = new Dialogue
+                  {
+                     Sentence = new Sentence
+                     {
+                        Invocations = new Dictionary<int, string>()
+                     }
+                  };
                   
                   conversations.Add(conversation);
                   conversation = new Conversation {Dialogues = new List<Dialogue>()};
@@ -144,8 +164,13 @@ namespace Ibralogue
                   throw new ArgumentOutOfRangeException();
             }
          }
-         if(sentences.Count != 0) dialogue.Sentence = 
-            string.Join("\n", sentences.ToArray());
+
+         if (sentences.Count == 0) 
+            return conversations;
+         
+         dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+         AddInvocationsToDialogue(sentences, dialogue);
+
          sentences.Clear();
          return conversations;
       }
@@ -164,14 +189,8 @@ namespace Ibralogue
                   line = line.Substring(0, line.Length - 1);
                } 
                break;
-            case Tokens.Invoke:
-               line = line.Trim().Substring(2);
-               line = line.Substring(0, line.Length - 2);
-               break;
             case Tokens.ImageInvoke:
             case Tokens.DialogueNameInvoke:
-            case Tokens.ExplicitInvoke:
-               //Line has to be greater than four characters due to 
                if (line.Length > 4)
                {
                   line = line.Trim().Substring(2);
@@ -180,11 +199,17 @@ namespace Ibralogue
                }
                else
                {
-                  throw new ArgumentOutOfRangeException($"Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
+                  throw new ArgumentOutOfRangeException($"[Ibralogue] Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
                }
                break;
             case Tokens.Comment:
+               break;
             case Tokens.Sentence:
+               foreach (Match match in Regex.Matches(line, InlineInvokePattern))
+               {
+                  string functionName = match.ToString();
+                  line = line.Replace(functionName, "");
+               }
                break;
             case Tokens.Choice:
                line = line.Trim();
@@ -193,7 +218,7 @@ namespace Ibralogue
             case Tokens.EndInvoke:
                break;
             default:
-               Debug.LogError($"Argument Out Of Range: {token}");
+               Debug.LogError($"[Ibralogue] Argument Out Of Range: {token}");
                break;
          }
          return line;
@@ -218,6 +243,40 @@ namespace Ibralogue
             }
          }
          return line;
+      }
+      
+      
+      /// <summary>
+      /// Adds all function invocations in a given line.
+      /// <param name="replaceFunction">Whether to replace the function or not</param>
+      /// </summary>
+      private static Dictionary<int,string> GatherInlineFunctionInvocations(string line)
+      {
+         Dictionary<int,string> inlineFunctionNames = new Dictionary<int,string>();
+         foreach (Match match in Regex.Matches(line,InlineInvokePattern))
+         {
+            string functionName = match.ToString();
+            int characterIndex = line.IndexOf(functionName);
+            
+            functionName = functionName.Trim().Substring(2);
+            functionName = functionName.Substring(0, functionName.Length - 2);
+            inlineFunctionNames.Add(characterIndex, functionName);
+         }
+         return inlineFunctionNames;
+      }
+
+      /// <summary>
+      /// For every invocation all of our local sentences we add them to the dialogues sentence invocation.
+      /// </summary>
+      private static void AddInvocationsToDialogue(IEnumerable<Sentence> sentences, Dialogue dialogue)
+      {
+         foreach (Sentence sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
+         {
+            foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
+            {
+               dialogue.Sentence.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+         }
       }
    }
 }

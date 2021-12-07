@@ -1,11 +1,10 @@
 [NPC]
-Hi!
+Psssst kid. New feature dropped.
 [NPC]
-Did you know about function triggers?
+You can invoke functions <<TriggerFunction>> between lines!
 [NPC]
-You can trigger any static function explicitly from dialogue files by adding an attribute to the function!
-<<Invoke: TriggerFunction>>
+All the fancy people call "Inline Function Invocation".
 [NPC]
-Or implicitly!
 <<TriggerFunction>>
-<<end>>
+But... if you're old fashioned... newlines also work.
+<<DialogueEnd>>
