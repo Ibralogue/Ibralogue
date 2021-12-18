@@ -20,5 +20,11 @@ namespace Ibralogue
         {
             Debug.Log("Function Trigger");
         }
+        
+        [DialogueFunction]
+        public static string GetDay()
+        {
+            return DateTime.Now.DayOfWeek.ToString();
+        }
     }
 }

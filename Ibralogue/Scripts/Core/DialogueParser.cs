@@ -11,6 +11,7 @@ namespace Ibralogue
       private const string SpeakerPattern = @"^\[(.+)\]";
       private const string InvokePattern = @"^<<(.+)>>";
       private const string InlineInvokePattern = @"<<(.+)>>";
+      private const string ArgumentInvokePattern = @"<<(.+:+\[+.+])>>";
       private const string ChoicePattern = @"^-(.+)->(.+)";
       
       /// <summary>

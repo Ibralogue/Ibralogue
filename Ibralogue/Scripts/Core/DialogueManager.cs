@@ -100,21 +100,36 @@ namespace Ibralogue
             functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
 
             DisplaySpeakerImage();
-            foreach(char _ in _currentConversation.Dialogues[_dialogueIndex].Sentence.Text)
+            int index = 0; 
+            while(index < _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Length)
             {
                 if (functionInvocations != null && functionInvocations
                         .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
                 {
                     foreach (MethodInfo methodInfo in allDialogueMethods)
                     {
-                        if (methodInfo.Name != functionName) 
+                        if (methodInfo.Name != functionName)
                             continue;
-                        methodInfo.Invoke(null, null);
+
+                        if (methodInfo.ReturnType == typeof(string))
+                        {
+                            string replacedText = (string)methodInfo.Invoke(null, null);
+                            string processedSentence = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Insert(index, replacedText);
+                            sentenceText.text = processedSentence;
+                            index -= processedSentence.Length -
+                                     _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Length;
+                        }
+                        else
+                        {
+                            methodInfo.Invoke(null, null);
+                        }
                     }
                 }
+                index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(timeBetweenCharacters); 
+                yield return new WaitForSeconds(timeBetweenCharacters);
             }
+
             _linePlaying = false;
             yield return null;
         }

@@ -1,4 +1,4 @@
 <<DialogueName: Init>>
 [NPC]
 Hello World!
-<<end>>
+<<DialogueEnd>>

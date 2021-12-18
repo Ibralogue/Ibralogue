@@ -1,14 +1,9 @@
 <<DialogueName: Init>>
 [NPC]
-Okay kid, so you wanna know what string functions are.
+A string function allows me to do powerful things...
 [NPC]
-You're quickly shaping up to be an advanced Ibralogue user.
+# In this case, <<GetDay>> is the string function.
+For example, <<GetDay>> is what day today is.
 [NPC]
-# In this case, <<FunctionType>> is the string function.
-A <<FunctionType>> allows me to magically add the text from static string functions 
-into my sentences.
-[NPC]
-<<UwuifyFunction: [I can even uwuify text if I so desire.]
-[NPC]
-<<FlipFunction: [or flip the letters!]
-<<end>>
+I know, truly magical.
+<<DialogueEnd>>
