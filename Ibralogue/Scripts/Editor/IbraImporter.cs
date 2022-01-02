@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using UnityEditor.AssetImporters;
+using UnityEditor.Experimental.AssetImporters;
 
 [ScriptedImporter(1, "ibra")]
 public class IbraImporter : ScriptedImporter 
