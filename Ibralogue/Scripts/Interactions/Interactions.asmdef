@@ -1,6 +1,6 @@
 {
     "name": "Interactions",
-    "rootNamespace": "",
+    "rootNamespace": "Ibralogue",
     "references": [
         "GUID:aec4d18834ad7cd4b83a525587887964"
     ],

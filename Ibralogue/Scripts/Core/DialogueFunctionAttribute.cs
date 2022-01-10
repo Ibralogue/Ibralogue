@@ -1,6 +1,6 @@
 using System;
 
-namespace Ibralogue.Scripts.Core
+namespace Ibralogue
 {
     public class DialogueFunctionAttribute : Attribute {}
 }
