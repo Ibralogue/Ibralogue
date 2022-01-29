@@ -7,15 +7,15 @@ namespace Ibralogue.Interactions
     /// </summary>
     public class GlobalVariableInteraction : DefaultInteraction
     {
-        [SerializeField] private string variableKey = "PLAYERNAME";
-        [SerializeField] private string variableValue = "Ibrahim";
+        [SerializeField] private string _variableKey = "PLAYERNAME";
+        [SerializeField] private string _variableValue = "Ibrahim";
     
         private void Awake() =>
-            DialogueManager.GlobalVariables.Add(variableKey, variableValue);
+            DialogueManager.GlobalVariables.Add(_variableKey, _variableValue);
 
         protected override void StartDialogue()
         {
-            DialogueManager.Instance.StartConversation(_interactionDialogues[0]);
+            DialogueManager.Instance.StartConversation(InteractionDialogues[0]);
         }
     }
 }
