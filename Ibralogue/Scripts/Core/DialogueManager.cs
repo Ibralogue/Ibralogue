@@ -16,9 +16,9 @@ namespace Ibralogue
         
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
 
-        public static UnityEvent OnConversationStart = new UnityEvent();
-        public static UnityEvent OnConversationEnd = new UnityEvent();
-        
+        [field: HideInInspector] public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
+        [field: HideInInspector] public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
+
         private List<Conversation> _parsedConversations;
         private Conversation _currentConversation;
         

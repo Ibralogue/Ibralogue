@@ -8,14 +8,15 @@ namespace Ibralogue.Interactions
     public class RoundRobinInteraction : DefaultInteraction
     {
         private int _iteration;
-        [SerializeField] private bool loop;
-        
-        public override void StartDialogue()
+        [SerializeField] private bool _loop;
+
+        protected override void StartDialogue()
         {
-            DialogueManager.Instance.StartConversation(_interactionDialogues[_iteration]);
-            if (_iteration == _interactionDialogues.Length - 1)
+            base.StartDialogue();
+            DialogueManager.Instance.StartConversation(InteractionDialogues[_iteration]);
+            if (_iteration == InteractionDialogues.Length - 1)
             {
-                _iteration = loop ? 0 : _iteration;
+                _iteration = _loop ? 0 : _iteration;
                 return;
             }
             _iteration++;
