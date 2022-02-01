@@ -55,7 +55,7 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see href="DisplayDialogue"/>DisplayDialogue function.
+        /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see href="DisplayDialogue"/> function.
         /// </summary>
         /// <param name="interactionDialogue">The dialogue file that we want to use in the conversation</param>
         /// <param name="startIndex">The index of the conversation you want to start.</param>

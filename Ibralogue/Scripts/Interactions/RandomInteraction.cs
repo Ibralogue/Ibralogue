@@ -2,7 +2,10 @@ using UnityEngine;
 
 namespace Ibralogue.Interactions
 {
-  public class RandomInteraction : DefaultInteraction
+    /// <summary>
+    /// Plays a random dialogue from within the interaction dialogue array.
+    /// </summary>
+    public class RandomInteraction : DefaultInteraction
   {
       protected override void StartDialogue()
       {
