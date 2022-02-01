@@ -1,0 +1,319 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Parser.Conversation
+  commentId: T:Ibralogue.Parser.Conversation
+  id: Conversation
+  parent: Ibralogue.Parser
+  children:
+  - Ibralogue.Parser.Conversation.Choices
+  - Ibralogue.Parser.Conversation.Dialogues
+  - Ibralogue.Parser.Conversation.Name
+  langs:
+  - csharp
+  - vb
+  name: Conversation
+  nameWithType: Conversation
+  fullName: Ibralogue.Parser.Conversation
+  type: Struct
+  source:
+    id: Conversation
+    path: ''
+    startLine: 261
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public struct Conversation
+    content.vb: Public Structure Conversation
+  modifiers.csharp:
+  - public
+  - struct
+  modifiers.vb:
+  - Public
+  - Structure
+- uid: Ibralogue.Parser.Conversation.Name
+  commentId: F:Ibralogue.Parser.Conversation.Name
+  id: Name
+  parent: Ibralogue.Parser.Conversation
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: Conversation.Name
+  fullName: Ibralogue.Parser.Conversation.Name
+  type: Field
+  source:
+    id: Name
+    path: ''
+    startLine: 263
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public string Name
+    return:
+      type: System.String
+    content.vb: Public Name As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Conversation.Dialogues
+  commentId: F:Ibralogue.Parser.Conversation.Dialogues
+  id: Dialogues
+  parent: Ibralogue.Parser.Conversation
+  langs:
+  - csharp
+  - vb
+  name: Dialogues
+  nameWithType: Conversation.Dialogues
+  fullName: Ibralogue.Parser.Conversation.Dialogues
+  type: Field
+  source:
+    id: Dialogues
+    path: ''
+    startLine: 264
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public List<Dialogue> Dialogues
+    return:
+      type: Global.List{Ibralogue.Parser.Dialogue}
+    content.vb: Public Dialogues As List(Of Dialogue)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Conversation.Choices
+  commentId: F:Ibralogue.Parser.Conversation.Choices
+  id: Choices
+  parent: Ibralogue.Parser.Conversation
+  langs:
+  - csharp
+  - vb
+  name: Choices
+  nameWithType: Conversation.Choices
+  fullName: Ibralogue.Parser.Conversation.Choices
+  type: Field
+  source:
+    id: Choices
+    path: ''
+    startLine: 265
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public Dictionary<Choice, int> Choices
+    return:
+      type: Global.Dictionary{Ibralogue.Choice,System.Int32}
+    content.vb: Public Choices As Dictionary(Of Choice, Integer)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Ibralogue.Parser
+  commentId: N:Ibralogue.Parser
+  name: Ibralogue.Parser
+  nameWithType: Ibralogue.Parser
+  fullName: Ibralogue.Parser
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.List{Ibralogue.Parser.Dialogue}
+  commentId: '!:Global.List{Ibralogue.Parser.Dialogue}'
+  definition: Global.List`1
+  name: List<Dialogue>
+  nameWithType: List<Dialogue>
+  fullName: List<Ibralogue.Parser.Dialogue>
+  nameWithType.vb: List(Of Dialogue)
+  fullName.vb: List(Of Ibralogue.Parser.Dialogue)
+  name.vb: List(Of Dialogue)
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Ibralogue.Parser.Dialogue
+    name: Dialogue
+    nameWithType: Dialogue
+    fullName: Ibralogue.Parser.Dialogue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Ibralogue.Parser.Dialogue
+    name: Dialogue
+    nameWithType: Dialogue
+    fullName: Ibralogue.Parser.Dialogue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.List`1
+  isExternal: true
+  name: List<>
+  nameWithType: List<>
+  fullName: List<>
+  nameWithType.vb: List(Of )
+  fullName.vb: List(Of )
+  name.vb: List(Of )
+  spec.csharp:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.List`1
+    name: List
+    nameWithType: List
+    fullName: List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Dictionary{Ibralogue.Choice,System.Int32}
+  commentId: '!:Global.Dictionary{Ibralogue.Choice,System.Int32}'
+  definition: Global.Dictionary`2
+  name: Dictionary<Choice, Int32>
+  nameWithType: Dictionary<Choice, Int32>
+  fullName: Dictionary<Ibralogue.Choice, System.Int32>
+  nameWithType.vb: Dictionary(Of Choice, Int32)
+  fullName.vb: Dictionary(Of Ibralogue.Choice, System.Int32)
+  name.vb: Dictionary(Of Choice, Int32)
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Ibralogue.Choice
+    name: Choice
+    nameWithType: Choice
+    fullName: Ibralogue.Choice
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Ibralogue.Choice
+    name: Choice
+    nameWithType: Choice
+    fullName: Ibralogue.Choice
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Dictionary`2
+  isExternal: true
+  name: Dictionary<, >
+  nameWithType: Dictionary<, >
+  fullName: Dictionary<, >
+  nameWithType.vb: Dictionary(Of , )
+  fullName.vb: Dictionary(Of , )
+  name.vb: Dictionary(Of , )
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )

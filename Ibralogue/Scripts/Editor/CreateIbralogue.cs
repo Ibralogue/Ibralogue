@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 
-namespace Ibralogue
+namespace Ibralogue.Editor
 {
     public class CreateIbralogue
     {

@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  id: Ibralogue
+  children:
+  - Ibralogue.Choice
+  - Ibralogue.DialogueFunctionAttribute
+  - Ibralogue.DialogueManager
+  - Ibralogue.DialogueParser
+  langs:
+  - csharp
+  - vb
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: Ibralogue.DialogueFunctionAttribute
+  commentId: T:Ibralogue.DialogueFunctionAttribute
+  name: DialogueFunctionAttribute
+  nameWithType: DialogueFunctionAttribute
+  fullName: Ibralogue.DialogueFunctionAttribute
+- uid: Ibralogue.DialogueManager
+  commentId: T:Ibralogue.DialogueManager
+  parent: Ibralogue
+  name: DialogueManager
+  nameWithType: DialogueManager
+  fullName: Ibralogue.DialogueManager
+- uid: Ibralogue.Choice
+  commentId: T:Ibralogue.Choice
+  name: Choice
+  nameWithType: Choice
+  fullName: Ibralogue.Choice
+- uid: Ibralogue.DialogueParser
+  commentId: T:Ibralogue.DialogueParser
+  name: DialogueParser
+  nameWithType: DialogueParser
+  fullName: Ibralogue.DialogueParser
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue

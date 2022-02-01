@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Ibralogue.Parser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -54,7 +55,7 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see href="DisplayDialogue"/>DisplayDialogue</see> function.
+        /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see href="DisplayDialogue"/>DisplayDialogue function.
         /// </summary>
         /// <param name="interactionDialogue">The dialogue file that we want to use in the conversation</param>
         /// <param name="startIndex">The index of the conversation you want to start.</param>

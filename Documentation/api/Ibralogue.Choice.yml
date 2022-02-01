@@ -1,0 +1,105 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Choice
+  commentId: T:Ibralogue.Choice
+  id: Choice
+  parent: Ibralogue
+  children:
+  - Ibralogue.Choice.ChoiceName
+  - Ibralogue.Choice.LeadingConversationName
+  langs:
+  - csharp
+  - vb
+  name: Choice
+  nameWithType: Choice
+  fullName: Ibralogue.Choice
+  type: Struct
+  source:
+    id: Choice
+    path: ''
+    startLine: 251
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public struct Choice
+    content.vb: Public Structure Choice
+  modifiers.csharp:
+  - public
+  - struct
+  modifiers.vb:
+  - Public
+  - Structure
+- uid: Ibralogue.Choice.ChoiceName
+  commentId: F:Ibralogue.Choice.ChoiceName
+  id: ChoiceName
+  parent: Ibralogue.Choice
+  langs:
+  - csharp
+  - vb
+  name: ChoiceName
+  nameWithType: Choice.ChoiceName
+  fullName: Ibralogue.Choice.ChoiceName
+  type: Field
+  source:
+    id: ChoiceName
+    path: ''
+    startLine: 253
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public string ChoiceName
+    return:
+      type: System.String
+    content.vb: Public ChoiceName As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Choice.LeadingConversationName
+  commentId: F:Ibralogue.Choice.LeadingConversationName
+  id: LeadingConversationName
+  parent: Ibralogue.Choice
+  langs:
+  - csharp
+  - vb
+  name: LeadingConversationName
+  nameWithType: Choice.LeadingConversationName
+  fullName: Ibralogue.Choice.LeadingConversationName
+  type: Field
+  source:
+    id: LeadingConversationName
+    path: ''
+    startLine: 254
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public string LeadingConversationName
+    return:
+      type: System.String
+    content.vb: Public LeadingConversationName As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
