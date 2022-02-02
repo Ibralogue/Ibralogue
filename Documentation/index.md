@@ -1,7 +1,10 @@
-<h1 align="center">  
-Ibralogue
-</h1>
+<p align="center">
+  <img src="https://i.ibb.co/0C0vrc1/Banner.png">
+</p>
+
    
 > :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
 
-Ibralogue is a dialogue library for the unity game engine. Check out the [manual](manual/quickstart.md).
+<p align="center">
+  <a href="manual/quickstart.md">Manual</a>
+</p>

@@ -4,6 +4,7 @@ items:
   commentId: N:Ibralogue.Parser
   id: Ibralogue.Parser
   children:
+  - Ibralogue.Parser.Choice
   - Ibralogue.Parser.Conversation
   - Ibralogue.Parser.Dialogue
   - Ibralogue.Parser.Sentence
@@ -17,6 +18,11 @@ items:
   assemblies:
   - cs.temp.dll
 references:
+- uid: Ibralogue.Parser.Choice
+  commentId: T:Ibralogue.Parser.Choice
+  name: Choice
+  nameWithType: Choice
+  fullName: Ibralogue.Parser.Choice
 - uid: Ibralogue.Parser.Conversation
   commentId: T:Ibralogue.Parser.Conversation
   name: Conversation

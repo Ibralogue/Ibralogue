@@ -16,10 +16,12 @@ items:
   source:
     id: RandomInteraction
     path: ''
-    startLine: 675
+    startLine: 678
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
+  summary: "\nPlays a random dialogue from within the interaction dialogue array.\n"
+  example: []
   syntax:
     content: 'public class RandomInteraction : DefaultInteraction'
     content.vb: >-
@@ -50,7 +52,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 677
+    startLine: 680
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions

@@ -4,7 +4,6 @@ items:
   commentId: N:Ibralogue
   id: Ibralogue
   children:
-  - Ibralogue.Choice
   - Ibralogue.DialogueFunctionAttribute
   - Ibralogue.DialogueManager
   - Ibralogue.DialogueParser
@@ -29,11 +28,6 @@ references:
   name: DialogueManager
   nameWithType: DialogueManager
   fullName: Ibralogue.DialogueManager
-- uid: Ibralogue.Choice
-  commentId: T:Ibralogue.Choice
-  name: Choice
-  nameWithType: Choice
-  fullName: Ibralogue.Choice
 - uid: Ibralogue.DialogueParser
   commentId: T:Ibralogue.DialogueParser
   name: DialogueParser

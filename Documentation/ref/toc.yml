@@ -2,8 +2,6 @@
 - uid: Ibralogue
   name: Ibralogue
   items:
-  - uid: Ibralogue.Choice
-    name: Choice
   - uid: Ibralogue.DialogueFunctionAttribute
     name: DialogueFunctionAttribute
   - uid: Ibralogue.DialogueManager
@@ -24,6 +22,8 @@
 - uid: Ibralogue.Parser
   name: Ibralogue.Parser
   items:
+  - uid: Ibralogue.Parser.Choice
+    name: Choice
   - uid: Ibralogue.Parser.Conversation
     name: Conversation
   - uid: Ibralogue.Parser.Dialogue

@@ -106,7 +106,7 @@ items:
   syntax:
     content: public Dictionary<Choice, int> Choices
     return:
-      type: Global.Dictionary{Ibralogue.Choice,System.Int32}
+      type: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
     content.vb: Public Choices As Dictionary(Of Choice, Integer)
   modifiers.csharp:
   - public
@@ -210,14 +210,14 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Global.Dictionary{Ibralogue.Choice,System.Int32}
-  commentId: '!:Global.Dictionary{Ibralogue.Choice,System.Int32}'
+- uid: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
+  commentId: '!:Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}'
   definition: Global.Dictionary`2
   name: Dictionary<Choice, Int32>
   nameWithType: Dictionary<Choice, Int32>
-  fullName: Dictionary<Ibralogue.Choice, System.Int32>
+  fullName: Dictionary<Ibralogue.Parser.Choice, System.Int32>
   nameWithType.vb: Dictionary(Of Choice, Int32)
-  fullName.vb: Dictionary(Of Ibralogue.Choice, System.Int32)
+  fullName.vb: Dictionary(Of Ibralogue.Parser.Choice, System.Int32)
   name.vb: Dictionary(Of Choice, Int32)
   spec.csharp:
   - uid: Global.Dictionary`2
@@ -228,10 +228,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Ibralogue.Choice
+  - uid: Ibralogue.Parser.Choice
     name: Choice
     nameWithType: Choice
-    fullName: Ibralogue.Choice
+    fullName: Ibralogue.Parser.Choice
   - name: ', '
     nameWithType: ', '
     fullName: ', '
@@ -252,10 +252,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Ibralogue.Choice
+  - uid: Ibralogue.Parser.Choice
     name: Choice
     nameWithType: Choice
-    fullName: Ibralogue.Choice
+    fullName: Ibralogue.Parser.Choice
   - name: ', '
     nameWithType: ', '
     fullName: ', '

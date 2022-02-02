@@ -211,7 +211,7 @@ items:
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
-  summary: "\nStarts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <a href=\"DisplayDialogue\">DisplayDialogue</a> function.\n"
+  summary: "\nStarts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <xref href=\"Ibralogue.DialogueManager.DisplayDialogue\" data-throw-if-not-resolved=\"false\"></xref> function.\n"
   example: []
   syntax:
     content: public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)
@@ -471,6 +471,9 @@ references:
   name: Awake
   nameWithType: DialogueManager.Awake
   fullName: Ibralogue.DialogueManager.Awake
+- uid: Ibralogue.DialogueManager.DisplayDialogue
+  commentId: M:Ibralogue.DialogueManager.DisplayDialogue
+  isExternal: true
 - uid: Ibralogue.DialogueManager.StartConversation*
   commentId: Overload:Ibralogue.DialogueManager.StartConversation
   name: StartConversation

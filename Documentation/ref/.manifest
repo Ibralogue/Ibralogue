@@ -1,8 +1,5 @@
 {
   "Ibralogue": "Ibralogue.yml",
-  "Ibralogue.Choice": "Ibralogue.Choice.yml",
-  "Ibralogue.Choice.ChoiceName": "Ibralogue.Choice.yml",
-  "Ibralogue.Choice.LeadingConversationName": "Ibralogue.Choice.yml",
   "Ibralogue.DialogueFunctionAttribute": "Ibralogue.DialogueFunctionAttribute.yml",
   "Ibralogue.DialogueManager": "Ibralogue.DialogueManager.yml",
   "Ibralogue.DialogueManager.Awake": "Ibralogue.DialogueManager.yml",
@@ -27,6 +24,9 @@
   "Ibralogue.Interactions.RoundRobinInteraction": "Ibralogue.Interactions.RoundRobinInteraction.yml",
   "Ibralogue.Interactions.RoundRobinInteraction.StartDialogue": "Ibralogue.Interactions.RoundRobinInteraction.yml",
   "Ibralogue.Parser": "Ibralogue.Parser.yml",
+  "Ibralogue.Parser.Choice": "Ibralogue.Parser.Choice.yml",
+  "Ibralogue.Parser.Choice.ChoiceName": "Ibralogue.Parser.Choice.yml",
+  "Ibralogue.Parser.Choice.LeadingConversationName": "Ibralogue.Parser.Choice.yml",
   "Ibralogue.Parser.Conversation": "Ibralogue.Parser.Conversation.yml",
   "Ibralogue.Parser.Conversation.Choices": "Ibralogue.Parser.Conversation.yml",
   "Ibralogue.Parser.Conversation.Dialogues": "Ibralogue.Parser.Conversation.yml",

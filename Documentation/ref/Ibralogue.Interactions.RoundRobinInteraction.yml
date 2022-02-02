@@ -16,7 +16,7 @@ items:
   source:
     id: RoundRobinInteraction
     path: ''
-    startLine: 691
+    startLine: 694
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -52,7 +52,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 696
+    startLine: 699
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions

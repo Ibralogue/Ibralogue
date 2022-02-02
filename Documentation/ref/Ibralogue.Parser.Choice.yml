@@ -1,18 +1,18 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.Choice
-  commentId: T:Ibralogue.Choice
+- uid: Ibralogue.Parser.Choice
+  commentId: T:Ibralogue.Parser.Choice
   id: Choice
-  parent: Ibralogue
+  parent: Ibralogue.Parser
   children:
-  - Ibralogue.Choice.ChoiceName
-  - Ibralogue.Choice.LeadingConversationName
+  - Ibralogue.Parser.Choice.ChoiceName
+  - Ibralogue.Parser.Choice.LeadingConversationName
   langs:
   - csharp
   - vb
   name: Choice
   nameWithType: Choice
-  fullName: Ibralogue.Choice
+  fullName: Ibralogue.Parser.Choice
   type: Struct
   source:
     id: Choice
@@ -20,7 +20,7 @@ items:
     startLine: 251
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue
+  namespace: Ibralogue.Parser
   syntax:
     content: public struct Choice
     content.vb: Public Structure Choice
@@ -30,16 +30,16 @@ items:
   modifiers.vb:
   - Public
   - Structure
-- uid: Ibralogue.Choice.ChoiceName
-  commentId: F:Ibralogue.Choice.ChoiceName
+- uid: Ibralogue.Parser.Choice.ChoiceName
+  commentId: F:Ibralogue.Parser.Choice.ChoiceName
   id: ChoiceName
-  parent: Ibralogue.Choice
+  parent: Ibralogue.Parser.Choice
   langs:
   - csharp
   - vb
   name: ChoiceName
   nameWithType: Choice.ChoiceName
-  fullName: Ibralogue.Choice.ChoiceName
+  fullName: Ibralogue.Parser.Choice.ChoiceName
   type: Field
   source:
     id: ChoiceName
@@ -47,7 +47,7 @@ items:
     startLine: 253
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue
+  namespace: Ibralogue.Parser
   syntax:
     content: public string ChoiceName
     return:
@@ -57,16 +57,16 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Ibralogue.Choice.LeadingConversationName
-  commentId: F:Ibralogue.Choice.LeadingConversationName
+- uid: Ibralogue.Parser.Choice.LeadingConversationName
+  commentId: F:Ibralogue.Parser.Choice.LeadingConversationName
   id: LeadingConversationName
-  parent: Ibralogue.Choice
+  parent: Ibralogue.Parser.Choice
   langs:
   - csharp
   - vb
   name: LeadingConversationName
   nameWithType: Choice.LeadingConversationName
-  fullName: Ibralogue.Choice.LeadingConversationName
+  fullName: Ibralogue.Parser.Choice.LeadingConversationName
   type: Field
   source:
     id: LeadingConversationName
@@ -74,7 +74,7 @@ items:
     startLine: 254
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue
+  namespace: Ibralogue.Parser
   syntax:
     content: public string LeadingConversationName
     return:
@@ -85,11 +85,11 @@ items:
   modifiers.vb:
   - Public
 references:
-- uid: Ibralogue
-  commentId: N:Ibralogue
-  name: Ibralogue
-  nameWithType: Ibralogue
-  fullName: Ibralogue
+- uid: Ibralogue.Parser
+  commentId: N:Ibralogue.Parser
+  name: Ibralogue.Parser
+  nameWithType: Ibralogue.Parser
+  fullName: Ibralogue.Parser
 - uid: System.String
   commentId: T:System.String
   parent: System
