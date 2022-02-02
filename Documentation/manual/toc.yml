@@ -3,6 +3,8 @@
 - name: Syntax Guide
   href: syntax-guide.md
   items:
+    - name: Basic Syntax
+      href: syntax-guide.md
     - name: Global Variables
       href: global-variables.md
     - name: Invocations

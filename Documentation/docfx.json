@@ -31,7 +31,6 @@
     ],
     "dest": "../_site",
     "globalMetadata": {
-      "_appFaviconPath": "resources/favicon.ico",
       "_appTitle": "Ibralogue Docs",
       "_appFooter": "Ibralogue Docs",
       "_enableSearch": true
@@ -44,9 +43,10 @@
     ],
     "resource": [
       {
-        "files": ["resources/**/*"]
+        "files": ["logo.svg", "favicon.ico"]
       }
     ],
+
     "sitemap": {
       "baseUrl": "https://ibralogue.github.io/Ibralogue",
       "changefreq": "weekly",

@@ -1,3 +1,5 @@
+### Basic Syntax
+
 Enclose text in square brackets to define speaker names. Anything below that is part of the same sentence until the next
 speaker name is reached, for example:
 
