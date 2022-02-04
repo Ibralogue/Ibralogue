@@ -11,15 +11,18 @@ namespace Ibralogue.Interactions
     {
         [SerializeField] protected TextAsset[] InteractionDialogues;
 
-        [SerializeField] private UnityEvent _onDialogueStart;
-        [SerializeField] private UnityEvent _onDialogueEnd;
+        [SerializeField] private UnityEvent OnDialogueStart;
+        [SerializeField] private UnityEvent OnDialogueEnd;
 
-        protected abstract void StartDialogue();
-        
-        private void AttachEvents()
+        protected virtual void StartDialogue()
         {
-            DialogueManager.Instance.OnConversationStart = _onDialogueStart;
-            DialogueManager.Instance.OnConversationEnd = _onDialogueEnd;
+            AttachEvents();
+        }
+
+        protected void AttachEvents()
+        {
+            DialogueManager.Instance.OnConversationStart = OnDialogueStart;
+            DialogueManager.Instance.OnConversationEnd = OnDialogueEnd;
         }
     }
 }

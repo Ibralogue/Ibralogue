@@ -6,5 +6,5 @@
 > :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
 
 <p align="center">
-  <a href="manual/quickstart.md">Manual</a>
+  [Manual](manual/quickstart.md) | [Scripting Reference](xref:Ibralogue)
 </p>

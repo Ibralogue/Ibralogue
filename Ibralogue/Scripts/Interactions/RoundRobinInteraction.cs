@@ -12,6 +12,7 @@ namespace Ibralogue.Interactions
 
         protected override void StartDialogue()
         {
+            base.StartDialogue();
             DialogueManager.Instance.StartConversation(InteractionDialogues[_iteration]);
             if (_iteration == InteractionDialogues.Length - 1)
             {
