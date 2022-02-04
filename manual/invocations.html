@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Invocations | Ibralogue Docs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Invocations | Ibralogue Docs ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h3 id="invocations">Invocations</h3>
+
+<p>Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: <code>&lt;&lt;Foo&gt;&gt;</code>. The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation.</p>
+<h4 id="function-invocation">Function Invocation</h4>
+<p>Static functions can be invoked directly from Ibralogue. To set up a static function to be recognized by Ibralogue, add the <code>DialogueFunction</code> attribute like so:</p>
+<pre><code class="lang-cs">[DialogueFunction]
+public static void Die() 
+{
+    Debug.Log(&quot;Dead.&quot;);
+}
+</code></pre><p>...and invoking the function is extremely simple! It would look something like this:</p>
+<pre><code class="lang-text">[NPC]
+Time To Die.
+&lt;&lt;Die&gt;&gt;
+</code></pre><h4 id="image-invocation">Image Invocation</h4>
+<p>Character portraits are really important in a lot of story games, and Ibralogue cant forget them. Ibralogue makes use of <a href="https://docs.unity3d.com/ScriptReference/Resources.Load.html">Resources.Load</a> to load images directly from dialogue files.</p>
+<p>To use Image invocations, make a Resources folder anywhere in your project and then specify directories relative from that folder in the dialogue file. For example:</p>
+<ul>
+<li>With a file located in <code>./Assets/Sprites/Resources/CharacterPortraits/AvaSmiling.png</code>, do:</li>
+</ul>
+<pre><code class="lang-text">[Ava]
+&lt;&lt;Image: CharacterPortraits/AvaSmiling.png&gt;&gt;
+It&#39;s a beautiful day outside!
+</code></pre><h4 id="choice-invocations">Choice Invocations</h4>
+<ul>
+<li><p><code>&lt;&lt;DialogueName: Foo&gt;&gt;</code> allows you to specify the name of a given <code>Conversation</code>. This is required for branching dialogue so the interpreter knows what conversation to branch to.</p>
+</li>
+<li><p><code>&lt;&lt;DialogueEnd&gt;&gt;</code> is a reserved invocation to signify the end of a given <code>Conversation</code>. Ibralogue files can have multiple conversations, so as to conveniently enable branching between them, and the <code>&lt;&lt;DialogueEnd&gt;&gt;</code> keyword is required after a conversation has ended so the interpreter can tell two conversations apart.</p>
+<p>For example:</p>
+</li>
+</ul>
+<pre><code class="lang-text">&lt;&lt;DialogueName: Initial&gt;&gt;
+[NPC]
+Time To Die
+- No -&gt; Denial
+- Sure -&gt; Acceptance
+&lt;&lt;DialogueEnd&gt;&gt;
+
+
+&lt;&lt;DialogueName: Denial&gt;&gt;
+[Player]
+Did you really think...
+I came this far...
+[Player]
+To give up now? HAHAHAHA
+&lt;&lt;DialogueEnd&gt;&gt;
+
+
+&lt;&lt;DialogueName: Acceptance&gt;&gt;
+[Player]
+Y&#39;know what?
+[Player]
+Maybe you&#39;re right... I am tired of life.
+&lt;&lt;DialogueEnd&gt;&gt;
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation/manual/invocations.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Ibralogue Docs
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

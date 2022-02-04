@@ -1,0 +1,9 @@
+<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48">
+    <g id="svgg">
+        <path id="path0" d="M9.984 15.336L9.984 16.944 12.048 16.944L14.112 16.944 14.112 24.048L14.112 31.152 12.048 31.152L9.984 31.152 9.984 32.76L9.984 34.368 15.936 34.368L21.888 34.368 21.888 32.76L21.888 31.152 19.824 31.152L17.76 31.152 17.76 24.048L17.76 16.944 19.824 16.944L21.888 16.944 21.888 15.336L21.888 13.728 15.936 13.728L9.984 13.728 9.984 15.336M25.824 24.048L25.824 34.368 31.968 34.368L38.112 34.368 38.112 32.688L38.112 31.008 33.744 31.008L29.376 31.008 29.376 22.368L29.376 13.728 27.6 13.728L25.824 13.728 25.824 24.048" stroke="none" fill="#fcfcfc" fill-rule="evenodd" stroke-width="0.12" />
+        <path id="path1" d="M9.888 36.984L9.888 38.208 21.696 38.208L33.504 38.208 33.504 36.984L33.504 35.76 21.696 35.76L9.888 35.76 9.888 36.984" stroke="none" fill="#dcfcc4" fill-rule="evenodd" stroke-width="0.12" />
+        <path id="path2" d="" stroke="none" fill="#100fcec" fill-rule="evenodd" stroke-width="0.12" />
+        <path id="path3" d="" stroke="none" fill="#100fcec" fill-rule="evenodd" stroke-width="0.12" />
+        <path id="path4" d="" stroke="none" fill="#100fcec" fill-rule="evenodd" stroke-width="0.12" />
+    </g>
+</svg>

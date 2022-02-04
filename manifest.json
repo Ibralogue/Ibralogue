@@ -1,0 +1,380 @@
+{
+  "sitemap": {
+    "fileOptions": {
+      "ref/*": {
+        "baseUrl": "https://ibralogue.github.io/Ibralogue/",
+        "changefreq": "daily"
+      }
+    },
+    "baseUrl": "https://ibralogue.github.io/Ibralogue/",
+    "changefreq": "weekly"
+  },
+  "homepages": [],
+  "source_base_path": "D:/a/Ibralogue/Ibralogue/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "WIeQqp1So+rJZI7JwyhugdN7cfuJ0NOhq/VS0zBYVNg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/comments.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/comments.html",
+          "hash": "3QoT7PTjnwllfXcbyMy8hDEF2hwZ6dm9mvQlmlyrH+U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/global-variables.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/global-variables.html",
+          "hash": "syDKUS17UhjAzYtSHnkU0TJraFphd9vP31K44frIAzo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/invocations.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/invocations.html",
+          "hash": "KcX/8/31bdDcLYTWs2cx6gvoCgRuvJa4fA1S4uiXXjs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/quickstart.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/quickstart.html",
+          "hash": "DMG8Z8icviM8nzQF7BAUQa3Rl/OXN1Jtk7qo4phP+BI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/syntax-guide.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/syntax-guide.html",
+          "hash": "DqDhuNPoQEBUMq+7UVqFGRpilJZjf1esYPfWBGn6VaQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "manual/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "manual/toc.html",
+          "hash": "7T2WvKczevj89h9spa6+gAD59F5Ega3MZVmUJy+ZiI0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueFunctionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueFunctionAttribute.html",
+          "hash": "oHTDh2YO2veKQ/8FQsMrKyIfJXNvaE0uRZtXlCYk5G4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueManager.html",
+          "hash": "Qyt7Tyfq+Mz2KIFr82wRFrOdzPWhHMAN4hlQdU9bmkQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueParser.html",
+          "hash": "A6VcW2kl6HYs5rc/V4GNvCFAv0vb7+heT2OUCldGwbw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.html",
+          "hash": "C1HiXDTjtAUxGD0V9IJ/KVRrniZ9UvCEDtZ964k0kJM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.html",
+          "hash": "p1nA0ZCEfjdDIiEww5Go1GD5rLtNuOelTWb0Sdc2d+4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.RandomInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.RandomInteraction.html",
+          "hash": "L3Hdgxwrv7ec/zjIejIiTGTN2Qf7tE0H6idZX4p5pHQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.html",
+          "hash": "QQqqDQieFrKxBcLA//E5yfjUvOnlivt/OuaSrh8h0qY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.html",
+          "hash": "3F5UyRLmQg4uqc171ZX5f3sn5Xae1Eht0hOK5xrKyn4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.Choice.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.Choice.html",
+          "hash": "XniAdyOFVK98ETj1wbZAqyGGbqnYRBpKZVNBidU6Zzk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.Conversation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.Conversation.html",
+          "hash": "UYpi4B8pYBlZGH+f2R+IoPMPDNw60AmXeWkToNVdaB4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.Dialogue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.Dialogue.html",
+          "hash": "A5a92O4Xi1GXyOR7sLGm2oiTJs+zaOb19MZO5lrC2E8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.Sentence.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.Sentence.html",
+          "hash": "yJhXj5BQZsScSvaeXFvmdGk0MFWbe5HoOuN8Y6zR68c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.html",
+          "hash": "tMOOaT7+17KHNaidAbpgaAw2HvbDBbVWDy8Vb/KV9FE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.html",
+          "hash": "WWjQSzo8l6/crnOIps5NIF/qXtLiA4zluPJov1IvK28="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "ref/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/toc.html",
+          "hash": "kILuCKbhSeRsqYGcUSB41z10fWkF5jbeHIFd0kQLC8s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "dfQV5szy9quJFGbUKMWB9U0983IBECcC7Dj8GD4IrDk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 6,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 14,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
