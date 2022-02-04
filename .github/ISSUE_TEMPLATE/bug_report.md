@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help improve the dialogue library.
-title: "[BUG] X not working"
+title: "[Bug Report] X not working"
 labels: bug
 assignees: ""
 ---

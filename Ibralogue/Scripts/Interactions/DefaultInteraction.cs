@@ -1,19 +1,28 @@
-using System;
-using Ibralogue;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Ibralogue.Interactions
 {
     /// <summary>
-    /// Plays the very first conversation in the interaction dialogue array.
+    /// The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject.
     /// </summary>
-    public class DefaultInteraction : MonoBehaviour
+    public abstract class DefaultInteraction : MonoBehaviour
     {
-        [SerializeField] protected TextAsset[] _interactionDialogues;
+        [SerializeField] protected TextAsset[] InteractionDialogues;
 
-        public virtual void StartDialogue() =>
-            DialogueManager.Instance.StartConversation(_interactionDialogues[0]);
+        [SerializeField] private UnityEvent OnDialogueStart;
+        [SerializeField] private UnityEvent OnDialogueEnd;
 
+        protected virtual void StartDialogue()
+        {
+            AttachEvents();
+        }
 
+        protected void AttachEvents()
+        {
+            DialogueManager.Instance.OnConversationStart = OnDialogueStart;
+            DialogueManager.Instance.OnConversationEnd = OnDialogueEnd;
+        }
     }
 }

@@ -1,0 +1,63 @@
+{
+  "metadata": [
+    {
+      "dest": "ref",
+      "filter": "filterConfig.yml",
+      "globalNamespaceId": "Global",
+      "src": [
+        {
+          "src": "..",
+          "files": ["Ibralogue/Scripts/**/*.cs"],
+          "exclude": []
+        }
+      ]
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["toc.yml", "index.md"]
+      },
+      {
+        "src": "ref",
+        "files": ["*.yml"],
+        "dest": "ref"
+      },
+      {
+        "src": "manual",
+        "files": ["toc.yml", "*.md"],
+        "dest": "manual"
+      }
+    ],
+    "dest": "../_site",
+    "globalMetadata": {
+      "_appTitle": "Ibralogue Docs",
+      "_appFooter": "Ibralogue Docs",
+      "_enableSearch": true
+    },
+    "overwrite": [
+      {
+        "src": "..",
+        "files": ["Ibralogue/Scripts/**/*.md"]
+      }
+    ],
+    "resource": [
+      {
+        "files": ["logo.svg", "favicon.ico"]
+      }
+    ],
+
+    "sitemap": {
+      "baseUrl": "https://ibralogue.github.io/Ibralogue",
+      "changefreq": "weekly",
+      "fileOptions": {
+        "ref/*": {
+          "changefreq": "daily"
+        }
+      }
+    },
+    "template": ["default", "templates/material"],
+    "xref": ["https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"],
+    "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"]
+  }
+}

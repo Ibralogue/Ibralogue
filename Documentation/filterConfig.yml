@@ -1,0 +1,13 @@
+apiRules:
+  - include:
+      uidRegex: ^Ibralogue
+      type: Namespace
+  - include:
+      uidRegex: Ibralogue.Core
+      type: Namespace
+  - include:
+      uidRegex: ^Global
+      type: Namespace
+  - exclude:
+      uidRegex: .*
+      type: Namespace

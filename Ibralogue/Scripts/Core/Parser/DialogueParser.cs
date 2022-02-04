@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Ibralogue.Parser;
 using UnityEngine;
 
 namespace Ibralogue
@@ -42,13 +43,17 @@ namespace Ibralogue
          {
             string processedLine = line.Trim().Substring(2);
             string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(':');
-            return arguments[0] switch
+            switch (arguments[0])
             {
-               "Image" => Tokens.ImageInvoke,
-               "DialogueName" => Tokens.DialogueNameInvoke,
-               "DialogueEnd" => Tokens.EndInvoke,
-               _ => Tokens.Sentence
-            };
+                case "Image":
+                    return Tokens.ImageInvoke;
+                case "DialogueName":
+                    return Tokens.DialogueNameInvoke;
+                case "DialogueEnd":
+                    return Tokens.EndInvoke;
+                default:
+                    return Tokens.Sentence;
+            }
          }
          if (Regex.IsMatch(line, ChoicePattern)) return Tokens.Choice;
          return Tokens.Sentence;

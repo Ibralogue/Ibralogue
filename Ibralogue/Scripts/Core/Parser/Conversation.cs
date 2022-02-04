@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ibralogue
+namespace Ibralogue.Parser
 {
     public struct Conversation
     {

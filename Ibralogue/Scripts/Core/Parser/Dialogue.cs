@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Ibralogue
+namespace Ibralogue.Parser
 {
     /// <summary>
     /// The Dialogue struct contains information about an individual line of dialogue.

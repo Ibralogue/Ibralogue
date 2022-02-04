@@ -1,0 +1,32 @@
+### YamlMime:TableOfContent
+- uid: Ibralogue
+  name: Ibralogue
+  items:
+  - uid: Ibralogue.DialogueFunctionAttribute
+    name: DialogueFunctionAttribute
+  - uid: Ibralogue.DialogueManager
+    name: DialogueManager
+  - uid: Ibralogue.DialogueParser
+    name: DialogueParser
+- uid: Ibralogue.Interactions
+  name: Ibralogue.Interactions
+  items:
+  - uid: Ibralogue.Interactions.DefaultInteraction
+    name: DefaultInteraction
+  - uid: Ibralogue.Interactions.GlobalVariableInteraction
+    name: GlobalVariableInteraction
+  - uid: Ibralogue.Interactions.RandomInteraction
+    name: RandomInteraction
+  - uid: Ibralogue.Interactions.RoundRobinInteraction
+    name: RoundRobinInteraction
+- uid: Ibralogue.Parser
+  name: Ibralogue.Parser
+  items:
+  - uid: Ibralogue.Parser.Choice
+    name: Choice
+  - uid: Ibralogue.Parser.Conversation
+    name: Conversation
+  - uid: Ibralogue.Parser.Dialogue
+    name: Dialogue
+  - uid: Ibralogue.Parser.Sentence
+    name: Sentence

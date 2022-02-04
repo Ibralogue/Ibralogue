@@ -1,15 +1,20 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using System.IO;
 using UnityEditor.AssetImporters;
 using UnityEditor.Experimental.AssetImporters;
 
-[ScriptedImporter(1, "ibra")]
-public class IbraImporter : ScriptedImporter 
+namespace Ibralogue.Editor
 {
-    public override void OnImportAsset(AssetImportContext ctx)
+    [ScriptedImporter(1, "ibra")]
+    public class IbraImporter : ScriptedImporter
     {
-        TextAsset subAsset = new TextAsset(File.ReadAllText(ctx.assetPath));
-        ctx.AddObjectToAsset("text", subAsset);
-        ctx.SetMainObject(subAsset);
+        public override void OnImportAsset(AssetImportContext ctx)
+        {
+            TextAsset subAsset = new TextAsset(File.ReadAllText(ctx.assetPath));
+            ctx.AddObjectToAsset("text", subAsset);
+            ctx.SetMainObject(subAsset);
+        }
     }
 }
+#endif
