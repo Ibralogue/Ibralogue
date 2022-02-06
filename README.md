@@ -14,20 +14,20 @@ Ibralogue
  <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="MIT License">
    <a href="https://openupm.com/packages/com.ibra.ibralogue/"><img src="https://img.shields.io/npm/v/com.ibra.ibralogue?label=openupm&amp;registry_uri=https://package.openupm.com" /></a>
 </p>
-   
+
 <p align="center">
   <a href="#about">About</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
-  <a href="#support">Support</a>   
+  <a href="#support">Support</a>
 </p>
-   
+
 > :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
 
 ## About
 
 Ibralogue is a simple and extendable dialogue system library for Unity. Dialogue is written in `.ibra` files which have their own syntax which you can
-learn more about in the [wiki](https://github.com/ibra/Ibralogue/wiki).
+learn more about in the [docs](https://ibralogue.github.io/Ibralogue/manual/syntax-guide.html).
 
 ## Installation
 
@@ -35,8 +35,8 @@ Ibralogue is available as a unity package, and you can grab the latest one from 
 
 You can also install it with OpenUPM:
 
-```
-$ openupm add com.ibra.ibralogue
+```text
+openupm add com.ibra.ibralogue
 ```
 
 ## Features
@@ -55,11 +55,14 @@ Ibralogue is extremely early in development so it is missing a few features, tho
 | Rich Text                   |
 | Comments                    |
 | Choice System               |
+
 ## Support
+
 Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
-### Backed By:
+
+### Backed By
+
 <p align="center">
    <a href="https://jb.gg/OpenSource">
   <img style="width:200px;" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png?_gl=1*mdm6fp*_ga*MzEwMDI5Mzc1LjE2Mjc1MTQzMTI.*_ga_V0XZL7QHEB*MTYzNTUwMDYxOC43LjEuMTYzNTUwMDY2Ni4xMg..&_ga=2.186347370.2123366820.1635500619-310029375.1627514312">
 </p>
-
