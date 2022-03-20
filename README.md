@@ -17,9 +17,9 @@ Ibralogue
 
 <p align="center">
   <a href="#about">About</a> •
+  <a href="https://ibralogue.github.io/Ibralogue/index.html">Docs</a> •
   <a href="#installation">Installation</a> •
-  <a href="#features">Features</a> •
-  <a href="#support">Support</a>
+  <a href="#features">Features</a>
 </p>
 
 > :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
