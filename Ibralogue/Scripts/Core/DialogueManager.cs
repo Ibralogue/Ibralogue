@@ -157,7 +157,6 @@ namespace Ibralogue
             } 
             else
             {
-                Debug.Log("convo ended");
                 OnConversationEnd.Invoke();
             }
         }
