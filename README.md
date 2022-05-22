@@ -64,5 +64,4 @@ I really appreciate any form of contribution to Ibralogue, and you can view a li
 
 - [Hucota7](https://hucota7.itch.io) >> help with feature ideas and design decisions.
 
-<br>
-Ibralogue will be forever free, open source, and under the MIT License. You can however, support me by donating to my Ethereum address if you'd like: `0x6fBcf8c7eA647ad190147fb54A947B4C4f6E9163`.
+Ibralogue will be forever free, open source, and under the [MIT License](https://github.com/Ibralogue/Ibralogue/blob/dev/LICENSE). You can support me by starring the project, making code contributions if possible, and identifying bugs or features you'd like to see fixed or implemented. However, if you'd like to give monetary support, you can support me directly on [my Patreon]().
