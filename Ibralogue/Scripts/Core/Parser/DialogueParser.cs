@@ -189,8 +189,8 @@ namespace Ibralogue
       }
 
       /// <summary>
-      /// The GetProcessedLine function takes in a token and a line, and removes/adds anything that requires removal or addition in the
-      /// final processed line.
+      /// The GetProcessedLine function takes in a token and a line, and removes or adds anything that requires removal or addition in the
+      /// final processed line, it does not handle the logic part at all, but merely just how the final string is represented.
       /// </summary>
       private static string GetProcessedLine(Tokens token, string line)
       {
@@ -207,7 +207,7 @@ namespace Ibralogue
                if (line.Length > 4)
                {
                   line = line.Trim().Substring(2);
-                  //We don't need to pass in the first argument since we already know the type of method being invoked;
+                  //We don't need to pass the first argument since we already know the type of method being invoked;
                   line = line.Substring(0, line.Length - 2).Split(':')[1].Trim();
                }
                else
