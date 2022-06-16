@@ -7,7 +7,7 @@ namespace Ibralogue.Interactions
     /// </summary>
     public class RandomInteraction : DefaultInteraction
   {
-      protected override void StartDialogue()
+      public override void StartDialogue()
       {
           base.StartDialogue();
           DialogueManager.Instance.StartConversation(

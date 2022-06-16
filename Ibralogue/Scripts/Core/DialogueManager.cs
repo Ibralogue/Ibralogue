@@ -229,11 +229,13 @@ namespace Ibralogue
             _linePlaying = false;
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
-            speakerPortrait.color = new Color(0, 0, 0, 0);
             sentenceText.maxVisibleCharacters = 0;
-            if (!newConversation) return;
+            speakerPortrait.color = new Color(0, 0, 0, 0);
+            if (!newConversation) 
+                return;
             _dialogueIndex = 0;
-            if (_choiceButtonInstances == null) return;
+            if (_choiceButtonInstances == null) 
+                return;
             foreach (GameObject buttonInstance in _choiceButtonInstances)
             {
                 Destroy(buttonInstance);

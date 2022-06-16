@@ -14,7 +14,7 @@ namespace Ibralogue.Interactions
         [SerializeField] private UnityEvent OnDialogueStart;
         [SerializeField] private UnityEvent OnDialogueEnd;
 
-        protected virtual void StartDialogue()
+        public virtual void StartDialogue()
         {
             AttachEvents();
         }

@@ -13,7 +13,7 @@ namespace Ibralogue.Interactions
         private void Awake() =>
             DialogueManager.GlobalVariables.Add(_variableKey, _variableValue);
 
-        protected override void StartDialogue()
+        public override void StartDialogue()
         {
             base.StartDialogue();
             DialogueManager.Instance.StartConversation(InteractionDialogues[0]);

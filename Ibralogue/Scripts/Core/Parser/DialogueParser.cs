@@ -9,11 +9,14 @@ namespace Ibralogue
 {
    public static class DialogueParser
    {
+      //TODO: change syntax to Hugo-like shortcode
       private const string SpeakerPattern = @"^\[(.+)\]";
-      private const string InvokePattern = @"^<<(.+)>>";
-      private const string InlineInvokePattern = @"<<(.+)>>";
-      private const string ArgumentInvokePattern = @"<<(.+:+\[+.+])>>";
+      private const string CommentPattern = @"#.*";
       private const string ChoicePattern = @"^-(.+)->(.+)";
+      private const string VariablePattern = @"\$[a-zA-Z]*";
+      
+      private const string InvokePattern = @"{{(.+)}}";
+      private const string ArgumentInvokePattern = @"{{.*(.+\(.*\)).*}}"; //TODO: the syntax is {{ Foo(args) }}
       
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
@@ -37,8 +40,10 @@ namespace Ibralogue
       /// <param name="line">The line of the dialogue we need the token of.</param>
       private static Tokens GetLineToken(string line)
       {
-         if (line.StartsWith("#")) return Tokens.Comment;
-         if (Regex.IsMatch(line, SpeakerPattern)) return Tokens.Speaker;
+         if (Regex.IsMatch(line, CommentPattern)) 
+            return Tokens.Comment;
+         if (Regex.IsMatch(line, SpeakerPattern)) 
+            return Tokens.Speaker;
          if (Regex.IsMatch(line, InvokePattern))
          {
             string processedLine = line.Trim().Substring(2);
@@ -55,7 +60,9 @@ namespace Ibralogue
                     return Tokens.Sentence;
             }
          }
-         if (Regex.IsMatch(line, ChoicePattern)) return Tokens.Choice;
+         if (Regex.IsMatch(line, ChoicePattern)) 
+            return Tokens.Choice;
+         
          return Tokens.Sentence;
       }   
       
@@ -211,7 +218,7 @@ namespace Ibralogue
             case Tokens.Comment:
                break;
             case Tokens.Sentence:
-               foreach (Match match in Regex.Matches(line, InlineInvokePattern))
+               foreach (Match match in Regex.Matches(line, InvokePattern))
                {
                   string functionName = match.ToString();
                   line = line.Replace(functionName, "");
@@ -235,9 +242,9 @@ namespace Ibralogue
       /// </summary>
       private static string ReplaceGlobalVariables(string line)
       {
-         foreach (Match match in Regex.Matches(line, @"(%\w+%)"))
+         foreach (Match match in Regex.Matches(line, VariablePattern))
          {
-            string processedVariable = match.ToString().Replace("%", string.Empty);
+            string processedVariable = match.ToString().Trim().Replace("$", string.Empty);
             if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
             {
                line = line.Replace(match.ToString(), keyValue);
@@ -245,7 +252,7 @@ namespace Ibralogue
             else
             {
                Debug.LogWarning(
-                  $"[Ibralogue] Variable declaration detected, ({match}) but no entry found in dictionary!");
+                  $"[Ibralogue] Variable declaration detected, ({processedVariable}) but no entry found in dictionary!");
             }
          }
          return line;
@@ -259,7 +266,7 @@ namespace Ibralogue
       private static Dictionary<int,string> GatherInlineFunctionInvocations(string line)
       {
          Dictionary<int,string> inlineFunctionNames = new Dictionary<int,string>();
-         foreach (Match match in Regex.Matches(line,InlineInvokePattern))
+         foreach (Match match in Regex.Matches(line,InvokePattern))
          {
             string functionName = match.ToString();
             int characterIndex = line.IndexOf(functionName);

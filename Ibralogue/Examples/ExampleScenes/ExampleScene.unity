@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 371977646}
   - component: {fileID: 371977645}
   - component: {fileID: 371977650}
-  - component: {fileID: 371977649}
+  - component: {fileID: 371977648}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 371977649}
+      - m_Target: {fileID: 371977648}
         m_MethodName: StartDialogue
         m_Mode: 1
         m_Arguments:
@@ -415,8 +415,8 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371977643}
-  m_CullTransparentMesh: 1
---- !u!114 &371977649
+  m_CullTransparentMesh: 0
+--- !u!114 &371977648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,32 +425,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 371977643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 093930196981ac44fb29aac785f4f90c, type: 3}
+  m_Script: {fileID: 11500000, guid: d1451c34a0a108f44a74d4f0a4909087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionDialogues:
-  - {fileID: 2811297602134710623, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
-  - {fileID: 2811297602134710623, guid: 99aab843f37c9fd458801a47c2b908c2, type: 3}
-  - {fileID: 2811297602134710623, guid: 990558897ffcc3e48b6412b2402c24dc, type: 3}
   - {fileID: 2811297602134710623, guid: 12565551d17e76b47964c183a7364141, type: 3}
   OnDialogueStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 371977643}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDialogueEnd:
     m_PersistentCalls:
       m_Calls: []
-  _loop: 0
+  _variableKey: PLAYERNAME
+  _variableValue: Ibrahim
 --- !u!65 &371977650
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace Ibralogue.Interactions
         private int _iteration;
         [SerializeField] private bool _loop;
 
-        protected override void StartDialogue()
+        public override void StartDialogue()
         {
             base.StartDialogue();
             DialogueManager.Instance.StartConversation(InteractionDialogues[_iteration]);
