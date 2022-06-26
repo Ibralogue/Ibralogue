@@ -91,10 +91,11 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
-            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             _linePlaying = true;
+            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
-
+            yield return null;
+            
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
             functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;

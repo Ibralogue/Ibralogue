@@ -1,9 +1,9 @@
-<<DialogueName: Init>>
+{{DialogueName: Init}}
 [NPC]
 A string function allows me to do powerful things...
 [NPC]
-# In this case, <<GetDay>> is the string function.
-For example, <<GetDay>> is what day today is.
+# In this case, {{GetDay}} is a function that returns a string
+For example, {{GetDay}} is what day today is.
 [NPC]
 I know, truly magical.
-<<DialogueEnd>>
+{{DialogueEnd}}

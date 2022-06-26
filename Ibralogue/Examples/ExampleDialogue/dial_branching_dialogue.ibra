@@ -3,8 +3,8 @@
 Hello traveller.
 [NPC]
 How are you?
-- Fine -> FineDial
-- Terrible -> TerribleDial
+- Fine -> FineConversation
+- Terrible -> TerribleConversation
 {{DialogueEnd}}
 
 {{DialogueName: FineConversation}}
