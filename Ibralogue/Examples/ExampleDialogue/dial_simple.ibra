@@ -1,10 +1,11 @@
-<<DialogueName: SimpleConversation>>
+{{DialogueName: SimpleConversation}}
 [Ava]
-<<Image: Sprites/Happy>>
-Hey There!
+{{Image: Sprites/Happy}}
+Hey there!
+[Ava]
 How are you?
 [Claire]
-<<Image: Sprites/Worried>>
+{{Image: Sprites/Worried}}
 Well... I'm not doing too great.
 Work has been stressing me out...
 [Ava]
@@ -15,4 +16,4 @@ Oh...
 I know!
 [Ava]
 Why don't we go <color=#F7BD01>fishing</color>!
-<<DialogueEnd>>
+{{DialogueEnd}}

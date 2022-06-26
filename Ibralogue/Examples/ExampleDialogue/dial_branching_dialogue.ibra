@@ -1,4 +1,4 @@
-{{DialogueName: InitialDial}}
+{{DialogueName: InitialConversation}}
 [NPC]
 Hello traveller.
 [NPC]
@@ -7,12 +7,12 @@ How are you?
 - Terrible -> TerribleDial
 {{DialogueEnd}}
 
-{{DialogueName: FineDial}}
+{{DialogueName: FineConversation}}
 [NPC]
 Good to hear!
 {{DialogueEnd}}
 
-{{DialogueName: TerribleDial}}
+{{DialogueName: TerribleConversation}}
 [NPC]
 Aw. Hope it gets better!
-{{DialogueEnd>}}
+{{DialogueEnd}}

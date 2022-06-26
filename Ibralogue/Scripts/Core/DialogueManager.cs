@@ -231,6 +231,7 @@ namespace Ibralogue
             sentenceText.text = string.Empty;
             sentenceText.maxVisibleCharacters = 0;
             speakerPortrait.color = new Color(0, 0, 0, 0);
+            
             if (!newConversation) 
                 return;
             _dialogueIndex = 0;

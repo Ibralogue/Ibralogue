@@ -1,3 +1,4 @@
+{{DialogueName: FunctionConversation}}
 [NPC]
 Psssst kid. New feature dropped.
 [NPC]
@@ -6,4 +7,4 @@ You can invoke functions {{TriggerFunction}} between lines!
 All the fancy people call "Inline Function Invocation".
 [NPC]
 It's absolutely brilliant!
-<<DialogueEnd>>
+{{DialogueEnd}}
