@@ -9,20 +9,20 @@ namespace Ibralogue
 {
    public static class DialogueParser
    {
-      //TODO: change syntax to Hugo-like shortcode
-      private const string SpeakerPattern = @"^\[(.+)\]";
-      private const string CommentPattern = @"#.*";
+      private static readonly Regex SpeakerRegex = new Regex(@"^\[(.+)\]");
+      private static readonly Regex CommentRegex = new Regex(@"#.*");
       private const string ChoicePattern = @"^-(.+)->(.+)";
       private const string VariablePattern = @"\$[a-zA-Z]*";
       
-      private const string InvokePattern = @"{{(.+)}}";
-      private const string ArgumentInvokePattern = @"{{.*(.+\(.*\)).*}}"; //TODO: the syntax is {{ Foo(args) }}
+      private const string FunctionPattern = @"{{(.+)}}";
+      private const string SingleFunctionPattern = @"^{{(.+)}}";
+      private const string ArgumentFunctionPattern = @"{{.*(.+\(.*\)).*}}"; //TODO: the syntax is {{ Foo(args) }}
       
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
       /// which provides additional information about the lexeme that the token represents. 
       /// </summary>
-      private enum Tokens
+      private enum Token
       {
          Speaker,
          Sentence,
@@ -34,46 +34,55 @@ namespace Ibralogue
       }
       
       /// <returns>
-      /// The GetLineToken function checks what character the line it is given starts with and returns a "token" with it
-      /// according to that.
+      /// The GetLineToken function reads the given line and assigns the entire line a token based on that.
       /// </returns>
       /// <param name="line">The line of the dialogue we need the token of.</param>
-      private static Tokens GetLineToken(string line)
+      private static Token GetLineToken(string line)
       {
-         if (Regex.IsMatch(line, CommentPattern)) 
-            return Tokens.Comment;
-         if (Regex.IsMatch(line, SpeakerPattern)) 
-            return Tokens.Speaker;
-         if (Regex.IsMatch(line, InvokePattern))
+         if (CommentRegex.IsMatch(line)) 
+            return Token.Comment;
+         if (SpeakerRegex.IsMatch(line)) 
+            return Token.Speaker;
+         if (Regex.IsMatch(line, ArgumentFunctionPattern))
          {
-            string processedLine = line.Trim().Substring(2);
-            string[] arguments = processedLine.Substring(0, processedLine.Length - 2).Split(':');
-            switch (arguments[0])
+            string functionName = Regex.Match(line.Substring(2), @"^[^\(]+").Value;
+            switch (functionName)
             {
-                case "Image":
-                    return Tokens.ImageInvoke;
-                case "DialogueName":
-                    return Tokens.DialogueNameInvoke;
-                case "DialogueEnd":
-                    return Tokens.EndInvoke;
+               case "Image":
+                  return Token.ImageInvoke;
+               case "DialogueName":
+                  return Token.DialogueNameInvoke;
+               default:
+                  return Token.Sentence;
+            }
+         }
+         if (Regex.IsMatch(line, SingleFunctionPattern))
+         {
+            string functionName = line.Trim();
+            functionName = line.Substring(2);
+            functionName = functionName.Remove(functionName.Length - 2);
+            
+            switch (functionName)
+            {
+               case "DialogueEnd":
+                    return Token.EndInvoke;
                 default:
-                    return Tokens.Sentence;
+                    return Token.Sentence;
             }
          }
          if (Regex.IsMatch(line, ChoicePattern)) 
-            return Tokens.Choice;
+            return Token.Choice;
          
-         return Tokens.Sentence;
+         return Token.Sentence;
       }   
       
       /// <summary>
       /// The ParseDialogue function returns an array of conversations and associates information
-      /// with each element in the dialogue array. Speaker Name, Sentence, Image etc. as well as additional per-conversation metadata.
+      /// with each element in the dialogue array (Speaker Name, Sentence, Image etc.) as well as additional metadata.
       /// </summary>
       public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)
       {
-         string dialogueText = dialogueAsset.text;
-         string[] textLines = dialogueText.Split('\n');
+         string[] textLines = dialogueAsset.text.Split('\n');
          
          List<Conversation> conversations = new List<Conversation>();
          List<Sentence> sentences = new List<Sentence>();
@@ -90,20 +99,20 @@ namespace Ibralogue
          for (int index = 0; index < textLines.Length; index++)
          {
             string line = textLines[index];
-            Tokens token = GetLineToken(line);
+            Token token = GetLineToken(line);
             string processedLine = GetProcessedLine(token, line);
 
             switch (token)
             {
-               case Tokens.Comment:
+               case Token.Comment:
                   break;
-               case Tokens.Speaker when dialogue.Speaker == null:
+               case Token.Speaker when dialogue.Speaker == null:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
                   dialogue.Speaker = processedLine;
                   break;
                }
-               case Tokens.Speaker:
+               case Token.Speaker:
                {
                   dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, dialogue);
@@ -122,7 +131,7 @@ namespace Ibralogue
                   sentences.Clear();
                   break;
                }
-               case Tokens.Sentence:
+               case Token.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
                   Sentence sentence = new Sentence
@@ -133,7 +142,7 @@ namespace Ibralogue
                   sentences.Add(sentence);
                   break;
                }
-               case Tokens.ImageInvoke:
+               case Token.ImageInvoke:
                {
                   if (Resources.Load(processedLine) == null)
                      Debug.LogError(
@@ -141,12 +150,12 @@ namespace Ibralogue
                   dialogue.SpeakerImage = Resources.Load<Sprite>(processedLine);
                   break;
                }
-               case Tokens.DialogueNameInvoke:
+               case Token.DialogueNameInvoke:
                {
                   conversation.Name = processedLine;
                   break;
                }
-               case Tokens.EndInvoke:
+               case Token.EndInvoke:
                {
                   dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, dialogue);
@@ -166,7 +175,7 @@ namespace Ibralogue
                   conversation = new Conversation {Dialogues = new List<Dialogue>()};
                   break;
                }
-               case Tokens.Choice:
+               case Token.Choice:
                   if (conversation.Choices == null)
                      conversation.Choices = new Dictionary<Choice, int>();
                   string[] arguments = Regex.Split(processedLine, @"(->)");
@@ -189,46 +198,46 @@ namespace Ibralogue
       }
 
       /// <summary>
-      /// The GetProcessedLine function takes in a token and a line, and removes or adds anything that requires removal or addition in the
-      /// final processed line, it does not handle the logic part at all, but merely just how the final string is represented.
+      /// The GetProcessedLine function takes in a token and a line, and removes or adds anything that requires it in the
+      /// final processed line. It does not handle the logic, but merely just how the final string is represented.
       /// </summary>
-      private static string GetProcessedLine(Tokens token, string line)
+      private static string GetProcessedLine(Token token, string line)
       {
          switch (token)
          {
-            case Tokens.Speaker:
+            case Token.Comment:
+               break;
+            case Token.Speaker:
                if (line.Length >= 2) {
                   line = line.Trim().Substring(1);
                   line = line.Substring(0, line.Length - 1);
                } 
                break;
-            case Tokens.ImageInvoke:
-            case Tokens.DialogueNameInvoke:
+            case Token.ImageInvoke:
+            case Token.DialogueNameInvoke:
                if (line.Length > 4)
                {
-                  line = line.Trim().Substring(2);
-                  //We don't need to pass the first argument since we already know the type of method being invoked;
-                  line = line.Substring(0, line.Length - 2).Split(':')[1].Trim();
+                  line = line.Trim();
+                  line = Regex.Match(line, @"\(([^\)]+)\)").Value;
+                  line = line.Replace("(", string.Empty).Replace(")", string.Empty);
                }
                else
                {
                   throw new ArgumentOutOfRangeException($"[Ibralogue] Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
                }
                break;
-            case Tokens.Comment:
-               break;
-            case Tokens.Sentence:
-               foreach (Match match in Regex.Matches(line, InvokePattern))
+            case Token.Sentence:
+               foreach (Match match in Regex.Matches(line, FunctionPattern))
                {
                   string functionName = match.ToString();
-                  line = line.Replace(functionName, "");
+                  line = line.Replace(functionName, string.Empty);
                }
                break;
-            case Tokens.Choice:
+            case Token.Choice:
                line = line.Trim();
                line = line.Substring(1);
                break;
-            case Tokens.EndInvoke:
+            case Token.EndInvoke:
                break;
             default:
                Debug.LogError($"[Ibralogue] Argument Out Of Range: {token}");
@@ -266,7 +275,7 @@ namespace Ibralogue
       private static Dictionary<int,string> GatherInlineFunctionInvocations(string line)
       {
          Dictionary<int,string> inlineFunctionNames = new Dictionary<int,string>();
-         foreach (Match match in Regex.Matches(line,InvokePattern))
+         foreach (Match match in Regex.Matches(line,FunctionPattern))
          {
             string functionName = match.ToString();
             int characterIndex = line.IndexOf(functionName);

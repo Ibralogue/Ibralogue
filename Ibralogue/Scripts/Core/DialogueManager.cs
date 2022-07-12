@@ -28,16 +28,16 @@ namespace Ibralogue
 
         [Header("Dialogue UI")]
         [SerializeField] private float timeBetweenCharacters = 0.1f;
-        [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
         
+        [Header("Choices")]
         private List<GameObject> _choiceButtonInstances;
-        [Header("Prefabs")]
+        
+        [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private GameObject choiceButton;
         
-
         [Header("Function Invocations")] 
         [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
