@@ -1,4 +1,4 @@
-<<DialogueName: Init>>
+{{DialogueName(Init)}}
 [NPC]
 Hello World!
-<<DialogueEnd>>
+{{DialogueEnd}}
