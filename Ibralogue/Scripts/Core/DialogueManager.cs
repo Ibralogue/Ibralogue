@@ -13,8 +13,7 @@ namespace Ibralogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        public static DialogueManager Instance { get; private set; }
-        
+
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
 
         [field: HideInInspector] public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
@@ -42,18 +41,6 @@ namespace Ibralogue
         [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
         
-        protected void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
-
         /// <summary>
         /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see cref="DisplayDialogue"/> function.
         /// </summary>

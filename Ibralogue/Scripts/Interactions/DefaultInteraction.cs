@@ -9,6 +9,7 @@ namespace Ibralogue.Interactions
     /// </summary>
     public abstract class DefaultInteraction : MonoBehaviour
     {
+        [SerializeField] protected DialogueManager dialogueManager;
         [SerializeField] protected TextAsset[] InteractionDialogues;
 
         [SerializeField] private UnityEvent OnDialogueStart;
@@ -19,10 +20,10 @@ namespace Ibralogue.Interactions
             AttachEvents();
         }
 
-        protected void AttachEvents()
+        private void AttachEvents()
         {
-            DialogueManager.Instance.OnConversationStart = OnDialogueStart;
-            DialogueManager.Instance.OnConversationEnd = OnDialogueEnd;
+            dialogueManager.OnConversationStart = OnDialogueStart;
+            dialogueManager.OnConversationEnd = OnDialogueEnd;
         }
     }
 }

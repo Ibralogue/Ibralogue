@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093930196981ac44fb29aac785f4f90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 1515395011}
   InteractionDialogues:
   - {fileID: 2811297602134710623, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
   OnDialogueStart:
@@ -562,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44147194856e88a469e327aa70a5ecdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 0}
 --- !u!1 &562461647
 GameObject:
   m_ObjectHideFlags: 0
