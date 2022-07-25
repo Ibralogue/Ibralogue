@@ -3,9 +3,9 @@ using UnityEditor;
 
 namespace Ibralogue.Editor
 {
-    public class CreateIbralogue
+    public static class CreateIbralogue
     {
-        private const string TemplatePath = "Assets/Ibralogue/Templates/";
+        private const string TemplatePath = "Assets/Ibralogue/Ibralogue/Templates/";
         private const string DefaultScript = "DefaultDialogue.ibra.txt";
 
         [MenuItem("Assets/Create/Ibralogue", false, 50)]
