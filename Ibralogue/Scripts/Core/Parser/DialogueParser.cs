@@ -11,12 +11,12 @@ namespace Ibralogue
    {
       private static readonly Regex SpeakerRegex = new Regex(@"^\[(.+)\]");
       private static readonly Regex CommentRegex = new Regex(@"#.*");
-      private const string ChoicePattern = @"^-(.+)->(.+)";
-      private const string VariablePattern = @"\$[a-zA-Z]*";
+      private static readonly Regex ChoiceRegex = new Regex(@"^-(.+)->(.+)");
+      private static readonly Regex VariableRegex = new Regex(@"\$[a-zA-Z]*");
       
-      private const string FunctionPattern = @"{{(.+)}}";
-      private const string SingleFunctionPattern = @"^{{(.+)}}";
-      private const string ArgumentFunctionPattern = @"{{.*(.+\(.*\)).*}}"; //TODO: the syntax is {{ Foo(args) }}
+      private static readonly Regex FunctionRegex = new Regex(@"{{(.+)}}");
+      private static readonly Regex SingleFunctionRegex = new Regex(@"^{{(.+)}}");
+      private static readonly Regex ArgumentFunctionRegex = new Regex(@"{{.*(.+\(.*\)).*}}"); //TODO: the syntax is {{ Foo(args) }}
       
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
@@ -43,7 +43,7 @@ namespace Ibralogue
             return Token.Comment;
          if (SpeakerRegex.IsMatch(line)) 
             return Token.Speaker;
-         if (Regex.IsMatch(line, ArgumentFunctionPattern))
+         if (ArgumentFunctionRegex.IsMatch(line))
          {
             string functionName = Regex.Match(line.Substring(2), @"^[^\(]+").Value;
             switch (functionName)
@@ -56,7 +56,7 @@ namespace Ibralogue
                   return Token.Sentence;
             }
          }
-         if (Regex.IsMatch(line, SingleFunctionPattern))
+         if (SingleFunctionRegex.IsMatch(line))
          {
             string functionName = line.Trim();
             functionName = line.Substring(2);
@@ -70,7 +70,7 @@ namespace Ibralogue
                     return Token.Sentence;
             }
          }
-         if (Regex.IsMatch(line, ChoicePattern)) 
+         if (ChoiceRegex.IsMatch(line)) 
             return Token.Choice;
          
          return Token.Sentence;
@@ -227,7 +227,7 @@ namespace Ibralogue
                }
                break;
             case Token.Sentence:
-               foreach (Match match in Regex.Matches(line, FunctionPattern))
+               foreach (Match match in FunctionRegex.Matches(line))
                {
                   string functionName = match.ToString();
                   line = line.Replace(functionName, string.Empty);
@@ -251,7 +251,7 @@ namespace Ibralogue
       /// </summary>
       private static string ReplaceGlobalVariables(string line)
       {
-         foreach (Match match in Regex.Matches(line, VariablePattern))
+         foreach (Match match in VariableRegex.Matches(line))
          {
             string processedVariable = match.ToString().Trim().Replace("$", string.Empty);
             if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
@@ -275,7 +275,7 @@ namespace Ibralogue
       private static Dictionary<int,string> GatherInlineFunctionInvocations(string line)
       {
          Dictionary<int,string> inlineFunctionNames = new Dictionary<int,string>();
-         foreach (Match match in Regex.Matches(line,FunctionPattern))
+         foreach (Match match in FunctionRegex.Matches(line))
          {
             string functionName = match.ToString();
             int characterIndex = line.IndexOf(functionName);
