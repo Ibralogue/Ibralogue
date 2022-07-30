@@ -95,7 +95,7 @@ namespace Ibralogue
                Invocations = new Dictionary<int, string>()
             }
          };
-         
+
          for (int index = 0; index < textLines.Length; index++)
          {
             string line = textLines[index];
@@ -223,6 +223,7 @@ namespace Ibralogue
                }
                else
                {
+                  //TODO: implement proper error handling
                   throw new ArgumentOutOfRangeException($"[Ibralogue] Invocation name too short! Are you sure you used the syntax properly? At: {token} - {line}");
                }
                break;
