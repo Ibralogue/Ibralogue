@@ -5,12 +5,10 @@ items:
   id: DialogueManager
   parent: Ibralogue
   children:
-  - Ibralogue.DialogueManager.Awake
   - Ibralogue.DialogueManager.DisplayChoices
   - Ibralogue.DialogueManager.DisplayNextLine
   - Ibralogue.DialogueManager.DisplaySpeakerImage
   - Ibralogue.DialogueManager.GlobalVariables
-  - Ibralogue.DialogueManager.Instance
   - Ibralogue.DialogueManager.OnConversationEnd
   - Ibralogue.DialogueManager.OnConversationStart
   - Ibralogue.DialogueManager.StartConversation(TextAsset,System.Int32)
@@ -41,39 +39,6 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Ibralogue.DialogueManager.Instance
-  commentId: P:Ibralogue.DialogueManager.Instance
-  id: Instance
-  parent: Ibralogue.DialogueManager
-  langs:
-  - csharp
-  - vb
-  name: Instance
-  nameWithType: DialogueManager.Instance
-  fullName: Ibralogue.DialogueManager.Instance
-  type: Property
-  source:
-    id: Instance
-    path: ''
-    startLine: 21
-  assemblies:
-  - cs.temp.dll
-  namespace: Ibralogue
-  syntax:
-    content: public static DialogueManager Instance { get; }
-    parameters: []
-    return:
-      type: Ibralogue.DialogueManager
-    content.vb: Public Shared ReadOnly Property Instance As DialogueManager
-  overload: Ibralogue.DialogueManager.Instance*
-  modifiers.csharp:
-  - public
-  - static
-  - get
-  modifiers.vb:
-  - Public
-  - Shared
-  - ReadOnly
 - uid: Ibralogue.DialogueManager.GlobalVariables
   commentId: F:Ibralogue.DialogueManager.GlobalVariables
   id: GlobalVariables
@@ -88,7 +53,7 @@ items:
   source:
     id: GlobalVariables
     path: ''
-    startLine: 23
+    startLine: 22
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -119,7 +84,7 @@ items:
   source:
     id: OnConversationStart
     path: ''
-    startLine: 25
+    startLine: 24
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -150,7 +115,7 @@ items:
   source:
     id: OnConversationEnd
     path: ''
-    startLine: 26
+    startLine: 25
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -167,32 +132,6 @@ items:
   - set
   modifiers.vb:
   - Public
-- uid: Ibralogue.DialogueManager.Awake
-  commentId: M:Ibralogue.DialogueManager.Awake
-  id: Awake
-  parent: Ibralogue.DialogueManager
-  langs:
-  - csharp
-  - vb
-  name: Awake()
-  nameWithType: DialogueManager.Awake()
-  fullName: Ibralogue.DialogueManager.Awake()
-  type: Method
-  source:
-    id: Awake
-    path: ''
-    startLine: 50
-  assemblies:
-  - cs.temp.dll
-  namespace: Ibralogue
-  syntax:
-    content: protected void Awake()
-    content.vb: Protected Sub Awake
-  overload: Ibralogue.DialogueManager.Awake*
-  modifiers.csharp:
-  - protected
-  modifiers.vb:
-  - Protected
 - uid: Ibralogue.DialogueManager.StartConversation(TextAsset,System.Int32)
   commentId: M:Ibralogue.DialogueManager.StartConversation(TextAsset,System.Int32)
   id: StartConversation(TextAsset,System.Int32)
@@ -207,7 +146,7 @@ items:
   source:
     id: StartConversation
     path: ''
-    startLine: 67
+    startLine: 54
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -242,7 +181,7 @@ items:
   source:
     id: DisplayNextLine
     path: ''
-    startLine: 146
+    startLine: 134
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -270,7 +209,7 @@ items:
   source:
     id: DisplayChoices
     path: ''
-    startLine: 172
+    startLine: 160
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -298,7 +237,7 @@ items:
   source:
     id: DisplaySpeakerImage
     path: ''
-    startLine: 223
+    startLine: 211
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -331,17 +270,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Ibralogue.DialogueManager.Instance*
-  commentId: Overload:Ibralogue.DialogueManager.Instance
-  name: Instance
-  nameWithType: DialogueManager.Instance
-  fullName: Ibralogue.DialogueManager.Instance
-- uid: Ibralogue.DialogueManager
-  commentId: T:Ibralogue.DialogueManager
-  parent: Ibralogue
-  name: DialogueManager
-  nameWithType: DialogueManager
-  fullName: Ibralogue.DialogueManager
 - uid: Global.Dictionary{System.String,System.String}
   commentId: '!:Global.Dictionary{System.String,System.String}'
   definition: Global.Dictionary`2
@@ -466,11 +394,6 @@ references:
   name: OnConversationEnd
   nameWithType: DialogueManager.OnConversationEnd
   fullName: Ibralogue.DialogueManager.OnConversationEnd
-- uid: Ibralogue.DialogueManager.Awake*
-  commentId: Overload:Ibralogue.DialogueManager.Awake
-  name: Awake
-  nameWithType: DialogueManager.Awake
-  fullName: Ibralogue.DialogueManager.Awake
 - uid: Ibralogue.DialogueManager.DisplayDialogue
   commentId: M:Ibralogue.DialogueManager.DisplayDialogue
   isExternal: true

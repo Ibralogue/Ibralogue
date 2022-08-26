@@ -16,7 +16,7 @@ items:
   source:
     id: RoundRobinInteraction
     path: ''
-    startLine: 694
+    startLine: 708
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -31,6 +31,7 @@ items:
   - System.Object
   - Ibralogue.Interactions.DefaultInteraction
   inheritedMembers:
+  - Ibralogue.Interactions.DefaultInteraction.dialogueManager
   - Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   modifiers.csharp:
   - public
@@ -52,20 +53,20 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 699
+    startLine: 713
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
   syntax:
-    content: protected override void StartDialogue()
-    content.vb: Protected Overrides Sub StartDialogue
+    content: public override void StartDialogue()
+    content.vb: Public Overrides Sub StartDialogue
   overridden: Ibralogue.Interactions.DefaultInteraction.StartDialogue
   overload: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue*
   modifiers.csharp:
-  - protected
+  - public
   - override
   modifiers.vb:
-  - Protected
+  - Public
   - Overrides
 references:
 - uid: Ibralogue.Interactions
@@ -86,6 +87,12 @@ references:
   name: DefaultInteraction
   nameWithType: DefaultInteraction
   fullName: Ibralogue.Interactions.DefaultInteraction
+- uid: Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  commentId: F:Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  parent: Ibralogue.Interactions.DefaultInteraction
+  name: dialogueManager
+  nameWithType: DefaultInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.DefaultInteraction.dialogueManager
 - uid: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   commentId: F:Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   parent: Ibralogue.Interactions.DefaultInteraction

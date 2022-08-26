@@ -16,7 +16,7 @@ items:
   source:
     id: DialogueParser
     path: ''
-    startLine: 295
+    startLine: 286
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -46,11 +46,11 @@ items:
   source:
     id: ParseDialogue
     path: ''
-    startLine: 351
+    startLine: 359
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
-  summary: "\nThe ParseDialogue function returns an array of conversations and associates information\nwith each element in the dialogue array. Speaker Name, Sentence, Image etc. as well as additional per-conversation metadata.\n"
+  summary: "\nThe ParseDialogue function returns an array of conversations and associates information\nwith each element in the dialogue array (Speaker Name, Sentence, Image etc.) as well as additional metadata.\n"
   example: []
   syntax:
     content: public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)

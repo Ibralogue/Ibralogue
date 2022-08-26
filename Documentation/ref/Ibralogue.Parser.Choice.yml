@@ -17,7 +17,7 @@ items:
   source:
     id: Choice
     path: ''
-    startLine: 251
+    startLine: 242
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -44,7 +44,7 @@ items:
   source:
     id: ChoiceName
     path: ''
-    startLine: 253
+    startLine: 244
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -71,7 +71,7 @@ items:
   source:
     id: LeadingConversationName
     path: ''
-    startLine: 254
+    startLine: 245
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser

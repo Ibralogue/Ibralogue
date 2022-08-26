@@ -5,6 +5,7 @@ items:
   id: DefaultInteraction
   parent: Ibralogue.Interactions
   children:
+  - Ibralogue.Interactions.DefaultInteraction.dialogueManager
   - Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   - Ibralogue.Interactions.DefaultInteraction.StartDialogue
   langs:
@@ -17,7 +18,7 @@ items:
   source:
     id: DefaultInteraction
     path: ''
-    startLine: 633
+    startLine: 641
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -42,6 +43,33 @@ items:
   - Public
   - MustInherit
   - Class
+- uid: Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  commentId: F:Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  id: dialogueManager
+  parent: Ibralogue.Interactions.DefaultInteraction
+  langs:
+  - csharp
+  - vb
+  name: dialogueManager
+  nameWithType: DefaultInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  type: Field
+  source:
+    id: dialogueManager
+    path: ''
+    startLine: 643
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  syntax:
+    content: protected DialogueManager dialogueManager
+    return:
+      type: Ibralogue.DialogueManager
+    content.vb: Protected dialogueManager As DialogueManager
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
 - uid: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   commentId: F:Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   id: InteractionDialogues
@@ -56,7 +84,7 @@ items:
   source:
     id: InteractionDialogues
     path: ''
-    startLine: 635
+    startLine: 644
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -83,20 +111,20 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 640
+    startLine: 649
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
   syntax:
-    content: protected abstract void StartDialogue()
-    content.vb: Protected MustOverride Sub StartDialogue
+    content: public virtual void StartDialogue()
+    content.vb: Public Overridable Sub StartDialogue
   overload: Ibralogue.Interactions.DefaultInteraction.StartDialogue*
   modifiers.csharp:
-  - protected
-  - abstract
+  - public
+  - virtual
   modifiers.vb:
-  - Protected
-  - MustOverride
+  - Public
+  - Overridable
 references:
 - uid: Ibralogue.Interactions
   commentId: N:Ibralogue.Interactions
@@ -116,6 +144,17 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: Ibralogue.DialogueManager
+  commentId: T:Ibralogue.DialogueManager
+  parent: Ibralogue
+  name: DialogueManager
+  nameWithType: DialogueManager
+  fullName: Ibralogue.DialogueManager
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
 - uid: Global.TextAsset[]
   isExternal: true
   name: TextAsset[]
