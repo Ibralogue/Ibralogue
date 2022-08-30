@@ -7,7 +7,7 @@ namespace Ibralogue.Interactions
     /// <summary>
     /// The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject.
     /// </summary>
-    public abstract class DefaultInteraction : MonoBehaviour
+    public abstract class BaseInteraction : MonoBehaviour
     {
         [SerializeField] protected DialogueManager dialogueManager;
         [SerializeField] protected TextAsset[] InteractionDialogues;
