@@ -1,7 +1,7 @@
 ## Quickstart
 
 * Add an empty GameObject with the component `DialogueManager` to your scene and assign its required references.
-* Add a button and give it the `DialogueInteraction` component and assign the button's callback to `DialogueInteraction.StartDialogue`
+* Add a button and give it the `SingleInteraction` component and assign the button's callback to `DialogueInteraction.StartDialogue`
 
 For the `Interaction Dialogue` reference, create a new Ibralogue file from the create menu like so:
 ![Image Showing The Create Menu in Unity](https://i.ibb.co/F6hcNJz/image.png)
