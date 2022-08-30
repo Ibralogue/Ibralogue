@@ -3,7 +3,7 @@
 A string function allows you to make your dialogue... dynamic.
 [NPC]
 # In this case, {{GetDay}} is a function that returns a string
-For example, {{GetDay}} is what day today is.
+For example, today is {{GetDay}}.
 [NPC]
 I know, truly magical.
 {{DialogueEnd}}

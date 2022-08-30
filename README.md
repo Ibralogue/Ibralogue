@@ -19,7 +19,7 @@ Ibralogue
 
 <p align="center">
   <a href="#about">About</a> •
-  <a href="https://ibralogue.github.io/Ibralogue/index.html">Docs</a> •
+  <a href="https://ibralogue.github.io/Ibralogue/index.html">Documentation</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
    <a href="https://discord.gg/cGhVJmukTv">Discord</a>

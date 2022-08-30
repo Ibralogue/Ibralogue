@@ -26,7 +26,7 @@ namespace Ibralogue
         private bool _linePlaying;
 
         [Header("Dialogue UI")]
-        [SerializeField] private float timeBetweenCharacters = 0.1f;
+        [SerializeField] private float scrollSpeed = 25f;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
@@ -115,7 +115,7 @@ namespace Ibralogue
                 }
                 index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(timeBetweenCharacters);
+                yield return new WaitForSeconds(1.0f / scrollSpeed);
             }
 
             _linePlaying = false;

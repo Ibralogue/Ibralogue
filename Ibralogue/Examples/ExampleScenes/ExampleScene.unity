@@ -939,7 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c15883baf93e446a1872a3f011d140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenCharacters: 0.05
+  scrollSpeed: 25
   nameText: {fileID: 1681295514}
   sentenceText: {fileID: 575064700}
   speakerPortrait: {fileID: 562461649}
