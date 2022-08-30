@@ -11,7 +11,7 @@ and would be declared in `.ibra` files like so:
 
 ```text
 [NPC]
-Hi, %PLAYERNAME%.
-[%PLAYERNAME%]
+Hi, $PLAYERNAME%.
+[$PLAYERNAME%]
 Hi. What's up?
 ```
