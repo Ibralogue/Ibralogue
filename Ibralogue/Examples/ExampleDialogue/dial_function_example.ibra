@@ -1,10 +1,10 @@
+{{DialogueName(FunctionConversation)}}
 [NPC]
 Psssst kid. New feature dropped.
 [NPC]
-You can invoke functions <<TriggerFunction>> between lines!
+You can invoke functions {{TriggerFunction}} between lines!
 [NPC]
 All the fancy people call "Inline Function Invocation".
 [NPC]
-<<TriggerFunction>>
-But... if you're old fashioned... newlines also work.
-<<DialogueEnd>>
+It's absolutely brilliant!
+{{DialogueEnd}}

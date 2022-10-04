@@ -1,10 +1,9 @@
 ### Comments
 
-`#` is used to denote comments. There are no multi-line comments.
+`#` is used to denote comments. There are no "block" comments.
 
 ```text
-#This is the moment where the fight gets heated up
-#TODO: do stuff.
+# Reminder: Need to rephrase this
 [NPC]
 Time to die.
 ```

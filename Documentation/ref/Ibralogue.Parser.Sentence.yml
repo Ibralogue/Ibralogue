@@ -17,7 +17,7 @@ items:
   source:
     id: Sentence
     path: ''
-    startLine: 578
+    startLine: 586
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -44,7 +44,7 @@ items:
   source:
     id: Text
     path: ''
-    startLine: 580
+    startLine: 588
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -71,7 +71,7 @@ items:
   source:
     id: Invocations
     path: ''
-    startLine: 581
+    startLine: 589
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser

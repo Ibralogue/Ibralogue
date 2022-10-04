@@ -5,12 +5,12 @@ namespace Ibralogue.Interactions
     /// <summary>
     /// Plays a random dialogue from within the interaction dialogue array.
     /// </summary>
-    public class RandomInteraction : DefaultInteraction
+    public class RandomInteraction : BaseInteraction
   {
-      protected override void StartDialogue()
+      public override void StartDialogue()
       {
           base.StartDialogue();
-          DialogueManager.Instance.StartConversation(
+          dialogueManager.StartConversation(
               InteractionDialogues[Random.Range(0, InteractionDialogues.Length)]);
       }
   }

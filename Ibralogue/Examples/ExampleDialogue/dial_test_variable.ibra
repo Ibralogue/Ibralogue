@@ -1,11 +1,12 @@
-<<DialogueName: VariableTest>>
+# this dialogue file needs the GlobalVariableInteraction script to replace the variable.
+{{DialogueName(VariableTest)}}
 [Wizard]
 Hello traveller. 
 What is your name?
-[%PLAYERNAME%]
-They call me... %PLAYERNAME%.
+[$PLAYERNAME]
+They call me... $PLAYERNAME.
 [Wizard]
-%PLAYERNAME%, interesting. 
+$PLAYERNAME, interesting. 
 [Wizard]
-I will watch your journey with great interest, %PLAYERNAME%.
-<<DialogueEnd>>
+Well. I shall watch your journey with great interest, $PLAYERNAME.
+{{DialogueEnd}}

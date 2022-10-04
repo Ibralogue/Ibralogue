@@ -13,12 +13,11 @@ namespace Ibralogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        public static DialogueManager Instance { get; private set; }
-        
+
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
 
-        [field: HideInInspector] public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
-        [field: HideInInspector] public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
+        public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
+        public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
 
         private List<Conversation> _parsedConversations;
         private Conversation _currentConversation;
@@ -27,33 +26,21 @@ namespace Ibralogue
         private bool _linePlaying;
 
         [Header("Dialogue UI")]
-        [SerializeField] private float timeBetweenCharacters = 0.1f;
-        [SerializeField] private Transform choiceButtonHolder;
+        [SerializeField] private float scrollSpeed = 25f;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
         
+        [Header("Choices")]
         private List<GameObject> _choiceButtonInstances;
-        [Header("Prefabs")]
+        
+        [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private GameObject choiceButton;
         
-
         [Header("Function Invocations")] 
         [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
         
-        protected void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
-
         /// <summary>
         /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see cref="DisplayDialogue"/> function.
         /// </summary>
@@ -91,10 +78,11 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
-            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             _linePlaying = true;
+            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
             sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
-
+            yield return null;
+            
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
             functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
@@ -127,7 +115,7 @@ namespace Ibralogue
                 }
                 index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(timeBetweenCharacters);
+                yield return new WaitForSeconds(1.0f / scrollSpeed);
             }
 
             _linePlaying = false;
@@ -157,7 +145,6 @@ namespace Ibralogue
             } 
             else
             {
-                Debug.Log("convo ended");
                 OnConversationEnd.Invoke();
             }
         }
@@ -230,11 +217,14 @@ namespace Ibralogue
             _linePlaying = false;
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
-            speakerPortrait.color = new Color(0, 0, 0, 0);
             sentenceText.maxVisibleCharacters = 0;
-            if (!newConversation) return;
+            speakerPortrait.color = new Color(0, 0, 0, 0);
+            
+            if (!newConversation) 
+                return;
             _dialogueIndex = 0;
-            if (_choiceButtonInstances == null) return;
+            if (_choiceButtonInstances == null) 
+                return;
             foreach (GameObject buttonInstance in _choiceButtonInstances)
             {
                 Destroy(buttonInstance);

@@ -296,8 +296,7 @@ GameObject:
   - component: {fileID: 371977647}
   - component: {fileID: 371977646}
   - component: {fileID: 371977645}
-  - component: {fileID: 371977650}
-  - component: {fileID: 371977649}
+  - component: {fileID: 371977648}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -368,7 +367,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 371977649}
+      - m_Target: {fileID: 371977648}
         m_MethodName: StartDialogue
         m_Mode: 1
         m_Arguments:
@@ -415,8 +414,8 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371977643}
-  m_CullTransparentMesh: 1
---- !u!114 &371977649
+  m_CullTransparentMesh: 0
+--- !u!114 &371977648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -428,42 +427,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093930196981ac44fb29aac785f4f90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 1515395011}
   InteractionDialogues:
-  - {fileID: 2811297602134710623, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
-  - {fileID: 2811297602134710623, guid: 99aab843f37c9fd458801a47c2b908c2, type: 3}
   - {fileID: 2811297602134710623, guid: 990558897ffcc3e48b6412b2402c24dc, type: 3}
-  - {fileID: 2811297602134710623, guid: 12565551d17e76b47964c183a7364141, type: 3}
   OnDialogueStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 371977643}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDialogueEnd:
     m_PersistentCalls:
       m_Calls: []
   _loop: 0
---- !u!65 &371977650
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371977643}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44147194856e88a469e327aa70a5ecdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 1515395011}
 --- !u!1 &562461647
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,11 +939,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c15883baf93e446a1872a3f011d140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenCharacters: 0.05
-  choiceButtonHolder: {fileID: 26815127}
+  scrollSpeed: 25
   nameText: {fileID: 1681295514}
   sentenceText: {fileID: 575064700}
   speakerPortrait: {fileID: 562461649}
+  choiceButtonHolder: {fileID: 26815127}
   choiceButton: {fileID: 6826497581176721293, guid: b6c33d346da503441b5a598f8ac974a2,
     type: 3}
   searchAllAssemblies: 0
