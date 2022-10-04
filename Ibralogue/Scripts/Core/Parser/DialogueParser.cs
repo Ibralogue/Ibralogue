@@ -133,6 +133,9 @@ namespace Ibralogue
                }
                case Token.Sentence:
                {
+                  if (sentences.Count == 0 && processedLine == string.Empty) 
+                     break;
+                  
                   processedLine = ReplaceGlobalVariables(processedLine);
                   Sentence sentence = new Sentence
                   {
