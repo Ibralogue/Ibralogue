@@ -39,7 +39,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "WIeQqp1So+rJZI7JwyhugdN7cfuJ0NOhq/VS0zBYVNg="
+          "hash": "rjk+3iatFhLev4MuLl9tLNvbqMzgQavjnLe5po8fwoE="
         }
       },
       "is_incremental": false,
@@ -62,7 +62,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/comments.html",
-          "hash": "3QoT7PTjnwllfXcbyMy8hDEF2hwZ6dm9mvQlmlyrH+U="
+          "hash": "eU+CwkfeIrxB0XdmE22FQ5c9RUn2x66zEG4doSqeS54="
         }
       },
       "is_incremental": false,
@@ -74,7 +74,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/global-variables.html",
-          "hash": "syDKUS17UhjAzYtSHnkU0TJraFphd9vP31K44frIAzo="
+          "hash": "sJdQfutWY1+4EpUkfVddE+qIDgnDZnj463UYE9hqOxo="
         }
       },
       "is_incremental": false,
@@ -86,7 +86,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/invocations.html",
-          "hash": "KcX/8/31bdDcLYTWs2cx6gvoCgRuvJa4fA1S4uiXXjs="
+          "hash": "9SME2NRvQIBqszJGhpCWX7PHYPQLnmPghEVnvvfilCA="
         }
       },
       "is_incremental": false,
@@ -98,7 +98,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/quickstart.html",
-          "hash": "DMG8Z8icviM8nzQF7BAUQa3Rl/OXN1Jtk7qo4phP+BI="
+          "hash": "IR3w6s5Mg2unlEJ1dCpoX+xEEAzjiO5dkTann31bEZo="
         }
       },
       "is_incremental": false,
@@ -110,7 +110,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/syntax-guide.html",
-          "hash": "DqDhuNPoQEBUMq+7UVqFGRpilJZjf1esYPfWBGn6VaQ="
+          "hash": "7DUUKnyTuK5Cvt4feKYkt/LH0MqKm/O3jvYoq7cQzMA="
         }
       },
       "is_incremental": false,
@@ -134,7 +134,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueFunctionAttribute.html",
-          "hash": "oHTDh2YO2veKQ/8FQsMrKyIfJXNvaE0uRZtXlCYk5G4="
+          "hash": "a6A3/rs4gO//IAxZRDjb3wBl99daJHMRciURJ6xWeR8="
         }
       },
       "is_incremental": false,
@@ -146,7 +146,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueManager.html",
-          "hash": "Qyt7Tyfq+Mz2KIFr82wRFrOdzPWhHMAN4hlQdU9bmkQ="
+          "hash": "Hks1oi6KySuhbI30X5fg7YikoZH/deUWgbHjtCWQcH8="
         }
       },
       "is_incremental": false,
@@ -158,7 +158,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueParser.html",
-          "hash": "A6VcW2kl6HYs5rc/V4GNvCFAv0vb7+heT2OUCldGwbw="
+          "hash": "RYPxnekm02se7C/uVW2JCFhp9InkhLONP1QFXhfqjrs="
         }
       },
       "is_incremental": false,
@@ -170,7 +170,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.html",
-          "hash": "C1HiXDTjtAUxGD0V9IJ/KVRrniZ9UvCEDtZ964k0kJM="
+          "hash": "fbzMSicZD6evMkaw/UmWhPML3ngiGi9WDPVAn0ROmyc="
         }
       },
       "is_incremental": false,
@@ -182,7 +182,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.html",
-          "hash": "p1nA0ZCEfjdDIiEww5Go1GD5rLtNuOelTWb0Sdc2d+4="
+          "hash": "jHGLyNOHNVwcMjGAuHWyIoxUzru3NCkNYRfzaL4E0wE="
         }
       },
       "is_incremental": false,
@@ -194,7 +194,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.RandomInteraction.html",
-          "hash": "L3Hdgxwrv7ec/zjIejIiTGTN2Qf7tE0H6idZX4p5pHQ="
+          "hash": "zZUmCACZn00qGD2iPeIE7IIHAGluMLd/QZwhmoymLUU="
         }
       },
       "is_incremental": false,
@@ -206,7 +206,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.html",
-          "hash": "QQqqDQieFrKxBcLA//E5yfjUvOnlivt/OuaSrh8h0qY="
+          "hash": "02DTCDmk7q2uTtyMi1txykvk7dfY7iuQy3djnFTMEOQ="
         }
       },
       "is_incremental": false,
@@ -218,7 +218,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.html",
-          "hash": "3F5UyRLmQg4uqc171ZX5f3sn5Xae1Eht0hOK5xrKyn4="
+          "hash": "7pQAxd0X5XSLHpW5q+uhzW7TknNAUxOpsOE8is3rsrk="
         }
       },
       "is_incremental": false,
@@ -230,7 +230,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Choice.html",
-          "hash": "XniAdyOFVK98ETj1wbZAqyGGbqnYRBpKZVNBidU6Zzk="
+          "hash": "4+6T+V/724Iy9cgJ0Bm5lZENkjIx7I7WXnq+srk9Aak="
         }
       },
       "is_incremental": false,
@@ -242,7 +242,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Conversation.html",
-          "hash": "UYpi4B8pYBlZGH+f2R+IoPMPDNw60AmXeWkToNVdaB4="
+          "hash": "xQwpWbW2jlIgOOSYbQub8D/0NEf39bdIEp7vIJrVjiM="
         }
       },
       "is_incremental": false,
@@ -254,7 +254,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Dialogue.html",
-          "hash": "A5a92O4Xi1GXyOR7sLGm2oiTJs+zaOb19MZO5lrC2E8="
+          "hash": "o8E32R2cZcF7V5Rj9vvUDFf5PQ2eZTQX1wQQaTDQY8k="
         }
       },
       "is_incremental": false,
@@ -266,7 +266,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Sentence.html",
-          "hash": "yJhXj5BQZsScSvaeXFvmdGk0MFWbe5HoOuN8Y6zR68c="
+          "hash": "315Y6ACthe8j0o6/2OlkMwf3MMzLmAq7tTrYylxRO64="
         }
       },
       "is_incremental": false,
@@ -278,7 +278,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.html",
-          "hash": "tMOOaT7+17KHNaidAbpgaAw2HvbDBbVWDy8Vb/KV9FE="
+          "hash": "dOL+PRYp7IKcEudyv9U7a2a1eLmiQZHbleur8sTfSjs="
         }
       },
       "is_incremental": false,
@@ -290,7 +290,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.html",
-          "hash": "WWjQSzo8l6/crnOIps5NIF/qXtLiA4zluPJov1IvK28="
+          "hash": "pwnjSpn7mSPYh0yBBSgF+vRE9ffNMrc0Tfs3pehS/Ac="
         }
       },
       "is_incremental": false,
