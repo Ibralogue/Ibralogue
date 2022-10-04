@@ -1,6 +1,33 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: Global
+  name: Global
+  href: ref/Global.html
+  name.vb: ''
+  fullName: Global
+  fullName.vb: ''
+  nameWithType: Global
+  nameWithType.vb: ''
+- uid: Global.SingleInteraction
+  name: SingleInteraction
+  href: ref/Global.SingleInteraction.html
+  commentId: T:Global.SingleInteraction
+  fullName: SingleInteraction
+  nameWithType: SingleInteraction
+- uid: Global.SingleInteraction.StartDialogue
+  name: StartDialogue()
+  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue
+  commentId: M:Global.SingleInteraction.StartDialogue
+  fullName: SingleInteraction.StartDialogue()
+  nameWithType: SingleInteraction.StartDialogue()
+- uid: Global.SingleInteraction.StartDialogue*
+  name: StartDialogue
+  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue_
+  commentId: Overload:Global.SingleInteraction.StartDialogue
+  isSpec: "True"
+  fullName: SingleInteraction.StartDialogue
+  nameWithType: SingleInteraction.StartDialogue
 - uid: Ibralogue
   name: Ibralogue
   href: ref/Ibralogue.html
@@ -19,19 +46,6 @@ references:
   commentId: T:Ibralogue.DialogueManager
   fullName: Ibralogue.DialogueManager
   nameWithType: DialogueManager
-- uid: Ibralogue.DialogueManager.Awake
-  name: Awake()
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_Awake
-  commentId: M:Ibralogue.DialogueManager.Awake
-  fullName: Ibralogue.DialogueManager.Awake()
-  nameWithType: DialogueManager.Awake()
-- uid: Ibralogue.DialogueManager.Awake*
-  name: Awake
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_Awake_
-  commentId: Overload:Ibralogue.DialogueManager.Awake
-  isSpec: "True"
-  fullName: Ibralogue.DialogueManager.Awake
-  nameWithType: DialogueManager.Awake
 - uid: Ibralogue.DialogueManager.DisplayChoices
   name: DisplayChoices()
   href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_DisplayChoices
@@ -77,19 +91,6 @@ references:
   commentId: F:Ibralogue.DialogueManager.GlobalVariables
   fullName: Ibralogue.DialogueManager.GlobalVariables
   nameWithType: DialogueManager.GlobalVariables
-- uid: Ibralogue.DialogueManager.Instance
-  name: Instance
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_Instance
-  commentId: P:Ibralogue.DialogueManager.Instance
-  fullName: Ibralogue.DialogueManager.Instance
-  nameWithType: DialogueManager.Instance
-- uid: Ibralogue.DialogueManager.Instance*
-  name: Instance
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_Instance_
-  commentId: Overload:Ibralogue.DialogueManager.Instance
-  isSpec: "True"
-  fullName: Ibralogue.DialogueManager.Instance
-  nameWithType: DialogueManager.Instance
 - uid: Ibralogue.DialogueManager.OnConversationEnd
   name: OnConversationEnd
   href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_OnConversationEnd
@@ -154,63 +155,37 @@ references:
   commentId: N:Ibralogue.Interactions
   fullName: Ibralogue.Interactions
   nameWithType: Ibralogue.Interactions
-- uid: Ibralogue.Interactions.DefaultInteraction
-  name: DefaultInteraction
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html
-  commentId: T:Ibralogue.Interactions.DefaultInteraction
-  fullName: Ibralogue.Interactions.DefaultInteraction
-  nameWithType: DefaultInteraction
-- uid: Ibralogue.Interactions.DefaultInteraction.AttachEvents
-  name: AttachEvents()
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_AttachEvents
-  commentId: M:Ibralogue.Interactions.DefaultInteraction.AttachEvents
-  fullName: Ibralogue.Interactions.DefaultInteraction.AttachEvents()
-  nameWithType: DefaultInteraction.AttachEvents()
-- uid: Ibralogue.Interactions.DefaultInteraction.AttachEvents*
-  name: AttachEvents
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_AttachEvents_
-  commentId: Overload:Ibralogue.Interactions.DefaultInteraction.AttachEvents
-  isSpec: "True"
-  fullName: Ibralogue.Interactions.DefaultInteraction.AttachEvents
-  nameWithType: DefaultInteraction.AttachEvents
-- uid: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
+- uid: Ibralogue.Interactions.BaseInteraction
+  name: BaseInteraction
+  href: ref/Ibralogue.Interactions.BaseInteraction.html
+  commentId: T:Ibralogue.Interactions.BaseInteraction
+  fullName: Ibralogue.Interactions.BaseInteraction
+  nameWithType: BaseInteraction
+- uid: Ibralogue.Interactions.BaseInteraction.dialogueManager
+  name: dialogueManager
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_dialogueManager
+  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.BaseInteraction.dialogueManager
+  nameWithType: BaseInteraction.dialogueManager
+- uid: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
   name: InteractionDialogues
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_InteractionDialogues
-  commentId: F:Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
-  fullName: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
-  nameWithType: DefaultInteraction.InteractionDialogues
-- uid: Ibralogue.Interactions.DefaultInteraction.StartDialogue
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_InteractionDialogues
+  commentId: F:Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  fullName: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  nameWithType: BaseInteraction.InteractionDialogues
+- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
   name: StartDialogue()
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue
-  commentId: M:Ibralogue.Interactions.DefaultInteraction.StartDialogue
-  fullName: Ibralogue.Interactions.DefaultInteraction.StartDialogue()
-  nameWithType: DefaultInteraction.StartDialogue()
-- uid: Ibralogue.Interactions.DefaultInteraction.StartDialogue*
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_StartDialogue
+  commentId: M:Ibralogue.Interactions.BaseInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue()
+  nameWithType: BaseInteraction.StartDialogue()
+- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue*
   name: StartDialogue
-  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue_
-  commentId: Overload:Ibralogue.Interactions.DefaultInteraction.StartDialogue
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_StartDialogue_
+  commentId: Overload:Ibralogue.Interactions.BaseInteraction.StartDialogue
   isSpec: "True"
-  fullName: Ibralogue.Interactions.DefaultInteraction.StartDialogue
-  nameWithType: DefaultInteraction.StartDialogue
-- uid: Ibralogue.Interactions.GlobalVariableInteraction
-  name: GlobalVariableInteraction
-  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html
-  commentId: T:Ibralogue.Interactions.GlobalVariableInteraction
-  fullName: Ibralogue.Interactions.GlobalVariableInteraction
-  nameWithType: GlobalVariableInteraction
-- uid: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
-  name: StartDialogue()
-  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html#Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue
-  commentId: M:Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
-  fullName: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue()
-  nameWithType: GlobalVariableInteraction.StartDialogue()
-- uid: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue*
-  name: StartDialogue
-  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html#Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue_
-  commentId: Overload:Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
-  isSpec: "True"
-  fullName: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
-  nameWithType: GlobalVariableInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  nameWithType: BaseInteraction.StartDialogue
 - uid: Ibralogue.Interactions.RandomInteraction
   name: RandomInteraction
   href: ref/Ibralogue.Interactions.RandomInteraction.html

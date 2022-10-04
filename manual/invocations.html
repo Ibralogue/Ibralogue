@@ -79,7 +79,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h3 id="invocations">Invocations</h3>
 
-<p>Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: <code>&lt;&lt;Foo&gt;&gt;</code>. The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation.</p>
+<p>Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: <code>{{Foo}}</code>. The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation.</p>
 <h4 id="function-invocation">Function Invocation</h4>
 <p>Static functions can be invoked directly from Ibralogue. To set up a static function to be recognized by Ibralogue, add the <code>DialogueFunction</code> attribute like so:</p>
 <pre><code class="lang-cs">[DialogueFunction]
@@ -90,7 +90,7 @@ public static void Die()
 </code></pre><p>...and invoking the function is extremely simple! It would look something like this:</p>
 <pre><code class="lang-text">[NPC]
 Time To Die.
-&lt;&lt;Die&gt;&gt;
+{{Die}}
 </code></pre><h4 id="image-invocation">Image Invocation</h4>
 <p>Character portraits are really important in a lot of story games, and Ibralogue cant forget them. Ibralogue makes use of <a href="https://docs.unity3d.com/ScriptReference/Resources.Load.html">Resources.Load</a> to load images directly from dialogue files.</p>
 <p>To use Image invocations, make a Resources folder anywhere in your project and then specify directories relative from that folder in the dialogue file. For example:</p>
@@ -98,39 +98,39 @@ Time To Die.
 <li>With a file located in <code>./Assets/Sprites/Resources/CharacterPortraits/AvaSmiling.png</code>, do:</li>
 </ul>
 <pre><code class="lang-text">[Ava]
-&lt;&lt;Image: CharacterPortraits/AvaSmiling.png&gt;&gt;
+{{Image(CharacterPortraits/AvaSmiling.png)}}
 It&#39;s a beautiful day outside!
 </code></pre><h4 id="choice-invocations">Choice Invocations</h4>
 <ul>
-<li><p><code>&lt;&lt;DialogueName: Foo&gt;&gt;</code> allows you to specify the name of a given <code>Conversation</code>. This is required for branching dialogue so the interpreter knows what conversation to branch to.</p>
+<li><p><code>{{DialogueName(Foo)}}</code> allows you to specify the name of a given <code>Conversation</code>. This is required for branching dialogue so the interpreter knows what conversation to branch to.</p>
 </li>
-<li><p><code>&lt;&lt;DialogueEnd&gt;&gt;</code> is a reserved invocation to signify the end of a given <code>Conversation</code>. Ibralogue files can have multiple conversations, so as to conveniently enable branching between them, and the <code>&lt;&lt;DialogueEnd&gt;&gt;</code> keyword is required after a conversation has ended so the interpreter can tell two conversations apart.</p>
+<li><p><code>{{DialogueEnd}}</code> is a reserved invocation to signify the end of a given <code>Conversation</code>. Ibralogue files can have multiple conversations, so as to conveniently enable branching between them, and the <code>{{DialogueEnd}}</code> keyword is required after a conversation has ended so the interpreter can tell two conversations apart.</p>
 <p>For example:</p>
 </li>
 </ul>
-<pre><code class="lang-text">&lt;&lt;DialogueName: Initial&gt;&gt;
+<pre><code class="lang-text">{{DialogueName(Initial)}}
 [NPC]
 Time To Die
 - No -&gt; Denial
 - Sure -&gt; Acceptance
-&lt;&lt;DialogueEnd&gt;&gt;
+{{DialogueEnd}}
 
 
-&lt;&lt;DialogueName: Denial&gt;&gt;
+{{DialogueName(Denial)}}
 [Player]
 Did you really think...
 I came this far...
 [Player]
 To give up now? HAHAHAHA
-&lt;&lt;DialogueEnd&gt;&gt;
+{{DialogueEnd}}
 
 
-&lt;&lt;DialogueName: Acceptance&gt;&gt;
+{{DialogueName(Acceptance)}}
 [Player]
 Y&#39;know what?
 [Player]
 Maybe you&#39;re right... I am tired of life.
-&lt;&lt;DialogueEnd&gt;&gt;
+{{DialogueEnd}}
 </code></pre></article>
           </div>
           
