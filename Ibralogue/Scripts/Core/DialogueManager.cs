@@ -17,8 +17,8 @@ namespace Ibralogue
         
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
 
-        [field: HideInInspector] public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
-        [field: HideInInspector] public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
+        public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
+        public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
 
         private List<Conversation> _parsedConversations;
         private Conversation _currentConversation;
@@ -26,7 +26,7 @@ namespace Ibralogue
         private int _dialogueIndex;
         private bool _linePlaying;
 
-        [Header("Line UI")]
+        [Header("Dialogue UI")]
         [SerializeField] private float timeBetweenCharacters = 0.1f;
         [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private TextMeshProUGUI nameText;
@@ -34,6 +34,8 @@ namespace Ibralogue
         [SerializeField] private Image speakerPortrait;
         
         private List<GameObject> _choiceButtonInstances;
+     
+        
         [Header("Prefabs")]
         [SerializeField] private GameObject choiceButton;
         
