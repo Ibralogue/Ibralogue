@@ -34,7 +34,7 @@ namespace Ibralogue
       /// The GetLineToken function checks what character the line it is given starts with and returns a "token" with it
       /// according to that.
       /// </returns>
-      /// <param name="line">The line of the dialogue we need the token of.</param>
+      /// <param name="line">The line of the line we need the token of.</param>
       private static Tokens GetLineToken(string line)
       {
          if (line.StartsWith("#")) return Tokens.Comment;
@@ -61,7 +61,7 @@ namespace Ibralogue
       
       /// <summary>
       /// The ParseDialogue function returns an array of conversations and associates information
-      /// with each element in the dialogue array. Speaker Name, Sentence, Image etc. as well as additional per-conversation metadata.
+      /// with each element in the line array. Speaker Name, LineContents, Image etc. as well as additional per-conversation metadata.
       /// </summary>
       public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)
       {
@@ -69,12 +69,12 @@ namespace Ibralogue
          string[] textLines = dialogueText.Split('\n');
          
          List<Conversation> conversations = new List<Conversation>();
-         List<Sentence> sentences = new List<Sentence>();
+         List<LineContents> sentences = new List<LineContents>();
 
-         Conversation conversation = new Conversation {Dialogues = new List<Dialogue>()};
-         Dialogue dialogue = new Dialogue
+         Conversation conversation = new Conversation {Lines = new List<Line>()};
+         Line line = new Line
          {
-            Sentence = new Sentence
+            LineContents = new LineContents
             {
                Invocations = new Dictionary<int, string>()
             }
@@ -82,32 +82,32 @@ namespace Ibralogue
          
          for (int index = 0; index < textLines.Length; index++)
          {
-            string line = textLines[index];
-            Tokens token = GetLineToken(line);
-            string processedLine = GetProcessedLine(token, line);
+            string textLine = textLines[index];
+            Tokens token = GetLineToken(textLine);
+            string processedLine = GetProcessedLine(token, textLine);
 
             switch (token)
             {
                case Tokens.Comment:
                   break;
-               case Tokens.Speaker when dialogue.Speaker == null:
+               case Tokens.Speaker when line.Speaker == null:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  dialogue.Speaker = processedLine;
+                  line.Speaker = processedLine;
                   break;
                }
                case Tokens.Speaker:
                {
-                  dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
-                  AddInvocationsToDialogue(sentences, dialogue);
+                  line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  AddInvocationsToDialogue(sentences, line);
                   
-                  conversation.Dialogues.Add(dialogue);
+                  conversation.Lines.Add(line);
                   
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  dialogue = new Dialogue
+                  line = new Line
                   {
                      Speaker = processedLine,
-                     Sentence = new Sentence
+                     LineContents = new LineContents
                      {
                         Invocations = new Dictionary<int, string>()
                      }
@@ -118,20 +118,20 @@ namespace Ibralogue
                case Tokens.Sentence:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  Sentence sentence = new Sentence
+                  LineContents lineContents = new LineContents
                   {
                      Text = processedLine, 
-                     Invocations = GatherInlineFunctionInvocations(line)
+                     Invocations = GatherInlineFunctionInvocations(textLine)
                   };
-                  sentences.Add(sentence);
+                  sentences.Add(lineContents);
                   break;
                }
                case Tokens.ImageInvoke:
                {
                   if (Resources.Load(processedLine) == null)
-                     Debug.LogError(
-                        $"[Ibralogue] Invalid image path {processedLine} at line {index + 1} in {dialogueAsset.name}.");
-                  dialogue.SpeakerImage = Resources.Load<Sprite>(processedLine);
+                     DialogueLogger.LogError(index+1, $"Invalid image path {processedLine} in {dialogueAsset.name}");
+                  
+                  line.SpeakerImage = Resources.Load<Sprite>(processedLine);
                   break;
                }
                case Tokens.DialogueNameInvoke:
@@ -141,22 +141,22 @@ namespace Ibralogue
                }
                case Tokens.EndInvoke:
                {
-                  dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
-                  AddInvocationsToDialogue(sentences, dialogue);
+                  line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  AddInvocationsToDialogue(sentences, line);
                   
                   sentences.Clear();
 
-                  conversation.Dialogues.Add(dialogue);
-                  dialogue = new Dialogue
+                  conversation.Lines.Add(line);
+                  line = new Line
                   {
-                     Sentence = new Sentence
+                     LineContents = new LineContents
                      {
                         Invocations = new Dictionary<int, string>()
                      }
                   };
                   
                   conversations.Add(conversation);
-                  conversation = new Conversation {Dialogues = new List<Dialogue>()};
+                  conversation = new Conversation {Lines = new List<Line>()};
                   break;
                }
                case Tokens.Choice:
@@ -164,7 +164,7 @@ namespace Ibralogue
                      conversation.Choices = new Dictionary<Choice, int>();
                   string[] arguments = Regex.Split(processedLine, @"(->)");
                   Choice choice = new Choice() {ChoiceName = arguments[0].Trim(), LeadingConversationName = arguments[2].Trim()};
-                  conversation.Choices.Add(choice,conversation.Dialogues.Count);
+                  conversation.Choices.Add(choice,conversation.Lines.Count);
                   break;
                default:
                   throw new ArgumentOutOfRangeException();
@@ -174,8 +174,8 @@ namespace Ibralogue
          if (sentences.Count == 0) 
             return conversations;
          
-         dialogue.Sentence.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
-         AddInvocationsToDialogue(sentences, dialogue);
+         line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+         AddInvocationsToDialogue(sentences, line);
 
          sentences.Clear();
          return conversations;
@@ -272,15 +272,15 @@ namespace Ibralogue
       }
 
       /// <summary>
-      /// For every invocation all of our local sentences we add them to the dialogues sentence invocation.
+      /// For every invocation all of our local sentences we add them to the dialogues lineContents invocation.
       /// </summary>
-      private static void AddInvocationsToDialogue(IEnumerable<Sentence> sentences, Dialogue dialogue)
+      private static void AddInvocationsToDialogue(IEnumerable<LineContents> sentences, Line line)
       {
-         foreach (Sentence sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
+         foreach (LineContents sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
          {
             foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
             {
-               dialogue.Sentence.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
+               line.LineContents.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
             }
          }
       }
