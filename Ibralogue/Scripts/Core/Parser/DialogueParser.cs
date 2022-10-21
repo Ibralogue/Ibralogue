@@ -99,14 +99,14 @@ namespace Ibralogue
          for (int index = 0; index < textLines.Length; index++)
          {
             string textLine = textLines[index];
-            Tokens token = GetLineToken(textLine);
+            Token token = GetLineToken(textLine);
             string processedLine = GetProcessedLine(token, textLine);
 
             switch (token)
             {
                case Token.Comment:
                   break;
-               case Tokens.Speaker when line.Speaker == null:
+               case Token.Speaker when line.Speaker == null:
                {
                   processedLine = ReplaceGlobalVariables(processedLine);
                   line.Speaker = processedLine;
