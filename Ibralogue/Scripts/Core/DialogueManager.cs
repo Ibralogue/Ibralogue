@@ -19,7 +19,7 @@ namespace Ibralogue
         public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
         public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
 
-        private List<Conversation> _parsedConversations;
+        public List<Conversation> ParsedConversations { get; private set; }
         private Conversation _currentConversation;
         
         private int _dialogueIndex;
@@ -47,8 +47,8 @@ namespace Ibralogue
         /// <param name="startIndex">The index of the conversation you want to start.</param>
         public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)
         {
-            _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
-            _currentConversation = _parsedConversations[startIndex];
+            ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+            _currentConversation = ParsedConversations[startIndex];
             ClearDialogueBox(true);
             OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
@@ -159,11 +159,15 @@ namespace Ibralogue
                 Button choiceButtonInstance =
                     Instantiate(choiceButton,choiceButtonHolder).GetComponent<Button>();
                 _choiceButtonInstances.Add(choiceButtonInstance.gameObject);
-                int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                foreach (Conversation conversation in ParsedConversations)
+                {
+                    Debug.Log(conversation.Name);
+                }
                 if(conversationIndex == -1)
-                    throw new ArgumentException($"No conversation called '{choice.LeadingConversationName}' found for choice '{choice.ChoiceName}' in '{_currentConversation.Name}'.");
+                    DialogueLogger.LogError(2,  $"No conversation called '{choice.LeadingConversationName}' found for choice '{choice.ChoiceName}' in '{_currentConversation.Name}'.");
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
-                choiceButtonInstance.onClick.AddListener(() => StartConversation(_parsedConversations[conversationIndex])); 
+                choiceButtonInstance.onClick.AddListener(() => StartConversation(ParsedConversations[conversationIndex])); 
             }
         }
 

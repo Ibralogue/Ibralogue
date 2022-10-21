@@ -43,6 +43,20 @@ namespace Ibralogue
             return Token.Comment;
          if (SpeakerRegex.IsMatch(line)) 
             return Token.Speaker;
+         if (SingleFunctionRegex.IsMatch(line))
+         {
+            string functionName = line.Trim();
+            functionName = line.Substring(2);
+            functionName = functionName.Remove(functionName.Length - 2);
+            
+            switch (functionName)
+            {
+               case "DialogueEnd":
+                  return Token.EndInvoke;
+               default:
+                  return Token.Sentence;
+            }
+         }
          if (ArgumentFunctionRegex.IsMatch(line))
          {
             string functionName = Regex.Match(line.Substring(2), @"^[^\(]+").Value;
@@ -54,20 +68,6 @@ namespace Ibralogue
                   return Token.DialogueNameInvoke;
                default:
                   return Token.Sentence;
-            }
-         }
-         if (SingleFunctionRegex.IsMatch(line))
-         {
-            string functionName = line.Trim();
-            functionName = line.Substring(2);
-            functionName = functionName.Remove(functionName.Length - 2);
-            
-            switch (functionName)
-            {
-               case "DialogueEnd":
-                    return Token.EndInvoke;
-                default:
-                    return Token.Sentence;
             }
          }
          if (ChoiceRegex.IsMatch(line)) 
@@ -164,7 +164,6 @@ namespace Ibralogue
                   AddInvocationsToDialogue(sentences, line);
                   
                   sentences.Clear();
-
                   conversation.Lines.Add(line);
                   line = new Line
                   {
