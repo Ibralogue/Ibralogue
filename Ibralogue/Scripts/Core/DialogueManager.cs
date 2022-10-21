@@ -13,8 +13,7 @@ namespace Ibralogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        public static DialogueManager Instance { get; private set; }
-        
+
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
 
         public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
@@ -27,35 +26,20 @@ namespace Ibralogue
         private bool _linePlaying;
 
         [Header("Dialogue UI")]
-        [SerializeField] private float timeBetweenCharacters = 0.1f;
-        [SerializeField] private Transform choiceButtonHolder;
+        [SerializeField] private float scrollSpeed = 25f;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
         
-        private List<GameObject> _choiceButtonInstances;
-     
-        
-        [Header("Prefabs")]
+        [Header("Choice UI")]
+        [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private GameObject choiceButton;
+        private List<GameObject> _choiceButtonInstances;
         
-
         [Header("Function Invocations")] 
         [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
         
-        protected void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
-
         /// <summary>
         /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see cref="DisplayDialogue"/> function.
         /// </summary>
@@ -129,7 +113,7 @@ namespace Ibralogue
                 }
                 index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(timeBetweenCharacters);
+                yield return new WaitForSeconds(1.0f / scrollSpeed);
             }
 
             _linePlaying = false;
@@ -231,11 +215,14 @@ namespace Ibralogue
             _linePlaying = false;
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
-            speakerPortrait.color = new Color(0, 0, 0, 0);
             sentenceText.maxVisibleCharacters = 0;
-            if (!newConversation) return;
+            speakerPortrait.color = new Color(0, 0, 0, 0);
+            
+            if (!newConversation) 
+                return;
             _dialogueIndex = 0;
-            if (_choiceButtonInstances == null) return;
+            if (_choiceButtonInstances == null) 
+                return;
             foreach (GameObject buttonInstance in _choiceButtonInstances)
             {
                 Destroy(buttonInstance);
