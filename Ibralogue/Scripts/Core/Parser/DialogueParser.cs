@@ -30,7 +30,6 @@ namespace Ibralogue
          Comment,
          ImageInvoke,
          DialogueNameInvoke,
-         EndInvoke
       }
       
       /// <returns>
@@ -52,19 +51,6 @@ namespace Ibralogue
                   return Token.ImageInvoke;
                case "DialogueName":
                   return Token.DialogueNameInvoke;
-               default:
-                  return Token.Sentence;
-            }
-         }
-         if (SingleFunctionRegex.IsMatch(line))
-         {
-            string functionName = line.Trim();
-            functionName = line.Substring(2);
-            functionName = functionName.Remove(functionName.Length - 2);
-            switch (functionName)
-            {
-               case "DialogueEnd":
-                  return Token.EndInvoke;
                default:
                   return Token.Sentence;
             }
@@ -156,9 +142,6 @@ namespace Ibralogue
                {
                   conversation.Name = processedLine;
                   
-                  if (sentences.Count == 0) 
-                     break;
-                  
                   line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, line);
                   
@@ -172,7 +155,7 @@ namespace Ibralogue
                         Invocations = new Dictionary<int, string>()
                      }
                   };
-                  
+
                   conversations.Add(conversation);
                   conversation = new Conversation {Lines = new List<Line>()};
                   break;
@@ -239,8 +222,6 @@ namespace Ibralogue
             case Token.Choice:
                line = line.Trim();
                line = line.Substring(1);
-               break;
-            case Token.EndInvoke:
                break;
             default:
                Debug.LogError($"[Ibralogue] Argument Out Of Range: {token}");

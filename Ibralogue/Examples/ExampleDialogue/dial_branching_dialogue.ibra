@@ -3,12 +3,12 @@
 Hello traveller.
 [NPC]
 How are you?
-{{DialogueEnd}}
+- Fine -> FineConversation
+- Terrible -> TerribleConversation
 
 {{DialogueName(FineConversation)}}
 [NPC]
 Good to hear!
-{{DialogueEnd}}
 
 {{DialogueName(TerribleConversation)}}
 [NPC]
