@@ -140,31 +140,36 @@ namespace Ibralogue
                }
                case Token.DialogueNameInvoke:
                {
-                  line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
-                  AddInvocationsToDialogue(sentences, line);
-                  
-                  sentences.Clear();
-                  conversation.Lines.Add(line);
-                  
-                  conversation = new Conversation
+                  if (conversations.Count == 0)
                   {
-                     Lines = new List<Line>(),
-                     Name = processedLine
-                  };
-                  
-                  if(sentences.Count==0)
-                     conversations.Add(conversation);
-                  
-                  line = new Line
-                  {
-                     LineContent = new LineContent
+                     conversation = new Conversation
                      {
-                        Invocations = new Dictionary<int, string>()
-                     }
-                  };
-
-                  conversations.Add(conversation);
-                  conversation = new Conversation {Lines = new List<Line>()};
+                        Lines = new List<Line>(),
+                        Name = processedLine
+                     };
+                     conversations.Add(conversation);
+                  }
+                  else
+                  {
+                     line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                     AddInvocationsToDialogue(sentences, line);
+                     conversation.Lines.Add(line);
+                     line = new Line
+                     {
+                        LineContent = new LineContent
+                        {
+                           Invocations = new Dictionary<int, string>()
+                        }
+                     };
+                     
+                     conversations.Add(conversation);
+                     conversation = new Conversation
+                     {
+                        Lines = new List<Line>(),
+                        Name = processedLine
+                     };
+                     sentences.Clear();
+                  }
                   break;
                }
                case Token.Choice:
@@ -178,13 +183,12 @@ namespace Ibralogue
                   throw new ArgumentOutOfRangeException();
             }
          }
-
+         
          line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
          AddInvocationsToDialogue(sentences, line);
-         
-         if(!conversations.Contains(conversation)) 
-            conversations.Add(conversation);
          conversation.Lines.Add(line);
+
+         conversations.Add(conversation);
          
          return conversations;
       }
