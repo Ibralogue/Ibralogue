@@ -160,12 +160,8 @@ namespace Ibralogue
                     Instantiate(choiceButton,choiceButtonHolder).GetComponent<Button>();
                 _choiceButtonInstances.Add(choiceButtonInstance.gameObject);
                 int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                foreach (Conversation conversation in ParsedConversations)
-                {
-                    Debug.Log(conversation.Name);
-                }
                 if(conversationIndex == -1)
-                    DialogueLogger.LogError(2,  $"No conversation called '{choice.LeadingConversationName}' found for choice '{choice.ChoiceName}' in '{_currentConversation.Name}'.");
+                    DialogueLogger.LogError(2,  $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", gameObject);
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
                 choiceButtonInstance.onClick.AddListener(() => StartConversation(ParsedConversations[conversationIndex])); 
             }

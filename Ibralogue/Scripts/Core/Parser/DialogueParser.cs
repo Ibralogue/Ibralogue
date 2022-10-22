@@ -16,7 +16,7 @@ namespace Ibralogue
       
       private static readonly Regex FunctionRegex = new Regex(@"{{(.+)}}");
       private static readonly Regex SingleFunctionRegex = new Regex(@"^{{(.+)}}");
-      private static readonly Regex ArgumentFunctionRegex = new Regex(@"{{.*(.+\(.*\)).*}}"); //TODO: the syntax is {{ Foo(args) }}
+      private static readonly Regex ArgumentFunctionRegex = new Regex(@"{{.*(.+\(.*\)).*}}");
       
       /// <summary>
       /// Tokens are a representation of the attribute of the current line we are parsing
@@ -43,20 +43,6 @@ namespace Ibralogue
             return Token.Comment;
          if (SpeakerRegex.IsMatch(line)) 
             return Token.Speaker;
-         if (SingleFunctionRegex.IsMatch(line))
-         {
-            string functionName = line.Trim();
-            functionName = line.Substring(2);
-            functionName = functionName.Remove(functionName.Length - 2);
-            
-            switch (functionName)
-            {
-               case "DialogueEnd":
-                  return Token.EndInvoke;
-               default:
-                  return Token.Sentence;
-            }
-         }
          if (ArgumentFunctionRegex.IsMatch(line))
          {
             string functionName = Regex.Match(line.Substring(2), @"^[^\(]+").Value;
@@ -66,6 +52,19 @@ namespace Ibralogue
                   return Token.ImageInvoke;
                case "DialogueName":
                   return Token.DialogueNameInvoke;
+               default:
+                  return Token.Sentence;
+            }
+         }
+         if (SingleFunctionRegex.IsMatch(line))
+         {
+            string functionName = line.Trim();
+            functionName = line.Substring(2);
+            functionName = functionName.Remove(functionName.Length - 2);
+            switch (functionName)
+            {
+               case "DialogueEnd":
+                  return Token.EndInvoke;
                default:
                   return Token.Sentence;
             }
@@ -156,15 +155,16 @@ namespace Ibralogue
                case Token.DialogueNameInvoke:
                {
                   conversation.Name = processedLine;
-                  break;
-               }
-               case Token.EndInvoke:
-               {
+                  
+                  if (sentences.Count == 0) 
+                     break;
+                  
                   line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, line);
                   
                   sentences.Clear();
                   conversation.Lines.Add(line);
+                  
                   line = new Line
                   {
                      LineContents = new LineContents
@@ -189,13 +189,13 @@ namespace Ibralogue
             }
          }
 
-         if (sentences.Count == 0) 
-            return conversations;
-         
          line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
          AddInvocationsToDialogue(sentences, line);
-
-         sentences.Clear();
+         
+         if(!conversations.Contains(conversation)) 
+            conversations.Add(conversation);
+         conversation.Lines.Add(line);
+         
          return conversations;
       }
 
@@ -299,7 +299,7 @@ namespace Ibralogue
          {
             foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
             {
-               line.LineContents.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
+               // line.LineContents.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
             }
          }
       }
