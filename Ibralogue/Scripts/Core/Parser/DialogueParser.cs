@@ -70,12 +70,12 @@ namespace Ibralogue
          string[] textLines = dialogueAsset.text.Split('\n');
          
          List<Conversation> conversations = new List<Conversation>();
-         List<LineContents> sentences = new List<LineContents>();
+         List<LineContent> sentences = new List<LineContent>();
 
          Conversation conversation = new Conversation {Lines = new List<Line>()};
          Line line = new Line
          {
-            LineContents = new LineContents
+            LineContent = new LineContent
             {
                Invocations = new Dictionary<int, string>()
             }
@@ -99,7 +99,7 @@ namespace Ibralogue
                }
                case Token.Speaker:
                {
-                  line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, line);
                   
                   conversation.Lines.Add(line);
@@ -108,7 +108,7 @@ namespace Ibralogue
                   line = new Line
                   {
                      Speaker = processedLine,
-                     LineContents = new LineContents
+                     LineContent = new LineContent
                      {
                         Invocations = new Dictionary<int, string>()
                      }
@@ -122,12 +122,12 @@ namespace Ibralogue
                      break;
                   
                   processedLine = ReplaceGlobalVariables(processedLine);
-                  LineContents lineContents = new LineContents
+                  LineContent lineContent = new LineContent
                   {
                      Text = processedLine, 
                      Invocations = GatherInlineFunctionInvocations(textLine)
                   };
-                  sentences.Add(lineContents);
+                  sentences.Add(lineContent);
                   break;
                }
                case Token.ImageInvoke:
@@ -140,17 +140,24 @@ namespace Ibralogue
                }
                case Token.DialogueNameInvoke:
                {
-                  conversation.Name = processedLine;
-                  
-                  line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+                  line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
                   AddInvocationsToDialogue(sentences, line);
                   
                   sentences.Clear();
                   conversation.Lines.Add(line);
                   
+                  conversation = new Conversation
+                  {
+                     Lines = new List<Line>(),
+                     Name = processedLine
+                  };
+                  
+                  if(sentences.Count==0)
+                     conversations.Add(conversation);
+                  
                   line = new Line
                   {
-                     LineContents = new LineContents
+                     LineContent = new LineContent
                      {
                         Invocations = new Dictionary<int, string>()
                      }
@@ -172,7 +179,7 @@ namespace Ibralogue
             }
          }
 
-         line.LineContents.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
+         line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
          AddInvocationsToDialogue(sentences, line);
          
          if(!conversations.Contains(conversation)) 
@@ -272,15 +279,15 @@ namespace Ibralogue
       }
 
       /// <summary>
-      /// For every invocation all of our local sentences we add them to the dialogues lineContents invocation.
+      /// For every invocation all of our local sentences we add them to the dialogues lineContent invocation.
       /// </summary>
-      private static void AddInvocationsToDialogue(IEnumerable<LineContents> sentences, Line line)
+      private static void AddInvocationsToDialogue(IEnumerable<LineContent> sentences, Line line)
       {
-         foreach (LineContents sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
+         foreach (LineContent sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
          {
             foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
             {
-               // line.LineContents.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
+               // line.LineContent.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
             }
          }
       }

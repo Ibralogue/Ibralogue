@@ -79,15 +79,15 @@ namespace Ibralogue
         {
             nameText.text = _currentConversation.Lines[_dialogueIndex].Speaker;
             _linePlaying = true;
-            sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContents.Text;
+            sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
 
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
-            functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContents.Invocations;
+            functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
 
             DisplaySpeakerImage();
             int index = 0; 
-            while(index < _currentConversation.Lines[_dialogueIndex].LineContents.Text.Length)
+            while(index < _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length)
             {
                 if (functionInvocations != null && functionInvocations
                         .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
@@ -100,10 +100,10 @@ namespace Ibralogue
                         if (methodInfo.ReturnType == typeof(string))
                         {
                             string replacedText = (string)methodInfo.Invoke(null, null);
-                            string processedSentence = _currentConversation.Lines[_dialogueIndex].LineContents.Text.Insert(index, replacedText);
+                            string processedSentence = _currentConversation.Lines[_dialogueIndex].LineContent.Text.Insert(index, replacedText);
                             sentenceText.text = processedSentence;
                             index -= processedSentence.Length -
-                                     _currentConversation.Lines[_dialogueIndex].LineContents.Text.Length;
+                                     _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length;
                         }
                         else
                         {

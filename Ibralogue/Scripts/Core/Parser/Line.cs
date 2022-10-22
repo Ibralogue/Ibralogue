@@ -12,7 +12,7 @@ namespace Ibralogue.Parser
     public struct Line
     {
         public string Speaker;
-        public LineContents LineContents;
+        public LineContent LineContent;
         public Sprite SpeakerImage;
     }
 }
