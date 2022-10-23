@@ -12,10 +12,9 @@ namespace Ibralogue
       private static readonly Regex SpeakerRegex = new Regex(@"^\[(.+)\]");
       private static readonly Regex CommentRegex = new Regex(@"#.*");
       private static readonly Regex ChoiceRegex = new Regex(@"^-(.+)->(.+)");
-      private static readonly Regex VariableRegex = new Regex(@"\$[a-zA-Z]*");
+      private static readonly Regex VariableRegex = new Regex(@"\$[a-zA-Z0-9]*");
       
       private static readonly Regex FunctionRegex = new Regex(@"{{(.+)}}");
-      private static readonly Regex SingleFunctionRegex = new Regex(@"^{{(.+)}}");
       private static readonly Regex ArgumentFunctionRegex = new Regex(@"{{.*(.+\(.*\)).*}}");
       
       /// <summary>
@@ -161,7 +160,7 @@ namespace Ibralogue
                            Invocations = new Dictionary<int, string>()
                         }
                      };
-                     
+
                      conversations.Add(conversation);
                      conversation = new Conversation
                      {
@@ -176,7 +175,7 @@ namespace Ibralogue
                   if (conversation.Choices == null)
                      conversation.Choices = new Dictionary<Choice, int>();
                   string[] arguments = Regex.Split(processedLine, @"(->)");
-                  Choice choice = new Choice() {ChoiceName = arguments[0].Trim(), LeadingConversationName = arguments[2].Trim()};
+                  Choice choice = new Choice {ChoiceName = arguments[0].Trim(), LeadingConversationName = arguments[2].Trim()};
                   conversation.Choices.Add(choice,conversation.Lines.Count);
                   break;
                default:
@@ -187,9 +186,9 @@ namespace Ibralogue
          line.LineContent.Text = string.Join("\n", sentences.Select(sentence => sentence.Text));
          AddInvocationsToDialogue(sentences, line);
          conversation.Lines.Add(line);
-
          conversations.Add(conversation);
          
+         conversations.RemoveAt(0);
          return conversations;
       }
 
@@ -265,7 +264,6 @@ namespace Ibralogue
       
       /// <summary>
       /// Adds all function invocations in a given line.
-      /// <param name="replaceFunction">Whether to replace the function or not</param>
       /// </summary>
       private static Dictionary<int,string> GatherInlineFunctionInvocations(string line)
       {
@@ -291,7 +289,7 @@ namespace Ibralogue
          {
             foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
             {
-               // line.LineContent.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
+               line.LineContent.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
             }
          }
       }
