@@ -6,4 +6,3 @@ A string function allows you to make your dialogue... dynamic.
 For example, today is {{GetDay}}.
 [NPC]
 I know, truly magical.
-{{DialogueEnd}}

@@ -113,7 +113,7 @@ namespace Ibralogue
                 }
                 index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(1.0f / scrollSpeed);
+                yield return new WaitForSeconds(1f / scrollSpeed);
             }
 
             _linePlaying = false;
