@@ -6,6 +6,7 @@ namespace Ibralogue.Parser
     {
         public string Text;
         public Dictionary<int, string> Invocations;
+        public Dictionary<string, string> Metadata;
     }
 }
 

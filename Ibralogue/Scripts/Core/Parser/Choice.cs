@@ -6,16 +6,16 @@ namespace Ibralogue.Parser
     {
         public string ChoiceName;
         public string LeadingConversationName;
-        private Dictionary<string, string> metadata;
+        public Dictionary<string, string> Metadata;
         
         public bool HasTag(string key) => 
-            metadata.ContainsKey(key);
+            Metadata.ContainsKey(key);
 
         public bool TryGetTagValue(string key, out string value)
         {
-            if (metadata.ContainsKey(key) && metadata[key] != null)
+            if (Metadata.ContainsKey(key) && Metadata[key] != null)
             {
-                value = metadata[key];
+                value = Metadata[key];
                 return true;
             }
             value = null;
