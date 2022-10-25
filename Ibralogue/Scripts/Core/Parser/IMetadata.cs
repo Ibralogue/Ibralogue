@@ -1,5 +1,5 @@
 ﻿public interface IMetadata
 {
-	bool HasTag(string key);
-	bool TryGetTagValue(string key, out string value);
+	bool HasMetadata(string key);
+	bool TryGetMetadataValue(string key, out string value);
 }

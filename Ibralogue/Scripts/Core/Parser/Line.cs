@@ -16,10 +16,10 @@ namespace Ibralogue.Parser
 		public LineContent LineContent;
 		public Sprite SpeakerImage;
 
-		public bool HasTag(string key) =>
+		public bool HasMetadata(string key) =>
 			LineContent.Metadata.ContainsKey(key);
 
-		public bool TryGetTagValue(string key, out string value)
+		public bool TryGetMetadataValue(string key, out string value)
 		{
 			if (LineContent.Metadata.ContainsKey(key) && LineContent.Metadata[key] != null)
 			{

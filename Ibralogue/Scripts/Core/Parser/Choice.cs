@@ -8,10 +8,10 @@ namespace Ibralogue.Parser
         public string LeadingConversationName;
         public Dictionary<string, string> Metadata;
         
-        public bool HasTag(string key) => 
+        public bool HasMetadata(string key) => 
             Metadata.ContainsKey(key);
 
-        public bool TryGetTagValue(string key, out string value)
+        public bool TryGetMetadataValue(string key, out string value)
         {
             if (Metadata.ContainsKey(key) && Metadata[key] != null)
             {
