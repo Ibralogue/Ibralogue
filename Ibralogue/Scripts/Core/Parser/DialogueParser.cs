@@ -320,7 +320,6 @@ namespace Ibralogue
                if (keyValuePairs[0] == data)
                {
                   metadata.Add(data, data);
-                  Debug.Log(data);
                }
                else
                {
@@ -352,7 +351,6 @@ namespace Ibralogue
             foreach (KeyValuePair<string, string> keyValuePair in sentence.Metadata)
             {
                line.LineContent.Metadata.Add(keyValuePair.Key, keyValuePair.Value);
-               Debug.Log(keyValuePair.Key);
             }
          }
       }

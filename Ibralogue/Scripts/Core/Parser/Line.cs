@@ -15,16 +15,15 @@ namespace Ibralogue.Parser
 		public string Speaker;
 		public LineContent LineContent;
 		public Sprite SpeakerImage;
-		public Dictionary<string, string> Metadata = new Dictionary<string, string>();
 
 		public bool HasTag(string key) =>
-			Metadata.ContainsKey(key);
+			LineContent.Metadata.ContainsKey(key);
 
 		public bool TryGetTagValue(string key, out string value)
 		{
-			if (Metadata.ContainsKey(key) && Metadata[key] != null)
+			if (LineContent.Metadata.ContainsKey(key) && LineContent.Metadata[key] != null)
 			{
-				value = Metadata[key];
+				value = LineContent.Metadata[key];
 				return true;
 			}
 			value = null;
