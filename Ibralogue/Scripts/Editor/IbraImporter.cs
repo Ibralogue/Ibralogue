@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using System.IO;
 using UnityEditor.AssetImporters;
@@ -17,4 +16,3 @@ namespace Ibralogue.Editor
         }
     }
 }
-#endif

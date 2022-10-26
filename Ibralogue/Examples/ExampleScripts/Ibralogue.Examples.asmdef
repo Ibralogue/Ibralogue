@@ -1,8 +1,8 @@
 {
-    "name": "Core",
+    "name": "Ibralogue.Examples",
     "rootNamespace": "Ibralogue",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:aec4d18834ad7cd4b83a525587887964"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
