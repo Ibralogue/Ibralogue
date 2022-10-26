@@ -65,9 +65,9 @@ namespace Ibralogue
       /// The ParseDialogue function returns an array of conversations and associates information
       /// with each element in the dialogue array (Speaker Name, Sentence, Image etc.) as well as additional metadata.
       /// </summary>
-      public static List<Conversation> ParseDialogue(TextAsset dialogueAsset)
+      public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
       {
-         string[] textLines = dialogueAsset.text.Split('\n');
+         string[] textLines = dialogueAsset.Content.Split('\n');
          
          List<Conversation> conversations = new List<Conversation>();
          List<LineContent> lineContents = new List<LineContent>();

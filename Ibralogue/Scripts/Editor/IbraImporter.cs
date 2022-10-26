@@ -5,12 +5,14 @@ using UnityEditor.Experimental.AssetImporters;
 
 namespace Ibralogue.Editor
 {
-    [ScriptedImporter(1, "ibra")]
+    [ScriptedImporter(2, "ibra")]
     public class IbraImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
         {
-            TextAsset subAsset = new TextAsset(File.ReadAllText(ctx.assetPath));
+            DialogueAsset subAsset = ScriptableObject.CreateInstance<DialogueAsset>();
+            subAsset.Content = File.ReadAllText(ctx.assetPath);
+
             ctx.AddObjectToAsset("text", subAsset);
             ctx.SetMainObject(subAsset);
         }

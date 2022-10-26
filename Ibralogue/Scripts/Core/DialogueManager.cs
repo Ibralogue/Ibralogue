@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Ibralogue.Parser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+
+[assembly: InternalsVisibleTo("Ibralogue.Editor")]
 namespace Ibralogue
 {
     public class DialogueManager : MonoBehaviour
@@ -45,7 +48,7 @@ namespace Ibralogue
         /// </summary>
         /// <param name="interactionDialogue">The dialogue file that we want to use in the conversation</param>
         /// <param name="startIndex">The index of the conversation you want to start.</param>
-        public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)
+        public void StartConversation(DialogueAsset interactionDialogue, int startIndex = 0)
         {
             ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
             _currentConversation = ParsedConversations[startIndex];

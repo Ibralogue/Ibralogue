@@ -10,7 +10,7 @@ namespace Ibralogue.Interactions
     public abstract class BaseInteraction : MonoBehaviour
     {
         [SerializeField] protected DialogueManager dialogueManager;
-        [SerializeField] protected TextAsset[] InteractionDialogues;
+        [SerializeField] protected DialogueAsset[] InteractionDialogues;
 
         [SerializeField] private UnityEvent OnDialogueStart;
         [SerializeField] private UnityEvent OnDialogueEnd;
