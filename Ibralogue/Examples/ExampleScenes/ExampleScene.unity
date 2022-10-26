@@ -429,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 1515395011}
   InteractionDialogues:
-  - {fileID: 2811297602134710623, guid: c73a8071bc1840c48833c2a801557459, type: 3}
+  - {fileID: 3232733424486734734, guid: c73a8071bc1840c48833c2a801557459, type: 3}
   OnDialogueStart:
     m_PersistentCalls:
       m_Calls:
@@ -725,8 +725,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db1ce65cd6446c143be0d693e7b64507, type: 2}
-  m_sharedMaterial: {fileID: -2755684432447020812, guid: db1ce65cd6446c143be0d693e7b64507,
-    type: 2}
+  m_sharedMaterial: {fileID: -2755684432447020812, guid: db1ce65cd6446c143be0d693e7b64507, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -967,8 +966,7 @@ MonoBehaviour:
   sentenceText: {fileID: 575064700}
   speakerPortrait: {fileID: 562461649}
   choiceButtonHolder: {fileID: 26815127}
-  choiceButton: {fileID: 6826497581176721293, guid: b6c33d346da503441b5a598f8ac974a2,
-    type: 3}
+  choiceButton: {fileID: 6826497581176721293, guid: b6c33d346da503441b5a598f8ac974a2, type: 3}
   searchAllAssemblies: 0
   includedAssemblies:
   - Interactions

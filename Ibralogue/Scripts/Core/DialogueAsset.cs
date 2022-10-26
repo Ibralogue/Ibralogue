@@ -4,6 +4,6 @@ namespace Ibralogue
 {
     public class DialogueAsset : ScriptableObject
     {
-        [field:SerializeField] public string Content { get; internal set; }
+        [field: SerializeField, TextArea(5, 50)] public string Content { get; internal set; }
     }
 }
