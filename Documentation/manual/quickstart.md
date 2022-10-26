@@ -18,7 +18,6 @@ Open the Ibralogue file you have created and it should look something like this:
 {{DialogueName(Init)}}
 [NPC]
 Hello World!
-{{DialogueEnd}}
 ```
 
 *For some more information on the syntax of the dialogue files, take a look at the [Syntax Guide](syntax-guide.md).*

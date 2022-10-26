@@ -16,10 +16,3 @@ Hi!
 [NPC]
 How are you?
 ```
-### Full Dialogue
-```
-{{DialogueName(Init)}}
-[NPC]
-Hello World!
-{{DialogueEnd}}
-```

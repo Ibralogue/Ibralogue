@@ -19,7 +19,7 @@ namespace Ibralogue
         public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
         public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
 
-        private List<Conversation> _parsedConversations;
+        public List<Conversation> ParsedConversations { get; private set; }
         private Conversation _currentConversation;
         
         private int _dialogueIndex;
@@ -31,11 +31,10 @@ namespace Ibralogue
         [SerializeField] private TextMeshProUGUI sentenceText;
         [SerializeField] private Image speakerPortrait;
         
-        [Header("Choices")]
-        private List<GameObject> _choiceButtonInstances;
-        
+        [Header("Choice UI")]
         [SerializeField] private Transform choiceButtonHolder;
         [SerializeField] private GameObject choiceButton;
+        private List<GameObject> _choiceButtonInstances;
         
         [Header("Function Invocations")] 
         [SerializeField] private bool searchAllAssemblies;
@@ -48,15 +47,15 @@ namespace Ibralogue
         /// <param name="startIndex">The index of the conversation you want to start.</param>
         public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)
         {
-            _parsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
-            _currentConversation = _parsedConversations[startIndex];
+            ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+            _currentConversation = ParsedConversations[startIndex];
             ClearDialogueBox(true);
             OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
         
         /// <summary>
-        /// Varies from StartConversation due to not requiring a conversation to start the Dialogue.
+        /// Varies from StartConversation due to not requiring a conversation to start the Line.
         /// <remarks>
         /// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
         /// are started (yse the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
@@ -78,18 +77,17 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
+            nameText.text = _currentConversation.Lines[_dialogueIndex].Speaker;
             _linePlaying = true;
-            nameText.text = _currentConversation.Dialogues[_dialogueIndex].Speaker;
-            sentenceText.text = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text;
-            yield return null;
-            
+            sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
+
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
             Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
-            functionInvocations = _currentConversation.Dialogues[_dialogueIndex].Sentence.Invocations;
+            functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
 
             DisplaySpeakerImage();
             int index = 0; 
-            while(index < _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Length)
+            while(index < _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length)
             {
                 if (functionInvocations != null && functionInvocations
                         .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
@@ -102,10 +100,10 @@ namespace Ibralogue
                         if (methodInfo.ReturnType == typeof(string))
                         {
                             string replacedText = (string)methodInfo.Invoke(null, null);
-                            string processedSentence = _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Insert(index, replacedText);
+                            string processedSentence = _currentConversation.Lines[_dialogueIndex].LineContent.Text.Insert(index, replacedText);
                             sentenceText.text = processedSentence;
                             index -= processedSentence.Length -
-                                     _currentConversation.Dialogues[_dialogueIndex].Sentence.Text.Length;
+                                     _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length;
                         }
                         else
                         {
@@ -115,7 +113,7 @@ namespace Ibralogue
                 }
                 index++;
                 sentenceText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(1.0f / scrollSpeed);
+                yield return new WaitForSeconds(1f / scrollSpeed);
             }
 
             _linePlaying = false;
@@ -123,14 +121,14 @@ namespace Ibralogue
         }
         
         /// <summary>
-        /// Clears the dialogue box and displays the next <see cref="Dialogue"/> if no sentences are left in the
+        /// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
         /// current one.
         /// </summary>
         public void DisplayNextLine()
         {
             if (_linePlaying) return;
             ClearDialogueBox();
-            if (_dialogueIndex < _currentConversation.Dialogues.Count - 1)
+            if (_dialogueIndex < _currentConversation.Lines.Count - 1)
             {
                 _dialogueIndex++;
                 StartCoroutine(DisplayDialogue());
@@ -161,11 +159,11 @@ namespace Ibralogue
                 Button choiceButtonInstance =
                     Instantiate(choiceButton,choiceButtonHolder).GetComponent<Button>();
                 _choiceButtonInstances.Add(choiceButtonInstance.gameObject);
-                int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
                 if(conversationIndex == -1)
-                    throw new ArgumentException($"No conversation called '{choice.LeadingConversationName}' found for choice '{choice.ChoiceName}' in '{_currentConversation.Name}'.");
+                    DialogueLogger.LogError(2,  $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", gameObject);
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
-                choiceButtonInstance.onClick.AddListener(() => StartConversation(_parsedConversations[conversationIndex])); 
+                choiceButtonInstance.onClick.AddListener(() => StartConversation(ParsedConversations[conversationIndex])); 
             }
         }
 
@@ -205,8 +203,8 @@ namespace Ibralogue
         /// </summary>
         protected void DisplaySpeakerImage()
         {
-            speakerPortrait.color = _currentConversation.Dialogues[_dialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
-            speakerPortrait.sprite = _currentConversation.Dialogues[_dialogueIndex].SpeakerImage;
+            speakerPortrait.color = _currentConversation.Lines[_dialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.sprite = _currentConversation.Lines[_dialogueIndex].SpeakerImage;
         }
 
         /// <summary>
