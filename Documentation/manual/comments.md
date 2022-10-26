@@ -25,3 +25,24 @@ private void GetOption()
     }
 }
 ```
+
+One line can contain more than one piece of metadata, these are separated via spaces:
+```
+[NPC]
+This is a sentence with a lot of metadata. ## cool funny epic sad
+```
+```cs
+private void GetOption() 
+{
+    foreach(var pair in dialogueManager.ParsedConversations[0].Lines[0].Metadata)
+    {
+        Debug.Log(pair.Key); // will log cool, funny, epic, sad
+    }
+}
+```
+
+Metadata can have keys and values associated with it.
+```
+[NPC]
+Today is a sad day. ## emotion:sad
+```
