@@ -103,8 +103,6 @@ It&#39;s a beautiful day outside!
 </code></pre><h4 id="choice-invocations">Choice Invocations</h4>
 <ul>
 <li><p><code>{{DialogueName(Foo)}}</code> allows you to specify the name of a given <code>Conversation</code>. This is required for branching dialogue so the interpreter knows what conversation to branch to.</p>
-</li>
-<li><p><code>{{DialogueEnd}}</code> is a reserved invocation to signify the end of a given <code>Conversation</code>. Ibralogue files can have multiple conversations, so as to conveniently enable branching between them, and the <code>{{DialogueEnd}}</code> keyword is required after a conversation has ended so the interpreter can tell two conversations apart.</p>
 <p>For example:</p>
 </li>
 </ul>
@@ -113,8 +111,6 @@ It&#39;s a beautiful day outside!
 Time To Die
 - No -&gt; Denial
 - Sure -&gt; Acceptance
-{{DialogueEnd}}
-
 
 {{DialogueName(Denial)}}
 [Player]
@@ -122,7 +118,6 @@ Did you really think...
 I came this far...
 [Player]
 To give up now? HAHAHAHA
-{{DialogueEnd}}
 
 
 {{DialogueName(Acceptance)}}
@@ -130,7 +125,6 @@ To give up now? HAHAHAHA
 Y&#39;know what?
 [Player]
 Maybe you&#39;re right... I am tired of life.
-{{DialogueEnd}}
 </code></pre></article>
           </div>
           

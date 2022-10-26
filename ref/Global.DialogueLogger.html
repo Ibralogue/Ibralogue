@@ -5,9 +5,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Comments | Ibralogue Docs </title>
+    <title>Class DialogueLogger
+   | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Comments | Ibralogue Docs ">
+    <meta name="title" content="Class DialogueLogger
+   | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,48 +78,70 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
-<h3 id="comments">Comments</h3>
-
-<p><code>#</code> is used to denote comments. There are no &quot;block&quot; comments.</p>
-<pre><code class="lang-text"># Reminder: Need to rephrase this
-[NPC]
-Time to die.
-</code></pre><h3 id="metadata">Metadata</h3>
-<p>A double-hashtag <code>##</code> can be used instead to denote metadata. This metadata can then be accessed via the <code>DialogueManager</code>:</p>
-<pre><code>[NPC]
-Nice to meet you! ## option-1
-</code></pre><p>...which can then be accessed via code like so:</p>
-<pre><code class="lang-cs">private void GetOption() 
-{
-    if(dialogueManager.ParsedConversations[0].Lines[0].HasMetadata(&quot;option-1&quot;))
-    {
-        Debug.Log(&quot;Line has the specified metadata string.&quot;);
-    }
-}
-</code></pre><p>One line can contain more than one piece of metadata, these are separated via spaces:</p>
-<pre><code>[NPC]
-This is a sentence with a lot of metadata. ## cool funny epic sad
-</code></pre><pre><code class="lang-cs">private void GetOption() 
-{
-    foreach(var pair in dialogueManager.ParsedConversations[0].Lines[0].Metadata)
-    {
-        Debug.Log(pair.Key); // will log cool, funny, epic, sad
-    }
-}
-</code></pre><p>Metadata can have keys and values associated with it.</p>
-<pre><code>[NPC]
-Today is a sad day. ## emotion:sad
-</code></pre></article>
+            <article class="content wrap" id="_content" data-uid="Global.DialogueLogger">
+  
+  
+  <h1 id="Global_DialogueLogger" data-uid="Global.DialogueLogger" class="text-break">Class DialogueLogger
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">DialogueLogger</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Global.html">Global</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Global_DialogueLogger_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DialogueLogger</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Global_DialogueLogger_LogError_" data-uid="Global.DialogueLogger.LogError*"></a>
+  <h4 id="Global_DialogueLogger_LogError_System_Int32_System_String_System_Object_" data-uid="Global.DialogueLogger.LogError(System.Int32,System.String,System.Object)">LogError(Int32, String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LogError(int line, string message, object context = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">line</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation/manual/comments.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

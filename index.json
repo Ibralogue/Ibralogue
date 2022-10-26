@@ -4,10 +4,15 @@
     "title": "| Ibralogue Docs",
     "keywords": "⚠️ Ibralogue is still in pre-release : This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development! Manual | Scripting Reference"
   },
+  "manual/basic-syntax.html": {
+    "href": "manual/basic-syntax.html",
+    "title": "Basic Syntax | Ibralogue Docs",
+    "keywords": "Basic Syntax Use square brackets to define speaker names. Anything below that is part of the same sentence until the next speaker name is reached, for example: [NPC] Hi! How are you? To move a sentence to the next Dialogue , just use the same speaker name again. [NPC] Hi! [NPC] How are you?"
+  },
   "manual/comments.html": {
     "href": "manual/comments.html",
     "title": "Comments | Ibralogue Docs",
-    "keywords": "Comments # is used to denote comments. There are no \"block\" comments. # Reminder: Need to rephrase this [NPC] Time to die."
+    "keywords": "Comments # is used to denote comments. There are no \"block\" comments. # Reminder: Need to rephrase this [NPC] Time to die. Metadata A double-hashtag ## can be used instead to denote metadata. This metadata can then be accessed via the DialogueManager : [NPC] Nice to meet you! ## option-1 ...which can then be accessed via code like so: private void GetOption() { if(dialogueManager.ParsedConversations[0].Lines[0].HasMetadata(\"option-1\")) { Debug.Log(\"Line has the specified metadata string.\"); } } One line can contain more than one piece of metadata, these are separated via spaces: [NPC] This is a sentence with a lot of metadata. ## cool funny epic sad private void GetOption() { foreach(var pair in dialogueManager.ParsedConversations[0].Lines[0].Metadata) { Debug.Log(pair.Key); // will log cool, funny, epic, sad } } Metadata can have keys and values associated with it. [NPC] Today is a sad day. ## emotion:sad"
   },
   "manual/global-variables.html": {
     "href": "manual/global-variables.html",
@@ -17,22 +22,27 @@
   "manual/invocations.html": {
     "href": "manual/invocations.html",
     "title": "Invocations | Ibralogue Docs",
-    "keywords": "Invocations Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: {{Foo}} . The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation. Function Invocation Static functions can be invoked directly from Ibralogue. To set up a static function to be recognized by Ibralogue, add the DialogueFunction attribute like so: [DialogueFunction] public static void Die() { Debug.Log(\"Dead.\"); } ...and invoking the function is extremely simple! It would look something like this: [NPC] Time To Die. {{Die}} Image Invocation Character portraits are really important in a lot of story games, and Ibralogue cant forget them. Ibralogue makes use of Resources.Load to load images directly from dialogue files. To use Image invocations, make a Resources folder anywhere in your project and then specify directories relative from that folder in the dialogue file. For example: With a file located in ./Assets/Sprites/Resources/CharacterPortraits/AvaSmiling.png , do: [Ava] {{Image(CharacterPortraits/AvaSmiling.png)}} It's a beautiful day outside! Choice Invocations {{DialogueName(Foo)}} allows you to specify the name of a given Conversation . This is required for branching dialogue so the interpreter knows what conversation to branch to. {{DialogueEnd}} is a reserved invocation to signify the end of a given Conversation . Ibralogue files can have multiple conversations, so as to conveniently enable branching between them, and the {{DialogueEnd}} keyword is required after a conversation has ended so the interpreter can tell two conversations apart. For example: {{DialogueName(Initial)}} [NPC] Time To Die - No -> Denial - Sure -> Acceptance {{DialogueEnd}} {{DialogueName(Denial)}} [Player] Did you really think... I came this far... [Player] To give up now? HAHAHAHA {{DialogueEnd}} {{DialogueName(Acceptance)}} [Player] Y'know what? [Player] Maybe you're right... I am tired of life. {{DialogueEnd}}"
+    "keywords": "Invocations Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: {{Foo}} . The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation. Function Invocation Static functions can be invoked directly from Ibralogue. To set up a static function to be recognized by Ibralogue, add the DialogueFunction attribute like so: [DialogueFunction] public static void Die() { Debug.Log(\"Dead.\"); } ...and invoking the function is extremely simple! It would look something like this: [NPC] Time To Die. {{Die}} Image Invocation Character portraits are really important in a lot of story games, and Ibralogue cant forget them. Ibralogue makes use of Resources.Load to load images directly from dialogue files. To use Image invocations, make a Resources folder anywhere in your project and then specify directories relative from that folder in the dialogue file. For example: With a file located in ./Assets/Sprites/Resources/CharacterPortraits/AvaSmiling.png , do: [Ava] {{Image(CharacterPortraits/AvaSmiling.png)}} It's a beautiful day outside! Choice Invocations {{DialogueName(Foo)}} allows you to specify the name of a given Conversation . This is required for branching dialogue so the interpreter knows what conversation to branch to. For example: {{DialogueName(Initial)}} [NPC] Time To Die - No -> Denial - Sure -> Acceptance {{DialogueName(Denial)}} [Player] Did you really think... I came this far... [Player] To give up now? HAHAHAHA {{DialogueName(Acceptance)}} [Player] Y'know what? [Player] Maybe you're right... I am tired of life."
   },
   "manual/quickstart.html": {
     "href": "manual/quickstart.html",
     "title": "Quickstart | Ibralogue Docs",
-    "keywords": "Quickstart Add an empty GameObject with the component DialogueManager to your scene and assign its required references. Add a button, give it the SingleInteraction component, and assign its reference to the DialogueManager . Assign the button component's callback to DialogueInteraction.StartDialogue . For the Interaction Dialogue reference, create a new Ibralogue file from the create menu like so: ...and then assign it to the Interaction Dialogue reference. Open the Ibralogue file you have created and it should look something like this: {{DialogueName(Init)}} [NPC] Hello World! {{DialogueEnd}} For some more information on the syntax of the dialogue files, take a look at the Syntax Guide ."
+    "keywords": "Quickstart Add an empty GameObject with the component DialogueManager to your scene and assign its required references. Add a button, give it the SingleInteraction component, and assign its reference to the DialogueManager . Assign the button component's callback to DialogueInteraction.StartDialogue . For the Interaction Dialogue reference, create a new Ibralogue file from the create menu like so: ...and then assign it to the Interaction Dialogue reference. Open the Ibralogue file you have created and it should look something like this: {{DialogueName(Init)}} [NPC] Hello World! For some more information on the syntax of the dialogue files, take a look at the Syntax Guide ."
   },
-  "manual/syntax-guide.html": {
-    "href": "manual/syntax-guide.html",
-    "title": "Basic Syntax | Ibralogue Docs",
-    "keywords": "Basic Syntax Use square brackets to define speaker names. Anything below that is part of the same sentence until the next speaker name is reached, for example: [NPC] Hi! How are you? To move a sentence to the next Dialogue , just use the same speaker name again. [NPC] Hi! [NPC] How are you? Full Dialogue {{DialogueName(Init)}} [NPC] Hello World! {{DialogueEnd}}"
+  "ref/Global.DialogueLogger.html": {
+    "href": "ref/Global.DialogueLogger.html",
+    "title": "Class DialogueLogger | Ibralogue Docs",
+    "keywords": "Class DialogueLogger Inheritance Object DialogueLogger Namespace : Global Assembly : cs.temp.dll.dll Syntax public static class DialogueLogger Methods LogError(Int32, String, Object) Declaration public static void LogError(int line, string message, object context = null) Parameters Type Name Description Int32 line String message Object context"
   },
   "ref/Global.html": {
     "href": "ref/Global.html",
     "title": "Namespace Global | Ibralogue Docs",
-    "keywords": "Namespace Global Classes SingleInteraction"
+    "keywords": "Namespace Global Classes DialogueLogger SingleInteraction Interfaces IMetadata"
+  },
+  "ref/Global.IMetadata.html": {
+    "href": "ref/Global.IMetadata.html",
+    "title": "Interface IMetadata | Ibralogue Docs",
+    "keywords": "Interface IMetadata Namespace : Global Assembly : cs.temp.dll.dll Syntax public interface IMetadata Methods HasMetadata(String) Declaration bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean"
   },
   "ref/Global.SingleInteraction.html": {
     "href": "ref/Global.SingleInteraction.html",
@@ -47,7 +57,7 @@
   "ref/Ibralogue.DialogueManager.html": {
     "href": "ref/Ibralogue.DialogueManager.html",
     "title": "Class DialogueManager | Ibralogue Docs",
-    "keywords": "Class DialogueManager Inheritance Object DialogueManager Namespace : Ibralogue Assembly : cs.temp.dll.dll Syntax public class DialogueManager : MonoBehaviour Fields GlobalVariables Declaration public static readonly Dictionary<string, string> GlobalVariables Field Value Type Description Dictionary < String , String > Properties OnConversationEnd Declaration public UnityEvent OnConversationEnd { get; set; } Property Value Type Description UnityEvent OnConversationStart Declaration public UnityEvent OnConversationStart { get; set; } Property Value Type Description UnityEvent Methods DisplayChoices() Uses the Unity UI system and TextMeshPro to render choice buttons. Declaration protected void DisplayChoices() DisplayNextLine() Clears the dialogue box and displays the next if no sentences are left in the current one. Declaration public void DisplayNextLine() DisplaySpeakerImage() Sets the speaker image and makes the Image transparent if there is no speaker image. Declaration protected void DisplaySpeakerImage() StartConversation(TextAsset, Int32) Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the Ibralogue.DialogueManager.DisplayDialogue function. Declaration public void StartConversation(TextAsset interactionDialogue, int startIndex = 0) Parameters Type Name Description TextAsset interactionDialogue The dialogue file that we want to use in the conversation Int32 startIndex The index of the conversation you want to start."
+    "keywords": "Class DialogueManager Inheritance Object DialogueManager Namespace : Ibralogue Assembly : cs.temp.dll.dll Syntax public class DialogueManager : MonoBehaviour Fields GlobalVariables Declaration public static readonly Dictionary<string, string> GlobalVariables Field Value Type Description Dictionary < String , String > Properties OnConversationEnd Declaration public UnityEvent OnConversationEnd { get; set; } Property Value Type Description UnityEvent OnConversationStart Declaration public UnityEvent OnConversationStart { get; set; } Property Value Type Description UnityEvent ParsedConversations Declaration public List<Conversation> ParsedConversations { get; } Property Value Type Description List < Conversation > Methods DisplayChoices() Uses the Unity UI system and TextMeshPro to render choice buttons. Declaration protected void DisplayChoices() DisplayNextLine() Clears the dialogue box and displays the next if no sentences are left in the current one. Declaration public void DisplayNextLine() DisplaySpeakerImage() Sets the speaker image and makes the Image transparent if there is no speaker image. Declaration protected void DisplaySpeakerImage() StartConversation(TextAsset, Int32) Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the Ibralogue.DialogueManager.DisplayDialogue function. Declaration public void StartConversation(TextAsset interactionDialogue, int startIndex = 0) Parameters Type Name Description TextAsset interactionDialogue The dialogue file that we want to use in the conversation Int32 startIndex The index of the conversation you want to start."
   },
   "ref/Ibralogue.DialogueParser.html": {
     "href": "ref/Ibralogue.DialogueParser.html",
@@ -81,27 +91,27 @@
   },
   "ref/Ibralogue.Parser.Choice.html": {
     "href": "ref/Ibralogue.Parser.Choice.html",
-    "title": "Struct Choice | Ibralogue Docs",
-    "keywords": "Struct Choice Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Choice Fields ChoiceName Declaration public string ChoiceName Field Value Type Description String LeadingConversationName Declaration public string LeadingConversationName Field Value Type Description String"
+    "title": "Class Choice | Ibralogue Docs",
+    "keywords": "Class Choice Inheritance Object Choice Implements IMetadata Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public class Choice : IMetadata Fields ChoiceName Declaration public string ChoiceName Field Value Type Description String LeadingConversationName Declaration public string LeadingConversationName Field Value Type Description String Metadata Declaration public Dictionary<string, string> Metadata Field Value Type Description Dictionary < String , String > Methods HasMetadata(String) Declaration public bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration public bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean Implements IMetadata"
   },
   "ref/Ibralogue.Parser.Conversation.html": {
     "href": "ref/Ibralogue.Parser.Conversation.html",
     "title": "Struct Conversation | Ibralogue Docs",
-    "keywords": "Struct Conversation Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Conversation Fields Choices Declaration public Dictionary<Choice, int> Choices Field Value Type Description Dictionary < Choice , Int32 > Dialogues Declaration public List<Dialogue> Dialogues Field Value Type Description List < Dialogue > Name Declaration public string Name Field Value Type Description String"
-  },
-  "ref/Ibralogue.Parser.Dialogue.html": {
-    "href": "ref/Ibralogue.Parser.Dialogue.html",
-    "title": "Struct Dialogue | Ibralogue Docs",
-    "keywords": "Struct Dialogue The Dialogue struct contains information about an individual line of dialogue. Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Dialogue Remarks A list of these Dialogue structs makes up a conversation, and a list of conversations makes up a single dialogue file, due to being able to have multiple conversations in a single file for dialogue branching. Fields Sentence Declaration public Sentence Sentence Field Value Type Description Sentence Speaker Declaration public string Speaker Field Value Type Description String SpeakerImage Declaration public Sprite SpeakerImage Field Value Type Description Sprite"
+    "keywords": "Struct Conversation Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Conversation Fields Choices Declaration public Dictionary<Choice, int> Choices Field Value Type Description Dictionary < Choice , Int32 > Lines Declaration public List<Line> Lines Field Value Type Description List < Line > Name Declaration public string Name Field Value Type Description String"
   },
   "ref/Ibralogue.Parser.html": {
     "href": "ref/Ibralogue.Parser.html",
     "title": "Namespace Ibralogue.Parser | Ibralogue Docs",
-    "keywords": "Namespace Ibralogue.Parser Structs Choice Conversation Dialogue The Dialogue struct contains information about an individual line of dialogue. Sentence"
+    "keywords": "Namespace Ibralogue.Parser Classes Choice Line The Line struct contains information about an individual line of dialogue. Structs Conversation LineContent"
   },
-  "ref/Ibralogue.Parser.Sentence.html": {
-    "href": "ref/Ibralogue.Parser.Sentence.html",
-    "title": "Struct Sentence | Ibralogue Docs",
-    "keywords": "Struct Sentence Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Sentence Fields Invocations Declaration public Dictionary<int, string> Invocations Field Value Type Description Dictionary < Int32 , String > Text Declaration public string Text Field Value Type Description String"
+  "ref/Ibralogue.Parser.Line.html": {
+    "href": "ref/Ibralogue.Parser.Line.html",
+    "title": "Class Line | Ibralogue Docs",
+    "keywords": "Class Line The Line struct contains information about an individual line of dialogue. Inheritance Object Line Implements IMetadata Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public class Line : IMetadata Remarks A list of these Line structs makes up a conversation, and a list of conversations makes up a single dialogue file, due to being able to have multiple conversations in a single file for dialogue branching. Fields LineContent Declaration public LineContent LineContent Field Value Type Description LineContent Speaker Declaration public string Speaker Field Value Type Description String SpeakerImage Declaration public Sprite SpeakerImage Field Value Type Description Sprite Methods HasMetadata(String) Declaration public bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration public bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean Implements IMetadata"
+  },
+  "ref/Ibralogue.Parser.LineContent.html": {
+    "href": "ref/Ibralogue.Parser.LineContent.html",
+    "title": "Struct LineContent | Ibralogue Docs",
+    "keywords": "Struct LineContent Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct LineContent Fields Invocations Declaration public Dictionary<int, string> Invocations Field Value Type Description Dictionary < Int32 , String > Metadata Declaration public Dictionary<string, string> Metadata Field Value Type Description Dictionary < String , String > Text Declaration public string Text Field Value Type Description String"
   }
 }

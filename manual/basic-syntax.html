@@ -5,11 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Struct Sentence
-   | Ibralogue Docs </title>
+    <title>Basic Syntax | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Struct Sentence
-   | Ibralogue Docs ">
+    <meta name="title" content="Basic Syntax | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -78,76 +76,29 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Parser.Sentence">
-  
-  
-  <h1 id="Ibralogue_Parser_Sentence" data-uid="Ibralogue.Parser.Sentence" class="text-break">Struct Sentence
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Parser.html">Ibralogue.Parser</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Ibralogue_Parser_Sentence_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public struct Sentence</code></pre>
-  </div>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="Ibralogue_Parser_Sentence_Invocations" data-uid="Ibralogue.Parser.Sentence.Invocations">Invocations</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, string&gt; Invocations</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Ibralogue_Parser_Sentence_Text" data-uid="Ibralogue.Parser.Sentence.Text">Text</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Text</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</article>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="basic-syntax">Basic Syntax</h2>
+
+<p>Use square brackets to define speaker names. Anything below that is part of the same sentence until the next
+speaker name is reached, for example:</p>
+<pre><code class="lang-text">[NPC]
+Hi!
+How are you?
+</code></pre><p>To move a sentence to the next <code>Dialogue</code>, just use the same speaker name again.</p>
+<pre><code class="lang-text">[NPC] 
+Hi!
+[NPC]
+How are you?
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation/manual/basic-syntax.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

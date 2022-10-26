@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DialogueManager
+    <title>Class Line
    | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DialogueManager
+    <meta name="title" content="Class Line
    | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,34 +78,43 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.DialogueManager">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.Parser.Line">
   
   
-  <h1 id="Ibralogue_DialogueManager" data-uid="Ibralogue.DialogueManager" class="text-break">Class DialogueManager
+  <h1 id="Ibralogue_Parser_Line" data-uid="Ibralogue.Parser.Line" class="text-break">Class Line
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>The Line struct contains information about an individual line of dialogue.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">DialogueManager</span></div>
+    <div class="level1"><span class="xref">Line</span></div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a></h6>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Global.IMetadata.html">IMetadata</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Parser.html">Ibralogue.Parser</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Ibralogue_DialogueManager_syntax">Syntax</h5>
+  <h5 id="Ibralogue_Parser_Line_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DialogueManager : MonoBehaviour</code></pre>
+    <pre><code class="lang-csharp hljs">public class Line : IMetadata</code></pre>
   </div>
+  <h5 id="Ibralogue_Parser_Line_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>A list of these Line structs makes up a conversation, and a list of conversations makes up a single dialogue file,
+due to being able to have multiple conversations in a single file for dialogue branching.</p>
+</div>
   <h3 id="fields">Fields
   </h3>
   
   
-  <h4 id="Ibralogue_DialogueManager_GlobalVariables" data-uid="Ibralogue.DialogueManager.GlobalVariables">GlobalVariables</h4>
+  <h4 id="Ibralogue_Parser_Line_LineContent" data-uid="Ibralogue.Parser.Line.LineContent">LineContent</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;string, string&gt; GlobalVariables</code></pre>
+    <pre><code class="lang-csharp hljs">public LineContent LineContent</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -117,24 +126,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="Ibralogue.Parser.LineContent.html">LineContent</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
   
   
-  <a id="Ibralogue_DialogueManager_OnConversationEnd_" data-uid="Ibralogue.DialogueManager.OnConversationEnd*"></a>
-  <h4 id="Ibralogue_DialogueManager_OnConversationEnd" data-uid="Ibralogue.DialogueManager.OnConversationEnd">OnConversationEnd</h4>
+  <h4 id="Ibralogue_Parser_Line_Speaker" data-uid="Ibralogue.Parser.Line.Speaker">Speaker</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent OnConversationEnd { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Speaker</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -144,22 +150,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEvent</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Ibralogue_DialogueManager_OnConversationStart_" data-uid="Ibralogue.DialogueManager.OnConversationStart*"></a>
-  <h4 id="Ibralogue_DialogueManager_OnConversationStart" data-uid="Ibralogue.DialogueManager.OnConversationStart">OnConversationStart</h4>
+  <h4 id="Ibralogue_Parser_Line_SpeakerImage" data-uid="Ibralogue.Parser.Line.SpeakerImage">SpeakerImage</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UnityEvent OnConversationStart { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Sprite SpeakerImage</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -169,32 +174,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEvent</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Ibralogue_DialogueManager_ParsedConversations_" data-uid="Ibralogue.DialogueManager.ParsedConversations*"></a>
-  <h4 id="Ibralogue_DialogueManager_ParsedConversations" data-uid="Ibralogue.DialogueManager.ParsedConversations">ParsedConversations</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Conversation&gt; ParsedConversations { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">List</span>&lt;<span class="xref">Conversation</span>&gt;</td>
+        <td><span class="xref">Sprite</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -203,48 +183,13 @@
   </h3>
   
   
-  <a id="Ibralogue_DialogueManager_DisplayChoices_" data-uid="Ibralogue.DialogueManager.DisplayChoices*"></a>
-  <h4 id="Ibralogue_DialogueManager_DisplayChoices" data-uid="Ibralogue.DialogueManager.DisplayChoices">DisplayChoices()</h4>
-  <div class="markdown level1 summary"><p>Uses the Unity UI system and TextMeshPro to render choice buttons.</p>
-</div>
+  <a id="Ibralogue_Parser_Line_HasMetadata_" data-uid="Ibralogue.Parser.Line.HasMetadata*"></a>
+  <h4 id="Ibralogue_Parser_Line_HasMetadata_System_String_" data-uid="Ibralogue.Parser.Line.HasMetadata(System.String)">HasMetadata(String)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void DisplayChoices()</code></pre>
-  </div>
-  
-  
-  <a id="Ibralogue_DialogueManager_DisplayNextLine_" data-uid="Ibralogue.DialogueManager.DisplayNextLine*"></a>
-  <h4 id="Ibralogue_DialogueManager_DisplayNextLine" data-uid="Ibralogue.DialogueManager.DisplayNextLine">DisplayNextLine()</h4>
-  <div class="markdown level1 summary"><p>Clears the dialogue box and displays the next <see cref="!:Line"></see> if no sentences are left in the
-current one.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void DisplayNextLine()</code></pre>
-  </div>
-  
-  
-  <a id="Ibralogue_DialogueManager_DisplaySpeakerImage_" data-uid="Ibralogue.DialogueManager.DisplaySpeakerImage*"></a>
-  <h4 id="Ibralogue_DialogueManager_DisplaySpeakerImage" data-uid="Ibralogue.DialogueManager.DisplaySpeakerImage">DisplaySpeakerImage()</h4>
-  <div class="markdown level1 summary"><p>Sets the speaker image and makes the Image transparent if there is no speaker image.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void DisplaySpeakerImage()</code></pre>
-  </div>
-  
-  
-  <a id="Ibralogue_DialogueManager_StartConversation_" data-uid="Ibralogue.DialogueManager.StartConversation*"></a>
-  <h4 id="Ibralogue_DialogueManager_StartConversation_TextAsset_System_Int32_" data-uid="Ibralogue.DialogueManager.StartConversation(TextAsset,System.Int32)">StartConversation(TextAsset, Int32)</h4>
-  <div class="markdown level1 summary"><p>Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <span class="xref">Ibralogue.DialogueManager.DisplayDialogue</span> function.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void StartConversation(TextAsset interactionDialogue, int startIndex = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasMetadata(string key)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -257,19 +202,78 @@ current one.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TextAsset</span></td>
-        <td><span class="parametername">interactionDialogue</span></td>
-        <td><p>The dialogue file that we want to use in the conversation</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">startIndex</span></td>
-        <td><p>The index of the conversation you want to start.</p>
-</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Ibralogue_Parser_Line_TryGetMetadataValue_" data-uid="Ibralogue.Parser.Line.TryGetMetadataValue*"></a>
+  <h4 id="Ibralogue_Parser_Line_TryGetMetadataValue_System_String_System_String__" data-uid="Ibralogue.Parser.Line.TryGetMetadataValue(System.String,System.String@)">TryGetMetadataValue(String, out String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetMetadataValue(string key, out string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Global.IMetadata.html">IMetadata</a>
+  </div>
 </article>
           </div>
           
