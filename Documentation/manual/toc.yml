@@ -4,7 +4,7 @@
   href: syntax-guide.md
   items:
     - name: Basic Syntax
-      href: syntax-guide.md
+      href: basic-syntax.md
     - name: Global Variables
       href: global-variables.md
     - name: Invocations
