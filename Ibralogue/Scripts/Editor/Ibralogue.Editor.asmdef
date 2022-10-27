@@ -1,8 +1,12 @@
 {
-    "name": "Editor",
-    "rootNamespace": "Ibralogue",
-    "references": [],
-    "includePlatforms": [],
+    "name": "Ibralogue.Editor",
+    "rootNamespace": "Ibralogue.Editor",
+    "references": [
+        "GUID:aec4d18834ad7cd4b83a525587887964"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

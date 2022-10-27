@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEditor;
 
 namespace Ibralogue.Editor
@@ -15,4 +14,3 @@ namespace Ibralogue.Editor
         }
     }
 }
-#endif
