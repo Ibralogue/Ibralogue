@@ -1,48 +1,48 @@
+﻿using Ibralogue.Parser;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using Ibralogue.Parser;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-
-[assembly: InternalsVisibleTo("Ibralogue.Editor")]
 namespace Ibralogue
 {
-    public class DialogueManager : MonoBehaviour
+    public static class DialogueGlobals
     {
-
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
+    }
 
+    public abstract class DialogueManagerBase<ChoiceButtonT> : MonoBehaviour where ChoiceButtonT : Component
+    {
         public UnityEvent OnConversationStart { get; set; } = new UnityEvent();
         public UnityEvent OnConversationEnd { get; set; } = new UnityEvent();
 
-        public List<Conversation> ParsedConversations { get; private set; }
-        private Conversation _currentConversation;
-        
-        private int _dialogueIndex;
-        private bool _linePlaying;
+        public List<Conversation> ParsedConversations { get; protected set; }
+        protected Conversation _currentConversation;
+
+        protected int _dialogueIndex;
+        protected bool _linePlaying;
 
         [Header("Dialogue UI")]
-        [SerializeField] private float scrollSpeed = 25f;
-        [SerializeField] private TextMeshProUGUI nameText;
-        [SerializeField] private TextMeshProUGUI sentenceText;
-        [SerializeField] private Image speakerPortrait;
-        
+        [SerializeField] protected float scrollSpeed = 25f;
+        [SerializeField] protected TextMeshProUGUI nameText;
+        [SerializeField] protected TextMeshProUGUI sentenceText;
+        [SerializeField] protected Image speakerPortrait;
+
         [Header("Choice UI")]
-        [SerializeField] private Transform choiceButtonHolder;
-        [SerializeField] private GameObject choiceButton;
-        private List<GameObject> _choiceButtonInstances;
-        
-        [Header("Function Invocations")] 
+        [SerializeField] protected Transform choiceButtonHolder;
+        [SerializeField] protected ChoiceButtonT choiceButton;
+        protected List<ChoiceButtonHandle> _choiceButtonInstances = new List<ChoiceButtonHandle>();
+
+        [Header("Function Invocations")]
         [SerializeField] private bool searchAllAssemblies;
         [SerializeField] private List<string> includedAssemblies;
-        
+
+
         /// <summary>
         /// Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the <see cref="DisplayDialogue"/> function.
         /// </summary>
@@ -51,12 +51,9 @@ namespace Ibralogue
         public void StartConversation(DialogueAsset interactionDialogue, int startIndex = 0)
         {
             ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
-            _currentConversation = ParsedConversations[startIndex];
-            ClearDialogueBox(true);
-            OnConversationStart.Invoke();
-            StartCoroutine(DisplayDialogue());
+            StartConversation(ParsedConversations[startIndex]);
         }
-        
+
         /// <summary>
         /// Varies from StartConversation due to not requiring a conversation to start the Line.
         /// <remarks>
@@ -85,12 +82,12 @@ namespace Ibralogue
             sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
 
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
-            Dictionary<int,string> functionInvocations = new Dictionary<int, string>();
+            Dictionary<int, string> functionInvocations = new Dictionary<int, string>();
             functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
 
             DisplaySpeakerImage();
-            int index = 0; 
-            while(index < _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length)
+            int index = 0;
+            while (index < _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length)
             {
                 if (functionInvocations != null && functionInvocations
                         .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
@@ -122,7 +119,7 @@ namespace Ibralogue
             _linePlaying = false;
             yield return null;
         }
-        
+
         /// <summary>
         /// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
         /// current one.
@@ -143,7 +140,7 @@ namespace Ibralogue
                         DisplayChoices();
                     }
                 }
-            } 
+            }
             else
             {
                 OnConversationEnd.Invoke();
@@ -155,20 +152,30 @@ namespace Ibralogue
         /// </summary>
         protected void DisplayChoices()
         {
-            _choiceButtonInstances = new List<GameObject>();
+            _choiceButtonInstances.Clear();
             if (_currentConversation.Choices == null || !_currentConversation.Choices.Any()) return;
             foreach (Choice choice in _currentConversation.Choices.Keys)
             {
-                Button choiceButtonInstance =
-                    Instantiate(choiceButton,choiceButtonHolder).GetComponent<Button>();
-                _choiceButtonInstances.Add(choiceButtonInstance.gameObject);
+                var choiceButtonInstance = CreateChoiceButton();
+
                 int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                if(conversationIndex == -1)
-                    DialogueLogger.LogError(2,  $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", gameObject);
+                if (conversationIndex == -1)
+                    DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+
+                var handle = new ChoiceButtonHandle(
+                    choiceButtonInstance,
+                    () => StartConversation(ParsedConversations[conversationIndex])
+                );
+
+                _choiceButtonInstances.Add(handle);
+                PrepareChoiceButton(handle, choice);
+
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
-                choiceButtonInstance.onClick.AddListener(() => StartConversation(ParsedConversations[conversationIndex])); 
+                handle.ClickEvent.AddListener(handle.ClickCallback);
             }
         }
+
+        protected abstract void PrepareChoiceButton(ChoiceButtonHandle handle, Choice choice);
 
         /// <summary>
         /// Gets all methods for the current assembly, other specified assemblies, or all assemblies, and checks them against the
@@ -178,7 +185,7 @@ namespace Ibralogue
         {
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            if(searchAllAssemblies) assemblies.AddRange(allAssemblies);
+            if (searchAllAssemblies) assemblies.AddRange(allAssemblies);
             else
             {
                 foreach (Assembly assembly in allAssemblies)
@@ -199,14 +206,14 @@ namespace Ibralogue
                 methods.AddRange(allMethods);
             }
             return methods;
-        }    
+        }
 
         /// <summary>
         /// Sets the speaker image and makes the Image transparent if there is no speaker image.
         /// </summary>
         protected void DisplaySpeakerImage()
         {
-            speakerPortrait.color = _currentConversation.Lines[_dialogueIndex].SpeakerImage == null ? new Color(0,0,0, 0) : new Color(255,255,255,255);
+            speakerPortrait.color = _currentConversation.Lines[_dialogueIndex].SpeakerImage == null ? new Color(0, 0, 0, 0) : new Color(255, 255, 255, 255);
             speakerPortrait.sprite = _currentConversation.Lines[_dialogueIndex].SpeakerImage;
         }
 
@@ -220,16 +227,51 @@ namespace Ibralogue
             sentenceText.text = string.Empty;
             sentenceText.maxVisibleCharacters = 0;
             speakerPortrait.color = new Color(0, 0, 0, 0);
-            
-            if (!newConversation) 
+
+            if (!newConversation)
                 return;
             _dialogueIndex = 0;
-            if (_choiceButtonInstances == null) 
+            if (_choiceButtonInstances == null)
                 return;
-            foreach (GameObject buttonInstance in _choiceButtonInstances)
+
+            foreach (var buttonHandle in _choiceButtonInstances)
             {
-                Destroy(buttonInstance);
+                ClearChoiceButton(buttonHandle);
+                RemoveChoiceButton(buttonHandle);
             }
+        }
+
+        protected virtual ChoiceButtonT CreateChoiceButton()
+        {
+            return Instantiate(choiceButton, choiceButtonHolder);
+        }
+
+        protected virtual void ClearChoiceButton(ChoiceButtonHandle buttonHandle)
+        {
+            buttonHandle.ClickEvent.RemoveListener(buttonHandle.ClickCallback);
+        }
+
+        protected virtual void RemoveChoiceButton(ChoiceButtonHandle buttonHandle)
+        {
+            Destroy(buttonHandle.ChoiceButton.gameObject);
+        }
+
+        /// <summary>
+        /// Represent a single spawned choice button, contains general information about said button
+        /// </summary>
+        protected class ChoiceButtonHandle
+        {
+            public ChoiceButtonHandle(ChoiceButtonT choiceButton, UnityAction clickCallback)
+            {
+                ChoiceButton = choiceButton;
+                ClickCallback = clickCallback;
+            }
+
+            public UnityEvent ClickEvent { get; set; }
+
+            public ChoiceButtonT ChoiceButton { get; private set; }
+            public UnityAction ClickCallback { get;  private set; }
+            
         }
     }
 }

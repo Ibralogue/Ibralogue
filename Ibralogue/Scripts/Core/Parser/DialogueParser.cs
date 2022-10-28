@@ -268,7 +268,7 @@ namespace Ibralogue
          foreach (Match match in VariableRegex.Matches(line))
          {
             string processedVariable = match.ToString().Trim().Replace("$", string.Empty);
-            if (DialogueManager.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
+            if (DialogueGlobals.GlobalVariables.TryGetValue(processedVariable, out string keyValue))
             {
                line = line.Replace(match.ToString(), keyValue);
             }
