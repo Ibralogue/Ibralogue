@@ -1004,8 +1004,8 @@ MonoBehaviour:
   choiceButton: {fileID: 6826497581176721296, guid: b6c33d346da503441b5a598f8ac974a2, type: 3}
   searchAllAssemblies: 0
   includedAssemblies:
-  - Interactions
-  - Examples
+  - Ibralogue.Interactions
+  - Ibralogue.Examples
 --- !u!1 &1681295512
 GameObject:
   m_ObjectHideFlags: 0
