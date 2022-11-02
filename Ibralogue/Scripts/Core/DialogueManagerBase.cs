@@ -50,7 +50,14 @@ namespace Ibralogue
         /// <param name="startIndex">The index of the conversation you want to start.</param>
         public void StartConversation(DialogueAsset interactionDialogue, int startIndex = 0)
         {
+            if (interactionDialogue == null)
+                throw new ArgumentNullException(nameof(interactionDialogue));
+
             ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+
+            if (startIndex < 0 || startIndex > ParsedConversations.Count)
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Expected value is between 0 and conversations count (exclusive)");
+
             StartConversation(ParsedConversations[startIndex]);
         }
 
