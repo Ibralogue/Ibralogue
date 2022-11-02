@@ -55,6 +55,24 @@ namespace Ibralogue
         }
 
         /// <summary>
+        /// The method jumps to given conversation in the dialogue by its name
+        /// </summary>
+        /// <param name="conversationName">Name as seen in the DialogueAsset</param>
+        public void JumpTo(string conversationName)
+        {
+            if (ParsedConversations == null || ParsedConversations.Count == 0)
+                throw new InvalidOperationException("There is no ongoing conversation, therefore the jump cannot be executed");
+
+            var conversation = ParsedConversations.Find(c => c.Name == conversationName);
+
+            if (conversation.Name == null)
+                throw new ArgumentException($"There is no {nameof(conversation)} matching the given argument", nameof(conversationName));
+
+            StartConversation(conversation);
+        }
+
+
+        /// <summary>
         /// Varies from StartConversation due to not requiring a conversation to start the Line.
         /// <remarks>
         /// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
