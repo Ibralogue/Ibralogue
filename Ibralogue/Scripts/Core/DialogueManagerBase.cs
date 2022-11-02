@@ -124,7 +124,7 @@ namespace Ibralogue
         /// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
         /// current one.
         /// </summary>
-        public void DisplayNextLine()
+        public void TryDisplayNextLine()
         {
             if (_linePlaying) return;
             if (string.IsNullOrEmpty(_currentConversation.Name)) return; // TODO: Find a better condition
