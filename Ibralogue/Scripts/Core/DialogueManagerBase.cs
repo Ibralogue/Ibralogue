@@ -158,13 +158,21 @@ namespace Ibralogue
             {
                 var choiceButtonInstance = CreateChoiceButton();
 
-                int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                if (conversationIndex == -1)
-                    DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                int conversationIndex = -1;
+                if (choice.LeadingConversationName != "__") // TODO: Consider providing a place to change the keyword
+                {
+                    conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                    if (conversationIndex == -1)
+                        DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                }
+
+                UnityAction onClickAction = conversationIndex >= 0
+                    ? () => StartConversation(ParsedConversations[conversationIndex])
+                    : () => { };
 
                 var handle = new ChoiceButtonHandle(
                     choiceButtonInstance,
-                    () => StartConversation(ParsedConversations[conversationIndex])
+                    onClickAction
                 );
 
                 _choiceButtonInstances.Add(handle);
@@ -270,8 +278,8 @@ namespace Ibralogue
             public UnityEvent ClickEvent { get; set; }
 
             public ChoiceButtonT ChoiceButton { get; private set; }
-            public UnityAction ClickCallback { get;  private set; }
-            
+            public UnityAction ClickCallback { get; private set; }
+
         }
     }
 }
