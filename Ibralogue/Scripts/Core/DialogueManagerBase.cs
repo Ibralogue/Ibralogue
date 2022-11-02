@@ -158,17 +158,26 @@ namespace Ibralogue
             {
                 var choiceButtonInstance = CreateChoiceButton();
 
+                UnityAction onClickAction = null;
                 int conversationIndex = -1;
-                if (choice.LeadingConversationName != "__") // TODO: Consider providing a place to change the keyword
+                switch (choice.LeadingConversationName)
                 {
-                    conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                    if (conversationIndex == -1)
-                        DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                    case ">>": // TODO: Consider providing a place to change the keyword
+                        DialogueLogger.LogError(2, "The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
+                        goto case "__";
+
+                    case "__": // TODO: Consider providing a place to change the keyword
+                        onClickAction = () => { };
+                        break;
+
+                    default:
+                        conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                        if (conversationIndex == -1)
+                            DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                        onClickAction = () => StartConversation(ParsedConversations[conversationIndex]);
+                        break;
                 }
 
-                UnityAction onClickAction = conversationIndex >= 0
-                    ? () => StartConversation(ParsedConversations[conversationIndex])
-                    : () => { };
 
                 var handle = new ChoiceButtonHandle(
                     choiceButtonInstance,
