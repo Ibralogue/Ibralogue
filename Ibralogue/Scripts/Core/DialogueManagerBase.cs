@@ -127,6 +127,8 @@ namespace Ibralogue
         public void DisplayNextLine()
         {
             if (_linePlaying) return;
+            if (string.IsNullOrEmpty(_currentConversation.Name)) return; // Find a better condition
+
             ClearDialogueBox();
             if (_dialogueIndex < _currentConversation.Lines.Count - 1)
             {
