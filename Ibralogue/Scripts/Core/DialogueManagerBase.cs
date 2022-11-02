@@ -127,7 +127,8 @@ namespace Ibralogue
         public void DisplayNextLine()
         {
             if (_linePlaying) return;
-            if (string.IsNullOrEmpty(_currentConversation.Name)) return; // Find a better condition
+            if (string.IsNullOrEmpty(_currentConversation.Name)) return; // TODO: Find a better condition
+            if (_choiceButtonInstances.Count > 0) return; // TODO: Consider a better method of checking if there is a choice pending
 
             ClearDialogueBox();
             if (_dialogueIndex < _currentConversation.Lines.Count - 1)
@@ -241,6 +242,7 @@ namespace Ibralogue
                 ClearChoiceButton(buttonHandle);
                 RemoveChoiceButton(buttonHandle);
             }
+            _choiceButtonInstances.Clear();
         }
 
         protected virtual ChoiceButtonT CreateChoiceButton()
