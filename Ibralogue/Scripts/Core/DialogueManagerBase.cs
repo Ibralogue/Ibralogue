@@ -151,9 +151,12 @@ namespace Ibralogue
         /// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
         /// current one.
         /// </summary>
-        public void DisplayNextLine()
+        public void TryDisplayNextLine()
         {
             if (_linePlaying) return;
+            if (string.IsNullOrEmpty(_currentConversation.Name)) return; // TODO: Find a better condition
+            if (_choiceButtonInstances.Count > 0) return; // TODO: Consider a better method of checking if there is a choice pending
+
             ClearDialogueBox();
             if (_dialogueIndex < _currentConversation.Lines.Count - 1)
             {
@@ -258,6 +261,7 @@ namespace Ibralogue
                 ClearChoiceButton(buttonHandle);
                 RemoveChoiceButton(buttonHandle);
             }
+            _choiceButtonInstances.Clear();
         }
 
         protected virtual ChoiceButtonT CreateChoiceButton()

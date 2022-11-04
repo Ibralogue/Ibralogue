@@ -8,9 +8,9 @@ namespace Ibralogue.Examples
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-                dialogueManager.DisplayNextLine();
+                dialogueManager.TryDisplayNextLine();
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space))
-                dialogueManager.DisplayNextLine();
+                dialogueManager.TryDisplayNextLine();
         }
     }
 }
