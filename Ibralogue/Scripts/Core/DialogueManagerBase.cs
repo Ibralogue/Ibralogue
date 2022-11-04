@@ -95,6 +95,15 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
+            if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
+            {
+                if (_dialogueIndex == _currentConversation.Choices
+                        .FirstOrDefault(x => x.Value == _dialogueIndex).Value)
+                {
+                    DisplayChoices();
+                }
+            }
+
             nameText.text = _currentConversation.Lines[_dialogueIndex].Speaker;
             _linePlaying = true;
             sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
@@ -150,14 +159,6 @@ namespace Ibralogue
             {
                 _dialogueIndex++;
                 StartCoroutine(DisplayDialogue());
-                if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
-                {
-                    if (_dialogueIndex == _currentConversation.Choices
-                            .FirstOrDefault(x => x.Value == _dialogueIndex).Value)
-                    {
-                        DisplayChoices();
-                    }
-                }
             }
             else
             {
