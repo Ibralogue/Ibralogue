@@ -187,13 +187,30 @@ namespace Ibralogue
             {
                 var choiceButtonInstance = CreateChoiceButton();
 
-                int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                if (conversationIndex == -1)
-                    DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                UnityAction onClickAction = null;
+                int conversationIndex = -1;
+                switch (choice.LeadingConversationName)
+                {
+                    case ">>":
+                        DialogueLogger.LogError(2, "The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
+                        goto case "__";
+
+                    case "__":
+                        onClickAction = () => { };
+                        break;
+
+                    default:
+                        conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+                        if (conversationIndex == -1)
+                            DialogueLogger.LogError(2, $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".", this);
+                        onClickAction = () => StartConversation(ParsedConversations[conversationIndex]);
+                        break;
+                }
+
 
                 var handle = new ChoiceButtonHandle(
                     choiceButtonInstance,
-                    () => StartConversation(ParsedConversations[conversationIndex])
+                    onClickAction
                 );
 
                 _choiceButtonInstances.Add(handle);
@@ -300,8 +317,8 @@ namespace Ibralogue
             public UnityEvent ClickEvent { get; set; }
 
             public ChoiceButtonT ChoiceButton { get; private set; }
-            public UnityAction ClickCallback { get;  private set; }
-            
+            public UnityAction ClickCallback { get; private set; }
+
         }
     }
 }
