@@ -1,12 +1,11 @@
 using UnityEngine;
 using System.IO;
-using UnityEditor.AssetImporters;
 using UnityEditor.Experimental.AssetImporters;
 
 namespace Ibralogue.Editor
 {
     [ScriptedImporter(2, "ibra")]
-    public class IbraImporter : ScriptedImporter
+    public class IbralogueImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
         {
