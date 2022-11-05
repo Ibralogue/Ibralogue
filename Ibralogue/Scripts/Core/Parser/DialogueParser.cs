@@ -199,7 +199,10 @@ namespace Ibralogue
          conversation.Lines.Add(line);
          conversations.Add(conversation);
          conversations.RemoveAt(0);
-         
+
+         if (conversations.Count == 0)
+            throw new ArgumentException("Dialogue has no conversations");
+
          return conversations;
       }
 
