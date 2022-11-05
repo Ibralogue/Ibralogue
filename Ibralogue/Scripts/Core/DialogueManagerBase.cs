@@ -162,11 +162,11 @@ namespace Ibralogue
                 int conversationIndex = -1;
                 switch (choice.LeadingConversationName)
                 {
-                    case ">>": // TODO: Consider providing a place to change the keyword
+                    case ">>":
                         DialogueLogger.LogError(2, "The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
                         goto case "__";
 
-                    case "__": // TODO: Consider providing a place to change the keyword
+                    case "__":
                         onClickAction = () => { };
                         break;
 
