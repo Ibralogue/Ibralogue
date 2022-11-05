@@ -1,5 +1,4 @@
 using Ibralogue.Parser;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine.UI;
 

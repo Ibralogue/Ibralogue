@@ -62,8 +62,8 @@ namespace Ibralogue
       }   
       
       /// <summary>
-      /// The ParseDialogue function returns an array of conversations and associates information
-      /// with each element in the dialogue array (Speaker Name, Sentence, Image etc.) as well as additional metadata.
+      /// Returns an array of conversations and associates n with each element in the dialogue array
+      /// e.g: (Speaker Name, Sentence, Image etc.) as well as additional metadata.
       /// </summary>
       public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
       {
@@ -207,7 +207,7 @@ namespace Ibralogue
       }
 
       /// <summary>
-      /// The GetProcessedLine function takes in a token and a line, and removes or adds anything that requires it in the
+      /// Takes in a token and a line, and removes or adds anything that requires it in the
       /// final processed line. It does not handle the logic, but merely just how the final string is represented.
       /// </summary>
       private static string GetProcessedLine(Token token, string line)
