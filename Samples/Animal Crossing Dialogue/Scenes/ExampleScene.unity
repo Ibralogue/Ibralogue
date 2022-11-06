@@ -985,7 +985,7 @@ MonoBehaviour:
     type: 3}
   searchAllAssemblies: 0
   includedAssemblies:
-  - Ibralogue
+  - Assembly-CSharp
 --- !u!1 &1681295512
 GameObject:
   m_ObjectHideFlags: 0
