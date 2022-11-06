@@ -40,7 +40,7 @@ namespace Ibralogue
 
         [Header("Function Invocations")]
         [SerializeField] private bool searchAllAssemblies;
-        [SerializeField] private List<string> includedAssemblies;
+        [SerializeField] private List<string> includedAssemblies = new List<string>();
 
 
         /// <summary>
