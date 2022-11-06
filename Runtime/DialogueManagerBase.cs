@@ -104,8 +104,8 @@ namespace Ibralogue
         {
             if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
             {
-                if (_dialogueIndex == _currentConversation.Choices
-                        .FirstOrDefault(x => x.Value == _dialogueIndex).Value)
+                var foundChoice = _currentConversation.Choices.FirstOrDefault(x => x.Value == _dialogueIndex);
+                if (foundChoice.Key != null && _dialogueIndex == foundChoice.Value)
                 {
                     DisplayChoices();
                 }
