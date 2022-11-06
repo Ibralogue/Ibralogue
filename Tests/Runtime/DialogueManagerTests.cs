@@ -30,7 +30,7 @@ namespace Ibralogue.Tests
             choiceButtonHolder = new GameObject("Choice Holder").transform;
             choiceButton = new GameObject("Choice Button").AddComponent<TestDialogueChoice>();
 
-            manager.ScrollSpeed = 60;
+            manager.ScrollSpeed = 30;
             manager.NameText = nameText;
             manager.SentenceText = sentenceText;
             manager.SpeakerPortrait = speakerPortrait;
@@ -76,7 +76,7 @@ namespace Ibralogue.Tests
         }
 
         [UnityTest]
-        public IEnumerator SimpleDialogue_Is_Shown()
+        public IEnumerator Is_Shown()
         {
             manager.StartConversation(dialogueAsset);
 
@@ -84,6 +84,41 @@ namespace Ibralogue.Tests
 
             Assert.That(nameText.text, Is.EqualTo("NPC"));
             Assert.That(sentenceText.text, Is.EqualTo("Hello adventurer!"));
+        }
+
+        [UnityTest]
+        public IEnumerator Is_AnimatedCorrectly()
+        {
+            manager.StartConversation(dialogueAsset);
+
+            Assert.That(sentenceText.maxVisibleCharacters, Is.EqualTo(1));
+            yield return new WaitForSeconds(1);
+            Assert.That(sentenceText.maxVisibleCharacters, Is.EqualTo("Hello adventurer!".Length));
+        }
+
+        [UnityTest]
+        public IEnumerator Is_AdvancedCorrectly()
+        {
+            manager.StartConversation(dialogueAsset);
+
+            yield return new WaitForSeconds(1);
+            manager.TryDisplayNextLine();
+
+            Assert.That(nameText.text, Is.EqualTo("Player"));
+            Assert.That(sentenceText.text, Is.EqualTo("How are you?\n"));
+        }
+
+        [UnityTest]
+        public IEnumerator Is_AnimaterCorrectly_After_Advancing()
+        {
+            manager.StartConversation(dialogueAsset);
+
+            yield return new WaitForSeconds(1);
+            manager.TryDisplayNextLine();
+
+            Assert.That(sentenceText.maxVisibleCharacters, Is.EqualTo(1));
+            yield return new WaitForSeconds(1);
+            Assert.That(sentenceText.maxVisibleCharacters, Is.EqualTo("How are you?\n".Length));
         }
     }
 }
