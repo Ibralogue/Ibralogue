@@ -17,7 +17,7 @@
     {
       "displayName": "Animal Crossing Dialogue",
       "description": "Simple example of a user interface akin to that of Animal Crossing with scrolling text.",
-      "path": "Samples/Animal Crossing Dialogue"
+      "path": "Samples~/Animal Crossing Dialogue"
     }
   ]
 }    
