@@ -109,7 +109,7 @@ namespace Ibralogue.Tests
         }
 
         [UnityTest]
-        public IEnumerator Is_AnimaterCorrectly_After_Advancing()
+        public IEnumerator Is_AnimatedCorrectly_After_Advancing()
         {
             manager.StartConversation(dialogueAsset);
 
