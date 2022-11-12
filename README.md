@@ -46,21 +46,28 @@ In it's current state Ibralogue is still very usable, even if not production-rea
 
 ## Installation
 
-Ibralogue is available as a unity package, and you can grab the latest one from the [releases page](https://github.com/ibra/Ibralogue/releases).
+Ibralogue is available as a unity package, and you can install it via the Unity Package Manager. 
 
+Open the Unity Package Manager (Window -> Package Manager):
+![](https://i.ibb.co/y6rcVnx/upm.png)
+
+Then select "Add package from git URL..."  
+Then type ` https://github.com/Ibralogue/Ibralogue.git ` as the URL  
+> *If you want to choose a specific version, suffix the URL with ` #version `, for example ` https://github.com/Ibralogue/Ibralogue.git#v0.7.0 `*  
+     
+     
 You can also install it via [OpenUPM](https://openupm.com/):
-
 ```text
 openupm add com.ibra.ibralogue
 ```
 
 ## Support
 
-I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors). However, there are also people that contributed without code, and i would like to commemorate them here:
+I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors). However, there are also people that contributed in other significant ways, and i would like to mention them here:
 
 - [JetBrains](https://jb.gg/opensource) >> granted open source license access to their IDE's and tools for Ibralogue.
 
-- [Wokarol](https://github.com/wokarol) >> feedback in relation to syntax design decisions.
+- [Wokarol](https://github.com/wokarol) >> immense, invaluable feedback and major code contributions
 
 - [Hucota7](https://hucota7.itch.io) >> help with feature ideas and design decisions.
 
