@@ -10,7 +10,7 @@
     "changefreq": "weekly"
   },
   "homepages": [],
-  "source_base_path": "D:/a/Ibralogue/Ibralogue/Documentation",
+  "source_base_path": "D:/a/Ibralogue/Ibralogue/Documentation~",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -39,7 +39,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "rjk+3iatFhLev4MuLl9tLNvbqMzgQavjnLe5po8fwoE="
+          "hash": "6CtcazwPRYzyHy3w2p/0ixQ8CdG80JFrxuJbed4zyts="
         }
       },
       "is_incremental": false,
@@ -62,7 +62,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/basic-syntax.html",
-          "hash": "05J9JPy2wk4ZXDPbrl6HiitLvTaCAa07Yrt56KIurks="
+          "hash": "wmEsST4rhBpIMLlpB+2oXQ7JE4tTSgmsTDNC1ZEI2Do="
         }
       },
       "is_incremental": false,
@@ -74,7 +74,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/comments.html",
-          "hash": "jauk9EifRbzDiEVOnMu6zqTxTIfombvYOzYm9Yb0xSo="
+          "hash": "ZT05v6O14M6Hsn8TLQP4mxWnLqebDDOFPKLt6pHH+uU="
         }
       },
       "is_incremental": false,
@@ -86,7 +86,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/global-variables.html",
-          "hash": "nvgfid0j4xSDS/u9SYKdGUv5pQwvAPL8WxrRtHHL2gc="
+          "hash": "H1+vSyVmeMO8C1h4zn9xGXfqqbL5hzEcIpxShs/Z+m8="
         }
       },
       "is_incremental": false,
@@ -98,7 +98,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/invocations.html",
-          "hash": "ZMkzMN2CjCXhvoazwjK4cNEAY2NfBwWDf548cgyAtbk="
+          "hash": "BoREioSxb71N+nL1F/FpKDG5DM8Zt+8rA8kYGlvIx6M="
         }
       },
       "is_incremental": false,
@@ -113,7 +113,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/quickstart.html",
-          "hash": "xPn1v873BFXGfjCl1qAky9ere+kMr9rmRcfZ4yGDy/g="
+          "hash": "G1liP6ozZkZj6J9upHdPtoXQoYWfgd4inm43dyWgpVQ="
         }
       },
       "is_incremental": false,
@@ -129,54 +129,6 @@
         ".html": {
           "relative_path": "manual/toc.html",
           "hash": "OklEzZklYc/aHD6wBy9Q64K2C6sO2tj0GN+Y64Ikn6Y="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.DialogueLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.DialogueLogger.html",
-          "hash": "Dw5Ly3r+6yRfqXztYz0fxViDq9NnFtj/JBEBRaR08Xw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.IMetadata.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.IMetadata.html",
-          "hash": "8SaqX0Ohju5s+AgbnCY9JhII+JMu0+j39AKkHRCcIhE="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.SingleInteraction.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.SingleInteraction.html",
-          "hash": "eopJjp4W7U5gMtGzcRQ3zmv/4WHbeqwfXZkK8k7l74M="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.html",
-          "hash": "0atu5EqxxhOvbdzGaFHTOihYYEeVH4gcUAoiyK5dD9Y="
         }
       },
       "is_incremental": false,
@@ -200,7 +152,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueManager.html",
-          "hash": "QNFDFUGU90QnhLAV43Aya6uZ+f7paYUfCxN4DaAqj7k="
+          "hash": "M+Z7DJlhqNqJViE2fy5Uj8sqB4T7201SThxpgeLKlhE="
         }
       },
       "is_incremental": false,
@@ -220,11 +172,23 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.BaseInteraction.yml",
+      "source_relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.BaseInteraction.html",
-          "hash": "5BYDEdJssc0lHZX7ofB57o3VvVSSL0J0JEFgpqSl2j4="
+          "relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.html",
+          "hash": "4UeWZMZGUxojtPT8iUO8Tag+k+a3dsoYD9Jvi3uCECM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.html",
+          "hash": "Jf74bsqHahuVOLpIwsTO0jnAKyCKWyDhMd7qyNokj1E="
         }
       },
       "is_incremental": false,
@@ -236,7 +200,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.RandomInteraction.html",
-          "hash": "tyG4XrPbXfgZ72HNtqKx6UgITcBZZs98/bWj0m45b9U="
+          "hash": "AX6StBy7b+/7P7ClgjZwb2l3qxK4TOQea9OagZkE5EM="
         }
       },
       "is_incremental": false,
@@ -248,7 +212,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.html",
-          "hash": "DytzTsXYJW69gNFuXnE38xfqRZ73hPF0CpVs+glagHw="
+          "hash": "R7neivWaQexuEaUZPXP64Qic9QbRgGbO0ZuzSm+Z7is="
         }
       },
       "is_incremental": false,
@@ -260,7 +224,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.html",
-          "hash": "9Jqtp51n77Y1A+VmOJ+CZHu0spc+RnjV/fCyYK+8X00="
+          "hash": "7pQAxd0X5XSLHpW5q+uhzW7TknNAUxOpsOE8is3rsrk="
         }
       },
       "is_incremental": false,
@@ -272,7 +236,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Choice.html",
-          "hash": "0kX6YUPgCog4Vx05DowpdLnQ6tVR0sj0lp7WIR9IGa8="
+          "hash": "4+6T+V/724Iy9cgJ0Bm5lZENkjIx7I7WXnq+srk9Aak="
         }
       },
       "is_incremental": false,
@@ -284,7 +248,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Conversation.html",
-          "hash": "GvN2QsN/yzGtzyIDfTO0aLPa4IY4FHYNKJtxsWRx/l8="
+          "hash": "xQwpWbW2jlIgOOSYbQub8D/0NEf39bdIEp7vIJrVjiM="
         }
       },
       "is_incremental": false,
@@ -292,11 +256,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Parser.Line.yml",
+      "source_relative_path": "ref/Ibralogue.Parser.Dialogue.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Parser.Line.html",
-          "hash": "8e+NP4MdmHoilRr7ou3OeitRX1gpSSb0qkS7io5cfns="
+          "relative_path": "ref/Ibralogue.Parser.Dialogue.html",
+          "hash": "o8E32R2cZcF7V5Rj9vvUDFf5PQ2eZTQX1wQQaTDQY8k="
         }
       },
       "is_incremental": false,
@@ -304,11 +268,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Parser.LineContent.yml",
+      "source_relative_path": "ref/Ibralogue.Parser.Sentence.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Parser.LineContent.html",
-          "hash": "kxBuMGsAgBIVMgeMv1mKEp9ixtzdgflKTgudME/U61A="
+          "relative_path": "ref/Ibralogue.Parser.Sentence.html",
+          "hash": "315Y6ACthe8j0o6/2OlkMwf3MMzLmAq7tTrYylxRO64="
         }
       },
       "is_incremental": false,
@@ -320,7 +284,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.html",
-          "hash": "c2RBJoMacEPd/l0tV9eKGVQhyqg4hOBlUEwfq5dGCUw="
+          "hash": "dOL+PRYp7IKcEudyv9U7a2a1eLmiQZHbleur8sTfSjs="
         }
       },
       "is_incremental": false,
@@ -344,7 +308,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/toc.html",
-          "hash": "CPHpXh2SfENlSRBcIeVNPe3GW688VsQzt/VOsRUzmS8="
+          "hash": "kILuCKbhSeRsqYGcUSB41z10fWkF5jbeHIFd0kQLC8s="
         }
       },
       "is_incremental": false,
@@ -356,7 +320,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "SKvbTQlBtAb04I0bONbekR8SrX0rslAU3ajKwDsFLLA="
+          "hash": "dfQV5szy9quJFGbUKMWB9U0983IBECcC7Dj8GD4IrDk="
         }
       },
       "is_incremental": false,
@@ -383,7 +347,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 17,
+          "total_file_count": 14,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

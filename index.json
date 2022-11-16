@@ -29,26 +29,6 @@
     "title": "Quickstart | Ibralogue Docs",
     "keywords": "Quickstart Add an empty GameObject with the component DialogueManager to your scene and assign its required references. Add a button, give it the SingleInteraction component, and assign its reference to the DialogueManager . Assign the button component's callback to DialogueInteraction.StartDialogue . For the Interaction Dialogue reference, create a new Ibralogue file from the create menu like so: ...and then assign it to the Interaction Dialogue reference. Open the Ibralogue file you have created and it should look something like this: {{DialogueName(Init)}} [NPC] Hello World! For some more information on the syntax of the dialogue files, take a look at the Syntax Guide ."
   },
-  "ref/Global.DialogueLogger.html": {
-    "href": "ref/Global.DialogueLogger.html",
-    "title": "Class DialogueLogger | Ibralogue Docs",
-    "keywords": "Class DialogueLogger Inheritance Object DialogueLogger Namespace : Global Assembly : cs.temp.dll.dll Syntax public static class DialogueLogger Methods LogError(Int32, String, Object) Declaration public static void LogError(int line, string message, object context = null) Parameters Type Name Description Int32 line String message Object context"
-  },
-  "ref/Global.html": {
-    "href": "ref/Global.html",
-    "title": "Namespace Global | Ibralogue Docs",
-    "keywords": "Namespace Global Classes DialogueLogger SingleInteraction Interfaces IMetadata"
-  },
-  "ref/Global.IMetadata.html": {
-    "href": "ref/Global.IMetadata.html",
-    "title": "Interface IMetadata | Ibralogue Docs",
-    "keywords": "Interface IMetadata Namespace : Global Assembly : cs.temp.dll.dll Syntax public interface IMetadata Methods HasMetadata(String) Declaration bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean"
-  },
-  "ref/Global.SingleInteraction.html": {
-    "href": "ref/Global.SingleInteraction.html",
-    "title": "Class SingleInteraction | Ibralogue Docs",
-    "keywords": "Class SingleInteraction Inheritance Object SingleInteraction Namespace : Global Assembly : cs.temp.dll.dll Syntax public class SingleInteraction : BaseInteraction Methods StartDialogue() Declaration public override void StartDialogue()"
-  },
   "ref/Ibralogue.DialogueFunctionAttribute.html": {
     "href": "ref/Ibralogue.DialogueFunctionAttribute.html",
     "title": "Class DialogueFunctionAttribute | Ibralogue Docs",
@@ -57,7 +37,7 @@
   "ref/Ibralogue.DialogueManager.html": {
     "href": "ref/Ibralogue.DialogueManager.html",
     "title": "Class DialogueManager | Ibralogue Docs",
-    "keywords": "Class DialogueManager Inheritance Object DialogueManager Namespace : Ibralogue Assembly : cs.temp.dll.dll Syntax public class DialogueManager : MonoBehaviour Fields GlobalVariables Declaration public static readonly Dictionary<string, string> GlobalVariables Field Value Type Description Dictionary < String , String > Properties OnConversationEnd Declaration public UnityEvent OnConversationEnd { get; set; } Property Value Type Description UnityEvent OnConversationStart Declaration public UnityEvent OnConversationStart { get; set; } Property Value Type Description UnityEvent ParsedConversations Declaration public List<Conversation> ParsedConversations { get; } Property Value Type Description List < Conversation > Methods DisplayChoices() Uses the Unity UI system and TextMeshPro to render choice buttons. Declaration protected void DisplayChoices() DisplayNextLine() Clears the dialogue box and displays the next if no sentences are left in the current one. Declaration public void DisplayNextLine() DisplaySpeakerImage() Sets the speaker image and makes the Image transparent if there is no speaker image. Declaration protected void DisplaySpeakerImage() StartConversation(TextAsset, Int32) Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the Ibralogue.DialogueManager.DisplayDialogue function. Declaration public void StartConversation(TextAsset interactionDialogue, int startIndex = 0) Parameters Type Name Description TextAsset interactionDialogue The dialogue file that we want to use in the conversation Int32 startIndex The index of the conversation you want to start."
+    "keywords": "Class DialogueManager Inheritance Object DialogueManager Namespace : Ibralogue Assembly : cs.temp.dll.dll Syntax public class DialogueManager : MonoBehaviour Fields GlobalVariables Declaration public static readonly Dictionary<string, string> GlobalVariables Field Value Type Description Dictionary < String , String > Properties OnConversationEnd Declaration public UnityEvent OnConversationEnd { get; set; } Property Value Type Description UnityEvent OnConversationStart Declaration public UnityEvent OnConversationStart { get; set; } Property Value Type Description UnityEvent Methods DisplayChoices() Uses the Unity UI system and TextMeshPro to render choice buttons. Declaration protected void DisplayChoices() DisplayNextLine() Clears the dialogue box and displays the next if no sentences are left in the current one. Declaration public void DisplayNextLine() DisplaySpeakerImage() Sets the speaker image and makes the Image transparent if there is no speaker image. Declaration protected void DisplaySpeakerImage() StartConversation(TextAsset, Int32) Starts a dialogue by parsing all the text in a file, clearing the dialogue box and starting the Ibralogue.DialogueManager.DisplayDialogue function. Declaration public void StartConversation(TextAsset interactionDialogue, int startIndex = 0) Parameters Type Name Description TextAsset interactionDialogue The dialogue file that we want to use in the conversation Int32 startIndex The index of the conversation you want to start."
   },
   "ref/Ibralogue.DialogueParser.html": {
     "href": "ref/Ibralogue.DialogueParser.html",
@@ -69,49 +49,54 @@
     "title": "Namespace Ibralogue | Ibralogue Docs",
     "keywords": "Namespace Ibralogue Classes DialogueFunctionAttribute DialogueManager DialogueParser"
   },
-  "ref/Ibralogue.Interactions.BaseInteraction.html": {
-    "href": "ref/Ibralogue.Interactions.BaseInteraction.html",
-    "title": "Class BaseInteraction | Ibralogue Docs",
-    "keywords": "Class BaseInteraction The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject. Inheritance Object BaseInteraction RandomInteraction RoundRobinInteraction Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public abstract class BaseInteraction : MonoBehaviour Fields dialogueManager Declaration protected DialogueManager dialogueManager Field Value Type Description DialogueManager InteractionDialogues Declaration protected TextAsset[] InteractionDialogues Field Value Type Description TextAsset [] Methods StartDialogue() Declaration public virtual void StartDialogue()"
+  "ref/Ibralogue.Interactions.DefaultInteraction.html": {
+    "href": "ref/Ibralogue.Interactions.DefaultInteraction.html",
+    "title": "Class DefaultInteraction | Ibralogue Docs",
+    "keywords": "Class DefaultInteraction The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject. Inheritance Object DefaultInteraction GlobalVariableInteraction RandomInteraction RoundRobinInteraction Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public abstract class DefaultInteraction : MonoBehaviour Fields dialogueManager Declaration protected DialogueManager dialogueManager Field Value Type Description DialogueManager InteractionDialogues Declaration protected TextAsset[] InteractionDialogues Field Value Type Description TextAsset [] Methods StartDialogue() Declaration public virtual void StartDialogue()"
+  },
+  "ref/Ibralogue.Interactions.GlobalVariableInteraction.html": {
+    "href": "ref/Ibralogue.Interactions.GlobalVariableInteraction.html",
+    "title": "Class GlobalVariableInteraction | Ibralogue Docs",
+    "keywords": "Class GlobalVariableInteraction Adds a global variable key-value pair and plays the very first conversation in the interaction dialogue array. Inheritance Object DefaultInteraction GlobalVariableInteraction Inherited Members DefaultInteraction.dialogueManager DefaultInteraction.InteractionDialogues Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public class GlobalVariableInteraction : DefaultInteraction Methods StartDialogue() Declaration public override void StartDialogue() Overrides DefaultInteraction.StartDialogue()"
   },
   "ref/Ibralogue.Interactions.html": {
     "href": "ref/Ibralogue.Interactions.html",
     "title": "Namespace Ibralogue.Interactions | Ibralogue Docs",
-    "keywords": "Namespace Ibralogue.Interactions Classes BaseInteraction The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject. RandomInteraction Plays a random dialogue from within the interaction dialogue array. RoundRobinInteraction Loops through each dialogue one by one and stops at the last one unless \"Loop\" is checked in which case it starts from the first dialogue."
+    "keywords": "Namespace Ibralogue.Interactions Classes DefaultInteraction The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject. GlobalVariableInteraction Adds a global variable key-value pair and plays the very first conversation in the interaction dialogue array. RandomInteraction Plays a random dialogue from within the interaction dialogue array. RoundRobinInteraction Loops through each dialogue one by one and stops at the last one unless \"Loop\" is checked in which case it starts from the first dialogue."
   },
   "ref/Ibralogue.Interactions.RandomInteraction.html": {
     "href": "ref/Ibralogue.Interactions.RandomInteraction.html",
     "title": "Class RandomInteraction | Ibralogue Docs",
-    "keywords": "Class RandomInteraction Plays a random dialogue from within the interaction dialogue array. Inheritance Object BaseInteraction RandomInteraction Inherited Members BaseInteraction.dialogueManager BaseInteraction.InteractionDialogues Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public class RandomInteraction : BaseInteraction Methods StartDialogue() Declaration public override void StartDialogue() Overrides BaseInteraction.StartDialogue()"
+    "keywords": "Class RandomInteraction Plays a random dialogue from within the interaction dialogue array. Inheritance Object DefaultInteraction RandomInteraction Inherited Members DefaultInteraction.dialogueManager DefaultInteraction.InteractionDialogues Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public class RandomInteraction : DefaultInteraction Methods StartDialogue() Declaration public override void StartDialogue() Overrides DefaultInteraction.StartDialogue()"
   },
   "ref/Ibralogue.Interactions.RoundRobinInteraction.html": {
     "href": "ref/Ibralogue.Interactions.RoundRobinInteraction.html",
     "title": "Class RoundRobinInteraction | Ibralogue Docs",
-    "keywords": "Class RoundRobinInteraction Loops through each dialogue one by one and stops at the last one unless \"Loop\" is checked in which case it starts from the first dialogue. Inheritance Object BaseInteraction RoundRobinInteraction Inherited Members BaseInteraction.dialogueManager BaseInteraction.InteractionDialogues Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public class RoundRobinInteraction : BaseInteraction Methods StartDialogue() Declaration public override void StartDialogue() Overrides BaseInteraction.StartDialogue()"
+    "keywords": "Class RoundRobinInteraction Loops through each dialogue one by one and stops at the last one unless \"Loop\" is checked in which case it starts from the first dialogue. Inheritance Object DefaultInteraction RoundRobinInteraction Inherited Members DefaultInteraction.dialogueManager DefaultInteraction.InteractionDialogues Namespace : Ibralogue.Interactions Assembly : cs.temp.dll.dll Syntax public class RoundRobinInteraction : DefaultInteraction Methods StartDialogue() Declaration public override void StartDialogue() Overrides DefaultInteraction.StartDialogue()"
   },
   "ref/Ibralogue.Parser.Choice.html": {
     "href": "ref/Ibralogue.Parser.Choice.html",
-    "title": "Class Choice | Ibralogue Docs",
-    "keywords": "Class Choice Inheritance Object Choice Implements IMetadata Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public class Choice : IMetadata Fields ChoiceName Declaration public string ChoiceName Field Value Type Description String LeadingConversationName Declaration public string LeadingConversationName Field Value Type Description String Metadata Declaration public Dictionary<string, string> Metadata Field Value Type Description Dictionary < String , String > Methods HasMetadata(String) Declaration public bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration public bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean Implements IMetadata"
+    "title": "Struct Choice | Ibralogue Docs",
+    "keywords": "Struct Choice Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Choice Fields ChoiceName Declaration public string ChoiceName Field Value Type Description String LeadingConversationName Declaration public string LeadingConversationName Field Value Type Description String"
   },
   "ref/Ibralogue.Parser.Conversation.html": {
     "href": "ref/Ibralogue.Parser.Conversation.html",
     "title": "Struct Conversation | Ibralogue Docs",
-    "keywords": "Struct Conversation Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Conversation Fields Choices Declaration public Dictionary<Choice, int> Choices Field Value Type Description Dictionary < Choice , Int32 > Lines Declaration public List<Line> Lines Field Value Type Description List < Line > Name Declaration public string Name Field Value Type Description String"
+    "keywords": "Struct Conversation Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Conversation Fields Choices Declaration public Dictionary<Choice, int> Choices Field Value Type Description Dictionary < Choice , Int32 > Dialogues Declaration public List<Dialogue> Dialogues Field Value Type Description List < Dialogue > Name Declaration public string Name Field Value Type Description String"
+  },
+  "ref/Ibralogue.Parser.Dialogue.html": {
+    "href": "ref/Ibralogue.Parser.Dialogue.html",
+    "title": "Struct Dialogue | Ibralogue Docs",
+    "keywords": "Struct Dialogue The Dialogue struct contains information about an individual line of dialogue. Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Dialogue Remarks A list of these Dialogue structs makes up a conversation, and a list of conversations makes up a single dialogue file, due to being able to have multiple conversations in a single file for dialogue branching. Fields Sentence Declaration public Sentence Sentence Field Value Type Description Sentence Speaker Declaration public string Speaker Field Value Type Description String SpeakerImage Declaration public Sprite SpeakerImage Field Value Type Description Sprite"
   },
   "ref/Ibralogue.Parser.html": {
     "href": "ref/Ibralogue.Parser.html",
     "title": "Namespace Ibralogue.Parser | Ibralogue Docs",
-    "keywords": "Namespace Ibralogue.Parser Classes Choice Line The Line struct contains information about an individual line of dialogue. Structs Conversation LineContent"
+    "keywords": "Namespace Ibralogue.Parser Structs Choice Conversation Dialogue The Dialogue struct contains information about an individual line of dialogue. Sentence"
   },
-  "ref/Ibralogue.Parser.Line.html": {
-    "href": "ref/Ibralogue.Parser.Line.html",
-    "title": "Class Line | Ibralogue Docs",
-    "keywords": "Class Line The Line struct contains information about an individual line of dialogue. Inheritance Object Line Implements IMetadata Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public class Line : IMetadata Remarks A list of these Line structs makes up a conversation, and a list of conversations makes up a single dialogue file, due to being able to have multiple conversations in a single file for dialogue branching. Fields LineContent Declaration public LineContent LineContent Field Value Type Description LineContent Speaker Declaration public string Speaker Field Value Type Description String SpeakerImage Declaration public Sprite SpeakerImage Field Value Type Description Sprite Methods HasMetadata(String) Declaration public bool HasMetadata(string key) Parameters Type Name Description String key Returns Type Description Boolean TryGetMetadataValue(String, out String) Declaration public bool TryGetMetadataValue(string key, out string value) Parameters Type Name Description String key String value Returns Type Description Boolean Implements IMetadata"
-  },
-  "ref/Ibralogue.Parser.LineContent.html": {
-    "href": "ref/Ibralogue.Parser.LineContent.html",
-    "title": "Struct LineContent | Ibralogue Docs",
-    "keywords": "Struct LineContent Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct LineContent Fields Invocations Declaration public Dictionary<int, string> Invocations Field Value Type Description Dictionary < Int32 , String > Metadata Declaration public Dictionary<string, string> Metadata Field Value Type Description Dictionary < String , String > Text Declaration public string Text Field Value Type Description String"
+  "ref/Ibralogue.Parser.Sentence.html": {
+    "href": "ref/Ibralogue.Parser.Sentence.html",
+    "title": "Struct Sentence | Ibralogue Docs",
+    "keywords": "Struct Sentence Namespace : Ibralogue.Parser Assembly : cs.temp.dll.dll Syntax public struct Sentence Fields Invocations Declaration public Dictionary<int, string> Invocations Field Value Type Description Dictionary < Int32 , String > Text Declaration public string Text Field Value Type Description String"
   }
 }

@@ -1,87 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: Global
-  name: Global
-  href: ref/Global.html
-  name.vb: ''
-  fullName: Global
-  fullName.vb: ''
-  nameWithType: Global
-  nameWithType.vb: ''
-- uid: Global.DialogueLogger
-  name: DialogueLogger
-  href: ref/Global.DialogueLogger.html
-  commentId: T:Global.DialogueLogger
-  fullName: DialogueLogger
-  nameWithType: DialogueLogger
-- uid: Global.DialogueLogger.LogError(System.Int32,System.String,System.Object)
-  name: LogError(Int32, String, Object)
-  href: ref/Global.DialogueLogger.html#Global_DialogueLogger_LogError_System_Int32_System_String_System_Object_
-  commentId: M:Global.DialogueLogger.LogError(System.Int32,System.String,System.Object)
-  fullName: DialogueLogger.LogError(System.Int32, System.String, System.Object)
-  nameWithType: DialogueLogger.LogError(Int32, String, Object)
-- uid: Global.DialogueLogger.LogError*
-  name: LogError
-  href: ref/Global.DialogueLogger.html#Global_DialogueLogger_LogError_
-  commentId: Overload:Global.DialogueLogger.LogError
-  isSpec: "True"
-  fullName: DialogueLogger.LogError
-  nameWithType: DialogueLogger.LogError
-- uid: Global.IMetadata
-  name: IMetadata
-  href: ref/Global.IMetadata.html
-  commentId: T:Global.IMetadata
-  fullName: IMetadata
-  nameWithType: IMetadata
-- uid: Global.IMetadata.HasMetadata(System.String)
-  name: HasMetadata(String)
-  href: ref/Global.IMetadata.html#Global_IMetadata_HasMetadata_System_String_
-  commentId: M:Global.IMetadata.HasMetadata(System.String)
-  fullName: IMetadata.HasMetadata(System.String)
-  nameWithType: IMetadata.HasMetadata(String)
-- uid: Global.IMetadata.HasMetadata*
-  name: HasMetadata
-  href: ref/Global.IMetadata.html#Global_IMetadata_HasMetadata_
-  commentId: Overload:Global.IMetadata.HasMetadata
-  isSpec: "True"
-  fullName: IMetadata.HasMetadata
-  nameWithType: IMetadata.HasMetadata
-- uid: Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
-  href: ref/Global.IMetadata.html#Global_IMetadata_TryGetMetadataValue_System_String_System_String__
-  commentId: M:Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: IMetadata.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: IMetadata.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: IMetadata.TryGetMetadataValue(String, out String)
-  nameWithType.vb: IMetadata.TryGetMetadataValue(String, ByRef String)
-- uid: Global.IMetadata.TryGetMetadataValue*
-  name: TryGetMetadataValue
-  href: ref/Global.IMetadata.html#Global_IMetadata_TryGetMetadataValue_
-  commentId: Overload:Global.IMetadata.TryGetMetadataValue
-  isSpec: "True"
-  fullName: IMetadata.TryGetMetadataValue
-  nameWithType: IMetadata.TryGetMetadataValue
-- uid: Global.SingleInteraction
-  name: SingleInteraction
-  href: ref/Global.SingleInteraction.html
-  commentId: T:Global.SingleInteraction
-  fullName: SingleInteraction
-  nameWithType: SingleInteraction
-- uid: Global.SingleInteraction.StartDialogue
-  name: StartDialogue()
-  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue
-  commentId: M:Global.SingleInteraction.StartDialogue
-  fullName: SingleInteraction.StartDialogue()
-  nameWithType: SingleInteraction.StartDialogue()
-- uid: Global.SingleInteraction.StartDialogue*
-  name: StartDialogue
-  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue_
-  commentId: Overload:Global.SingleInteraction.StartDialogue
-  isSpec: "True"
-  fullName: SingleInteraction.StartDialogue
-  nameWithType: SingleInteraction.StartDialogue
 - uid: Ibralogue
   name: Ibralogue
   href: ref/Ibralogue.html
@@ -171,19 +90,6 @@ references:
   isSpec: "True"
   fullName: Ibralogue.DialogueManager.OnConversationStart
   nameWithType: DialogueManager.OnConversationStart
-- uid: Ibralogue.DialogueManager.ParsedConversations
-  name: ParsedConversations
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_ParsedConversations
-  commentId: P:Ibralogue.DialogueManager.ParsedConversations
-  fullName: Ibralogue.DialogueManager.ParsedConversations
-  nameWithType: DialogueManager.ParsedConversations
-- uid: Ibralogue.DialogueManager.ParsedConversations*
-  name: ParsedConversations
-  href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_ParsedConversations_
-  commentId: Overload:Ibralogue.DialogueManager.ParsedConversations
-  isSpec: "True"
-  fullName: Ibralogue.DialogueManager.ParsedConversations
-  nameWithType: DialogueManager.ParsedConversations
 - uid: Ibralogue.DialogueManager.StartConversation(TextAsset,System.Int32)
   name: StartConversation(TextAsset, Int32)
   href: ref/Ibralogue.DialogueManager.html#Ibralogue_DialogueManager_StartConversation_TextAsset_System_Int32_
@@ -222,37 +128,56 @@ references:
   commentId: N:Ibralogue.Interactions
   fullName: Ibralogue.Interactions
   nameWithType: Ibralogue.Interactions
-- uid: Ibralogue.Interactions.BaseInteraction
-  name: BaseInteraction
-  href: ref/Ibralogue.Interactions.BaseInteraction.html
-  commentId: T:Ibralogue.Interactions.BaseInteraction
-  fullName: Ibralogue.Interactions.BaseInteraction
-  nameWithType: BaseInteraction
-- uid: Ibralogue.Interactions.BaseInteraction.dialogueManager
+- uid: Ibralogue.Interactions.DefaultInteraction
+  name: DefaultInteraction
+  href: ref/Ibralogue.Interactions.DefaultInteraction.html
+  commentId: T:Ibralogue.Interactions.DefaultInteraction
+  fullName: Ibralogue.Interactions.DefaultInteraction
+  nameWithType: DefaultInteraction
+- uid: Ibralogue.Interactions.DefaultInteraction.dialogueManager
   name: dialogueManager
-  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_dialogueManager
-  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueManager
-  fullName: Ibralogue.Interactions.BaseInteraction.dialogueManager
-  nameWithType: BaseInteraction.dialogueManager
-- uid: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_dialogueManager
+  commentId: F:Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.DefaultInteraction.dialogueManager
+  nameWithType: DefaultInteraction.dialogueManager
+- uid: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
   name: InteractionDialogues
-  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_InteractionDialogues
-  commentId: F:Ibralogue.Interactions.BaseInteraction.InteractionDialogues
-  fullName: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
-  nameWithType: BaseInteraction.InteractionDialogues
-- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_InteractionDialogues
+  commentId: F:Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
+  fullName: Ibralogue.Interactions.DefaultInteraction.InteractionDialogues
+  nameWithType: DefaultInteraction.InteractionDialogues
+- uid: Ibralogue.Interactions.DefaultInteraction.StartDialogue
   name: StartDialogue()
-  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_StartDialogue
-  commentId: M:Ibralogue.Interactions.BaseInteraction.StartDialogue
-  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue()
-  nameWithType: BaseInteraction.StartDialogue()
-- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue*
+  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue
+  commentId: M:Ibralogue.Interactions.DefaultInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.DefaultInteraction.StartDialogue()
+  nameWithType: DefaultInteraction.StartDialogue()
+- uid: Ibralogue.Interactions.DefaultInteraction.StartDialogue*
   name: StartDialogue
-  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_StartDialogue_
-  commentId: Overload:Ibralogue.Interactions.BaseInteraction.StartDialogue
+  href: ref/Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue_
+  commentId: Overload:Ibralogue.Interactions.DefaultInteraction.StartDialogue
   isSpec: "True"
-  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
-  nameWithType: BaseInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.DefaultInteraction.StartDialogue
+  nameWithType: DefaultInteraction.StartDialogue
+- uid: Ibralogue.Interactions.GlobalVariableInteraction
+  name: GlobalVariableInteraction
+  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html
+  commentId: T:Ibralogue.Interactions.GlobalVariableInteraction
+  fullName: Ibralogue.Interactions.GlobalVariableInteraction
+  nameWithType: GlobalVariableInteraction
+- uid: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
+  name: StartDialogue()
+  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html#Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue
+  commentId: M:Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue()
+  nameWithType: GlobalVariableInteraction.StartDialogue()
+- uid: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue*
+  name: StartDialogue
+  href: ref/Ibralogue.Interactions.GlobalVariableInteraction.html#Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue_
+  commentId: Overload:Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
+  isSpec: "True"
+  fullName: Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue
+  nameWithType: GlobalVariableInteraction.StartDialogue
 - uid: Ibralogue.Interactions.RandomInteraction
   name: RandomInteraction
   href: ref/Ibralogue.Interactions.RandomInteraction.html
@@ -309,47 +234,12 @@ references:
   commentId: F:Ibralogue.Parser.Choice.ChoiceName
   fullName: Ibralogue.Parser.Choice.ChoiceName
   nameWithType: Choice.ChoiceName
-- uid: Ibralogue.Parser.Choice.HasMetadata(System.String)
-  name: HasMetadata(String)
-  href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_HasMetadata_System_String_
-  commentId: M:Ibralogue.Parser.Choice.HasMetadata(System.String)
-  fullName: Ibralogue.Parser.Choice.HasMetadata(System.String)
-  nameWithType: Choice.HasMetadata(String)
-- uid: Ibralogue.Parser.Choice.HasMetadata*
-  name: HasMetadata
-  href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_HasMetadata_
-  commentId: Overload:Ibralogue.Parser.Choice.HasMetadata
-  isSpec: "True"
-  fullName: Ibralogue.Parser.Choice.HasMetadata
-  nameWithType: Choice.HasMetadata
 - uid: Ibralogue.Parser.Choice.LeadingConversationName
   name: LeadingConversationName
   href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_LeadingConversationName
   commentId: F:Ibralogue.Parser.Choice.LeadingConversationName
   fullName: Ibralogue.Parser.Choice.LeadingConversationName
   nameWithType: Choice.LeadingConversationName
-- uid: Ibralogue.Parser.Choice.Metadata
-  name: Metadata
-  href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_Metadata
-  commentId: F:Ibralogue.Parser.Choice.Metadata
-  fullName: Ibralogue.Parser.Choice.Metadata
-  nameWithType: Choice.Metadata
-- uid: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
-  href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_TryGetMetadataValue_System_String_System_String__
-  commentId: M:Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: Choice.TryGetMetadataValue(String, out String)
-  nameWithType.vb: Choice.TryGetMetadataValue(String, ByRef String)
-- uid: Ibralogue.Parser.Choice.TryGetMetadataValue*
-  name: TryGetMetadataValue
-  href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_TryGetMetadataValue_
-  commentId: Overload:Ibralogue.Parser.Choice.TryGetMetadataValue
-  isSpec: "True"
-  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue
-  nameWithType: Choice.TryGetMetadataValue
 - uid: Ibralogue.Parser.Conversation
   name: Conversation
   href: ref/Ibralogue.Parser.Conversation.html
@@ -362,92 +252,57 @@ references:
   commentId: F:Ibralogue.Parser.Conversation.Choices
   fullName: Ibralogue.Parser.Conversation.Choices
   nameWithType: Conversation.Choices
-- uid: Ibralogue.Parser.Conversation.Lines
-  name: Lines
-  href: ref/Ibralogue.Parser.Conversation.html#Ibralogue_Parser_Conversation_Lines
-  commentId: F:Ibralogue.Parser.Conversation.Lines
-  fullName: Ibralogue.Parser.Conversation.Lines
-  nameWithType: Conversation.Lines
+- uid: Ibralogue.Parser.Conversation.Dialogues
+  name: Dialogues
+  href: ref/Ibralogue.Parser.Conversation.html#Ibralogue_Parser_Conversation_Dialogues
+  commentId: F:Ibralogue.Parser.Conversation.Dialogues
+  fullName: Ibralogue.Parser.Conversation.Dialogues
+  nameWithType: Conversation.Dialogues
 - uid: Ibralogue.Parser.Conversation.Name
   name: Name
   href: ref/Ibralogue.Parser.Conversation.html#Ibralogue_Parser_Conversation_Name
   commentId: F:Ibralogue.Parser.Conversation.Name
   fullName: Ibralogue.Parser.Conversation.Name
   nameWithType: Conversation.Name
-- uid: Ibralogue.Parser.Line
-  name: Line
-  href: ref/Ibralogue.Parser.Line.html
-  commentId: T:Ibralogue.Parser.Line
-  fullName: Ibralogue.Parser.Line
-  nameWithType: Line
-- uid: Ibralogue.Parser.Line.HasMetadata(System.String)
-  name: HasMetadata(String)
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_HasMetadata_System_String_
-  commentId: M:Ibralogue.Parser.Line.HasMetadata(System.String)
-  fullName: Ibralogue.Parser.Line.HasMetadata(System.String)
-  nameWithType: Line.HasMetadata(String)
-- uid: Ibralogue.Parser.Line.HasMetadata*
-  name: HasMetadata
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_HasMetadata_
-  commentId: Overload:Ibralogue.Parser.Line.HasMetadata
-  isSpec: "True"
-  fullName: Ibralogue.Parser.Line.HasMetadata
-  nameWithType: Line.HasMetadata
-- uid: Ibralogue.Parser.Line.LineContent
-  name: LineContent
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_LineContent
-  commentId: F:Ibralogue.Parser.Line.LineContent
-  fullName: Ibralogue.Parser.Line.LineContent
-  nameWithType: Line.LineContent
-- uid: Ibralogue.Parser.Line.Speaker
+- uid: Ibralogue.Parser.Dialogue
+  name: Dialogue
+  href: ref/Ibralogue.Parser.Dialogue.html
+  commentId: T:Ibralogue.Parser.Dialogue
+  fullName: Ibralogue.Parser.Dialogue
+  nameWithType: Dialogue
+- uid: Ibralogue.Parser.Dialogue.Sentence
+  name: Sentence
+  href: ref/Ibralogue.Parser.Dialogue.html#Ibralogue_Parser_Dialogue_Sentence
+  commentId: F:Ibralogue.Parser.Dialogue.Sentence
+  fullName: Ibralogue.Parser.Dialogue.Sentence
+  nameWithType: Dialogue.Sentence
+- uid: Ibralogue.Parser.Dialogue.Speaker
   name: Speaker
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_Speaker
-  commentId: F:Ibralogue.Parser.Line.Speaker
-  fullName: Ibralogue.Parser.Line.Speaker
-  nameWithType: Line.Speaker
-- uid: Ibralogue.Parser.Line.SpeakerImage
+  href: ref/Ibralogue.Parser.Dialogue.html#Ibralogue_Parser_Dialogue_Speaker
+  commentId: F:Ibralogue.Parser.Dialogue.Speaker
+  fullName: Ibralogue.Parser.Dialogue.Speaker
+  nameWithType: Dialogue.Speaker
+- uid: Ibralogue.Parser.Dialogue.SpeakerImage
   name: SpeakerImage
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_SpeakerImage
-  commentId: F:Ibralogue.Parser.Line.SpeakerImage
-  fullName: Ibralogue.Parser.Line.SpeakerImage
-  nameWithType: Line.SpeakerImage
-- uid: Ibralogue.Parser.Line.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_TryGetMetadataValue_System_String_System_String__
-  commentId: M:Ibralogue.Parser.Line.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: Ibralogue.Parser.Line.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: Ibralogue.Parser.Line.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: Line.TryGetMetadataValue(String, out String)
-  nameWithType.vb: Line.TryGetMetadataValue(String, ByRef String)
-- uid: Ibralogue.Parser.Line.TryGetMetadataValue*
-  name: TryGetMetadataValue
-  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_TryGetMetadataValue_
-  commentId: Overload:Ibralogue.Parser.Line.TryGetMetadataValue
-  isSpec: "True"
-  fullName: Ibralogue.Parser.Line.TryGetMetadataValue
-  nameWithType: Line.TryGetMetadataValue
-- uid: Ibralogue.Parser.LineContent
-  name: LineContent
-  href: ref/Ibralogue.Parser.LineContent.html
-  commentId: T:Ibralogue.Parser.LineContent
-  fullName: Ibralogue.Parser.LineContent
-  nameWithType: LineContent
-- uid: Ibralogue.Parser.LineContent.Invocations
+  href: ref/Ibralogue.Parser.Dialogue.html#Ibralogue_Parser_Dialogue_SpeakerImage
+  commentId: F:Ibralogue.Parser.Dialogue.SpeakerImage
+  fullName: Ibralogue.Parser.Dialogue.SpeakerImage
+  nameWithType: Dialogue.SpeakerImage
+- uid: Ibralogue.Parser.Sentence
+  name: Sentence
+  href: ref/Ibralogue.Parser.Sentence.html
+  commentId: T:Ibralogue.Parser.Sentence
+  fullName: Ibralogue.Parser.Sentence
+  nameWithType: Sentence
+- uid: Ibralogue.Parser.Sentence.Invocations
   name: Invocations
-  href: ref/Ibralogue.Parser.LineContent.html#Ibralogue_Parser_LineContent_Invocations
-  commentId: F:Ibralogue.Parser.LineContent.Invocations
-  fullName: Ibralogue.Parser.LineContent.Invocations
-  nameWithType: LineContent.Invocations
-- uid: Ibralogue.Parser.LineContent.Metadata
-  name: Metadata
-  href: ref/Ibralogue.Parser.LineContent.html#Ibralogue_Parser_LineContent_Metadata
-  commentId: F:Ibralogue.Parser.LineContent.Metadata
-  fullName: Ibralogue.Parser.LineContent.Metadata
-  nameWithType: LineContent.Metadata
-- uid: Ibralogue.Parser.LineContent.Text
+  href: ref/Ibralogue.Parser.Sentence.html#Ibralogue_Parser_Sentence_Invocations
+  commentId: F:Ibralogue.Parser.Sentence.Invocations
+  fullName: Ibralogue.Parser.Sentence.Invocations
+  nameWithType: Sentence.Invocations
+- uid: Ibralogue.Parser.Sentence.Text
   name: Text
-  href: ref/Ibralogue.Parser.LineContent.html#Ibralogue_Parser_LineContent_Text
-  commentId: F:Ibralogue.Parser.LineContent.Text
-  fullName: Ibralogue.Parser.LineContent.Text
-  nameWithType: LineContent.Text
+  href: ref/Ibralogue.Parser.Sentence.html#Ibralogue_Parser_Sentence_Text
+  commentId: F:Ibralogue.Parser.Sentence.Text
+  fullName: Ibralogue.Parser.Sentence.Text
+  nameWithType: Sentence.Text
