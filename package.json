@@ -3,7 +3,7 @@
   "displayName": "Ibralogue",
   "version": "0.10.0",
   "unity": "2019.1",
-  "description": "Ibralogue is a dialogue library for the Unity Game Engine.",
+  "description": "A dialogue library for Unity.",
   "keywords": [
     "dialogue system",
     "dialogue library",
@@ -12,5 +12,12 @@
   "category": "Framework",
   "dependencies": {
       "com.unity.textmeshpro": "3.0.6"
-  }
-}
+  },
+  "samples": [
+    {
+      "displayName": "Animal Crossing Dialogue",
+      "description": "Simple example of a user interface akin to that of Animal Crossing with scrolling text.",
+      "path": "Samples~/Animal Crossing Dialogue"
+    }
+  ]
+}    
