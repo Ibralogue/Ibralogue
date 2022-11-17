@@ -27,7 +27,7 @@ Ibralogue
    <a href="https://discord.gg/cGhVJmukTv">Discord</a>
 </p>
 
-> :warning: **Ibralogue is still in pre-release**: This means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
+> **Warning**: **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
 
 ## About
 
@@ -55,14 +55,8 @@ Open the Unity Package Manager (Window -> Package Manager):
 
 Then select "Add package from git URL..."  
 Then type ` https://github.com/Ibralogue/Ibralogue.git ` as the URL  
-> *If you want to choose a specific version, suffix the URL with ` #version `, for example ` https://github.com/Ibralogue/Ibralogue.git#v0.7.0 `*  
+> **Note**: *If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v0.7.0`*  
      
-     
-You can also install it via [OpenUPM](https://openupm.com/):
-```text
-openupm add com.ibra.ibralogue
-```
-
 ## Support
 
 I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors). However, there are also people that contributed in other significant ways, and i would like to mention them here:
