@@ -50,11 +50,11 @@ In it's current state Ibralogue is still very usable, even if not production-rea
 
 Ibralogue is available as a unity package, and you can install it via the Unity Package Manager. 
 
-Open the Unity Package Manager (Window -> Package Manager):  
+- Open the Unity Package Manager (Window -> Package Manager):  
 ![](https://i.ibb.co/y6rcVnx/upm.png)
 
-Then select "Add package from git URL..."  
-Then type ` https://github.com/Ibralogue/Ibralogue.git ` as the URL  
+- Then select "Add package from git URL..."  
+- Then type ` https://github.com/Ibralogue/Ibralogue.git ` as the URL  
 > **Note**: *If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v0.7.0`*  
      
 ## Support
