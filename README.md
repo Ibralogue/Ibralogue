@@ -14,7 +14,9 @@ Ibralogue
  <img src="https://img.shields.io/badge/unity-2019.4%2B-blue.svg" alt="Unity Version Support">
  <a href="https://github.com/ibra/Ibralogue/blob/master/LICENSE">
  <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="MIT License">
-   <a href="https://openupm.com/packages/com.ibra.ibralogue/"><img src="https://img.shields.io/npm/v/com.ibra.ibralogue?label=openupm&amp;registry_uri=https://package.openupm.com" /></a>
+   <a href="https://github.com/Ibralogue/Ibralogue">
+   <img src="https://img.shields.io/github/stars/Ibralogue/Ibralogue?color=daaa3f"/>
+   </a>
 </p>
 
 <p align="center">
