@@ -429,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 1515395013}
   InteractionDialogues:
-  - {fileID: 3232733424486734734, guid: 99aab843f37c9fd458801a47c2b908c2, type: 3}
+  - {fileID: 3232733424486734734, guid: 2922fc19c5b85454b90752116b3d59d6, type: 3}
   OnDialogueStart:
     m_PersistentCalls:
       m_Calls:
