@@ -62,7 +62,18 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// The method jumps to given conversation in the dialogue by its name
+        /// Stops the currently playing conversation and clears the dialogue box.
+        /// </summary>
+        public void StopConversation()
+        {
+            StopCoroutine(DisplayDialogue());
+            ClearDialogueBox();
+            _dialogueIndex = 0;
+            OnConversationEnd.Invoke();
+        }
+
+        /// <summary>
+        /// Jumps to a  given conversation in the dialogue by using its name.
         /// </summary>
         /// <param name="conversationName">Name as seen in the DialogueAsset</param>
         public void JumpTo(string conversationName)
@@ -70,7 +81,7 @@ namespace Ibralogue
             if (ParsedConversations == null || ParsedConversations.Count == 0)
                 throw new InvalidOperationException("There is no ongoing conversation, therefore the jump cannot be executed");
 
-            var conversation = ParsedConversations.Find(c => c.Name == conversationName);
+            Conversation conversation = ParsedConversations.Find(c => c.Name == conversationName);
 
             if (conversation.Name == null)
                 throw new ArgumentException($"There is no {nameof(conversation)} matching the given argument", nameof(conversationName));
@@ -90,8 +101,8 @@ namespace Ibralogue
         /// <param name="conversation"></param>
         private void StartConversation(Conversation conversation)
         {
+            StopConversation();
             _currentConversation = conversation;
-            ClearDialogueBox(true);
             OnConversationStart.Invoke();
             StartCoroutine(DisplayDialogue());
         }
@@ -102,6 +113,8 @@ namespace Ibralogue
         /// </summary>
         private IEnumerator DisplayDialogue()
         {
+            _linePlaying = true;
+            
             if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
             {
                 var foundChoice = _currentConversation.Choices.FirstOrDefault(x => x.Value == _dialogueIndex);
@@ -112,7 +125,6 @@ namespace Ibralogue
             }
 
             nameText.text = _currentConversation.Lines[_dialogueIndex].Speaker;
-            _linePlaying = true;
             sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
 
             IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
@@ -149,7 +161,6 @@ namespace Ibralogue
                 sentenceText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(1f / scrollSpeed);
             }
-
             _linePlaying = false;
             yield return null;
         }
@@ -172,8 +183,17 @@ namespace Ibralogue
             }
             else
             {
-                OnConversationEnd.Invoke();
+                StopConversation();
             }
+        }
+
+        public void SkipLine()
+        {
+            if (!_linePlaying) 
+                return;
+            _linePlaying = false;
+            StopCoroutine(DisplayDialogue());
+            sentenceText.maxVisibleCharacters = sentenceText.text.Length;
         }
 
         /// <summary>
@@ -189,6 +209,7 @@ namespace Ibralogue
 
                 UnityAction onClickAction = null;
                 int conversationIndex = -1;
+                
                 switch (choice.LeadingConversationName)
                 {
                     case ">>":
@@ -266,17 +287,14 @@ namespace Ibralogue
         /// <summary>
         /// Clears all text and Images in the dialogue box.
         /// </summary>
-        private void ClearDialogueBox(bool newConversation = false)
+        private void ClearDialogueBox()
         {
             _linePlaying = false;
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
             sentenceText.maxVisibleCharacters = 0;
             speakerPortrait.color = new Color(0, 0, 0, 0);
-
-            if (!newConversation)
-                return;
-            _dialogueIndex = 0;
+            
             if (_choiceButtonInstances == null)
                 return;
 
