@@ -10,7 +10,7 @@ namespace Ibralogue.Examples
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
                 dialogueManager.TryDisplayNextLine();
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space))
-                dialogueManager.SkipLine();
+                dialogueManager.TryAdvanceDialogue();
         }
     }
 }
