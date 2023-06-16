@@ -1,4 +1,4 @@
-{{DialogueName(Init)}}
+{{ConversationName(Init)}}
 [Ava]
 {{Image(Sprites/Happy)}}
 Hey there!
@@ -14,4 +14,3 @@ Oh...
 I know!
 [Ava]
 Why don't we go <color=blue>fishing</color>?
-{{DialogueEnd}}

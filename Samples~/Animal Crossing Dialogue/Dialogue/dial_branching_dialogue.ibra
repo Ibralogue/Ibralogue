@@ -1,4 +1,4 @@
-{{DialogueName(InitialConversation)}}
+{{ConversationName(InitialConversation)}}
 [NPC]
 Hello traveller.
 [NPC]
@@ -6,10 +6,10 @@ How are you?
 - Fine -> FineConversation
 - Terrible -> TerribleConversation
 
-{{DialogueName(FineConversation)}}
+{{ConversationName(FineConversation)}}
 [NPC]
 Good to hear!
 
-{{DialogueName(TerribleConversation)}}
+{{ConversationName(TerribleConversation)}}
 [NPC]
 Aw. Hope it gets better!
