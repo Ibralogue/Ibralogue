@@ -66,7 +66,7 @@ namespace Ibralogue
 		/// <summary>
 		/// <remarks>
 		/// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
-		/// are started (yse the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
+		/// are started (use the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
 		/// used to avoid parsing the whole file again.
 		/// </remarks>
 		/// </summary>
