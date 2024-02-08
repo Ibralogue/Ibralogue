@@ -24,7 +24,7 @@ namespace Ibralogue
 		public List<Conversation> ParsedConversations { get; protected set; }
 		protected Conversation _currentConversation;
 
-		protected int _dialogueIndex;
+		protected int _lineIndex;
 		protected bool _linePlaying;
 
 		[Header("Dialogue UI")] [SerializeField]
@@ -66,7 +66,7 @@ namespace Ibralogue
 		/// <summary>
 		/// <remarks>
 		/// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
-		/// are started (yse the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
+		/// are started (use the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
 		/// used to avoid parsing the whole file again.
 		/// </remarks>
 		/// </summary>
@@ -86,7 +86,7 @@ namespace Ibralogue
 		{
 			StopCoroutine(DisplayDialogue());
 			ClearDialogueBox();
-			_dialogueIndex = 0;
+			_lineIndex = 0;
 			_currentConversation = null;
 			OnConversationEnd.Invoke();
 		}
@@ -121,44 +121,20 @@ namespace Ibralogue
 			if (_currentConversation.Choices != null && _currentConversation.Choices.Count > 0)
 			{
 				KeyValuePair<Choice, int> foundChoice =
-					_currentConversation.Choices.FirstOrDefault(x => x.Value == _dialogueIndex);
-				if (foundChoice.Key != null && _dialogueIndex == foundChoice.Value) DisplayChoices();
+					_currentConversation.Choices.FirstOrDefault(x => x.Value == _lineIndex);
+				if (foundChoice.Key != null && _lineIndex == foundChoice.Value) DisplayChoices();
 			}
 
-			nameText.text = _currentConversation.Lines[_dialogueIndex].Speaker;
-			sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
+			nameText.text = _currentConversation.Lines[_lineIndex].Speaker;
+			sentenceText.text = _currentConversation.Lines[_lineIndex].LineContent.Text;
+            DisplaySpeakerImage();
+			IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
 
-			IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
-			Dictionary<int, string> functionInvocations = new Dictionary<int, string>();
-			functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
-
-			DisplaySpeakerImage();
-			int index = 0;
-			while (_currentConversation != null &&
-			       index < _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length)
+            int index = 0;
+            while (_currentConversation != null &&
+			       index < _currentConversation.Lines[_lineIndex].LineContent.Text.Length)
 			{
-				if (functionInvocations != null && functionInvocations
-					    .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
-					foreach (MethodInfo methodInfo in allDialogueMethods)
-					{
-						if (methodInfo.Name != functionName)
-							continue;
-
-						if (methodInfo.ReturnType == typeof(string))
-						{
-							string replacedText = (string)methodInfo.Invoke(null, null);
-							string processedSentence = _currentConversation.Lines[_dialogueIndex].LineContent.Text
-								.Insert(index, replacedText);
-							sentenceText.text = processedSentence;
-							index -= processedSentence.Length -
-							         _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length;
-						}
-						else
-						{
-							methodInfo.Invoke(null, null);
-						}
-					}
-
+				InvokeFunctions(index, dialogueMethods, _currentConversation.Lines[_lineIndex].LineContent.Invocations);
 				index++;
 				sentenceText.maxVisibleCharacters++;
 				yield return new WaitForSeconds(1f / scrollSpeed);
@@ -167,6 +143,44 @@ namespace Ibralogue
 			_linePlaying = false;
 			yield return null;
 		}
+
+		/// <summary>
+		/// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
+		/// </summary>
+		/// <param name="index">The index of the current visible character.</param>
+		/// <param name="dialogueMethods">All of the dialogue methods to be searched through.</param>
+		/// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
+		private void InvokeFunctions(int index, IEnumerable<MethodInfo> dialogueMethods, Dictionary<int, string> functionInvocations)
+		{
+            if (functionInvocations != null && functionInvocations
+        .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
+                foreach (MethodInfo methodInfo in dialogueMethods)
+                {
+                    if (methodInfo.Name != functionName)
+                        continue;
+
+                    if (methodInfo.ReturnType == typeof(string))
+                    {
+                        string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
+                        string processedSentence = _currentConversation.Lines[_lineIndex].LineContent.Text
+                            .Insert(index, replacedText);
+                        sentenceText.text = processedSentence;
+                        index -= processedSentence.Length -
+                                 _currentConversation.Lines[_lineIndex].LineContent.Text.Length;
+                    }
+                    else
+                    {
+                        if (methodInfo.GetParameters().Length > 0)
+                        {
+                            methodInfo.Invoke(null, new object[] { this });
+                        }
+                        else
+                        {
+                            methodInfo.Invoke(null, null);
+                        }
+                    }
+                }
+        }
 
 		/// <summary>
 		/// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
@@ -180,9 +194,9 @@ namespace Ibralogue
 
 			ClearDialogueBox();
 
-			if (_dialogueIndex < _currentConversation.Lines.Count - 1)
+			if (_lineIndex < _currentConversation.Lines.Count - 1)
 			{
-				_dialogueIndex++;
+				_lineIndex++;
 				StartCoroutine(DisplayDialogue());
 			}
 			else
@@ -236,12 +250,7 @@ namespace Ibralogue
 					case ">>":
 						DialogueLogger.LogError(2,
 							"The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
-						goto case "__";
-
-					case "__":
-						onClickAction = () => { };
 						break;
-
 					default:
 						conversationIndex =
 							ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
@@ -303,10 +312,10 @@ namespace Ibralogue
 		/// </summary>
 		protected void DisplaySpeakerImage()
 		{
-			speakerPortrait.color = _currentConversation.Lines[_dialogueIndex].SpeakerImage == null
+			speakerPortrait.color = _currentConversation.Lines[_lineIndex].SpeakerImage == null
 				? new Color(0, 0, 0, 0)
 				: new Color(255, 255, 255, 255);
-			speakerPortrait.sprite = _currentConversation.Lines[_dialogueIndex].SpeakerImage;
+			speakerPortrait.sprite = _currentConversation.Lines[_lineIndex].SpeakerImage;
 		}
 
 		/// <summary>
