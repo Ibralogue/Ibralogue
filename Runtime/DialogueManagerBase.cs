@@ -129,8 +129,7 @@ namespace Ibralogue
 			sentenceText.text = _currentConversation.Lines[_dialogueIndex].LineContent.Text;
 
 			IEnumerable<MethodInfo> allDialogueMethods = GetDialogueMethods();
-			Dictionary<int, string> functionInvocations = new Dictionary<int, string>();
-			functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
+			Dictionary<int, string> functionInvocations = _currentConversation.Lines[_dialogueIndex].LineContent.Invocations;
 
 			DisplaySpeakerImage();
 			int index = 0;
@@ -146,17 +145,23 @@ namespace Ibralogue
 
 						if (methodInfo.ReturnType == typeof(string))
 						{
-							string replacedText = (string)methodInfo.Invoke(null, null);
+							string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null,null);
 							string processedSentence = _currentConversation.Lines[_dialogueIndex].LineContent.Text
 								.Insert(index, replacedText);
 							sentenceText.text = processedSentence;
 							index -= processedSentence.Length -
-							         _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length;
+									 _currentConversation.Lines[_dialogueIndex].LineContent.Text.Length;
 						}
 						else
 						{
-							methodInfo.Invoke(null, null);
-						}
+							if (methodInfo.GetParameters().Length > 0) {
+								methodInfo.Invoke(null, new object[] { this });
+							} 
+							else 
+							{ 
+								methodInfo.Invoke(null, null); 
+							}
+                        }
 					}
 
 				index++;
@@ -236,12 +241,7 @@ namespace Ibralogue
 					case ">>":
 						DialogueLogger.LogError(2,
 							"The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
-						goto case "__";
-
-					case "__":
-						onClickAction = () => { };
 						break;
-
 					default:
 						conversationIndex =
 							ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
