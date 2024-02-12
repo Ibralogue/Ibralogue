@@ -238,7 +238,7 @@ namespace Ibralogue
 					else
 					{
 						DialogueLogger.LogError(-1,
-							$"Invocation name too short! Are you sure you used the syntax properly?  At: {token} - {line}");
+							$"[Ibralogue] Invocation name too short! Improper syntax usage?  At: {token} - {line}");
 					}
 
 					break;
@@ -346,7 +346,7 @@ namespace Ibralogue
 		/// </summary>
 		private static void AddHeadersToLine(IEnumerable<LineContent> sentences, Line line)
 		{
-			foreach (LineContent sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
+            foreach (LineContent sentence in sentences.Where(sentence => sentence.Invocations.Count > 0))
 			foreach (KeyValuePair<int, string> keyValuePair in sentence.Invocations)
 				line.LineContent.Invocations.Add(keyValuePair.Key, keyValuePair.Value);
 			foreach (LineContent sentence in sentences.Where(sentence => sentence.Metadata.Count > 0))
