@@ -73,7 +73,9 @@ namespace Ibralogue
 			List<Conversation> conversations = new List<Conversation>();
 			List<LineContent> lineContents = new List<LineContent>();
 
-			Conversation conversation = new Conversation { Lines = new List<Line>() };
+			Conversation conversation = new Conversation { Name = "default", Lines = new List<Line>() };
+			conversations.Add(conversation);
+
 			Line line = new Line
 			{
 				LineContent = new LineContent
@@ -145,14 +147,9 @@ namespace Ibralogue
 					}
 					case Token.ConversationNameInvoke:
 					{
-						if (conversations.Count == 0)
+						if (conversations.Count == 1)
 						{
-							conversation = new Conversation
-							{
-								Lines = new List<Line>(),
-								Name = processedLine
-							};
-							conversations.Add(conversation);
+								conversations[0].Name = processedLine;
 						}
 						else
 						{
