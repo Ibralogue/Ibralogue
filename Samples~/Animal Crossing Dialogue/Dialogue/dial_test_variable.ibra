@@ -1,5 +1,4 @@
 # this dialogue file needs the GlobalVariableInteraction script to replace the variable.
-{{ConversationName(VariableTest)}}
 [Wizard]
 Hello traveller. 
 What is your name?
