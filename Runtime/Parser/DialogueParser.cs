@@ -73,7 +73,7 @@ namespace Ibralogue
 			List<Conversation> conversations = new List<Conversation>();
 			List<LineContent> lineContents = new List<LineContent>();
 
-			Conversation conversation = new Conversation { Name = "default", Lines = new List<Line>() };
+			Conversation conversation = new Conversation { Name = "Default", Lines = new List<Line>() };
 			conversations.Add(conversation);
 
 			Line line = new Line
@@ -147,12 +147,12 @@ namespace Ibralogue
 					}
 					case Token.ConversationNameInvoke:
 					{
-						if (conversations.Count == 1)
-						{
+							if (conversation.Name == "Default" && conversation.Lines.Count <= 0)
+							{
 								conversations[0].Name = processedLine;
-						}
-						else
-						{
+								break;
+							}
+
 							line.LineContent.Text = string.Join("\n", lineContents.Select(sentence => sentence.Text));
 							AddHeadersToLine(lineContents, line);
 							conversation.Lines.Add(line);
@@ -172,8 +172,6 @@ namespace Ibralogue
 								Name = processedLine
 							};
 							lineContents.Clear();
-						}
-
 						break;
 					}
 					case Token.Choice:
