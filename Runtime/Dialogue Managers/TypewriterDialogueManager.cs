@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class TypewriterDialogueManager : DefaultDialogueManager 
+public class TypewriterDialogueManager : SimpleDialogueManager 
 {
     protected override IEnumerator DisplayDialogue()
     {
