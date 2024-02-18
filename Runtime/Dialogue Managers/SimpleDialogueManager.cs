@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Ibralogue
 {
-    public class DefaultDialogueManager : DialogueManagerBase<Button>
+    public class SimpleDialogueManager : DialogueManagerBase<Button>
     {
         protected override void PrepareChoiceButton(ChoiceButtonHandle handle, Choice choice)
         {
