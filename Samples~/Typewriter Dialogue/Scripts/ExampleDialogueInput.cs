@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace Ibralogue.Examples
 {
-    public class DialogueInput : MonoBehaviour
+    public class ExampleDialogueInput : MonoBehaviour
     {
-        [SerializeField] private DefaultDialogueManager dialogueManager;
+        [SerializeField] private SimpleDialogueManager dialogueManager;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
                 dialogueManager.TryDisplayNextLine();
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space))
-                dialogueManager.TryAdvanceDialogue();
+                dialogueManager.TryDisplayNextLine();
         }
     }
 }

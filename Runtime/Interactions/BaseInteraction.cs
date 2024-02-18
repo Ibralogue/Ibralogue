@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,11 +8,11 @@ namespace Ibralogue.Interactions
     /// </summary>
     public abstract class BaseInteraction : MonoBehaviour
     {
-        [SerializeField] protected DefaultDialogueManager dialogueManager;
+        [SerializeField] protected SimpleDialogueManager dialogueManager;
         [SerializeField] protected DialogueAsset[] InteractionDialogues;
 
-        [SerializeField] private UnityEvent OnDialogueStart;
-        [SerializeField] private UnityEvent OnDialogueEnd;
+        [SerializeField] private UnityEvent OnConversationStart;
+        [SerializeField] private UnityEvent OnConversationEnd;
 
         public virtual void StartDialogue()
         {
@@ -22,8 +21,8 @@ namespace Ibralogue.Interactions
 
         private void AttachEvents()
         {
-            dialogueManager.OnConversationStart = OnDialogueStart;
-            dialogueManager.OnConversationEnd = OnDialogueEnd;
+            dialogueManager.OnConversationStart = OnConversationStart;
+            dialogueManager.OnConversationEnd = OnConversationEnd;
         }
     }
 }
