@@ -7,7 +7,7 @@
       "src": [
         {
           "src": "..",
-          "files": ["Ibralogue/Scripts/**/*.cs"],
+          "files": ["Editor/**/*.cs", "Runtime/**/*.cs"],
           "exclude": []
         }
       ]
@@ -38,7 +38,7 @@
     "overwrite": [
       {
         "src": "..",
-        "files": ["Ibralogue/Scripts/**/*.md"]
+        "files": ["Editor/**/*.cs", "Runtime/**/*.cs"]
       }
     ],
     "resource": [
@@ -56,6 +56,7 @@
         }
       }
     },
+
     "template": ["default", "templates/material"],
     "xref": ["https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"],
     "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"]
