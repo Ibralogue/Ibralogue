@@ -1,28 +1,28 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.DialogueParser
-  commentId: T:Ibralogue.DialogueParser
-  id: DialogueParser
+- uid: Ibralogue.DialogueGlobals
+  commentId: T:Ibralogue.DialogueGlobals
+  id: DialogueGlobals
   parent: Ibralogue
   children:
-  - Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
+  - Ibralogue.DialogueGlobals.GlobalVariables
   langs:
   - csharp
   - vb
-  name: DialogueParser
-  nameWithType: DialogueParser
-  fullName: Ibralogue.DialogueParser
+  name: DialogueGlobals
+  nameWithType: DialogueGlobals
+  fullName: Ibralogue.DialogueGlobals
   type: Class
   source:
-    id: DialogueParser
+    id: DialogueGlobals
     path: ''
-    startLine: 610
+    startLine: 91
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
   syntax:
-    content: public static class DialogueParser
-    content.vb: Public Module DialogueParser
+    content: public static class DialogueGlobals
+    content.vb: Public Module DialogueGlobals
   inheritance:
   - System.Object
   inheritedMembers:
@@ -40,41 +40,37 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
-  commentId: M:Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
-  id: ParseDialogue(Ibralogue.DialogueAsset)
-  parent: Ibralogue.DialogueParser
+- uid: Ibralogue.DialogueGlobals.GlobalVariables
+  commentId: F:Ibralogue.DialogueGlobals.GlobalVariables
+  id: GlobalVariables
+  parent: Ibralogue.DialogueGlobals
   langs:
   - csharp
   - vb
-  name: ParseDialogue(DialogueAsset)
-  nameWithType: DialogueParser.ParseDialogue(DialogueAsset)
-  fullName: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
-  type: Method
+  name: GlobalVariables
+  nameWithType: DialogueGlobals.GlobalVariables
+  fullName: Ibralogue.DialogueGlobals.GlobalVariables
+  type: Field
   source:
-    id: ParseDialogue
+    id: GlobalVariables
     path: ''
-    startLine: 669
+    startLine: 93
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
-  summary: "\nReturns an array of conversations and associates n with each element in the dialogue array\ne.g: (Speaker Name, Sentence, Image etc.) as well as additional metadata.\n"
-  example: []
   syntax:
-    content: public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
-    parameters:
-    - id: dialogueAsset
-      type: Ibralogue.DialogueAsset
+    content: public static readonly Dictionary<string, string> GlobalVariables
     return:
-      type: Global.List{Conversation}
-    content.vb: Public Shared Function ParseDialogue(dialogueAsset As DialogueAsset) As List(Of Conversation)
-  overload: Ibralogue.DialogueParser.ParseDialogue*
+      type: Global.Dictionary{System.String,System.String}
+    content.vb: Public Shared ReadOnly GlobalVariables As Dictionary(Of String, String)
   modifiers.csharp:
   - public
   - static
+  - readonly
   modifiers.vb:
   - Public
   - Shared
+  - ReadOnly
 references:
 - uid: Ibralogue
   commentId: N:Ibralogue
@@ -373,73 +369,78 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Ibralogue.DialogueParser.ParseDialogue*
-  commentId: Overload:Ibralogue.DialogueParser.ParseDialogue
-  name: ParseDialogue
-  nameWithType: DialogueParser.ParseDialogue
-  fullName: Ibralogue.DialogueParser.ParseDialogue
-- uid: Ibralogue.DialogueAsset
-  commentId: T:Ibralogue.DialogueAsset
-  parent: Ibralogue
-  name: DialogueAsset
-  nameWithType: DialogueAsset
-  fullName: Ibralogue.DialogueAsset
-- uid: Global.List{Conversation}
-  commentId: '!:Global.List{Conversation}'
-  definition: Global.List`1
-  name: List<Conversation>
-  nameWithType: List<Conversation>
-  fullName: List<Conversation>
-  nameWithType.vb: List(Of Conversation)
-  fullName.vb: List(Of Conversation)
-  name.vb: List(Of Conversation)
+- uid: Global.Dictionary{System.String,System.String}
+  commentId: '!:Global.Dictionary{System.String,System.String}'
+  definition: Global.Dictionary`2
+  name: Dictionary<String, String>
+  nameWithType: Dictionary<String, String>
+  fullName: Dictionary<System.String, System.String>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: Dictionary(Of System.String, System.String)
+  name.vb: Dictionary(Of String, String)
   spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Global.Conversation
-    name: Conversation
-    nameWithType: Conversation
-    fullName: Conversation
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Global.Conversation
-    name: Conversation
-    nameWithType: Conversation
-    fullName: Conversation
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: Global.List`1
+- uid: Global.Dictionary`2
   isExternal: true
-  name: List<>
-  nameWithType: List<>
-  fullName: List<>
-  nameWithType.vb: List(Of )
-  fullName.vb: List(Of )
-  name.vb: List(Of )
+  name: Dictionary<, >
+  nameWithType: Dictionary<, >
+  fullName: Dictionary<, >
+  nameWithType.vb: Dictionary(Of , )
+  fullName.vb: Dictionary(Of , )
+  name.vb: Dictionary(Of , )
   spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
     isExternal: true
   - name: <
     nameWithType: <
@@ -447,18 +448,30 @@ references:
   - name: ''
     nameWithType: ''
     fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
   - name: ''
     nameWithType: ''
     fullName: ''

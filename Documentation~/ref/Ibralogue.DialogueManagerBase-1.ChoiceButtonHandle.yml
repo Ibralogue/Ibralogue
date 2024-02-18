@@ -1,30 +1,33 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.Parser.Conversation
-  commentId: T:Ibralogue.Parser.Conversation
-  id: Conversation
-  parent: Ibralogue.Parser
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  commentId: T:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  id: DialogueManagerBase`1.ChoiceButtonHandle
+  parent: Ibralogue
   children:
-  - Ibralogue.Parser.Conversation.Choices
-  - Ibralogue.Parser.Conversation.Lines
-  - Ibralogue.Parser.Conversation.Name
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
   langs:
   - csharp
   - vb
-  name: Conversation
-  nameWithType: Conversation
-  fullName: Ibralogue.Parser.Conversation
+  name: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
   type: Class
   source:
-    id: Conversation
+    id: ChoiceButtonHandle
     path: ''
-    startLine: 573
+    startLine: 439
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue.Parser
+  namespace: Ibralogue
+  summary: "\nRepresent a single spawned choice button, contains general information about said button\n"
+  example: []
   syntax:
-    content: public class Conversation
-    content.vb: Public Class Conversation
+    content: protected class ChoiceButtonHandle
+    content.vb: Protected Class ChoiceButtonHandle
   inheritance:
   - System.Object
   inheritedMembers:
@@ -35,99 +38,153 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
   modifiers.csharp:
-  - public
+  - protected
   - class
   modifiers.vb:
-  - Public
+  - Protected
   - Class
-- uid: Ibralogue.Parser.Conversation.Name
-  commentId: F:Ibralogue.Parser.Conversation.Name
-  id: Name
-  parent: Ibralogue.Parser.Conversation
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
+  name.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  commentId: M:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  id: '#ctor(`0,UnityAction)'
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
   langs:
   - csharp
   - vb
-  name: Name
-  nameWithType: Conversation.Name
-  fullName: Ibralogue.Parser.Conversation.Name
-  type: Field
+  name: ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  type: Constructor
   source:
-    id: Name
+    id: .ctor
     path: ''
-    startLine: 575
+    startLine: 441
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue.Parser
+  namespace: Ibralogue
   syntax:
-    content: public string Name
-    return:
-      type: System.String
-    content.vb: Public Name As String
+    content: public ChoiceButtonHandle(ChoiceButtonT choiceButton, UnityAction clickCallback)
+    parameters:
+    - id: choiceButton
+      type: '{ChoiceButtonT}'
+    - id: clickCallback
+      type: Global.UnityAction
+    content.vb: Public Sub New(choiceButton As ChoiceButtonT, clickCallback As UnityAction)
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Ibralogue.Parser.Conversation.Lines
-  commentId: F:Ibralogue.Parser.Conversation.Lines
-  id: Lines
-  parent: Ibralogue.Parser.Conversation
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  id: ClickEvent
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
   langs:
   - csharp
   - vb
-  name: Lines
-  nameWithType: Conversation.Lines
-  fullName: Ibralogue.Parser.Conversation.Lines
-  type: Field
+  name: ClickEvent
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  type: Property
   source:
-    id: Lines
+    id: ClickEvent
     path: ''
-    startLine: 576
+    startLine: 447
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue.Parser
+  namespace: Ibralogue
   syntax:
-    content: public List<Line> Lines
+    content: public UnityEvent ClickEvent { get; set; }
+    parameters: []
     return:
-      type: Global.List{Ibralogue.Parser.Line}
-    content.vb: Public Lines As List(Of Line)
+      type: Global.UnityEvent
+    content.vb: Public Property ClickEvent As UnityEvent
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
   modifiers.csharp:
   - public
+  - get
+  - set
   modifiers.vb:
   - Public
-- uid: Ibralogue.Parser.Conversation.Choices
-  commentId: F:Ibralogue.Parser.Conversation.Choices
-  id: Choices
-  parent: Ibralogue.Parser.Conversation
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  id: ChoiceButton
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
   langs:
   - csharp
   - vb
-  name: Choices
-  nameWithType: Conversation.Choices
-  fullName: Ibralogue.Parser.Conversation.Choices
-  type: Field
+  name: ChoiceButton
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  type: Property
   source:
-    id: Choices
+    id: ChoiceButton
     path: ''
-    startLine: 577
+    startLine: 449
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue.Parser
+  namespace: Ibralogue
   syntax:
-    content: public Dictionary<Choice, int> Choices
+    content: public ChoiceButtonT ChoiceButton { get; }
+    parameters: []
     return:
-      type: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
-    content.vb: Public Choices As Dictionary(Of Choice, Integer)
+      type: '{ChoiceButtonT}'
+    content.vb: Public ReadOnly Property ChoiceButton As ChoiceButtonT
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
   modifiers.csharp:
   - public
+  - get
   modifiers.vb:
   - Public
+  - ReadOnly
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  id: ClickCallback
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  langs:
+  - csharp
+  - vb
+  name: ClickCallback
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  type: Property
+  source:
+    id: ClickCallback
+    path: ''
+    startLine: 450
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public UnityAction ClickCallback { get; }
+    parameters: []
+    return:
+      type: Global.UnityAction
+    content.vb: Public ReadOnly Property ClickCallback As UnityAction
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
 references:
-- uid: Ibralogue.Parser
-  commentId: N:Ibralogue.Parser
-  name: Ibralogue.Parser
-  nameWithType: Ibralogue.Parser
-  fullName: Ibralogue.Parser
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
 - uid: System.Object
   commentId: T:System.Object
   parent: System
@@ -420,196 +477,51 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: System.String
-  commentId: T:System.String
-  parent: System
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor
+  name: ChoiceButtonHandle
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle
+- uid: '{ChoiceButtonT}'
+  commentId: '!:ChoiceButtonT'
+  definition: ChoiceButtonT
+  name: ChoiceButtonT
+  nameWithType: ChoiceButtonT
+  fullName: ChoiceButtonT
+- uid: Global.UnityAction
   isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
-- uid: Global.List{Ibralogue.Parser.Line}
-  commentId: '!:Global.List{Ibralogue.Parser.Line}'
-  definition: Global.List`1
-  name: List<Line>
-  nameWithType: List<Line>
-  fullName: List<Ibralogue.Parser.Line>
-  nameWithType.vb: List(Of Line)
-  fullName.vb: List(Of Ibralogue.Parser.Line)
-  name.vb: List(Of Line)
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Ibralogue.Parser.Line
-    name: Line
-    nameWithType: Line
-    fullName: Ibralogue.Parser.Line
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Ibralogue.Parser.Line
-    name: Line
-    nameWithType: Line
-    fullName: Ibralogue.Parser.Line
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.List`1
+  name: UnityAction
+  nameWithType: UnityAction
+  fullName: UnityAction
+- uid: ChoiceButtonT
+  name: ChoiceButtonT
+  nameWithType: ChoiceButtonT
+  fullName: ChoiceButtonT
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  name: ClickEvent
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+- uid: Global.UnityEvent
   isExternal: true
-  name: List<>
-  nameWithType: List<>
-  fullName: List<>
-  nameWithType.vb: List(Of )
-  fullName.vb: List(Of )
-  name.vb: List(Of )
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
-  commentId: '!:Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}'
-  definition: Global.Dictionary`2
-  name: Dictionary<Choice, Int32>
-  nameWithType: Dictionary<Choice, Int32>
-  fullName: Dictionary<Ibralogue.Parser.Choice, System.Int32>
-  nameWithType.vb: Dictionary(Of Choice, Int32)
-  fullName.vb: Dictionary(Of Ibralogue.Parser.Choice, System.Int32)
-  name.vb: Dictionary(Of Choice, Int32)
-  spec.csharp:
-  - uid: Global.Dictionary`2
-    name: Dictionary
-    nameWithType: Dictionary
-    fullName: Dictionary
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Ibralogue.Parser.Choice
-    name: Choice
-    nameWithType: Choice
-    fullName: Ibralogue.Parser.Choice
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.Dictionary`2
-    name: Dictionary
-    nameWithType: Dictionary
-    fullName: Dictionary
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Ibralogue.Parser.Choice
-    name: Choice
-    nameWithType: Choice
-    fullName: Ibralogue.Parser.Choice
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.Dictionary`2
-  isExternal: true
-  name: Dictionary<, >
-  nameWithType: Dictionary<, >
-  fullName: Dictionary<, >
-  nameWithType.vb: Dictionary(Of , )
-  fullName.vb: Dictionary(Of , )
-  name.vb: Dictionary(Of , )
-  spec.csharp:
-  - uid: Global.Dictionary`2
-    name: Dictionary
-    nameWithType: Dictionary
-    fullName: Dictionary
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.Dictionary`2
-    name: Dictionary
-    nameWithType: Dictionary
-    fullName: Dictionary
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: )
-    nameWithType: )
-    fullName: )
+  name: UnityEvent
+  nameWithType: UnityEvent
+  fullName: UnityEvent
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  name: ChoiceButton
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  name: ClickCallback
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback

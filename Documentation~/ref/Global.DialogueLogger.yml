@@ -1,28 +1,28 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.DialogueParser
-  commentId: T:Ibralogue.DialogueParser
-  id: DialogueParser
-  parent: Ibralogue
+- uid: Global.DialogueLogger
+  commentId: T:Global.DialogueLogger
+  id: DialogueLogger
+  parent: Global
   children:
-  - Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
+  - Global.DialogueLogger.LogError(System.Int32,System.String,Object)
   langs:
   - csharp
   - vb
-  name: DialogueParser
-  nameWithType: DialogueParser
-  fullName: Ibralogue.DialogueParser
+  name: DialogueLogger
+  nameWithType: DialogueLogger
+  fullName: DialogueLogger
   type: Class
   source:
-    id: DialogueParser
+    id: DialogueLogger
     path: ''
-    startLine: 610
+    startLine: 582
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue
+  namespace: Global
   syntax:
-    content: public static class DialogueParser
-    content.vb: Public Module DialogueParser
+    content: public static class DialogueLogger
+    content.vb: Public Module DialogueLogger
   inheritance:
   - System.Object
   inheritedMembers:
@@ -40,35 +40,35 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
-  commentId: M:Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
-  id: ParseDialogue(Ibralogue.DialogueAsset)
-  parent: Ibralogue.DialogueParser
+- uid: Global.DialogueLogger.LogError(System.Int32,System.String,Object)
+  commentId: M:Global.DialogueLogger.LogError(System.Int32,System.String,Object)
+  id: LogError(System.Int32,System.String,Object)
+  parent: Global.DialogueLogger
   langs:
   - csharp
   - vb
-  name: ParseDialogue(DialogueAsset)
-  nameWithType: DialogueParser.ParseDialogue(DialogueAsset)
-  fullName: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
+  name: LogError(Int32, String, Object)
+  nameWithType: DialogueLogger.LogError(Int32, String, Object)
+  fullName: DialogueLogger.LogError(System.Int32, System.String, Object)
   type: Method
   source:
-    id: ParseDialogue
+    id: LogError
     path: ''
-    startLine: 669
+    startLine: 584
   assemblies:
   - cs.temp.dll
-  namespace: Ibralogue
-  summary: "\nReturns an array of conversations and associates n with each element in the dialogue array\ne.g: (Speaker Name, Sentence, Image etc.) as well as additional metadata.\n"
-  example: []
+  namespace: Global
   syntax:
-    content: public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
+    content: public static void LogError(int line, string message, Object context = null)
     parameters:
-    - id: dialogueAsset
-      type: Ibralogue.DialogueAsset
-    return:
-      type: Global.List{Conversation}
-    content.vb: Public Shared Function ParseDialogue(dialogueAsset As DialogueAsset) As List(Of Conversation)
-  overload: Ibralogue.DialogueParser.ParseDialogue*
+    - id: line
+      type: System.Int32
+    - id: message
+      type: System.String
+    - id: context
+      type: Global.Object
+    content.vb: Public Shared Sub LogError(line As Integer, message As String, context As Object = Nothing)
+  overload: Global.DialogueLogger.LogError*
   modifiers.csharp:
   - public
   - static
@@ -76,11 +76,13 @@ items:
   - Public
   - Shared
 references:
-- uid: Ibralogue
-  commentId: N:Ibralogue
-  name: Ibralogue
-  nameWithType: Ibralogue
-  fullName: Ibralogue
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
 - uid: System.Object
   commentId: T:System.Object
   parent: System
@@ -373,95 +375,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Ibralogue.DialogueParser.ParseDialogue*
-  commentId: Overload:Ibralogue.DialogueParser.ParseDialogue
-  name: ParseDialogue
-  nameWithType: DialogueParser.ParseDialogue
-  fullName: Ibralogue.DialogueParser.ParseDialogue
-- uid: Ibralogue.DialogueAsset
-  commentId: T:Ibralogue.DialogueAsset
-  parent: Ibralogue
-  name: DialogueAsset
-  nameWithType: DialogueAsset
-  fullName: Ibralogue.DialogueAsset
-- uid: Global.List{Conversation}
-  commentId: '!:Global.List{Conversation}'
-  definition: Global.List`1
-  name: List<Conversation>
-  nameWithType: List<Conversation>
-  fullName: List<Conversation>
-  nameWithType.vb: List(Of Conversation)
-  fullName.vb: List(Of Conversation)
-  name.vb: List(Of Conversation)
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Global.Conversation
-    name: Conversation
-    nameWithType: Conversation
-    fullName: Conversation
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Global.Conversation
-    name: Conversation
-    nameWithType: Conversation
-    fullName: Conversation
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.List`1
+- uid: Global.DialogueLogger.LogError*
+  commentId: Overload:Global.DialogueLogger.LogError
+  name: LogError
+  nameWithType: DialogueLogger.LogError
+  fullName: DialogueLogger.LogError
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
   isExternal: true
-  name: List<>
-  nameWithType: List<>
-  fullName: List<>
-  nameWithType.vb: List(Of )
-  fullName.vb: List(Of )
-  name.vb: List(Of )
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: )
-    nameWithType: )
-    fullName: )
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.Object
+  commentId: '!:Global.Object'
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: Object

@@ -1,7 +1,6 @@
 - name: Quickstart
   href: quickstart.md
 - name: Syntax Guide
-  href: syntax-guide.md
   items:
     - name: Basic Syntax
       href: basic-syntax.md

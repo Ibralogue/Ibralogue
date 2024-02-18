@@ -1,0 +1,98 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.DialogueAsset
+  commentId: T:Ibralogue.DialogueAsset
+  id: DialogueAsset
+  parent: Ibralogue
+  children:
+  - Ibralogue.DialogueAsset.Content
+  langs:
+  - csharp
+  - vb
+  name: DialogueAsset
+  nameWithType: DialogueAsset
+  fullName: Ibralogue.DialogueAsset
+  type: Class
+  source:
+    id: DialogueAsset
+    path: ''
+    startLine: 67
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: 'public class DialogueAsset : ScriptableObject'
+    content.vb: >-
+      Public Class DialogueAsset
+
+          Inherits ScriptableObject
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Ibralogue.DialogueAsset.Content
+  commentId: P:Ibralogue.DialogueAsset.Content
+  id: Content
+  parent: Ibralogue.DialogueAsset
+  langs:
+  - csharp
+  - vb
+  name: Content
+  nameWithType: DialogueAsset.Content
+  fullName: Ibralogue.DialogueAsset.Content
+  type: Property
+  source:
+    id: Content
+    path: ''
+    startLine: 69
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public string Content { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Content As String
+  overload: Ibralogue.DialogueAsset.Content*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+references:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Ibralogue.DialogueAsset.Content*
+  commentId: Overload:Ibralogue.DialogueAsset.Content
+  name: Content
+  nameWithType: DialogueAsset.Content
+  fullName: Ibralogue.DialogueAsset.Content
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String

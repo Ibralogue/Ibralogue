@@ -1,123 +1,120 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.Parser.Conversation
-  commentId: T:Ibralogue.Parser.Conversation
-  id: Conversation
+- uid: Ibralogue.Parser.LineContent
+  commentId: T:Ibralogue.Parser.LineContent
+  id: LineContent
   parent: Ibralogue.Parser
   children:
-  - Ibralogue.Parser.Conversation.Choices
-  - Ibralogue.Parser.Conversation.Lines
-  - Ibralogue.Parser.Conversation.Name
+  - Ibralogue.Parser.LineContent.Invocations
+  - Ibralogue.Parser.LineContent.Metadata
+  - Ibralogue.Parser.LineContent.Text
   langs:
   - csharp
   - vb
-  name: Conversation
-  nameWithType: Conversation
-  fullName: Ibralogue.Parser.Conversation
-  type: Class
+  name: LineContent
+  nameWithType: LineContent
+  fullName: Ibralogue.Parser.LineContent
+  type: Struct
   source:
-    id: Conversation
+    id: LineContent
     path: ''
-    startLine: 573
+    startLine: 995
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public class Conversation
-    content.vb: Public Class Conversation
-  inheritance:
-  - System.Object
+    content: public struct LineContent
+    content.vb: Public Structure LineContent
   inheritedMembers:
-  - System.Object.ToString
-  - System.Object.Equals(System.Object)
+  - System.ValueType.Equals(System.Object)
+  - System.ValueType.GetHashCode
+  - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.GetHashCode
   - System.Object.GetType
-  - System.Object.MemberwiseClone
   modifiers.csharp:
   - public
-  - class
+  - struct
   modifiers.vb:
   - Public
-  - Class
-- uid: Ibralogue.Parser.Conversation.Name
-  commentId: F:Ibralogue.Parser.Conversation.Name
-  id: Name
-  parent: Ibralogue.Parser.Conversation
+  - Structure
+- uid: Ibralogue.Parser.LineContent.Text
+  commentId: F:Ibralogue.Parser.LineContent.Text
+  id: Text
+  parent: Ibralogue.Parser.LineContent
   langs:
   - csharp
   - vb
-  name: Name
-  nameWithType: Conversation.Name
-  fullName: Ibralogue.Parser.Conversation.Name
+  name: Text
+  nameWithType: LineContent.Text
+  fullName: Ibralogue.Parser.LineContent.Text
   type: Field
   source:
-    id: Name
+    id: Text
     path: ''
-    startLine: 575
+    startLine: 997
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public string Name
+    content: public string Text
     return:
       type: System.String
-    content.vb: Public Name As String
+    content.vb: Public Text As String
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Ibralogue.Parser.Conversation.Lines
-  commentId: F:Ibralogue.Parser.Conversation.Lines
-  id: Lines
-  parent: Ibralogue.Parser.Conversation
+- uid: Ibralogue.Parser.LineContent.Invocations
+  commentId: F:Ibralogue.Parser.LineContent.Invocations
+  id: Invocations
+  parent: Ibralogue.Parser.LineContent
   langs:
   - csharp
   - vb
-  name: Lines
-  nameWithType: Conversation.Lines
-  fullName: Ibralogue.Parser.Conversation.Lines
+  name: Invocations
+  nameWithType: LineContent.Invocations
+  fullName: Ibralogue.Parser.LineContent.Invocations
   type: Field
   source:
-    id: Lines
+    id: Invocations
     path: ''
-    startLine: 576
+    startLine: 998
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public List<Line> Lines
+    content: public Dictionary<int, string> Invocations
     return:
-      type: Global.List{Ibralogue.Parser.Line}
-    content.vb: Public Lines As List(Of Line)
+      type: Global.Dictionary{System.Int32,System.String}
+    content.vb: Public Invocations As Dictionary(Of Integer, String)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-- uid: Ibralogue.Parser.Conversation.Choices
-  commentId: F:Ibralogue.Parser.Conversation.Choices
-  id: Choices
-  parent: Ibralogue.Parser.Conversation
+- uid: Ibralogue.Parser.LineContent.Metadata
+  commentId: F:Ibralogue.Parser.LineContent.Metadata
+  id: Metadata
+  parent: Ibralogue.Parser.LineContent
   langs:
   - csharp
   - vb
-  name: Choices
-  nameWithType: Conversation.Choices
-  fullName: Ibralogue.Parser.Conversation.Choices
+  name: Metadata
+  nameWithType: LineContent.Metadata
+  fullName: Ibralogue.Parser.LineContent.Metadata
   type: Field
   source:
-    id: Choices
+    id: Metadata
     path: ''
-    startLine: 577
+    startLine: 999
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public Dictionary<Choice, int> Choices
+    content: public Dictionary<string, string> Metadata
     return:
-      type: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
-    content.vb: Public Choices As Dictionary(Of Choice, Integer)
+      type: Global.Dictionary{System.String,System.String}
+    content.vb: Public Metadata As Dictionary(Of String, String)
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -128,56 +125,18 @@ references:
   name: Ibralogue.Parser
   nameWithType: Ibralogue.Parser
   fullName: Ibralogue.Parser
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
   isExternal: true
   name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
+  nameWithType: ValueType.Equals(Object)
+  fullName: System.ValueType.Equals(System.Object)
   spec.csharp:
-  - uid: System.Object.Equals(System.Object)
+  - uid: System.ValueType.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
+    nameWithType: ValueType.Equals
+    fullName: System.ValueType.Equals
     isExternal: true
   - name: (
     nameWithType: (
@@ -191,10 +150,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: System.Object.Equals(System.Object)
+  - uid: System.ValueType.Equals(System.Object)
     name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
+    nameWithType: ValueType.Equals
+    fullName: System.ValueType.Equals
     isExternal: true
   - name: (
     nameWithType: (
@@ -204,6 +163,68 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    nameWithType: ValueType.GetHashCode
+    fullName: System.ValueType.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    nameWithType: ValueType.GetHashCode
+    fullName: System.ValueType.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    nameWithType: ValueType.ToString
+    fullName: System.ValueType.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    nameWithType: ValueType.ToString
+    fullName: System.ValueType.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -321,37 +342,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
@@ -383,37 +373,20 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
   isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
 - uid: System
   commentId: N:System
   isExternal: true
@@ -427,94 +400,15 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: Global.List{Ibralogue.Parser.Line}
-  commentId: '!:Global.List{Ibralogue.Parser.Line}'
-  definition: Global.List`1
-  name: List<Line>
-  nameWithType: List<Line>
-  fullName: List<Ibralogue.Parser.Line>
-  nameWithType.vb: List(Of Line)
-  fullName.vb: List(Of Ibralogue.Parser.Line)
-  name.vb: List(Of Line)
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: Ibralogue.Parser.Line
-    name: Line
-    nameWithType: Line
-    fullName: Ibralogue.Parser.Line
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: Ibralogue.Parser.Line
-    name: Line
-    nameWithType: Line
-    fullName: Ibralogue.Parser.Line
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.List`1
-  isExternal: true
-  name: List<>
-  nameWithType: List<>
-  fullName: List<>
-  nameWithType.vb: List(Of )
-  fullName.vb: List(Of )
-  name.vb: List(Of )
-  spec.csharp:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Global.List`1
-    name: List
-    nameWithType: List
-    fullName: List
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}
-  commentId: '!:Global.Dictionary{Ibralogue.Parser.Choice,System.Int32}'
+- uid: Global.Dictionary{System.Int32,System.String}
+  commentId: '!:Global.Dictionary{System.Int32,System.String}'
   definition: Global.Dictionary`2
-  name: Dictionary<Choice, Int32>
-  nameWithType: Dictionary<Choice, Int32>
-  fullName: Dictionary<Ibralogue.Parser.Choice, System.Int32>
-  nameWithType.vb: Dictionary(Of Choice, Int32)
-  fullName.vb: Dictionary(Of Ibralogue.Parser.Choice, System.Int32)
-  name.vb: Dictionary(Of Choice, Int32)
+  name: Dictionary<Int32, String>
+  nameWithType: Dictionary<Int32, String>
+  fullName: Dictionary<System.Int32, System.String>
+  nameWithType.vb: Dictionary(Of Int32, String)
+  fullName.vb: Dictionary(Of System.Int32, System.String)
+  name.vb: Dictionary(Of Int32, String)
   spec.csharp:
   - uid: Global.Dictionary`2
     name: Dictionary
@@ -524,17 +418,18 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Ibralogue.Parser.Choice
-    name: Choice
-    nameWithType: Choice
-    fullName: Ibralogue.Parser.Choice
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
   - uid: System.Int32
     name: Int32
     nameWithType: Int32
     fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -548,17 +443,18 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Ibralogue.Parser.Choice
-    name: Choice
-    nameWithType: Choice
-    fullName: Ibralogue.Parser.Choice
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
   - uid: System.Int32
     name: Int32
     nameWithType: Int32
     fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: )
     nameWithType: )
@@ -610,6 +506,65 @@ references:
   - name: ''
     nameWithType: ''
     fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Dictionary{System.String,System.String}
+  commentId: '!:Global.Dictionary{System.String,System.String}'
+  definition: Global.Dictionary`2
+  name: Dictionary<String, String>
+  nameWithType: Dictionary<String, String>
+  fullName: Dictionary<System.String, System.String>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: Dictionary(Of System.String, System.String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

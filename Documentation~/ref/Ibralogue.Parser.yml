@@ -6,8 +6,8 @@ items:
   children:
   - Ibralogue.Parser.Choice
   - Ibralogue.Parser.Conversation
-  - Ibralogue.Parser.Dialogue
-  - Ibralogue.Parser.Sentence
+  - Ibralogue.Parser.Line
+  - Ibralogue.Parser.LineContent
   langs:
   - csharp
   - vb
@@ -28,17 +28,17 @@ references:
   name: Conversation
   nameWithType: Conversation
   fullName: Ibralogue.Parser.Conversation
-- uid: Ibralogue.Parser.Dialogue
-  commentId: T:Ibralogue.Parser.Dialogue
-  name: Dialogue
-  nameWithType: Dialogue
-  fullName: Ibralogue.Parser.Dialogue
-- uid: Ibralogue.Parser.Sentence
-  commentId: T:Ibralogue.Parser.Sentence
+- uid: Ibralogue.Parser.Line
+  commentId: T:Ibralogue.Parser.Line
+  name: Line
+  nameWithType: Line
+  fullName: Ibralogue.Parser.Line
+- uid: Ibralogue.Parser.LineContent
+  commentId: T:Ibralogue.Parser.LineContent
   parent: Ibralogue.Parser
-  name: Sentence
-  nameWithType: Sentence
-  fullName: Ibralogue.Parser.Sentence
+  name: LineContent
+  nameWithType: LineContent
+  fullName: Ibralogue.Parser.LineContent
 - uid: Ibralogue.Parser
   commentId: N:Ibralogue.Parser
   name: Ibralogue.Parser
