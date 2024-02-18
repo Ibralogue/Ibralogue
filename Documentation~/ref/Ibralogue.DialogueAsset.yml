@@ -16,7 +16,7 @@ items:
   source:
     id: DialogueAsset
     path: ''
-    startLine: 67
+    startLine: 52
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -24,7 +24,6 @@ items:
     content: 'public class DialogueAsset : ScriptableObject'
     content.vb: >-
       Public Class DialogueAsset
-
           Inherits ScriptableObject
   inheritance:
   - System.Object
@@ -48,7 +47,7 @@ items:
   source:
     id: Content
     path: ''
-    startLine: 69
+    startLine: 54
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue

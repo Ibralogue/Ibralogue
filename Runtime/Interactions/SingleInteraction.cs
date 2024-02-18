@@ -1,13 +1,15 @@
-﻿using Ibralogue.Interactions;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SingleInteraction : BaseInteraction
+namespace Ibralogue.Interactions
 {
-    [SerializeField] private int index;
-    
-    public override void StartDialogue()
+    public class SingleInteraction : BaseInteraction
     {
-        base.StartDialogue();
-        dialogueManager.StartConversation(InteractionDialogues[index]);
+        [SerializeField] private int index;
+
+        public override void StartDialogue()
+        {
+            base.StartDialogue();
+            dialogueManager.StartConversation(InteractionDialogues[index]);
+        }
     }
 }

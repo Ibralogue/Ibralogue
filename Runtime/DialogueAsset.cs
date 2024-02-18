@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Ibralogue
+namespace Ibralogue.Parser
 {
     public class DialogueAsset : ScriptableObject
     {

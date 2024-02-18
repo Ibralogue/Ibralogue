@@ -24,7 +24,6 @@ items:
     content: 'public class IbralogueImporter : ScriptedImporter'
     content.vb: >-
       Public Class IbralogueImporter
-
           Inherits ScriptedImporter
   inheritance:
   - System.Object

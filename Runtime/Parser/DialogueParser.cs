@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Ibralogue
 {
-	public static class DialogueParser
+    public static class DialogueParser
 	{
 		private static readonly Regex SpeakerRegex = new Regex(@"^\[(.+)\]");
 		private static readonly Regex MetadataRegex = new Regex(@"##.*");

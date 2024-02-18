@@ -16,7 +16,7 @@ items:
   source:
     id: RoundRobinInteraction
     path: ''
-    startLine: 507
+    startLine: 571
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -26,7 +26,6 @@ items:
     content: 'public class RoundRobinInteraction : BaseInteraction'
     content.vb: >-
       Public Class RoundRobinInteraction
-
           Inherits BaseInteraction
   inheritance:
   - System.Object
@@ -54,7 +53,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 512
+    startLine: 576
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions

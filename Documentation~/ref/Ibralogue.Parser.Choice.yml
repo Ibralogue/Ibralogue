@@ -20,7 +20,7 @@ items:
   source:
     id: Choice
     path: ''
-    startLine: 548
+    startLine: 607
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -28,7 +28,6 @@ items:
     content: 'public class Choice : IMetadata'
     content.vb: >-
       Public Class Choice
-
           Implements IMetadata
   inheritance:
   - System.Object
@@ -62,7 +61,7 @@ items:
   source:
     id: ChoiceName
     path: ''
-    startLine: 550
+    startLine: 609
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -89,7 +88,7 @@ items:
   source:
     id: LeadingConversationName
     path: ''
-    startLine: 551
+    startLine: 610
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -116,7 +115,7 @@ items:
   source:
     id: Metadata
     path: ''
-    startLine: 552
+    startLine: 611
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -143,7 +142,7 @@ items:
   source:
     id: HasMetadata
     path: ''
-    startLine: 554
+    startLine: 613
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -176,7 +175,7 @@ items:
   source:
     id: TryGetMetadataValue
     path: ''
-    startLine: 557
+    startLine: 616
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser

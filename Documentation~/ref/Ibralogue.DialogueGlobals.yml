@@ -16,7 +16,7 @@ items:
   source:
     id: DialogueGlobals
     path: ''
-    startLine: 91
+    startLine: 70
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -54,7 +54,7 @@ items:
   source:
     id: GlobalVariables
     path: ''
-    startLine: 93
+    startLine: 72
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue

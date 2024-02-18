@@ -16,7 +16,7 @@ items:
   source:
     id: SingleInteraction
     path: ''
-    startLine: 529
+    startLine: 593
   assemblies:
   - cs.temp.dll
   namespace: Global
@@ -24,7 +24,6 @@ items:
     content: 'public class SingleInteraction : BaseInteraction'
     content.vb: >-
       Public Class SingleInteraction
-
           Inherits BaseInteraction
   inheritance:
   - System.Object
@@ -48,7 +47,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 538
+    startLine: 597
   assemblies:
   - cs.temp.dll
   namespace: Global

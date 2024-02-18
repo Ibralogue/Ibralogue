@@ -17,7 +17,7 @@ items:
   source:
     id: IMetadata
     path: ''
-    startLine: 953
+    startLine: 1021
   assemblies:
   - cs.temp.dll
   namespace: Global
@@ -44,7 +44,7 @@ items:
   source:
     id: HasMetadata
     path: ''
-    startLine: 955
+    startLine: 1023
   assemblies:
   - cs.temp.dll
   namespace: Global
@@ -71,7 +71,7 @@ items:
   source:
     id: TryGetMetadataValue
     path: ''
-    startLine: 956
+    startLine: 1024
   assemblies:
   - cs.temp.dll
   namespace: Global

@@ -2,24 +2,24 @@
 - uid: Global
   name: Global
   items:
-  - uid: Global.DialogueLogger
-    name: DialogueLogger
   - uid: Global.IMetadata
     name: IMetadata
   - uid: Global.SingleInteraction
     name: SingleInteraction
+  - uid: Global.TypewriterDialogueManager
+    name: TypewriterDialogueManager
   name.vb: ''
 - uid: Ibralogue
   name: Ibralogue
   items:
-  - uid: Ibralogue.DefaultDialogueManager
-    name: DefaultDialogueManager
   - uid: Ibralogue.DialogueAsset
     name: DialogueAsset
   - uid: Ibralogue.DialogueFunctionAttribute
     name: DialogueFunctionAttribute
   - uid: Ibralogue.DialogueGlobals
     name: DialogueGlobals
+  - uid: Ibralogue.DialogueLogger
+    name: DialogueLogger
   - uid: Ibralogue.DialogueManagerBase`1
     name: DialogueManagerBase<ChoiceButtonT>
     name.vb: DialogueManagerBase(Of ChoiceButtonT)
@@ -28,6 +28,8 @@
     name.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
   - uid: Ibralogue.DialogueParser
     name: DialogueParser
+  - uid: Ibralogue.SimpleDialogueManager
+    name: SimpleDialogueManager
 - uid: Ibralogue.Editor
   name: Ibralogue.Editor
   items:

@@ -1,25 +1,25 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Global.DialogueLogger
-  commentId: T:Global.DialogueLogger
+- uid: Ibralogue.DialogueLogger
+  commentId: T:Ibralogue.DialogueLogger
   id: DialogueLogger
-  parent: Global
+  parent: Ibralogue
   children:
-  - Global.DialogueLogger.LogError(System.Int32,System.String,Object)
+  - Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)
   langs:
   - csharp
   - vb
   name: DialogueLogger
   nameWithType: DialogueLogger
-  fullName: DialogueLogger
+  fullName: Ibralogue.DialogueLogger
   type: Class
   source:
     id: DialogueLogger
     path: ''
-    startLine: 582
+    startLine: 649
   assemblies:
   - cs.temp.dll
-  namespace: Global
+  namespace: Ibralogue
   syntax:
     content: public static class DialogueLogger
     content.vb: Public Module DialogueLogger
@@ -40,24 +40,24 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: Global.DialogueLogger.LogError(System.Int32,System.String,Object)
-  commentId: M:Global.DialogueLogger.LogError(System.Int32,System.String,Object)
+- uid: Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)
+  commentId: M:Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)
   id: LogError(System.Int32,System.String,Object)
-  parent: Global.DialogueLogger
+  parent: Ibralogue.DialogueLogger
   langs:
   - csharp
   - vb
   name: LogError(Int32, String, Object)
   nameWithType: DialogueLogger.LogError(Int32, String, Object)
-  fullName: DialogueLogger.LogError(System.Int32, System.String, Object)
+  fullName: Ibralogue.DialogueLogger.LogError(System.Int32, System.String, Object)
   type: Method
   source:
     id: LogError
     path: ''
-    startLine: 584
+    startLine: 651
   assemblies:
   - cs.temp.dll
-  namespace: Global
+  namespace: Ibralogue
   syntax:
     content: public static void LogError(int line, string message, Object context = null)
     parameters:
@@ -68,7 +68,7 @@ items:
     - id: context
       type: Global.Object
     content.vb: Public Shared Sub LogError(line As Integer, message As String, context As Object = Nothing)
-  overload: Global.DialogueLogger.LogError*
+  overload: Ibralogue.DialogueLogger.LogError*
   modifiers.csharp:
   - public
   - static
@@ -76,13 +76,11 @@ items:
   - Public
   - Shared
 references:
-- uid: Global
-  name: Global
-  nameWithType: Global
-  fullName: Global
-  nameWithType.vb: ''
-  fullName.vb: ''
-  name.vb: ''
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
 - uid: System.Object
   commentId: T:System.Object
   parent: System
@@ -375,11 +373,11 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Global.DialogueLogger.LogError*
-  commentId: Overload:Global.DialogueLogger.LogError
+- uid: Ibralogue.DialogueLogger.LogError*
+  commentId: Overload:Ibralogue.DialogueLogger.LogError
   name: LogError
   nameWithType: DialogueLogger.LogError
-  fullName: DialogueLogger.LogError
+  fullName: Ibralogue.DialogueLogger.LogError
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System

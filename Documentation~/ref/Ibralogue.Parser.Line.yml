@@ -20,7 +20,7 @@ items:
   source:
     id: Line
     path: ''
-    startLine: 970
+    startLine: 1038
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -31,7 +31,6 @@ items:
     content: 'public class Line : IMetadata'
     content.vb: >-
       Public Class Line
-
           Implements IMetadata
   inheritance:
   - System.Object
@@ -65,7 +64,7 @@ items:
   source:
     id: Speaker
     path: ''
-    startLine: 972
+    startLine: 1040
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -92,7 +91,7 @@ items:
   source:
     id: LineContent
     path: ''
-    startLine: 973
+    startLine: 1041
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -119,7 +118,7 @@ items:
   source:
     id: SpeakerImage
     path: ''
-    startLine: 974
+    startLine: 1042
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -146,7 +145,7 @@ items:
   source:
     id: HasMetadata
     path: ''
-    startLine: 976
+    startLine: 1044
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -179,7 +178,7 @@ items:
   source:
     id: TryGetMetadataValue
     path: ''
-    startLine: 979
+    startLine: 1047
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser

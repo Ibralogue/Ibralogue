@@ -16,7 +16,7 @@ items:
   source:
     id: DialogueParser
     path: ''
-    startLine: 610
+    startLine: 678
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -54,7 +54,7 @@ items:
   source:
     id: ParseDialogue
     path: ''
-    startLine: 669
+    startLine: 737
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue

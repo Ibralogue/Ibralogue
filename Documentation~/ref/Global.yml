@@ -3,9 +3,9 @@ items:
 - uid: Global
   id: Global
   children:
-  - Global.DialogueLogger
   - Global.IMetadata
   - Global.SingleInteraction
+  - Global.TypewriterDialogueManager
   langs:
   - csharp
   - vb
@@ -19,16 +19,16 @@ items:
   fullName.vb: ''
   name.vb: ''
 references:
+- uid: Global.TypewriterDialogueManager
+  commentId: T:Global.TypewriterDialogueManager
+  name: TypewriterDialogueManager
+  nameWithType: TypewriterDialogueManager
+  fullName: TypewriterDialogueManager
 - uid: Global.SingleInteraction
   commentId: T:Global.SingleInteraction
   name: SingleInteraction
   nameWithType: SingleInteraction
   fullName: SingleInteraction
-- uid: Global.DialogueLogger
-  commentId: T:Global.DialogueLogger
-  name: DialogueLogger
-  nameWithType: DialogueLogger
-  fullName: DialogueLogger
 - uid: Global.IMetadata
   commentId: T:Global.IMetadata
   name: IMetadata

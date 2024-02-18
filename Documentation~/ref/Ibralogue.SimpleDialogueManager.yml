@@ -1,30 +1,29 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Ibralogue.DefaultDialogueManager
-  commentId: T:Ibralogue.DefaultDialogueManager
-  id: DefaultDialogueManager
+- uid: Ibralogue.SimpleDialogueManager
+  commentId: T:Ibralogue.SimpleDialogueManager
+  id: SimpleDialogueManager
   parent: Ibralogue
   children:
-  - Ibralogue.DefaultDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
+  - Ibralogue.SimpleDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
   langs:
   - csharp
   - vb
-  name: DefaultDialogueManager
-  nameWithType: DefaultDialogueManager
-  fullName: Ibralogue.DefaultDialogueManager
+  name: SimpleDialogueManager
+  nameWithType: SimpleDialogueManager
+  fullName: Ibralogue.SimpleDialogueManager
   type: Class
   source:
-    id: DefaultDialogueManager
+    id: SimpleDialogueManager
     path: ''
-    startLine: 54
+    startLine: 409
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
   syntax:
-    content: 'public class DefaultDialogueManager : DialogueManagerBase<Button>'
+    content: 'public class SimpleDialogueManager : DialogueManagerBase<Button>'
     content.vb: >-
-      Public Class DefaultDialogueManager
-
+      Public Class SimpleDialogueManager
           Inherits DialogueManagerBase(Of Button)
   inheritance:
   - System.Object
@@ -46,11 +45,13 @@ items:
   - Ibralogue.DialogueManagerBase{Button}.StartConversation(Ibralogue.DialogueAsset,System.Int32)
   - Ibralogue.DialogueManagerBase{Button}.StopConversation
   - Ibralogue.DialogueManagerBase{Button}.JumpTo(System.String)
+  - Ibralogue.DialogueManagerBase{Button}.DisplayDialogue
+  - Ibralogue.DialogueManagerBase{Button}.InvokeFunctions(Dictionary{System.Int32,System.String})
   - Ibralogue.DialogueManagerBase{Button}.TryDisplayNextLine
-  - Ibralogue.DialogueManagerBase{Button}.SkipLineAnimation
-  - Ibralogue.DialogueManagerBase{Button}.TryAdvanceDialogue
   - Ibralogue.DialogueManagerBase{Button}.DisplayChoices
+  - Ibralogue.DialogueManagerBase{Button}.GetDialogueMethods
   - Ibralogue.DialogueManagerBase{Button}.DisplaySpeakerImage
+  - Ibralogue.DialogueManagerBase{Button}.ClearDialogueBox
   - Ibralogue.DialogueManagerBase{Button}.CreateChoiceButton
   - Ibralogue.DialogueManagerBase{Button}.ClearChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle)
   - Ibralogue.DialogueManagerBase{Button}.RemoveChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle)
@@ -60,21 +61,21 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: Ibralogue.DefaultDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
-  commentId: M:Ibralogue.DefaultDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
+- uid: Ibralogue.SimpleDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
+  commentId: M:Ibralogue.SimpleDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
   id: PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
-  parent: Ibralogue.DefaultDialogueManager
+  parent: Ibralogue.SimpleDialogueManager
   langs:
   - csharp
   - vb
   name: PrepareChoiceButton(DialogueManagerBase<Button>.ChoiceButtonHandle, Choice)
-  nameWithType: DefaultDialogueManager.PrepareChoiceButton(DialogueManagerBase<Button>.ChoiceButtonHandle, Choice)
-  fullName: Ibralogue.DefaultDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase<Button>.ChoiceButtonHandle, Choice)
+  nameWithType: SimpleDialogueManager.PrepareChoiceButton(DialogueManagerBase<Button>.ChoiceButtonHandle, Choice)
+  fullName: Ibralogue.SimpleDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase<Button>.ChoiceButtonHandle, Choice)
   type: Method
   source:
     id: PrepareChoiceButton
     path: ''
-    startLine: 56
+    startLine: 411
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -87,15 +88,15 @@ items:
       type: Global.Choice
     content.vb: Protected Overrides Sub PrepareChoiceButton(handle As DialogueManagerBase(Of Button).ChoiceButtonHandle, choice As Choice)
   overridden: Ibralogue.DialogueManagerBase{Button}.PrepareChoiceButton(Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle,Choice)
-  overload: Ibralogue.DefaultDialogueManager.PrepareChoiceButton*
-  nameWithType.vb: DefaultDialogueManager.PrepareChoiceButton(DialogueManagerBase(Of Button).ChoiceButtonHandle, Choice)
+  overload: Ibralogue.SimpleDialogueManager.PrepareChoiceButton*
+  nameWithType.vb: SimpleDialogueManager.PrepareChoiceButton(DialogueManagerBase(Of Button).ChoiceButtonHandle, Choice)
   modifiers.csharp:
   - protected
   - override
   modifiers.vb:
   - Protected
   - Overrides
-  fullName.vb: Ibralogue.DefaultDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase(Of Button).ChoiceButtonHandle, Choice)
+  fullName.vb: Ibralogue.SimpleDialogueManager.PrepareChoiceButton(Ibralogue.DialogueManagerBase(Of Button).ChoiceButtonHandle, Choice)
   name.vb: PrepareChoiceButton(DialogueManagerBase(Of Button).ChoiceButtonHandle, Choice)
 references:
 - uid: Ibralogue
@@ -396,6 +397,117 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Ibralogue.DialogueManagerBase{Button}.DisplayDialogue
+  commentId: M:Ibralogue.DialogueManagerBase{Button}.DisplayDialogue
+  parent: Ibralogue.DialogueManagerBase{Button}
+  definition: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+  name: DisplayDialogue()
+  nameWithType: DialogueManagerBase<Button>.DisplayDialogue()
+  fullName: Ibralogue.DialogueManagerBase<Button>.DisplayDialogue()
+  nameWithType.vb: DialogueManagerBase(Of Button).DisplayDialogue()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).DisplayDialogue()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+    name: DisplayDialogue
+    nameWithType: DialogueManagerBase<Button>.DisplayDialogue
+    fullName: Ibralogue.DialogueManagerBase<Button>.DisplayDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+    name: DisplayDialogue
+    nameWithType: DialogueManagerBase(Of Button).DisplayDialogue
+    fullName: Ibralogue.DialogueManagerBase(Of Button).DisplayDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueManagerBase{Button}.InvokeFunctions(Dictionary{System.Int32,System.String})
+  commentId: M:Ibralogue.DialogueManagerBase{Button}.InvokeFunctions(Dictionary{System.Int32,System.String})
+  parent: Ibralogue.DialogueManagerBase{Button}
+  definition: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+  name: InvokeFunctions(Dictionary<Int32, String>)
+  nameWithType: DialogueManagerBase<Button>.InvokeFunctions(Dictionary<Int32, String>)
+  fullName: Ibralogue.DialogueManagerBase<Button>.InvokeFunctions(Dictionary<System.Int32, System.String>)
+  nameWithType.vb: DialogueManagerBase(Of Button).InvokeFunctions(Dictionary(Of Int32, String))
+  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).InvokeFunctions(Dictionary(Of System.Int32, System.String))
+  name.vb: InvokeFunctions(Dictionary(Of Int32, String))
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+    name: InvokeFunctions
+    nameWithType: DialogueManagerBase<Button>.InvokeFunctions
+    fullName: Ibralogue.DialogueManagerBase<Button>.InvokeFunctions
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+    name: InvokeFunctions
+    nameWithType: DialogueManagerBase(Of Button).InvokeFunctions
+    fullName: Ibralogue.DialogueManagerBase(Of Button).InvokeFunctions
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Ibralogue.DialogueManagerBase{Button}.TryDisplayNextLine
   commentId: M:Ibralogue.DialogueManagerBase{Button}.TryDisplayNextLine
   parent: Ibralogue.DialogueManagerBase{Button}
@@ -421,68 +533,6 @@ references:
     name: TryDisplayNextLine
     nameWithType: DialogueManagerBase(Of Button).TryDisplayNextLine
     fullName: Ibralogue.DialogueManagerBase(Of Button).TryDisplayNextLine
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Ibralogue.DialogueManagerBase{Button}.SkipLineAnimation
-  commentId: M:Ibralogue.DialogueManagerBase{Button}.SkipLineAnimation
-  parent: Ibralogue.DialogueManagerBase{Button}
-  definition: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-  name: SkipLineAnimation()
-  nameWithType: DialogueManagerBase<Button>.SkipLineAnimation()
-  fullName: Ibralogue.DialogueManagerBase<Button>.SkipLineAnimation()
-  nameWithType.vb: DialogueManagerBase(Of Button).SkipLineAnimation()
-  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).SkipLineAnimation()
-  spec.csharp:
-  - uid: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-    name: SkipLineAnimation
-    nameWithType: DialogueManagerBase<Button>.SkipLineAnimation
-    fullName: Ibralogue.DialogueManagerBase<Button>.SkipLineAnimation
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-    name: SkipLineAnimation
-    nameWithType: DialogueManagerBase(Of Button).SkipLineAnimation
-    fullName: Ibralogue.DialogueManagerBase(Of Button).SkipLineAnimation
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Ibralogue.DialogueManagerBase{Button}.TryAdvanceDialogue
-  commentId: M:Ibralogue.DialogueManagerBase{Button}.TryAdvanceDialogue
-  parent: Ibralogue.DialogueManagerBase{Button}
-  definition: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-  name: TryAdvanceDialogue()
-  nameWithType: DialogueManagerBase<Button>.TryAdvanceDialogue()
-  fullName: Ibralogue.DialogueManagerBase<Button>.TryAdvanceDialogue()
-  nameWithType.vb: DialogueManagerBase(Of Button).TryAdvanceDialogue()
-  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).TryAdvanceDialogue()
-  spec.csharp:
-  - uid: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-    name: TryAdvanceDialogue
-    nameWithType: DialogueManagerBase<Button>.TryAdvanceDialogue
-    fullName: Ibralogue.DialogueManagerBase<Button>.TryAdvanceDialogue
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-    name: TryAdvanceDialogue
-    nameWithType: DialogueManagerBase(Of Button).TryAdvanceDialogue
-    fullName: Ibralogue.DialogueManagerBase(Of Button).TryAdvanceDialogue
   - name: (
     nameWithType: (
     fullName: (
@@ -520,6 +570,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Ibralogue.DialogueManagerBase{Button}.GetDialogueMethods
+  commentId: M:Ibralogue.DialogueManagerBase{Button}.GetDialogueMethods
+  parent: Ibralogue.DialogueManagerBase{Button}
+  definition: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+  name: GetDialogueMethods()
+  nameWithType: DialogueManagerBase<Button>.GetDialogueMethods()
+  fullName: Ibralogue.DialogueManagerBase<Button>.GetDialogueMethods()
+  nameWithType.vb: DialogueManagerBase(Of Button).GetDialogueMethods()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).GetDialogueMethods()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+    name: GetDialogueMethods
+    nameWithType: DialogueManagerBase<Button>.GetDialogueMethods
+    fullName: Ibralogue.DialogueManagerBase<Button>.GetDialogueMethods
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+    name: GetDialogueMethods
+    nameWithType: DialogueManagerBase(Of Button).GetDialogueMethods
+    fullName: Ibralogue.DialogueManagerBase(Of Button).GetDialogueMethods
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Ibralogue.DialogueManagerBase{Button}.DisplaySpeakerImage
   commentId: M:Ibralogue.DialogueManagerBase{Button}.DisplaySpeakerImage
   parent: Ibralogue.DialogueManagerBase{Button}
@@ -545,6 +626,37 @@ references:
     name: DisplaySpeakerImage
     nameWithType: DialogueManagerBase(Of Button).DisplaySpeakerImage
     fullName: Ibralogue.DialogueManagerBase(Of Button).DisplaySpeakerImage
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueManagerBase{Button}.ClearDialogueBox
+  commentId: M:Ibralogue.DialogueManagerBase{Button}.ClearDialogueBox
+  parent: Ibralogue.DialogueManagerBase{Button}
+  definition: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+  name: ClearDialogueBox()
+  nameWithType: DialogueManagerBase<Button>.ClearDialogueBox()
+  fullName: Ibralogue.DialogueManagerBase<Button>.ClearDialogueBox()
+  nameWithType.vb: DialogueManagerBase(Of Button).ClearDialogueBox()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of Button).ClearDialogueBox()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+    name: ClearDialogueBox
+    nameWithType: DialogueManagerBase<Button>.ClearDialogueBox
+    fullName: Ibralogue.DialogueManagerBase<Button>.ClearDialogueBox
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+    name: ClearDialogueBox
+    nameWithType: DialogueManagerBase(Of Button).ClearDialogueBox
+    fullName: Ibralogue.DialogueManagerBase(Of Button).ClearDialogueBox
   - name: (
     nameWithType: (
     fullName: (
@@ -942,6 +1054,114 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+  commentId: M:Ibralogue.DialogueManagerBase`1.DisplayDialogue
+  name: DisplayDialogue()
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.DisplayDialogue()
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.DisplayDialogue()
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).DisplayDialogue()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).DisplayDialogue()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+    name: DisplayDialogue
+    nameWithType: DialogueManagerBase<ChoiceButtonT>.DisplayDialogue
+    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.DisplayDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.DisplayDialogue
+    name: DisplayDialogue
+    nameWithType: DialogueManagerBase(Of ChoiceButtonT).DisplayDialogue
+    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).DisplayDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+  commentId: M:Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+  isExternal: true
+  name: InvokeFunctions(Dictionary<Int32, String>)
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.InvokeFunctions(Dictionary<Int32, String>)
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.InvokeFunctions(Dictionary<System.Int32, System.String>)
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).InvokeFunctions(Dictionary(Of Int32, String))
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).InvokeFunctions(Dictionary(Of System.Int32, System.String))
+  name.vb: InvokeFunctions(Dictionary(Of Int32, String))
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+    name: InvokeFunctions
+    nameWithType: DialogueManagerBase<ChoiceButtonT>.InvokeFunctions
+    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.InvokeFunctions
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.InvokeFunctions(Dictionary{System.Int32,System.String})
+    name: InvokeFunctions
+    nameWithType: DialogueManagerBase(Of ChoiceButtonT).InvokeFunctions
+    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).InvokeFunctions
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Ibralogue.DialogueManagerBase`1.TryDisplayNextLine
   commentId: M:Ibralogue.DialogueManagerBase`1.TryDisplayNextLine
   name: TryDisplayNextLine()
@@ -965,64 +1185,6 @@ references:
     name: TryDisplayNextLine
     nameWithType: DialogueManagerBase(Of ChoiceButtonT).TryDisplayNextLine
     fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).TryDisplayNextLine
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-  commentId: M:Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-  name: SkipLineAnimation()
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.SkipLineAnimation()
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.SkipLineAnimation()
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).SkipLineAnimation()
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).SkipLineAnimation()
-  spec.csharp:
-  - uid: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-    name: SkipLineAnimation
-    nameWithType: DialogueManagerBase<ChoiceButtonT>.SkipLineAnimation
-    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.SkipLineAnimation
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Ibralogue.DialogueManagerBase`1.SkipLineAnimation
-    name: SkipLineAnimation
-    nameWithType: DialogueManagerBase(Of ChoiceButtonT).SkipLineAnimation
-    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).SkipLineAnimation
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-  commentId: M:Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-  name: TryAdvanceDialogue()
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.TryAdvanceDialogue()
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.TryAdvanceDialogue()
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).TryAdvanceDialogue()
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).TryAdvanceDialogue()
-  spec.csharp:
-  - uid: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-    name: TryAdvanceDialogue
-    nameWithType: DialogueManagerBase<ChoiceButtonT>.TryAdvanceDialogue
-    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.TryAdvanceDialogue
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: Ibralogue.DialogueManagerBase`1.TryAdvanceDialogue
-    name: TryAdvanceDialogue
-    nameWithType: DialogueManagerBase(Of ChoiceButtonT).TryAdvanceDialogue
-    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).TryAdvanceDialogue
   - name: (
     nameWithType: (
     fullName: (
@@ -1058,6 +1220,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+  commentId: M:Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+  name: GetDialogueMethods()
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.GetDialogueMethods()
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.GetDialogueMethods()
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).GetDialogueMethods()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).GetDialogueMethods()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+    name: GetDialogueMethods
+    nameWithType: DialogueManagerBase<ChoiceButtonT>.GetDialogueMethods
+    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.GetDialogueMethods
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.GetDialogueMethods
+    name: GetDialogueMethods
+    nameWithType: DialogueManagerBase(Of ChoiceButtonT).GetDialogueMethods
+    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).GetDialogueMethods
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: Ibralogue.DialogueManagerBase`1.DisplaySpeakerImage
   commentId: M:Ibralogue.DialogueManagerBase`1.DisplaySpeakerImage
   name: DisplaySpeakerImage()
@@ -1081,6 +1272,35 @@ references:
     name: DisplaySpeakerImage
     nameWithType: DialogueManagerBase(Of ChoiceButtonT).DisplaySpeakerImage
     fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).DisplaySpeakerImage
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+  commentId: M:Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+  name: ClearDialogueBox()
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ClearDialogueBox()
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ClearDialogueBox()
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ClearDialogueBox()
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ClearDialogueBox()
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+    name: ClearDialogueBox
+    nameWithType: DialogueManagerBase<ChoiceButtonT>.ClearDialogueBox
+    fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ClearDialogueBox
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.ClearDialogueBox
+    name: ClearDialogueBox
+    nameWithType: DialogueManagerBase(Of ChoiceButtonT).ClearDialogueBox
+    fullName: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ClearDialogueBox
   - name: (
     nameWithType: (
     fullName: (
@@ -1284,11 +1504,11 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Ibralogue.DefaultDialogueManager.PrepareChoiceButton*
-  commentId: Overload:Ibralogue.DefaultDialogueManager.PrepareChoiceButton
+- uid: Ibralogue.SimpleDialogueManager.PrepareChoiceButton*
+  commentId: Overload:Ibralogue.SimpleDialogueManager.PrepareChoiceButton
   name: PrepareChoiceButton
-  nameWithType: DefaultDialogueManager.PrepareChoiceButton
-  fullName: Ibralogue.DefaultDialogueManager.PrepareChoiceButton
+  nameWithType: SimpleDialogueManager.PrepareChoiceButton
+  fullName: Ibralogue.SimpleDialogueManager.PrepareChoiceButton
 - uid: Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle
   commentId: T:Ibralogue.DialogueManagerBase{Button}.ChoiceButtonHandle
   parent: Ibralogue

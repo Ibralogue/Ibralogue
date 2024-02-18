@@ -15,7 +15,7 @@ items:
   source:
     id: DialogueFunctionAttribute
     path: ''
-    startLine: 76
+    startLine: 643
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -23,7 +23,6 @@ items:
     content: 'public class DialogueFunctionAttribute : Attribute'
     content.vb: >-
       Public Class DialogueFunctionAttribute
-
           Inherits Attribute
   inheritance:
   - System.Object

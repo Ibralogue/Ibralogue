@@ -16,7 +16,7 @@ items:
   source:
     id: RandomInteraction
     path: ''
-    startLine: 490
+    startLine: 554
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -26,7 +26,6 @@ items:
     content: 'public class RandomInteraction : BaseInteraction'
     content.vb: >-
       Public Class RandomInteraction
-
           Inherits BaseInteraction
   inheritance:
   - System.Object
@@ -54,7 +53,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 492
+    startLine: 556
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions

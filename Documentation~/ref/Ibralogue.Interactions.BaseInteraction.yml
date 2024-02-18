@@ -18,7 +18,7 @@ items:
   source:
     id: BaseInteraction
     path: ''
-    startLine: 463
+    startLine: 527
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -28,7 +28,6 @@ items:
     content: 'public abstract class BaseInteraction : MonoBehaviour'
     content.vb: >-
       Public MustInherit Class BaseInteraction
-
           Inherits MonoBehaviour
   inheritance:
   - System.Object
@@ -57,15 +56,15 @@ items:
   source:
     id: dialogueManager
     path: ''
-    startLine: 465
+    startLine: 529
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
   syntax:
-    content: protected DefaultDialogueManager dialogueManager
+    content: protected SimpleDialogueManager dialogueManager
     return:
-      type: Ibralogue.DefaultDialogueManager
-    content.vb: Protected dialogueManager As DefaultDialogueManager
+      type: Ibralogue.SimpleDialogueManager
+    content.vb: Protected dialogueManager As SimpleDialogueManager
   modifiers.csharp:
   - protected
   modifiers.vb:
@@ -84,7 +83,7 @@ items:
   source:
     id: InteractionDialogues
     path: ''
-    startLine: 466
+    startLine: 530
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -111,7 +110,7 @@ items:
   source:
     id: StartDialogue
     path: ''
-    startLine: 471
+    startLine: 535
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Interactions
@@ -144,12 +143,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Ibralogue.DefaultDialogueManager
-  commentId: T:Ibralogue.DefaultDialogueManager
+- uid: Ibralogue.SimpleDialogueManager
+  commentId: T:Ibralogue.SimpleDialogueManager
   parent: Ibralogue
-  name: DefaultDialogueManager
-  nameWithType: DefaultDialogueManager
-  fullName: Ibralogue.DefaultDialogueManager
+  name: SimpleDialogueManager
+  nameWithType: SimpleDialogueManager
+  fullName: Ibralogue.SimpleDialogueManager
 - uid: Ibralogue
   commentId: N:Ibralogue
   name: Ibralogue

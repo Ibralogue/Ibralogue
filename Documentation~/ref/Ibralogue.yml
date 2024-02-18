@@ -4,13 +4,14 @@ items:
   commentId: N:Ibralogue
   id: Ibralogue
   children:
-  - Ibralogue.DefaultDialogueManager
   - Ibralogue.DialogueAsset
   - Ibralogue.DialogueFunctionAttribute
   - Ibralogue.DialogueGlobals
+  - Ibralogue.DialogueLogger
   - Ibralogue.DialogueManagerBase`1
   - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
   - Ibralogue.DialogueParser
+  - Ibralogue.SimpleDialogueManager
   langs:
   - csharp
   - vb
@@ -21,23 +22,12 @@ items:
   assemblies:
   - cs.temp.dll
 references:
-- uid: Ibralogue.DefaultDialogueManager
-  commentId: T:Ibralogue.DefaultDialogueManager
-  parent: Ibralogue
-  name: DefaultDialogueManager
-  nameWithType: DefaultDialogueManager
-  fullName: Ibralogue.DefaultDialogueManager
 - uid: Ibralogue.DialogueAsset
   commentId: T:Ibralogue.DialogueAsset
   parent: Ibralogue
   name: DialogueAsset
   nameWithType: DialogueAsset
   fullName: Ibralogue.DialogueAsset
-- uid: Ibralogue.DialogueFunctionAttribute
-  commentId: T:Ibralogue.DialogueFunctionAttribute
-  name: DialogueFunctionAttribute
-  nameWithType: DialogueFunctionAttribute
-  fullName: Ibralogue.DialogueFunctionAttribute
 - uid: Ibralogue.DialogueGlobals
   commentId: T:Ibralogue.DialogueGlobals
   name: DialogueGlobals
@@ -110,6 +100,22 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Ibralogue.SimpleDialogueManager
+  commentId: T:Ibralogue.SimpleDialogueManager
+  parent: Ibralogue
+  name: SimpleDialogueManager
+  nameWithType: SimpleDialogueManager
+  fullName: Ibralogue.SimpleDialogueManager
+- uid: Ibralogue.DialogueFunctionAttribute
+  commentId: T:Ibralogue.DialogueFunctionAttribute
+  name: DialogueFunctionAttribute
+  nameWithType: DialogueFunctionAttribute
+  fullName: Ibralogue.DialogueFunctionAttribute
+- uid: Ibralogue.DialogueLogger
+  commentId: T:Ibralogue.DialogueLogger
+  name: DialogueLogger
+  nameWithType: DialogueLogger
+  fullName: Ibralogue.DialogueLogger
 - uid: Ibralogue.DialogueParser
   commentId: T:Ibralogue.DialogueParser
   name: DialogueParser

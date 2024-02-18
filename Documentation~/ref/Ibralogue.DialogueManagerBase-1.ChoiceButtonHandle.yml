@@ -19,7 +19,7 @@ items:
   source:
     id: ChoiceButtonHandle
     path: ''
-    startLine: 439
+    startLine: 389
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -61,7 +61,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 441
+    startLine: 391
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -94,7 +94,7 @@ items:
   source:
     id: ClickEvent
     path: ''
-    startLine: 447
+    startLine: 397
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -127,7 +127,7 @@ items:
   source:
     id: ChoiceButton
     path: ''
-    startLine: 449
+    startLine: 398
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
@@ -160,7 +160,7 @@ items:
   source:
     id: ClickCallback
     path: ''
-    startLine: 450
+    startLine: 399
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
