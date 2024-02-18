@@ -4,7 +4,7 @@ namespace Ibralogue.Examples
 {
     public class DialogueInput : MonoBehaviour
     {
-        [SerializeField] private DefaultDialogueManager dialogueManager;
+        [SerializeField] private SimpleDialogueManager dialogueManager;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
