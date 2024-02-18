@@ -9,6 +9,10 @@ namespace Ibralogue
 {
     public class TypewriterDialogueManager : SimpleDialogueManager
     {
+        /// <summary>
+        /// The DisplayDialogue coroutine displays the dialogue character by character in a scrolling manner and sets all other
+        /// relevant values.
+        /// </summary>
         protected override IEnumerator DisplayDialogue()
         {
             _linePlaying = true;
@@ -39,6 +43,11 @@ namespace Ibralogue
             yield return null;
         }
 
+        /// <summary>
+        /// Invokes all the functions in a line timed according to the current visible character.
+        /// </summary>
+        /// <param name="index">The index of the current visible character.</param>
+        /// <param name="functionInvocations">The list of invocations in the Dialogue to be invoked.</param>
         protected void InvokeFunctionsTimed(int index, Dictionary<int, string> functionInvocations)
         {
             IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
@@ -85,12 +94,19 @@ namespace Ibralogue
             sentenceText.maxVisibleCharacters = sentenceText.text.Length;
         }
 
+        /// <remarks>
+        /// This override additionally sets maxVisibleCharacters to zero.>
+        /// </remarks>
         protected override void ClearDialogueBox()
         {
             base.ClearDialogueBox();
             sentenceText.maxVisibleCharacters = 0;
         }
 
+
+        /// <summary>
+        /// Skips the line animation if it is still playing; otherwise, attempts to display the next line.
+        /// </summary>
         protected void TryAdvanceDialogue()
         {
             if (_currentConversation == null)

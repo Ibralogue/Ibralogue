@@ -88,6 +88,7 @@ namespace Ibralogue
         {
             StopCoroutine(DisplayDialogue());
             ClearDialogueBox();
+
             _lineIndex = 0;
             _currentConversation = null;
             OnConversationEnd.Invoke();
@@ -113,8 +114,7 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// The DisplayDialogue coroutine displays the dialogue character by character in a scrolling manner and sets all other
-        /// relevant values.
+        // Displays the entire dialogue and displays choices if present.
         /// </summary>
         protected virtual IEnumerator DisplayDialogue()
         {
@@ -179,7 +179,7 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Clears the dialogue box and displays the next <see cref="Line"/> if no sentences are left in the
+        /// Clears the dialogue box and displays the next line if no sentences are left in the
         /// current one.
         /// </summary>
         public void TryDisplayNextLine()

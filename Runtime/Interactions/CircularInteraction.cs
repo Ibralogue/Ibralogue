@@ -3,12 +3,16 @@ using UnityEngine;
 namespace Ibralogue.Interactions
 {
     /// <summary>
-    /// Loops through each dialogue one by one and stops at the last one unless "Loop" is checked in which case it starts from the first dialogue.
+    /// Loops through each dialogue one by one.
     /// </summary>
-    public class RoundRobinInteraction : BaseInteraction
+    public class CircularInteraction : BaseInteraction
     {
         private int _iteration;
-        [SerializeField] private bool _loop;
+
+        /// <summary>
+        /// If this is checked, the first conversation will start playing again after playing the last conversation when calling <see cref="StartDialogue"/>.
+        /// </summary>
+        [SerializeField] private bool _loop = true;
 
         public override void StartDialogue()
         {

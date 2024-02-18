@@ -14,6 +14,10 @@ namespace Ibralogue.Editor
     [ScriptedImporter(2, "ibra")]
     public class IbralogueImporter : ScriptedImporter
     {
+        /// <summary>
+        /// Creates an instance of a scriptable object of type <see cref="DialogueAsset "/> and adds the contents of ctx file to the asset.
+        /// </summary>
+        /// <param name="ctx">The context for importing the asset.</param>
         public override void OnImportAsset(AssetImportContext ctx)
         {
             DialogueAsset subAsset = ScriptableObject.CreateInstance<DialogueAsset>();
