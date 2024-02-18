@@ -114,7 +114,7 @@ namespace Ibralogue
 		/// The DisplayDialogue coroutine displays the dialogue character by character in a scrolling manner and sets all other
 		/// relevant values.
 		/// </summary>
-		private IEnumerator DisplayDialogue()
+		protected virtual IEnumerator DisplayDialogue()
 		{
 			_linePlaying = true;
 
@@ -128,58 +128,52 @@ namespace Ibralogue
 			nameText.text = _currentConversation.Lines[_lineIndex].Speaker;
 			sentenceText.text = _currentConversation.Lines[_lineIndex].LineContent.Text;
             DisplaySpeakerImage();
-			IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
-
-            int index = 0;
-            while (_currentConversation != null &&
-			       index < _currentConversation.Lines[_lineIndex].LineContent.Text.Length)
-			{
-				InvokeFunctions(index, dialogueMethods, _currentConversation.Lines[_lineIndex].LineContent.Invocations);
-				index++;
-				sentenceText.maxVisibleCharacters++;
-				yield return new WaitForSeconds(1f / scrollSpeed);
-			}
+            InvokeFunctions(_currentConversation.Lines[_lineIndex].LineContent.Invocations);
 
 			_linePlaying = false;
-			yield return null;
+            yield return null;
 		}
 
 		/// <summary>
 		/// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
 		/// </summary>
 		/// <param name="index">The index of the current visible character.</param>
-		/// <param name="dialogueMethods">All of the dialogue methods to be searched through.</param>
 		/// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
-		private void InvokeFunctions(int index, IEnumerable<MethodInfo> dialogueMethods, Dictionary<int, string> functionInvocations)
+		protected virtual void InvokeFunctions(Dictionary<int, string> functionInvocations)
 		{
-            if (functionInvocations != null && functionInvocations
-        .TryGetValue(sentenceText.maxVisibleCharacters, out string functionName))
-                foreach (MethodInfo methodInfo in dialogueMethods)
-                {
-                    if (methodInfo.Name != functionName)
-                        continue;
+            IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
 
-                    if (methodInfo.ReturnType == typeof(string))
+            if (functionInvocations != null)
+            {
+                foreach (KeyValuePair<int, string> function in functionInvocations)
+                {
+                    foreach (MethodInfo methodInfo in dialogueMethods)
                     {
-                        string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
-                        string processedSentence = _currentConversation.Lines[_lineIndex].LineContent.Text
-                            .Insert(index, replacedText);
-                        sentenceText.text = processedSentence;
-                        index -= processedSentence.Length -
-                                 _currentConversation.Lines[_lineIndex].LineContent.Text.Length;
-                    }
-                    else
-                    {
-                        if (methodInfo.GetParameters().Length > 0)
+                        if (methodInfo.Name != function.Value)
+                            continue;
+
+                        if (methodInfo.ReturnType == typeof(string))
                         {
-                            methodInfo.Invoke(null, new object[] { this });
+                            string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
+                            string processedSentence = _currentConversation.Lines[_lineIndex].LineContent.Text
+                                .Insert(function.Key, replacedText);
+                            sentenceText.text = processedSentence;
                         }
                         else
                         {
-                            methodInfo.Invoke(null, null);
+                            if (methodInfo.GetParameters().Length > 0)
+                            {
+                                methodInfo.Invoke(null, new object[] { this });
+                            }
+                            else
+                            {
+                                methodInfo.Invoke(null, null);
+                            }
                         }
                     }
                 }
+
+            }
         }
 
 		/// <summary>
@@ -205,31 +199,6 @@ namespace Ibralogue
 			}
 		}
 
-		/// <summary>
-		/// Skip the typewriter animation of the sentence.
-		/// </summary>
-		public void SkipLineAnimation()
-		{
-			if (!_linePlaying)
-				return;
-			StopCoroutine(DisplayDialogue());
-			_linePlaying = false;
-			sentenceText.maxVisibleCharacters = sentenceText.text.Length;
-		}
-
-
-		public void TryAdvanceDialogue()
-		{
-			if (_currentConversation == null)
-				return;
-			if (_linePlaying)
-			{
-				SkipLineAnimation();
-				return;
-			}
-
-			TryDisplayNextLine();
-		}
 
 		/// <summary>
 		/// Uses the Unity UI system and TextMeshPro to render choice buttons.
@@ -282,7 +251,7 @@ namespace Ibralogue
 		/// Gets all methods for the current assembly, other specified assemblies, or all assemblies, and checks them against the
 		/// DialogueFunction attribute.
 		/// </summary>
-		private IEnumerable<MethodInfo> GetDialogueMethods()
+		protected IEnumerable<MethodInfo> GetDialogueMethods()
 		{
 			List<Assembly> assemblies = new List<Assembly>();
 			Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -321,12 +290,12 @@ namespace Ibralogue
 		/// <summary>
 		/// Clears all text and Images in the dialogue box.
 		/// </summary>
-		private void ClearDialogueBox()
+		protected virtual void ClearDialogueBox()
 		{
 			_linePlaying = false;
 			nameText.text = string.Empty;
 			sentenceText.text = string.Empty;
-			sentenceText.maxVisibleCharacters = 0;
+
 			speakerPortrait.color = new Color(0, 0, 0, 0);
 
 			if (_choiceButtonInstances == null)
@@ -368,7 +337,6 @@ namespace Ibralogue
 			}
 
 			public UnityEvent ClickEvent { get; set; }
-
 			public ChoiceButtonT ChoiceButton { get; private set; }
 			public UnityAction ClickCallback { get; private set; }
 		}
