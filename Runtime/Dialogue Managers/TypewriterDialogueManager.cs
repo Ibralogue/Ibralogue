@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class TypewriterDialogueManager : SimpleDialogueManager 
+public class TypewriterDialogueManager : SimpleDialogueManager
 {
     protected override IEnumerator DisplayDialogue()
     {
@@ -24,18 +24,14 @@ public class TypewriterDialogueManager : SimpleDialogueManager
         DisplaySpeakerImage();
 
         int index = 0;
-        float elapsedTime = 0f;
 
         while (_currentConversation != null &&
                index < _currentConversation.Lines[_lineIndex].LineContent.Text.Length)
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= 1f / scrollSpeed)
-            {
-                InvokeFunctionsTimed(index, _currentConversation.Lines[_lineIndex].LineContent.Invocations);
-                index++;
-                sentenceText.maxVisibleCharacters++;
-            }
+            InvokeFunctionsTimed(index, _currentConversation.Lines[_lineIndex].LineContent.Invocations);
+            sentenceText.maxVisibleCharacters++;
+            index++;
+            yield return new WaitForSecondsRealtime(1f / scrollSpeed);
         }
 
         _linePlaying = false;
