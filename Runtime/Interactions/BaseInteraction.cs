@@ -1,3 +1,4 @@
+using Ibralogue.Parser;
 using UnityEngine;
 using UnityEngine.Events;
 

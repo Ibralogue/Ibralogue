@@ -1,5 +1,8 @@
-﻿public interface IMetadata
+﻿namespace Ibralogue
 {
-	bool HasMetadata(string key);
-	bool TryGetMetadataValue(string key, out string value);
+    public interface IMetadata
+    {
+        bool HasMetadata(string key);
+        bool TryGetMetadataValue(string key, out string value);
+    }
 }
