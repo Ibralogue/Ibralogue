@@ -1,0 +1,28 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Editor
+  commentId: N:Ibralogue.Editor
+  id: Ibralogue.Editor
+  children:
+  - Ibralogue.Editor.CreateIbralogue
+  - Ibralogue.Editor.IbralogueImporter
+  langs:
+  - csharp
+  - vb
+  name: Ibralogue.Editor
+  nameWithType: Ibralogue.Editor
+  fullName: Ibralogue.Editor
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: Ibralogue.Editor.CreateIbralogue
+  commentId: T:Ibralogue.Editor.CreateIbralogue
+  name: CreateIbralogue
+  nameWithType: CreateIbralogue
+  fullName: Ibralogue.Editor.CreateIbralogue
+- uid: Ibralogue.Editor.IbralogueImporter
+  commentId: T:Ibralogue.Editor.IbralogueImporter
+  name: IbralogueImporter
+  nameWithType: IbralogueImporter
+  fullName: Ibralogue.Editor.IbralogueImporter

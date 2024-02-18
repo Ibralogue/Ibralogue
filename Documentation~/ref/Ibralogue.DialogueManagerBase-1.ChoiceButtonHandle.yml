@@ -1,0 +1,527 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  commentId: T:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  id: DialogueManagerBase`1.ChoiceButtonHandle
+  parent: Ibralogue
+  children:
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  langs:
+  - csharp
+  - vb
+  name: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
+  type: Class
+  source:
+    id: ChoiceButtonHandle
+    path: ''
+    startLine: 439
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  summary: "\nRepresent a single spawned choice button, contains general information about said button\n"
+  example: []
+  syntax:
+    content: protected class ChoiceButtonHandle
+    content.vb: Protected Class ChoiceButtonHandle
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
+  modifiers.csharp:
+  - protected
+  - class
+  modifiers.vb:
+  - Protected
+  - Class
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
+  name.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  commentId: M:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor(`0,UnityAction)
+  id: '#ctor(`0,UnityAction)'
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  langs:
+  - csharp
+  - vb
+  name: ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 441
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public ChoiceButtonHandle(ChoiceButtonT choiceButton, UnityAction clickCallback)
+    parameters:
+    - id: choiceButton
+      type: '{ChoiceButtonT}'
+    - id: clickCallback
+      type: Global.UnityAction
+    content.vb: Public Sub New(choiceButton As ChoiceButtonT, clickCallback As UnityAction)
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle(ChoiceButtonT, UnityAction)
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  id: ClickEvent
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  langs:
+  - csharp
+  - vb
+  name: ClickEvent
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  type: Property
+  source:
+    id: ClickEvent
+    path: ''
+    startLine: 447
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public UnityEvent ClickEvent { get; set; }
+    parameters: []
+    return:
+      type: Global.UnityEvent
+    content.vb: Public Property ClickEvent As UnityEvent
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  id: ChoiceButton
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  langs:
+  - csharp
+  - vb
+  name: ChoiceButton
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  type: Property
+  source:
+    id: ChoiceButton
+    path: ''
+    startLine: 449
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public ChoiceButtonT ChoiceButton { get; }
+    parameters: []
+    return:
+      type: '{ChoiceButtonT}'
+    content.vb: Public ReadOnly Property ChoiceButton As ChoiceButtonT
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  commentId: P:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  id: ClickCallback
+  parent: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  langs:
+  - csharp
+  - vb
+  name: ClickCallback
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  type: Property
+  source:
+    id: ClickCallback
+    path: ''
+    startLine: 450
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: public UnityAction ClickCallback { get; }
+    parameters: []
+    return:
+      type: Global.UnityAction
+    content.vb: Public ReadOnly Property ClickCallback As UnityAction
+  overload: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback*
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
+references:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.#ctor
+  name: ChoiceButtonHandle
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButtonHandle
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButtonHandle
+- uid: '{ChoiceButtonT}'
+  commentId: '!:ChoiceButtonT'
+  definition: ChoiceButtonT
+  name: ChoiceButtonT
+  nameWithType: ChoiceButtonT
+  fullName: ChoiceButtonT
+- uid: Global.UnityAction
+  isExternal: true
+  name: UnityAction
+  nameWithType: UnityAction
+  fullName: UnityAction
+- uid: ChoiceButtonT
+  name: ChoiceButtonT
+  nameWithType: ChoiceButtonT
+  fullName: ChoiceButtonT
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickEvent
+  name: ClickEvent
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
+- uid: Global.UnityEvent
+  isExternal: true
+  name: UnityEvent
+  nameWithType: UnityEvent
+  fullName: UnityEvent
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ChoiceButton
+  name: ChoiceButton
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ChoiceButton
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ChoiceButton
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback*
+  commentId: Overload:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle.ClickCallback
+  name: ClickCallback
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickCallback
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickCallback

@@ -1,0 +1,36 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global
+  id: Global
+  children:
+  - Global.DialogueLogger
+  - Global.IMetadata
+  - Global.SingleInteraction
+  langs:
+  - csharp
+  - vb
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+references:
+- uid: Global.SingleInteraction
+  commentId: T:Global.SingleInteraction
+  name: SingleInteraction
+  nameWithType: SingleInteraction
+  fullName: SingleInteraction
+- uid: Global.DialogueLogger
+  commentId: T:Global.DialogueLogger
+  name: DialogueLogger
+  nameWithType: DialogueLogger
+  fullName: DialogueLogger
+- uid: Global.IMetadata
+  commentId: T:Global.IMetadata
+  name: IMetadata
+  nameWithType: IMetadata
+  fullName: IMetadata

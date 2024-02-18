@@ -1,0 +1,122 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  id: Ibralogue
+  children:
+  - Ibralogue.DefaultDialogueManager
+  - Ibralogue.DialogueAsset
+  - Ibralogue.DialogueFunctionAttribute
+  - Ibralogue.DialogueGlobals
+  - Ibralogue.DialogueManagerBase`1
+  - Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  - Ibralogue.DialogueParser
+  langs:
+  - csharp
+  - vb
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: Ibralogue.DefaultDialogueManager
+  commentId: T:Ibralogue.DefaultDialogueManager
+  parent: Ibralogue
+  name: DefaultDialogueManager
+  nameWithType: DefaultDialogueManager
+  fullName: Ibralogue.DefaultDialogueManager
+- uid: Ibralogue.DialogueAsset
+  commentId: T:Ibralogue.DialogueAsset
+  parent: Ibralogue
+  name: DialogueAsset
+  nameWithType: DialogueAsset
+  fullName: Ibralogue.DialogueAsset
+- uid: Ibralogue.DialogueFunctionAttribute
+  commentId: T:Ibralogue.DialogueFunctionAttribute
+  name: DialogueFunctionAttribute
+  nameWithType: DialogueFunctionAttribute
+  fullName: Ibralogue.DialogueFunctionAttribute
+- uid: Ibralogue.DialogueGlobals
+  commentId: T:Ibralogue.DialogueGlobals
+  name: DialogueGlobals
+  nameWithType: DialogueGlobals
+  fullName: Ibralogue.DialogueGlobals
+- uid: Ibralogue.DialogueManagerBase`1
+  commentId: T:Ibralogue.DialogueManagerBase`1
+  name: DialogueManagerBase<ChoiceButtonT>
+  nameWithType: DialogueManagerBase<ChoiceButtonT>
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)
+  name.vb: DialogueManagerBase(Of ChoiceButtonT)
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1
+    name: DialogueManagerBase
+    nameWithType: DialogueManagerBase
+    fullName: Ibralogue.DialogueManagerBase
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ChoiceButtonT
+    nameWithType: ChoiceButtonT
+    fullName: ChoiceButtonT
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1
+    name: DialogueManagerBase
+    nameWithType: DialogueManagerBase
+    fullName: Ibralogue.DialogueManagerBase
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ChoiceButtonT
+    nameWithType: ChoiceButtonT
+    fullName: ChoiceButtonT
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  commentId: T:Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+  parent: Ibralogue
+  name: DialogueManagerBase.ChoiceButtonHandle<>
+  nameWithType: DialogueManagerBase.ChoiceButtonHandle<>
+  fullName: Ibralogue.DialogueManagerBase.ChoiceButtonHandle<>
+  nameWithType.vb: DialogueManagerBase.ChoiceButtonHandle(Of )
+  fullName.vb: Ibralogue.DialogueManagerBase.ChoiceButtonHandle(Of )
+  name.vb: DialogueManagerBase.ChoiceButtonHandle(Of )
+  spec.csharp:
+  - uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+    name: DialogueManagerBase.ChoiceButtonHandle
+    nameWithType: DialogueManagerBase.ChoiceButtonHandle
+    fullName: Ibralogue.DialogueManagerBase.ChoiceButtonHandle
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
+    name: DialogueManagerBase.ChoiceButtonHandle
+    nameWithType: DialogueManagerBase.ChoiceButtonHandle
+    fullName: Ibralogue.DialogueManagerBase.ChoiceButtonHandle
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.DialogueParser
+  commentId: T:Ibralogue.DialogueParser
+  name: DialogueParser
+  nameWithType: DialogueParser
+  fullName: Ibralogue.DialogueParser
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue

@@ -1,0 +1,54 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.DialogueFunctionAttribute
+  commentId: T:Ibralogue.DialogueFunctionAttribute
+  id: DialogueFunctionAttribute
+  parent: Ibralogue
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: DialogueFunctionAttribute
+  nameWithType: DialogueFunctionAttribute
+  fullName: Ibralogue.DialogueFunctionAttribute
+  type: Class
+  source:
+    id: DialogueFunctionAttribute
+    path: ''
+    startLine: 76
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue
+  syntax:
+    content: 'public class DialogueFunctionAttribute : Attribute'
+    content.vb: >-
+      Public Class DialogueFunctionAttribute
+
+          Inherits Attribute
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+references:
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System

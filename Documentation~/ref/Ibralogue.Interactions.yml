@@ -1,0 +1,40 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Interactions
+  commentId: N:Ibralogue.Interactions
+  id: Ibralogue.Interactions
+  children:
+  - Ibralogue.Interactions.BaseInteraction
+  - Ibralogue.Interactions.RandomInteraction
+  - Ibralogue.Interactions.RoundRobinInteraction
+  langs:
+  - csharp
+  - vb
+  name: Ibralogue.Interactions
+  nameWithType: Ibralogue.Interactions
+  fullName: Ibralogue.Interactions
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: Ibralogue.Interactions.BaseInteraction
+  commentId: T:Ibralogue.Interactions.BaseInteraction
+  parent: Ibralogue.Interactions
+  name: BaseInteraction
+  nameWithType: BaseInteraction
+  fullName: Ibralogue.Interactions.BaseInteraction
+- uid: Ibralogue.Interactions.RandomInteraction
+  commentId: T:Ibralogue.Interactions.RandomInteraction
+  name: RandomInteraction
+  nameWithType: RandomInteraction
+  fullName: Ibralogue.Interactions.RandomInteraction
+- uid: Ibralogue.Interactions.RoundRobinInteraction
+  commentId: T:Ibralogue.Interactions.RoundRobinInteraction
+  name: RoundRobinInteraction
+  nameWithType: RoundRobinInteraction
+  fullName: Ibralogue.Interactions.RoundRobinInteraction
+- uid: Ibralogue.Interactions
+  commentId: N:Ibralogue.Interactions
+  name: Ibralogue.Interactions
+  nameWithType: Ibralogue.Interactions
+  fullName: Ibralogue.Interactions

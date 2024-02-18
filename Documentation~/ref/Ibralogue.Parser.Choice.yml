@@ -1,0 +1,732 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Parser.Choice
+  commentId: T:Ibralogue.Parser.Choice
+  id: Choice
+  parent: Ibralogue.Parser
+  children:
+  - Ibralogue.Parser.Choice.ChoiceName
+  - Ibralogue.Parser.Choice.HasMetadata(System.String)
+  - Ibralogue.Parser.Choice.LeadingConversationName
+  - Ibralogue.Parser.Choice.Metadata
+  - Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
+  langs:
+  - csharp
+  - vb
+  name: Choice
+  nameWithType: Choice
+  fullName: Ibralogue.Parser.Choice
+  type: Class
+  source:
+    id: Choice
+    path: ''
+    startLine: 548
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: 'public class Choice : IMetadata'
+    content.vb: >-
+      Public Class Choice
+
+          Implements IMetadata
+  inheritance:
+  - System.Object
+  implements:
+  - Global.IMetadata
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Ibralogue.Parser.Choice.ChoiceName
+  commentId: F:Ibralogue.Parser.Choice.ChoiceName
+  id: ChoiceName
+  parent: Ibralogue.Parser.Choice
+  langs:
+  - csharp
+  - vb
+  name: ChoiceName
+  nameWithType: Choice.ChoiceName
+  fullName: Ibralogue.Parser.Choice.ChoiceName
+  type: Field
+  source:
+    id: ChoiceName
+    path: ''
+    startLine: 550
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public string ChoiceName
+    return:
+      type: System.String
+    content.vb: Public ChoiceName As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Choice.LeadingConversationName
+  commentId: F:Ibralogue.Parser.Choice.LeadingConversationName
+  id: LeadingConversationName
+  parent: Ibralogue.Parser.Choice
+  langs:
+  - csharp
+  - vb
+  name: LeadingConversationName
+  nameWithType: Choice.LeadingConversationName
+  fullName: Ibralogue.Parser.Choice.LeadingConversationName
+  type: Field
+  source:
+    id: LeadingConversationName
+    path: ''
+    startLine: 551
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public string LeadingConversationName
+    return:
+      type: System.String
+    content.vb: Public LeadingConversationName As String
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Choice.Metadata
+  commentId: F:Ibralogue.Parser.Choice.Metadata
+  id: Metadata
+  parent: Ibralogue.Parser.Choice
+  langs:
+  - csharp
+  - vb
+  name: Metadata
+  nameWithType: Choice.Metadata
+  fullName: Ibralogue.Parser.Choice.Metadata
+  type: Field
+  source:
+    id: Metadata
+    path: ''
+    startLine: 552
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public Dictionary<string, string> Metadata
+    return:
+      type: Global.Dictionary{System.String,System.String}
+    content.vb: Public Metadata As Dictionary(Of String, String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Choice.HasMetadata(System.String)
+  commentId: M:Ibralogue.Parser.Choice.HasMetadata(System.String)
+  id: HasMetadata(System.String)
+  parent: Ibralogue.Parser.Choice
+  langs:
+  - csharp
+  - vb
+  name: HasMetadata(String)
+  nameWithType: Choice.HasMetadata(String)
+  fullName: Ibralogue.Parser.Choice.HasMetadata(System.String)
+  type: Method
+  source:
+    id: HasMetadata
+    path: ''
+    startLine: 554
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public bool HasMetadata(string key)
+    parameters:
+    - id: key
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function HasMetadata(key As String) As Boolean
+  overload: Ibralogue.Parser.Choice.HasMetadata*
+  implements:
+  - Global.IMetadata.HasMetadata(System.String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
+  commentId: M:Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
+  id: TryGetMetadataValue(System.String,System.String@)
+  parent: Ibralogue.Parser.Choice
+  langs:
+  - csharp
+  - vb
+  name: TryGetMetadataValue(String, out String)
+  nameWithType: Choice.TryGetMetadataValue(String, out String)
+  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, out System.String)
+  type: Method
+  source:
+    id: TryGetMetadataValue
+    path: ''
+    startLine: 557
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Parser
+  syntax:
+    content: public bool TryGetMetadataValue(string key, out string value)
+    parameters:
+    - id: key
+      type: System.String
+    - id: value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function TryGetMetadataValue(key As String, ByRef value As String) As Boolean
+  overload: Ibralogue.Parser.Choice.TryGetMetadataValue*
+  implements:
+  - Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  nameWithType.vb: Choice.TryGetMetadataValue(String, ByRef String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, ByRef System.String)
+  name.vb: TryGetMetadataValue(String, ByRef String)
+references:
+- uid: Ibralogue.Parser
+  commentId: N:Ibralogue.Parser
+  name: Ibralogue.Parser
+  nameWithType: Ibralogue.Parser
+  fullName: Ibralogue.Parser
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Global.IMetadata
+  commentId: T:Global.IMetadata
+  name: IMetadata
+  nameWithType: IMetadata
+  fullName: IMetadata
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Global.Dictionary{System.String,System.String}
+  commentId: '!:Global.Dictionary{System.String,System.String}'
+  definition: Global.Dictionary`2
+  name: Dictionary<String, String>
+  nameWithType: Dictionary<String, String>
+  fullName: Dictionary<System.String, System.String>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: Dictionary(Of System.String, System.String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Dictionary`2
+  isExternal: true
+  name: Dictionary<, >
+  nameWithType: Dictionary<, >
+  fullName: Dictionary<, >
+  nameWithType.vb: Dictionary(Of , )
+  fullName.vb: Dictionary(Of , )
+  name.vb: Dictionary(Of , )
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.Parser.Choice.HasMetadata*
+  commentId: Overload:Ibralogue.Parser.Choice.HasMetadata
+  name: HasMetadata
+  nameWithType: Choice.HasMetadata
+  fullName: Ibralogue.Parser.Choice.HasMetadata
+- uid: Global.IMetadata.HasMetadata(System.String)
+  commentId: M:Global.IMetadata.HasMetadata(System.String)
+  parent: Global.IMetadata
+  isExternal: true
+  name: HasMetadata(String)
+  nameWithType: IMetadata.HasMetadata(String)
+  fullName: IMetadata.HasMetadata(System.String)
+  spec.csharp:
+  - uid: Global.IMetadata.HasMetadata(System.String)
+    name: HasMetadata
+    nameWithType: IMetadata.HasMetadata
+    fullName: IMetadata.HasMetadata
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Global.IMetadata.HasMetadata(System.String)
+    name: HasMetadata
+    nameWithType: IMetadata.HasMetadata
+    fullName: IMetadata.HasMetadata
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Ibralogue.Parser.Choice.TryGetMetadataValue*
+  commentId: Overload:Ibralogue.Parser.Choice.TryGetMetadataValue
+  name: TryGetMetadataValue
+  nameWithType: Choice.TryGetMetadataValue
+  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue
+- uid: Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  commentId: M:Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  parent: Global.IMetadata
+  isExternal: true
+  name: TryGetMetadataValue(String, String)
+  nameWithType: IMetadata.TryGetMetadataValue(String, String)
+  fullName: IMetadata.TryGetMetadataValue(System.String, System.String)
+  spec.csharp:
+  - uid: Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+    name: TryGetMetadataValue
+    nameWithType: IMetadata.TryGetMetadataValue
+    fullName: IMetadata.TryGetMetadataValue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+    name: TryGetMetadataValue
+    nameWithType: IMetadata.TryGetMetadataValue
+    fullName: IMetadata.TryGetMetadataValue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )

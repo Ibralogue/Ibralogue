@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Parser
+  commentId: N:Ibralogue.Parser
+  id: Ibralogue.Parser
+  children:
+  - Ibralogue.Parser.Choice
+  - Ibralogue.Parser.Conversation
+  - Ibralogue.Parser.Line
+  - Ibralogue.Parser.LineContent
+  langs:
+  - csharp
+  - vb
+  name: Ibralogue.Parser
+  nameWithType: Ibralogue.Parser
+  fullName: Ibralogue.Parser
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: Ibralogue.Parser.Choice
+  commentId: T:Ibralogue.Parser.Choice
+  name: Choice
+  nameWithType: Choice
+  fullName: Ibralogue.Parser.Choice
+- uid: Ibralogue.Parser.Conversation
+  commentId: T:Ibralogue.Parser.Conversation
+  name: Conversation
+  nameWithType: Conversation
+  fullName: Ibralogue.Parser.Conversation
+- uid: Ibralogue.Parser.Line
+  commentId: T:Ibralogue.Parser.Line
+  name: Line
+  nameWithType: Line
+  fullName: Ibralogue.Parser.Line
+- uid: Ibralogue.Parser.LineContent
+  commentId: T:Ibralogue.Parser.LineContent
+  parent: Ibralogue.Parser
+  name: LineContent
+  nameWithType: LineContent
+  fullName: Ibralogue.Parser.LineContent
+- uid: Ibralogue.Parser
+  commentId: N:Ibralogue.Parser
+  name: Ibralogue.Parser
+  nameWithType: Ibralogue.Parser
+  fullName: Ibralogue.Parser

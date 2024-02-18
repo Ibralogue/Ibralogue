@@ -16,6 +16,7 @@
   "build": {
     "content": [
       {
+        "src": ".",
         "files": ["toc.yml", "index.md"]
       },
       {

@@ -1,0 +1,141 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Interactions.RoundRobinInteraction
+  commentId: T:Ibralogue.Interactions.RoundRobinInteraction
+  id: RoundRobinInteraction
+  parent: Ibralogue.Interactions
+  children:
+  - Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  langs:
+  - csharp
+  - vb
+  name: RoundRobinInteraction
+  nameWithType: RoundRobinInteraction
+  fullName: Ibralogue.Interactions.RoundRobinInteraction
+  type: Class
+  source:
+    id: RoundRobinInteraction
+    path: ''
+    startLine: 507
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  summary: "\nLoops through each dialogue one by one and stops at the last one unless &quot;Loop&quot; is checked in which case it starts from the first dialogue.\n"
+  example: []
+  syntax:
+    content: 'public class RoundRobinInteraction : BaseInteraction'
+    content.vb: >-
+      Public Class RoundRobinInteraction
+
+          Inherits BaseInteraction
+  inheritance:
+  - System.Object
+  - Ibralogue.Interactions.BaseInteraction
+  inheritedMembers:
+  - Ibralogue.Interactions.BaseInteraction.dialogueManager
+  - Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  commentId: M:Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  id: StartDialogue
+  parent: Ibralogue.Interactions.RoundRobinInteraction
+  langs:
+  - csharp
+  - vb
+  name: StartDialogue()
+  nameWithType: RoundRobinInteraction.StartDialogue()
+  fullName: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue()
+  type: Method
+  source:
+    id: StartDialogue
+    path: ''
+    startLine: 512
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  syntax:
+    content: public override void StartDialogue()
+    content.vb: Public Overrides Sub StartDialogue
+  overridden: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  overload: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Ibralogue.Interactions
+  commentId: N:Ibralogue.Interactions
+  name: Ibralogue.Interactions
+  nameWithType: Ibralogue.Interactions
+  fullName: Ibralogue.Interactions
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: Ibralogue.Interactions.BaseInteraction
+  commentId: T:Ibralogue.Interactions.BaseInteraction
+  parent: Ibralogue.Interactions
+  name: BaseInteraction
+  nameWithType: BaseInteraction
+  fullName: Ibralogue.Interactions.BaseInteraction
+- uid: Ibralogue.Interactions.BaseInteraction.dialogueManager
+  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueManager
+  parent: Ibralogue.Interactions.BaseInteraction
+  name: dialogueManager
+  nameWithType: BaseInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.BaseInteraction.dialogueManager
+- uid: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  commentId: F:Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  parent: Ibralogue.Interactions.BaseInteraction
+  name: InteractionDialogues
+  nameWithType: BaseInteraction.InteractionDialogues
+  fullName: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  commentId: M:Ibralogue.Interactions.BaseInteraction.StartDialogue
+  parent: Ibralogue.Interactions.BaseInteraction
+  name: StartDialogue()
+  nameWithType: BaseInteraction.StartDialogue()
+  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue()
+  spec.csharp:
+  - uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
+    name: StartDialogue
+    nameWithType: BaseInteraction.StartDialogue
+    fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
+    name: StartDialogue
+    nameWithType: BaseInteraction.StartDialogue
+    fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue*
+  commentId: Overload:Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  name: StartDialogue
+  nameWithType: RoundRobinInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue

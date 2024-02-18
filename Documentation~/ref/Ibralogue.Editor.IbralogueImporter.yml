@@ -1,0 +1,97 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Editor.IbralogueImporter
+  commentId: T:Ibralogue.Editor.IbralogueImporter
+  id: IbralogueImporter
+  parent: Ibralogue.Editor
+  children:
+  - Ibralogue.Editor.IbralogueImporter.OnImportAsset(AssetImportContext)
+  langs:
+  - csharp
+  - vb
+  name: IbralogueImporter
+  nameWithType: IbralogueImporter
+  fullName: Ibralogue.Editor.IbralogueImporter
+  type: Class
+  source:
+    id: IbralogueImporter
+    path: ''
+    startLine: 28
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Editor
+  syntax:
+    content: 'public class IbralogueImporter : ScriptedImporter'
+    content.vb: >-
+      Public Class IbralogueImporter
+
+          Inherits ScriptedImporter
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Ibralogue.Editor.IbralogueImporter.OnImportAsset(AssetImportContext)
+  commentId: M:Ibralogue.Editor.IbralogueImporter.OnImportAsset(AssetImportContext)
+  id: OnImportAsset(AssetImportContext)
+  parent: Ibralogue.Editor.IbralogueImporter
+  langs:
+  - csharp
+  - vb
+  name: OnImportAsset(AssetImportContext)
+  nameWithType: IbralogueImporter.OnImportAsset(AssetImportContext)
+  fullName: Ibralogue.Editor.IbralogueImporter.OnImportAsset(AssetImportContext)
+  type: Method
+  source:
+    id: OnImportAsset
+    path: ''
+    startLine: 31
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Editor
+  syntax:
+    content: public override void OnImportAsset(AssetImportContext ctx)
+    parameters:
+    - id: ctx
+      type: Global.AssetImportContext
+    content.vb: Public Overrides Sub OnImportAsset(ctx As AssetImportContext)
+  overload: Ibralogue.Editor.IbralogueImporter.OnImportAsset*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Ibralogue.Editor
+  commentId: N:Ibralogue.Editor
+  name: Ibralogue.Editor
+  nameWithType: Ibralogue.Editor
+  fullName: Ibralogue.Editor
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Ibralogue.Editor.IbralogueImporter.OnImportAsset*
+  commentId: Overload:Ibralogue.Editor.IbralogueImporter.OnImportAsset
+  name: OnImportAsset
+  nameWithType: IbralogueImporter.OnImportAsset
+  fullName: Ibralogue.Editor.IbralogueImporter.OnImportAsset
+- uid: Global.AssetImportContext
+  commentId: '!:Global.AssetImportContext'
+  isExternal: true
+  name: AssetImportContext
+  nameWithType: AssetImportContext
+  fullName: AssetImportContext
