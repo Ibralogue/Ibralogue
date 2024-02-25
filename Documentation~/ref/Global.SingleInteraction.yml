@@ -1,0 +1,89 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.SingleInteraction
+  commentId: T:Global.SingleInteraction
+  id: SingleInteraction
+  parent: Global
+  children:
+  - Global.SingleInteraction.StartDialogue
+  langs:
+  - csharp
+  - vb
+  name: SingleInteraction
+  nameWithType: SingleInteraction
+  fullName: SingleInteraction
+  type: Class
+  source:
+    id: SingleInteraction
+    path: ''
+    startLine: 593
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class SingleInteraction : BaseInteraction'
+    content.vb: >-
+      Public Class SingleInteraction
+          Inherits BaseInteraction
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.SingleInteraction.StartDialogue
+  commentId: M:Global.SingleInteraction.StartDialogue
+  id: StartDialogue
+  parent: Global.SingleInteraction
+  langs:
+  - csharp
+  - vb
+  name: StartDialogue()
+  nameWithType: SingleInteraction.StartDialogue()
+  fullName: SingleInteraction.StartDialogue()
+  type: Method
+  source:
+    id: StartDialogue
+    path: ''
+    startLine: 597
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: public override void StartDialogue()
+    content.vb: Public Overrides Sub StartDialogue
+  overload: Global.SingleInteraction.StartDialogue*
+  modifiers.csharp:
+  - public
+  - override
+  modifiers.vb:
+  - Public
+  - Overrides
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.SingleInteraction.StartDialogue*
+  commentId: Overload:Global.SingleInteraction.StartDialogue
+  name: StartDialogue
+  nameWithType: SingleInteraction.StartDialogue
+  fullName: SingleInteraction.StartDialogue

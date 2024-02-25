@@ -15,19 +15,17 @@ items:
   source:
     id: DialogueFunctionAttribute
     path: ''
-    startLine: 4
+    startLine: 643
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue
   syntax:
-    content: 'public class DialogueFunctionAttribute : Attribute, _Attribute'
+    content: 'public class DialogueFunctionAttribute : Attribute'
     content.vb: >-
       Public Class DialogueFunctionAttribute
           Inherits Attribute
-          Implements _Attribute
   inheritance:
   - System.Object
-  - System.Attribute
   modifiers.csharp:
   - public
   - class
@@ -47,13 +45,6 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: System.Attribute
-  commentId: T:System.Attribute
-  parent: System
-  isExternal: true
-  name: Attribute
-  nameWithType: Attribute
-  fullName: System.Attribute
 - uid: System
   commentId: N:System
   isExternal: true

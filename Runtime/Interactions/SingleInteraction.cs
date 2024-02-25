@@ -1,18 +1,21 @@
-﻿using Ibralogue.Interactions;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SingleInteraction : BaseInteraction
+namespace Ibralogue.Interactions
 {
-    [SerializeField] private int index;
     /// <summary>
-    /// The index of the conversation you want to start.
-    /// <remarks>One dialogue file can contain multiple conversations.</remarks>
+    /// Place the first conversation of a Dialogue file.
     /// </summary>
-    [SerializeField] private int conversationIndex;
-    
-    public override void StartDialogue()
+    public class SingleInteraction : BaseInteraction
     {
-        base.StartDialogue();
-        dialogueManager.StartConversation(InteractionDialogues[index], conversationIndex);
+        /// <summary>
+        /// The index of the Dialogue file to use from the array.
+        /// </summary>
+        [SerializeField] private int index;
+
+        public override void StartDialogue()
+        {
+            base.StartDialogue();
+            dialogueManager.StartConversation(InteractionDialogues[index]);
+        }
     }
 }

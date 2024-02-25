@@ -2,8 +2,12 @@
 
 namespace Ibralogue.Parser
 {
+    /// <summary>
+    /// The choice class defines an option that can lead to a conversation.
+    /// </summary>
     public class Choice: IMetadata
     {
+
         public string ChoiceName;
         public string LeadingConversationName;
         public Dictionary<string, string> Metadata;

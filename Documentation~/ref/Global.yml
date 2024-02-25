@@ -1,0 +1,36 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global
+  id: Global
+  children:
+  - Global.IMetadata
+  - Global.SingleInteraction
+  - Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+references:
+- uid: Global.TypewriterDialogueManager
+  commentId: T:Global.TypewriterDialogueManager
+  name: TypewriterDialogueManager
+  nameWithType: TypewriterDialogueManager
+  fullName: TypewriterDialogueManager
+- uid: Global.SingleInteraction
+  commentId: T:Global.SingleInteraction
+  name: SingleInteraction
+  nameWithType: SingleInteraction
+  fullName: SingleInteraction
+- uid: Global.IMetadata
+  commentId: T:Global.IMetadata
+  name: IMetadata
+  nameWithType: IMetadata
+  fullName: IMetadata

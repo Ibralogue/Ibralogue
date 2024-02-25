@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
 
-public static class DialogueLogger
+namespace Ibralogue
 {
-    public static void LogError(int line, string message, Object context = null)
+    public static class DialogueLogger
     {
-        Report(line,"", message, context);
-    }
-
-    private static void Report(int line, string where, string message, Object context)
-    {
-        if (line != -1)
+        public static void LogError(int line, string message, Object context = null)
         {
-            Debug.LogError($"[Ibralogue] [line {line}], Error{where}: {message}", context);
+            Report(line, "", message, context);
         }
-        else
+
+        private static void Report(int line, string where, string message, Object context)
         {
-            Debug.LogError($"[Ibralogue] Error{where}: {message}", context);
+            if (line != -1)
+            {
+                Debug.LogError($"[Ibralogue] [line {line}], Error{where}: {message}", context);
+            }
+            else
+            {
+                Debug.LogError($"[Ibralogue] Error{where}: {message}", context);
+            }
         }
     }
 }

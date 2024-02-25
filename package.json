@@ -1,9 +1,10 @@
 {
   "name": "com.ibra.ibralogue",
   "displayName": "Ibralogue",
-  "version": "0.11.1",
-  "unity": "2019.1",
-  "description": "A dialogue library for Unity.",
+  "version": "0.12.0",
+  "unity": "2019.4",
+  "description": "A powerful and extendable dialogue library for Unity.",
+  "licensesUrl": "https://github.com/Ibralogue/Ibralogue/blob/master/LICENSE",
   "keywords": [
     "dialogue system",
     "dialogue library",
@@ -15,8 +16,13 @@
   },
   "samples": [
     {
+      "displayName": "Simple Dialogue",
+      "description": "Simple example of a user interface with plain text that can be read through.",
+      "path": "Samples~/Simple Dialogue"
+    },
+    {
       "displayName": "Animal Crossing Dialogue",
-      "description": "Simple example of a user interface akin to that of Animal Crossing with scrolling text.",
+      "description": "Example of a scrolling text user interface akin to that of Animal Crossing.",
       "path": "Samples~/Animal Crossing Dialogue"
     }
   ]

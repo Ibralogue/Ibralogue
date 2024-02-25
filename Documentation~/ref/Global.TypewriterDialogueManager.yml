@@ -1,0 +1,352 @@
+### YamlMime:ManagedReference
+items:
+- uid: Global.TypewriterDialogueManager
+  commentId: T:Global.TypewriterDialogueManager
+  id: TypewriterDialogueManager
+  parent: Global
+  children:
+  - Global.TypewriterDialogueManager.ClearDialogueBox
+  - Global.TypewriterDialogueManager.DisplayDialogue
+  - Global.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  - Global.TypewriterDialogueManager.SkipLineAnimation
+  - Global.TypewriterDialogueManager.TryAdvanceDialogue
+  langs:
+  - csharp
+  - vb
+  name: TypewriterDialogueManager
+  nameWithType: TypewriterDialogueManager
+  fullName: TypewriterDialogueManager
+  type: Class
+  source:
+    id: TypewriterDialogueManager
+    path: ''
+    startLine: 426
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: 'public class TypewriterDialogueManager : SimpleDialogueManager'
+    content.vb: >-
+      Public Class TypewriterDialogueManager
+          Inherits SimpleDialogueManager
+  inheritance:
+  - System.Object
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Global.TypewriterDialogueManager.DisplayDialogue
+  commentId: M:Global.TypewriterDialogueManager.DisplayDialogue
+  id: DisplayDialogue
+  parent: Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: DisplayDialogue()
+  nameWithType: TypewriterDialogueManager.DisplayDialogue()
+  fullName: TypewriterDialogueManager.DisplayDialogue()
+  type: Method
+  source:
+    id: DisplayDialogue
+    path: ''
+    startLine: 428
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: protected override IEnumerator DisplayDialogue()
+    return:
+      type: Global.IEnumerator
+    content.vb: Protected Overrides Function DisplayDialogue As IEnumerator
+  overload: Global.TypewriterDialogueManager.DisplayDialogue*
+  modifiers.csharp:
+  - protected
+  - override
+  modifiers.vb:
+  - Protected
+  - Overrides
+- uid: Global.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  commentId: M:Global.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  id: InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  parent: Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
+  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
+  fullName: TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary<System.Int32, System.String>)
+  type: Method
+  source:
+    id: InvokeFunctionsTimed
+    path: ''
+    startLine: 458
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: protected void InvokeFunctionsTimed(int index, Dictionary<int, string> functionInvocations)
+    parameters:
+    - id: index
+      type: System.Int32
+    - id: functionInvocations
+      type: Global.Dictionary{System.Int32,System.String}
+    content.vb: Protected Sub InvokeFunctionsTimed(index As Integer, functionInvocations As Dictionary(Of Integer, String))
+  overload: Global.TypewriterDialogueManager.InvokeFunctionsTimed*
+  nameWithType.vb: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+  fullName.vb: TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary(Of System.Int32, System.String))
+  name.vb: InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
+- uid: Global.TypewriterDialogueManager.SkipLineAnimation
+  commentId: M:Global.TypewriterDialogueManager.SkipLineAnimation
+  id: SkipLineAnimation
+  parent: Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: SkipLineAnimation()
+  nameWithType: TypewriterDialogueManager.SkipLineAnimation()
+  fullName: TypewriterDialogueManager.SkipLineAnimation()
+  type: Method
+  source:
+    id: SkipLineAnimation
+    path: ''
+    startLine: 495
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  summary: "\nSkip the typewriter animation of the sentence.\n"
+  example: []
+  syntax:
+    content: public void SkipLineAnimation()
+    content.vb: Public Sub SkipLineAnimation
+  overload: Global.TypewriterDialogueManager.SkipLineAnimation*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Global.TypewriterDialogueManager.ClearDialogueBox
+  commentId: M:Global.TypewriterDialogueManager.ClearDialogueBox
+  id: ClearDialogueBox
+  parent: Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: ClearDialogueBox()
+  nameWithType: TypewriterDialogueManager.ClearDialogueBox()
+  fullName: TypewriterDialogueManager.ClearDialogueBox()
+  type: Method
+  source:
+    id: ClearDialogueBox
+    path: ''
+    startLine: 504
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: protected override void ClearDialogueBox()
+    content.vb: Protected Overrides Sub ClearDialogueBox
+  overload: Global.TypewriterDialogueManager.ClearDialogueBox*
+  modifiers.csharp:
+  - protected
+  - override
+  modifiers.vb:
+  - Protected
+  - Overrides
+- uid: Global.TypewriterDialogueManager.TryAdvanceDialogue
+  commentId: M:Global.TypewriterDialogueManager.TryAdvanceDialogue
+  id: TryAdvanceDialogue
+  parent: Global.TypewriterDialogueManager
+  langs:
+  - csharp
+  - vb
+  name: TryAdvanceDialogue()
+  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue()
+  fullName: TypewriterDialogueManager.TryAdvanceDialogue()
+  type: Method
+  source:
+    id: TryAdvanceDialogue
+    path: ''
+    startLine: 510
+  assemblies:
+  - cs.temp.dll
+  namespace: Global
+  syntax:
+    content: protected void TryAdvanceDialogue()
+    content.vb: Protected Sub TryAdvanceDialogue
+  overload: Global.TypewriterDialogueManager.TryAdvanceDialogue*
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+references:
+- uid: Global
+  name: Global
+  nameWithType: Global
+  fullName: Global
+  nameWithType.vb: ''
+  fullName.vb: ''
+  name.vb: ''
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Global.TypewriterDialogueManager.DisplayDialogue*
+  commentId: Overload:Global.TypewriterDialogueManager.DisplayDialogue
+  name: DisplayDialogue
+  nameWithType: TypewriterDialogueManager.DisplayDialogue
+  fullName: TypewriterDialogueManager.DisplayDialogue
+- uid: Global.IEnumerator
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: IEnumerator
+- uid: Global.TypewriterDialogueManager.InvokeFunctionsTimed*
+  commentId: Overload:Global.TypewriterDialogueManager.InvokeFunctionsTimed
+  name: InvokeFunctionsTimed
+  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed
+  fullName: TypewriterDialogueManager.InvokeFunctionsTimed
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: Global.Dictionary{System.Int32,System.String}
+  commentId: '!:Global.Dictionary{System.Int32,System.String}'
+  definition: Global.Dictionary`2
+  name: Dictionary<Int32, String>
+  nameWithType: Dictionary<Int32, String>
+  fullName: Dictionary<System.Int32, System.String>
+  nameWithType.vb: Dictionary(Of Int32, String)
+  fullName.vb: Dictionary(Of System.Int32, System.String)
+  name.vb: Dictionary(Of Int32, String)
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.Dictionary`2
+  isExternal: true
+  name: Dictionary<, >
+  nameWithType: Dictionary<, >
+  fullName: Dictionary<, >
+  nameWithType.vb: Dictionary(Of , )
+  fullName.vb: Dictionary(Of , )
+  name.vb: Dictionary(Of , )
+  spec.csharp:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Global.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Global.TypewriterDialogueManager.SkipLineAnimation*
+  commentId: Overload:Global.TypewriterDialogueManager.SkipLineAnimation
+  name: SkipLineAnimation
+  nameWithType: TypewriterDialogueManager.SkipLineAnimation
+  fullName: TypewriterDialogueManager.SkipLineAnimation
+- uid: Global.TypewriterDialogueManager.ClearDialogueBox*
+  commentId: Overload:Global.TypewriterDialogueManager.ClearDialogueBox
+  name: ClearDialogueBox
+  nameWithType: TypewriterDialogueManager.ClearDialogueBox
+  fullName: TypewriterDialogueManager.ClearDialogueBox
+- uid: Global.TypewriterDialogueManager.TryAdvanceDialogue*
+  commentId: Overload:Global.TypewriterDialogueManager.TryAdvanceDialogue
+  name: TryAdvanceDialogue
+  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue
+  fullName: TypewriterDialogueManager.TryAdvanceDialogue

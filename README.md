@@ -27,7 +27,7 @@ Ibralogue
    <a href="https://discord.gg/cGhVJmukTv">Discord</a>
 </p>
 
-> **Warning**: **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid changes due to how early it is into development!
+> **Warning**: **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid, breaking changes due to how early it is into development!
 
 ## About
 

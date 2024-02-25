@@ -4,8 +4,7 @@ items:
   commentId: N:Ibralogue.Interactions
   id: Ibralogue.Interactions
   children:
-  - Ibralogue.Interactions.DefaultInteraction
-  - Ibralogue.Interactions.GlobalVariableInteraction
+  - Ibralogue.Interactions.BaseInteraction
   - Ibralogue.Interactions.RandomInteraction
   - Ibralogue.Interactions.RoundRobinInteraction
   langs:
@@ -18,17 +17,12 @@ items:
   assemblies:
   - cs.temp.dll
 references:
-- uid: Ibralogue.Interactions.DefaultInteraction
-  commentId: T:Ibralogue.Interactions.DefaultInteraction
+- uid: Ibralogue.Interactions.BaseInteraction
+  commentId: T:Ibralogue.Interactions.BaseInteraction
   parent: Ibralogue.Interactions
-  name: DefaultInteraction
-  nameWithType: DefaultInteraction
-  fullName: Ibralogue.Interactions.DefaultInteraction
-- uid: Ibralogue.Interactions.GlobalVariableInteraction
-  commentId: T:Ibralogue.Interactions.GlobalVariableInteraction
-  name: GlobalVariableInteraction
-  nameWithType: GlobalVariableInteraction
-  fullName: Ibralogue.Interactions.GlobalVariableInteraction
+  name: BaseInteraction
+  nameWithType: BaseInteraction
+  fullName: Ibralogue.Interactions.BaseInteraction
 - uid: Ibralogue.Interactions.RandomInteraction
   commentId: T:Ibralogue.Interactions.RandomInteraction
   name: RandomInteraction

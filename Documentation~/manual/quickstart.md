@@ -1,8 +1,8 @@
 ## Quickstart
 
-Add an empty GameObject with the component `DialogueManager` to your scene and assign its required references. 
+Add an empty GameObject with the component `DialogueManager` to your scene and assign its required references.
 
-Add a button, give it the `SingleInteraction` component, and assign its reference to the `DialogueManager`. 
+Add a button, give it the `SingleInteraction` component, and assign its reference to the `DialogueManager`.
 
 Assign the button component's callback to `DialogueInteraction.StartDialogue`.
 
@@ -19,5 +19,3 @@ Open the Ibralogue file you have created and it should look something like this:
 [NPC]
 Hello World!
 ```
-
-*For some more information on the syntax of the dialogue files, take a look at the [Syntax Guide](syntax-guide.md).*

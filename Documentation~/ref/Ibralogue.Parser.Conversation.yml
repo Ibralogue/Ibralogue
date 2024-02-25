@@ -6,7 +6,7 @@ items:
   parent: Ibralogue.Parser
   children:
   - Ibralogue.Parser.Conversation.Choices
-  - Ibralogue.Parser.Conversation.Dialogues
+  - Ibralogue.Parser.Conversation.Lines
   - Ibralogue.Parser.Conversation.Name
   langs:
   - csharp
@@ -14,23 +14,33 @@ items:
   name: Conversation
   nameWithType: Conversation
   fullName: Ibralogue.Parser.Conversation
-  type: Struct
+  type: Class
   source:
     id: Conversation
     path: ''
-    startLine: 252
+    startLine: 632
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public struct Conversation
-    content.vb: Public Structure Conversation
+    content: public class Conversation
+    content.vb: Public Class Conversation
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
   modifiers.csharp:
   - public
-  - struct
+  - class
   modifiers.vb:
   - Public
-  - Structure
+  - Class
 - uid: Ibralogue.Parser.Conversation.Name
   commentId: F:Ibralogue.Parser.Conversation.Name
   id: Name
@@ -45,7 +55,7 @@ items:
   source:
     id: Name
     path: ''
-    startLine: 254
+    startLine: 634
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -58,29 +68,29 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: Ibralogue.Parser.Conversation.Dialogues
-  commentId: F:Ibralogue.Parser.Conversation.Dialogues
-  id: Dialogues
+- uid: Ibralogue.Parser.Conversation.Lines
+  commentId: F:Ibralogue.Parser.Conversation.Lines
+  id: Lines
   parent: Ibralogue.Parser.Conversation
   langs:
   - csharp
   - vb
-  name: Dialogues
-  nameWithType: Conversation.Dialogues
-  fullName: Ibralogue.Parser.Conversation.Dialogues
+  name: Lines
+  nameWithType: Conversation.Lines
+  fullName: Ibralogue.Parser.Conversation.Lines
   type: Field
   source:
-    id: Dialogues
+    id: Lines
     path: ''
-    startLine: 255
+    startLine: 635
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
   syntax:
-    content: public List<Dialogue> Dialogues
+    content: public List<Line> Lines
     return:
-      type: Global.List{Ibralogue.Parser.Dialogue}
-    content.vb: Public Dialogues As List(Of Dialogue)
+      type: Global.List{Ibralogue.Parser.Line}
+    content.vb: Public Lines As List(Of Line)
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -99,7 +109,7 @@ items:
   source:
     id: Choices
     path: ''
-    startLine: 256
+    startLine: 636
   assemblies:
   - cs.temp.dll
   namespace: Ibralogue.Parser
@@ -118,6 +128,298 @@ references:
   name: Ibralogue.Parser
   nameWithType: Ibralogue.Parser
   fullName: Ibralogue.Parser
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -125,21 +427,15 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
-- uid: Global.List{Ibralogue.Parser.Dialogue}
-  commentId: '!:Global.List{Ibralogue.Parser.Dialogue}'
+- uid: Global.List{Ibralogue.Parser.Line}
+  commentId: '!:Global.List{Ibralogue.Parser.Line}'
   definition: Global.List`1
-  name: List<Dialogue>
-  nameWithType: List<Dialogue>
-  fullName: List<Ibralogue.Parser.Dialogue>
-  nameWithType.vb: List(Of Dialogue)
-  fullName.vb: List(Of Ibralogue.Parser.Dialogue)
-  name.vb: List(Of Dialogue)
+  name: List<Line>
+  nameWithType: List<Line>
+  fullName: List<Ibralogue.Parser.Line>
+  nameWithType.vb: List(Of Line)
+  fullName.vb: List(Of Ibralogue.Parser.Line)
+  name.vb: List(Of Line)
   spec.csharp:
   - uid: Global.List`1
     name: List
@@ -149,10 +445,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Ibralogue.Parser.Dialogue
-    name: Dialogue
-    nameWithType: Dialogue
-    fullName: Ibralogue.Parser.Dialogue
+  - uid: Ibralogue.Parser.Line
+    name: Line
+    nameWithType: Line
+    fullName: Ibralogue.Parser.Line
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -165,10 +461,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Ibralogue.Parser.Dialogue
-    name: Dialogue
-    nameWithType: Dialogue
-    fullName: Ibralogue.Parser.Dialogue
+  - uid: Ibralogue.Parser.Line
+    name: Line
+    nameWithType: Line
+    fullName: Ibralogue.Parser.Line
   - name: )
     nameWithType: )
     fullName: )

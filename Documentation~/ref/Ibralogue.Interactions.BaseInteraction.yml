@@ -1,0 +1,185 @@
+### YamlMime:ManagedReference
+items:
+- uid: Ibralogue.Interactions.BaseInteraction
+  commentId: T:Ibralogue.Interactions.BaseInteraction
+  id: BaseInteraction
+  parent: Ibralogue.Interactions
+  children:
+  - Ibralogue.Interactions.BaseInteraction.dialogueManager
+  - Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  - Ibralogue.Interactions.BaseInteraction.StartDialogue
+  langs:
+  - csharp
+  - vb
+  name: BaseInteraction
+  nameWithType: BaseInteraction
+  fullName: Ibralogue.Interactions.BaseInteraction
+  type: Class
+  source:
+    id: BaseInteraction
+    path: ''
+    startLine: 527
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  summary: "\nThe base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject.\n"
+  example: []
+  syntax:
+    content: 'public abstract class BaseInteraction : MonoBehaviour'
+    content.vb: >-
+      Public MustInherit Class BaseInteraction
+          Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Ibralogue.Interactions.RandomInteraction
+  - Ibralogue.Interactions.RoundRobinInteraction
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+- uid: Ibralogue.Interactions.BaseInteraction.dialogueManager
+  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueManager
+  id: dialogueManager
+  parent: Ibralogue.Interactions.BaseInteraction
+  langs:
+  - csharp
+  - vb
+  name: dialogueManager
+  nameWithType: BaseInteraction.dialogueManager
+  fullName: Ibralogue.Interactions.BaseInteraction.dialogueManager
+  type: Field
+  source:
+    id: dialogueManager
+    path: ''
+    startLine: 529
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  syntax:
+    content: protected SimpleDialogueManager dialogueManager
+    return:
+      type: Ibralogue.SimpleDialogueManager
+    content.vb: Protected dialogueManager As SimpleDialogueManager
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  commentId: F:Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  id: InteractionDialogues
+  parent: Ibralogue.Interactions.BaseInteraction
+  langs:
+  - csharp
+  - vb
+  name: InteractionDialogues
+  nameWithType: BaseInteraction.InteractionDialogues
+  fullName: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
+  type: Field
+  source:
+    id: InteractionDialogues
+    path: ''
+    startLine: 530
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  syntax:
+    content: protected DialogueAsset[] InteractionDialogues
+    return:
+      type: Ibralogue.DialogueAsset[]
+    content.vb: Protected InteractionDialogues As DialogueAsset()
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue
+  commentId: M:Ibralogue.Interactions.BaseInteraction.StartDialogue
+  id: StartDialogue
+  parent: Ibralogue.Interactions.BaseInteraction
+  langs:
+  - csharp
+  - vb
+  name: StartDialogue()
+  nameWithType: BaseInteraction.StartDialogue()
+  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue()
+  type: Method
+  source:
+    id: StartDialogue
+    path: ''
+    startLine: 535
+  assemblies:
+  - cs.temp.dll
+  namespace: Ibralogue.Interactions
+  syntax:
+    content: public virtual void StartDialogue()
+    content.vb: Public Overridable Sub StartDialogue
+  overload: Ibralogue.Interactions.BaseInteraction.StartDialogue*
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+references:
+- uid: Ibralogue.Interactions
+  commentId: N:Ibralogue.Interactions
+  name: Ibralogue.Interactions
+  nameWithType: Ibralogue.Interactions
+  fullName: Ibralogue.Interactions
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Ibralogue.SimpleDialogueManager
+  commentId: T:Ibralogue.SimpleDialogueManager
+  parent: Ibralogue
+  name: SimpleDialogueManager
+  nameWithType: SimpleDialogueManager
+  fullName: Ibralogue.SimpleDialogueManager
+- uid: Ibralogue
+  commentId: N:Ibralogue
+  name: Ibralogue
+  nameWithType: Ibralogue
+  fullName: Ibralogue
+- uid: Ibralogue.DialogueAsset[]
+  isExternal: true
+  name: DialogueAsset[]
+  nameWithType: DialogueAsset[]
+  fullName: Ibralogue.DialogueAsset[]
+  nameWithType.vb: DialogueAsset()
+  fullName.vb: Ibralogue.DialogueAsset()
+  name.vb: DialogueAsset()
+  spec.csharp:
+  - uid: Ibralogue.DialogueAsset
+    name: DialogueAsset
+    nameWithType: DialogueAsset
+    fullName: Ibralogue.DialogueAsset
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: Ibralogue.DialogueAsset
+    name: DialogueAsset
+    nameWithType: DialogueAsset
+    fullName: Ibralogue.DialogueAsset
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: Ibralogue.Interactions.BaseInteraction.StartDialogue*
+  commentId: Overload:Ibralogue.Interactions.BaseInteraction.StartDialogue
+  name: StartDialogue
+  nameWithType: BaseInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
