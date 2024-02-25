@@ -105,30 +105,24 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "manual/quickstart.md",
       "output": {
         ".html": {
           "relative_path": "manual/quickstart.html",
-          "hash": "G1liP6ozZkZj6J9upHdPtoXQoYWfgd4inm43dyWgpVQ="
+          "hash": "1w9oWEpPn+XXZYps2Pellr4XvyW1bhzgaSGC9O1Ljs0="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Toc",
       "source_relative_path": "manual/toc.yml",
       "output": {
         ".html": {
           "relative_path": "manual/toc.html",
-          "hash": "OklEzZklYc/aHD6wBy9Q64K2C6sO2tj0GN+Y64Ikn6Y="
+          "hash": "sGVsPAwNTwLi138b9LLChUUf5Iv+Qol8vx63yKp95e4="
         }
       },
       "is_incremental": false,
@@ -140,7 +134,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueFunctionAttribute.html",
-          "hash": "a6A3/rs4gO//IAxZRDjb3wBl99daJHMRciURJ6xWeR8="
+          "hash": "eAtbsHs0YnrXCbLRdmg/Qnrb1oSXlRThyB07dO0R0fs="
         }
       },
       "is_incremental": false,
@@ -148,11 +142,47 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueManager.yml",
+      "source_relative_path": "ref/Ibralogue.DialogueGlobals.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.DialogueManager.html",
-          "hash": "M+Z7DJlhqNqJViE2fy5Uj8sqB4T7201SThxpgeLKlhE="
+          "relative_path": "ref/Ibralogue.DialogueGlobals.html",
+          "hash": "513NTLFoFS8078v4pysZIO4vNp53tsi0T0kmGWOPwYE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueLogger.html",
+          "hash": "c+qLSz9tQEfTWRpZzF/bqIcRlpWupsALf1G3Q2xjlt0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.html",
+          "hash": "6E1I/rO5OUhzXjClyGKmjjmGjNZH9uyp0u4NGA/hqq0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueManagerBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueManagerBase-1.html",
+          "hash": "Z3S2qlJkthDGTudRYpRKL29wnOOWs+w7iCRtUByQFCk="
         }
       },
       "is_incremental": false,
@@ -164,7 +194,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.DialogueParser.html",
-          "hash": "OCdet90t0FAqKcGv4krq3x2NtgZlRaO5+nGlpm3WFvk="
+          "hash": "/oDlV2zmnSPVH78Ulij/YfLxo8YBshUMH28LtC1b2eQ="
         }
       },
       "is_incremental": false,
@@ -172,11 +202,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.yml",
+      "source_relative_path": "ref/Ibralogue.Editor.CreateIbralogue.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.DefaultInteraction.html",
-          "hash": "4UeWZMZGUxojtPT8iUO8Tag+k+a3dsoYD9Jvi3uCECM="
+          "relative_path": "ref/Ibralogue.Editor.CreateIbralogue.html",
+          "hash": "OemANginudQRnuSzfcOX3GZ+anm3dUIWrDBHetlpBEw="
         }
       },
       "is_incremental": false,
@@ -184,11 +214,59 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.yml",
+      "source_relative_path": "ref/Ibralogue.Editor.IbralogueImporter.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.GlobalVariableInteraction.html",
-          "hash": "Jf74bsqHahuVOLpIwsTO0jnAKyCKWyDhMd7qyNokj1E="
+          "relative_path": "ref/Ibralogue.Editor.IbralogueImporter.html",
+          "hash": "a/DlayVO8ZaWmWCSD6ogs23wNB5/on7C0GPce+LGu6U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Editor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Editor.html",
+          "hash": "dQEiAJkfZ97VoH8h99A5XZRCtnDXTU6qtOn9xvtYRTI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.IMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.IMetadata.html",
+          "hash": "KRluQlEjTScgIeBfdepB9S9fVE47xvqTcirqWnwHhiE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.BaseInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.BaseInteraction.html",
+          "hash": "XwgOk64ph4/ltvvXFPH4j5so7qu8b+z9Sx07kRc0LrI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Interactions.CircularInteraction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Interactions.CircularInteraction.html",
+          "hash": "dW6441zmauT2rdc4J5w8Y6SoPPs7NlNekzd7RPO/WSg="
         }
       },
       "is_incremental": false,
@@ -200,7 +278,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.RandomInteraction.html",
-          "hash": "AX6StBy7b+/7P7ClgjZwb2l3qxK4TOQea9OagZkE5EM="
+          "hash": "tyG4XrPbXfgZ72HNtqKx6UgITcBZZs98/bWj0m45b9U="
         }
       },
       "is_incremental": false,
@@ -208,11 +286,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.yml",
+      "source_relative_path": "ref/Ibralogue.Interactions.SingleInteraction.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.html",
-          "hash": "R7neivWaQexuEaUZPXP64Qic9QbRgGbO0ZuzSm+Z7is="
+          "relative_path": "ref/Ibralogue.Interactions.SingleInteraction.html",
+          "hash": "x2PeV1mubDBBM+EK5c1RbYg6zbW/4JSm84saCMt19rI="
         }
       },
       "is_incremental": false,
@@ -224,7 +302,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Interactions.html",
-          "hash": "7pQAxd0X5XSLHpW5q+uhzW7TknNAUxOpsOE8is3rsrk="
+          "hash": "KFW4663s703ICr+fFR6B34hPkXjHoBzpWwzh5EXnAII="
         }
       },
       "is_incremental": false,
@@ -236,7 +314,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Choice.html",
-          "hash": "4+6T+V/724Iy9cgJ0Bm5lZENkjIx7I7WXnq+srk9Aak="
+          "hash": "mnn83P280BprSNw/qlHOXOgfddFTJ3OVwDjwcz5iTms="
         }
       },
       "is_incremental": false,
@@ -248,7 +326,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.Conversation.html",
-          "hash": "xQwpWbW2jlIgOOSYbQub8D/0NEf39bdIEp7vIJrVjiM="
+          "hash": "kZkBjI6ADRqzs35yhZ17ej76BeIKY3IYTARK91KMMVw="
         }
       },
       "is_incremental": false,
@@ -256,11 +334,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Parser.Dialogue.yml",
+      "source_relative_path": "ref/Ibralogue.Parser.DialogueAsset.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Parser.Dialogue.html",
-          "hash": "o8E32R2cZcF7V5Rj9vvUDFf5PQ2eZTQX1wQQaTDQY8k="
+          "relative_path": "ref/Ibralogue.Parser.DialogueAsset.html",
+          "hash": "k1lDZe+RRdjySR7KjVSEi9kgMD1IuFMt6Qpmt4s4RfU="
         }
       },
       "is_incremental": false,
@@ -268,11 +346,23 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Parser.Sentence.yml",
+      "source_relative_path": "ref/Ibralogue.Parser.Line.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Parser.Sentence.html",
-          "hash": "315Y6ACthe8j0o6/2OlkMwf3MMzLmAq7tTrYylxRO64="
+          "relative_path": "ref/Ibralogue.Parser.Line.html",
+          "hash": "Nq3QvFcEOp2W5qvm2dY6QmFMYjks5UBjYWZeDqU4ma4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.LineContent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.LineContent.html",
+          "hash": "Sn94Xv6GuX3nWNmoWK7oSr9XB13OqDT5tolkgZw5k68="
         }
       },
       "is_incremental": false,
@@ -284,7 +374,31 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.Parser.html",
-          "hash": "dOL+PRYp7IKcEudyv9U7a2a1eLmiQZHbleur8sTfSjs="
+          "hash": "5O7wr4i06XRFuEcV6IEtrfw+1tD7dOJeAwCZs0n7vhU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.SimpleDialogueManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.SimpleDialogueManager.html",
+          "hash": "ymr7NozhTKVnBCMfRKtOzdB7dchrZR208CzhKW01/84="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.TypewriterDialogueManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.TypewriterDialogueManager.html",
+          "hash": "PZc8XXdkZRdJljbcbdfH4IpWrIU5zdteTGySMmVOJ8I="
         }
       },
       "is_incremental": false,
@@ -296,7 +410,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/Ibralogue.html",
-          "hash": "pwnjSpn7mSPYh0yBBSgF+vRE9ffNMrc0Tfs3pehS/Ac="
+          "hash": "eV06XGKmduHCGOs1CWQJ/8kjsdn07AY5yMzg+XtsjvQ="
         }
       },
       "is_incremental": false,
@@ -308,7 +422,7 @@
       "output": {
         ".html": {
           "relative_path": "ref/toc.html",
-          "hash": "kILuCKbhSeRsqYGcUSB41z10fWkF5jbeHIFd0kQLC8s="
+          "hash": "UyAVBsHeN3lzRU0PZFLIHZcyoRTpSmptYadipvTLK6s="
         }
       },
       "is_incremental": false,
@@ -347,7 +461,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 14,
+          "total_file_count": 24,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

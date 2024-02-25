@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class GlobalVariableInteraction
+    <title>Struct LineContent
    | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class GlobalVariableInteraction
+    <meta name="title" content="Struct LineContent
    | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,49 +78,115 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Interactions.GlobalVariableInteraction">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.Parser.LineContent">
   
   
-  <h1 id="Ibralogue_Interactions_GlobalVariableInteraction" data-uid="Ibralogue.Interactions.GlobalVariableInteraction" class="text-break">Class GlobalVariableInteraction
+  <h1 id="Ibralogue_Parser_LineContent" data-uid="Ibralogue.Parser.LineContent" class="text-break">Struct LineContent
   </h1>
-  <div class="markdown level0 summary"><p>Adds a global variable key-value pair and plays the very first conversation in the interaction dialogue array.</p>
+  <div class="markdown level0 summary"><p>The internal contents of a line, including but not limited its text and metadata</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html">DefaultInteraction</a></div>
-    <div class="level2"><span class="xref">GlobalVariableInteraction</span></div>
-  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_dialogueManager">DefaultInteraction.dialogueManager</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals#system-valuetype-equals(system-object)">ValueType.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_InteractionDialogues">DefaultInteraction.InteractionDialogues</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode#system-valuetype-gethashcode">ValueType.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring#system-valuetype-tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Interactions.html">Ibralogue.Interactions</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Parser.html">Ibralogue.Parser</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Ibralogue_Interactions_GlobalVariableInteraction_syntax">Syntax</h5>
+  <h5 id="Ibralogue_Parser_LineContent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class GlobalVariableInteraction : DefaultInteraction</code></pre>
+    <pre><code class="lang-csharp hljs">public struct LineContent</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="fields">Fields
   </h3>
   
   
-  <a id="Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue_" data-uid="Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue*"></a>
-  <h4 id="Ibralogue_Interactions_GlobalVariableInteraction_StartDialogue" data-uid="Ibralogue.Interactions.GlobalVariableInteraction.StartDialogue">StartDialogue()</h4>
+  <h4 id="Ibralogue_Parser_LineContent_Invocations" data-uid="Ibralogue.Parser.LineContent.Invocations">Invocations</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void StartDialogue()</code></pre>
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, string&gt; Invocations</code></pre>
   </div>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue">DefaultInteraction.StartDialogue()</a></div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Ibralogue_Parser_LineContent_Metadata" data-uid="Ibralogue.Parser.LineContent.Metadata">Metadata</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, string&gt; Metadata</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Ibralogue_Parser_LineContent_Text" data-uid="Ibralogue.Parser.LineContent.Text">Text</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Text</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

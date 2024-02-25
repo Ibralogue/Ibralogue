@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class RoundRobinInteraction
+    <title>Class DialogueLogger
    | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class RoundRobinInteraction
+    <meta name="title" content="Class DialogueLogger
    | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,49 +78,87 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Interactions.RoundRobinInteraction">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.DialogueLogger">
   
   
-  <h1 id="Ibralogue_Interactions_RoundRobinInteraction" data-uid="Ibralogue.Interactions.RoundRobinInteraction" class="text-break">Class RoundRobinInteraction
+  <h1 id="Ibralogue_DialogueLogger" data-uid="Ibralogue.DialogueLogger" class="text-break">Class DialogueLogger
   </h1>
-  <div class="markdown level0 summary"><p>Loops through each dialogue one by one and stops at the last one unless &quot;Loop&quot; is checked in which case it starts from the first dialogue.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html">DefaultInteraction</a></div>
-    <div class="level2"><span class="xref">RoundRobinInteraction</span></div>
+    <div class="level1"><span class="xref">DialogueLogger</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_dialogueManager">DefaultInteraction.dialogueManager</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
     <div>
-      <a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_InteractionDialogues">DefaultInteraction.InteractionDialogues</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Interactions.html">Ibralogue.Interactions</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Ibralogue_Interactions_RoundRobinInteraction_syntax">Syntax</h5>
+  <h5 id="Ibralogue_DialogueLogger_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RoundRobinInteraction : DefaultInteraction</code></pre>
+    <pre><code class="lang-csharp hljs">public static class DialogueLogger</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Ibralogue_Interactions_RoundRobinInteraction_StartDialogue_" data-uid="Ibralogue.Interactions.RoundRobinInteraction.StartDialogue*"></a>
-  <h4 id="Ibralogue_Interactions_RoundRobinInteraction_StartDialogue" data-uid="Ibralogue.Interactions.RoundRobinInteraction.StartDialogue">StartDialogue()</h4>
+  <a id="Ibralogue_DialogueLogger_LogError_" data-uid="Ibralogue.DialogueLogger.LogError*"></a>
+  <h4 id="Ibralogue_DialogueLogger_LogError_System_Int32_System_String_Object_" data-uid="Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)">LogError(Int32, String, Object)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void StartDialogue()</code></pre>
+    <pre><code class="lang-csharp hljs">public static void LogError(int line, string message, Object context = null)</code></pre>
   </div>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Ibralogue.Interactions.DefaultInteraction.html#Ibralogue_Interactions_DefaultInteraction_StartDialogue">DefaultInteraction.StartDialogue()</a></div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">line</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

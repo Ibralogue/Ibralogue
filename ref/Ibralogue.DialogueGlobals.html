@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Struct Dialogue
+    <title>Class DialogueGlobals
    | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Struct Dialogue
+    <meta name="title" content="Class DialogueGlobals
    | Ibralogue Docs ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,34 +78,58 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Parser.Dialogue">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.DialogueGlobals">
   
   
-  <h1 id="Ibralogue_Parser_Dialogue" data-uid="Ibralogue.Parser.Dialogue" class="text-break">Struct Dialogue
+  <h1 id="Ibralogue_DialogueGlobals" data-uid="Ibralogue.DialogueGlobals" class="text-break">Class DialogueGlobals
   </h1>
-  <div class="markdown level0 summary"><p>The Dialogue struct contains information about an individual line of dialogue.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.Parser.html">Ibralogue.Parser</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Ibralogue_Parser_Dialogue_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public struct Dialogue</code></pre>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">DialogueGlobals</span></div>
   </div>
-  <h5 id="Ibralogue_Parser_Dialogue_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>A list of these Dialogue structs makes up a conversation, and a list of conversations makes up a single dialogue file,
-due to being able to have multiple conversations in a single file for dialogue branching.</p>
-</div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Ibralogue_DialogueGlobals_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DialogueGlobals</code></pre>
+  </div>
   <h3 id="fields">Fields
   </h3>
   
   
-  <h4 id="Ibralogue_Parser_Dialogue_Sentence" data-uid="Ibralogue.Parser.Dialogue.Sentence">Sentence</h4>
+  <h4 id="Ibralogue_DialogueGlobals_GlobalVariables" data-uid="Ibralogue.DialogueGlobals.GlobalVariables">GlobalVariables</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Sentence Sentence</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;string, string&gt; GlobalVariables</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -117,55 +141,7 @@ due to being able to have multiple conversations in a single file for dialogue b
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Ibralogue.Parser.Sentence.html">Sentence</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Ibralogue_Parser_Dialogue_Speaker" data-uid="Ibralogue.Parser.Dialogue.Speaker">Speaker</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Speaker</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="Ibralogue_Parser_Dialogue_SpeakerImage" data-uid="Ibralogue.Parser.Dialogue.SpeakerImage">SpeakerImage</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Sprite SpeakerImage</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Sprite</span></td>
+        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>

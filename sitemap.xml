@@ -2,121 +2,181 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/index.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/manual/basic-syntax.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/manual/comments.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/manual/global-variables.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/manual/invocations.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/manual/quickstart.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueFunctionAttribute.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueManager.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueGlobals.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueLogger.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueManagerBase-1.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.DialogueParser.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.DefaultInteraction.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Editor.CreateIbralogue.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.GlobalVariableInteraction.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Editor.IbralogueImporter.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Editor.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.IMetadata.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.BaseInteraction.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.CircularInteraction.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.RandomInteraction.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.RoundRobinInteraction.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.SingleInteraction.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Interactions.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.Choice.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.Conversation.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.Dialogue.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.DialogueAsset.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.Sentence.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.Line.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.LineContent.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.Parser.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.SimpleDialogueManager.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.TypewriterDialogueManager.html</loc>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ibralogue.github.io/Ibralogue/ref/Ibralogue.html</loc>
-    <lastmod>2022-11-26T07:23:41+00:00</lastmod>
+    <lastmod>2024-02-25T06:22:02+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
