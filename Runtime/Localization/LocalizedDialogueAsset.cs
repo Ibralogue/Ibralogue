@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 
-[Serializable]
-public class LocalizedDialogueAsset : LocalizedAsset<DialogueAsset> { }
-
-[AddComponentMenu("Localization/Localized Ibralogue Component")]
-public class LocalizedIbralogueComponent : LocalizedAssetBehaviour<DialogueAsset, LocalizedDialogueAsset>
+namespace Ibralogue.Localization
 {
-    public DialogueAsset dialogueAsset;
+    [Serializable]
+    public class LocalizedDialogueAsset : LocalizedAsset<DialogueAsset> { }
 
-    protected override void UpdateAsset(DialogueAsset localizedAsset)
+    [AddComponentMenu("Localization/Localized Ibralogue Component")]
+    public class LocalizedIbralogueComponent : LocalizedAssetBehaviour<DialogueAsset, LocalizedDialogueAsset>
     {
-        dialogueAsset.Content = localizedAsset.Content;
+        public DialogueAsset dialogueAsset;
+
+        protected override void UpdateAsset(DialogueAsset localizedAsset)
+        {
+            dialogueAsset.Content = localizedAsset.Content;
+        }
     }
 }
