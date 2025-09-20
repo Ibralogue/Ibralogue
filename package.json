@@ -12,7 +12,8 @@
   ],
   "category": "Framework",
   "dependencies": {
-      "com.unity.textmeshpro": "2.1.6"
+    "com.unity.textmeshpro": "3.0.6",
+    "com.unity.localization": "1.4.5"
   },
   "samples": [
     {
@@ -26,4 +27,4 @@
       "path": "Samples~/Animal Crossing Dialogue"
     }
   ]
-}    
+}
