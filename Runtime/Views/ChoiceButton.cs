@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Ibralogue.UI
+namespace Ibralogue.Views
 {
     /// <summary>
     /// Represents a UI choice button that triggers an invokable event when clicked.

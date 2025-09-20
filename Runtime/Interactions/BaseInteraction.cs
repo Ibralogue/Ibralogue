@@ -9,7 +9,7 @@ namespace Ibralogue.Interactions
     /// </summary>
     public abstract class BaseInteraction : MonoBehaviour
     {
-        [SerializeField] protected SimpleDialogueManager dialogueManager;
+        [SerializeField] protected SimpleDialogueEngine dialogueEngine;
         [SerializeField] protected DialogueAsset[] InteractionDialogues;
 
         [SerializeField] private UnityEvent OnConversationStart = new UnityEvent();
@@ -22,8 +22,8 @@ namespace Ibralogue.Interactions
 
         private void AttachEvents()
         {
-            dialogueManager.OnConversationStart.AddListener(OnConversationStart.Invoke);
-            dialogueManager.OnConversationEnd.AddListener(OnConversationEnd.Invoke);
+            dialogueEngine.OnConversationStart.AddListener(OnConversationStart.Invoke);
+            dialogueEngine.OnConversationEnd.AddListener(OnConversationEnd.Invoke);
         }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 namespace Ibralogue.Plugins
 {
-    [RequireComponent(typeof(SimpleDialogueManager))]
-    public class PortraitImagePlugin : ManagerPlugin
+    [RequireComponent(typeof(SimpleDialogueEngine))]
+    public class PortraitImagePlugin : EnginePlugin
     {
         [SerializeField] protected Image speakerPortrait;
 
@@ -23,7 +23,7 @@ namespace Ibralogue.Plugins
         /// <summary>
         /// Sets the speaker image and makes the Image transparent if there is no speaker image.
         /// </summary>
-        public override void Clear(Conversation currentConversation, int lineIndex)
+        public override void Clear()
         {
             speakerPortrait.color = new Color(0, 0, 0, 0);
         }
