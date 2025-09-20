@@ -24,7 +24,7 @@ Ibralogue
   <a href="https://ibralogue.github.io/Ibralogue/index.html">Documentation</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
-   <a href="https://discord.gg/cGhVJmukTv">Discord</a>
+   <a href="https://discord.gg/xa3zvF6tP7">Discord</a>
 </p>
 
 > **Warning**: **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid, breaking changes due to how early it is into development!
@@ -32,39 +32,32 @@ Ibralogue
 ## About
 
 Ibralogue is a simple and extendable dialogue system library for Unity. Dialogue is written in `.ibra` files which have their own syntax which you can
-learn more about in the [docs](https://ibralogue.github.io/Ibralogue/manual/syntax-guide.html). For help regarding Ibralogue you can join the [support server](https://discord.gg/cGhVJmukTvs).
+learn more about in the [docs](https://ibralogue.github.io/Ibralogue/manual/basic-syntax.html). For help regarding Ibralogue you can join the [support server](https://discord.gg/xa3zvF6tP7).
 
 ## Features
 
 Although still early in development, Ibralogue has quite a few features, including but not limited to:
 
-- a rich, easy-to-grasp syntax
+- rich, easy-to-grasp syntax
+- localization-first approach to writing dialogue
+- using variables within your dialogue
 - branching dialogue with choices
-- using variables in dialogue
-- invoking static functions from dialogue files
+- invoking functions from dialogue files
 - line-by-line character portraits
 
 In it's current state Ibralogue is still very usable, even if not production-ready, and if you'd like to report a bug or request a new feature, be sure to [open an issue](https://github.com/Ibralogue/Ibralogue/issues/new/choose)!
 
 ## Installation
 
-Ibralogue is available as a unity package, and you can install it via the Unity Package Manager. 
+Ibralogue is available as a unity package, and you can install it via the Unity Package Manager.
 
 - Open the Unity Package Manager (Window -> Package Manager):  
-![](https://i.ibb.co/y6rcVnx/upm.png)
+  ![](https://i.ibb.co/y6rcVnx/upm.png)
 
-- Then select "Add package from git URL..."  
-- Then type ` https://github.com/Ibralogue/Ibralogue.git ` as the URL  
-> **Note**: *If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v0.7.0`*  
-     
+- Then select "Add package from git URL..."
+- Then type `https://github.com/Ibralogue/Ibralogue.git` as the URL
+  > **Note**: _If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v0.7.0`_
+
 ## Support
 
-I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors). However, there are also people that contributed in other significant ways, and i would like to mention them here:
-
-- [JetBrains](https://jb.gg/opensource) >> granted open source license access to their IDE's and tools for Ibralogue.
-
-- [Wokarol](https://github.com/wokarol) >> immense, invaluable feedback and major code contributions
-
-- [Hucota7](https://hucota7.itch.io) >> help with feature ideas and design decisions.
-
-Ibralogue will be forever free, open source, and under the [MIT License](https://github.com/Ibralogue/Ibralogue/blob/dev/LICENSE). You can support me by starring the project, making code contributions if possible, and identifying bugs or features you'd like to see fixed or implemented. However, if you'd like to give monetary support, you can support me directly on [my Patreon](https://www.patreon.com/ibrahh).
+I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors).Ibralogue will be forever free, open source, and under the [MIT License](https://github.com/Ibralogue/Ibralogue/blob/dev/LICENSE). You can support me by starring the project, making code contributions if possible, and identifying bugs or features you'd like to see fixed or implemented. However, if you'd like to give monetary support, you can support me directly on [my Patreon](https://www.patreon.com/ibrahh).
