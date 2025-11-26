@@ -15,7 +15,7 @@ namespace Ibralogue.Interactions
         public override void StartDialogue()
         {
             base.StartDialogue();
-            dialogueEngine.StartConversation(InteractionDialogues[index].LoadAsset());
+            dialogueEngine.StartConversation(InteractionDialogues[index]);
         }
     }
 }

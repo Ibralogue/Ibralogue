@@ -163,6 +163,7 @@ namespace Ibralogue
 
                         if (methodInfo.ReturnType == typeof(string))
                         {
+
                             string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
                             _currentConversation.Lines[_lineIndex].LineContent.Text = _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.Key, replacedText);
 
