@@ -138,8 +138,8 @@ namespace Ibralogue
             }
 
             InvokeFunctions(_currentConversation.Lines[_lineIndex].LineContent.Invocations);
-
             _linePlaying = false;
+
             yield return null;
         }
 

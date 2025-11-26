@@ -10,9 +10,6 @@ namespace Ibralogue.Views
 {
     public class DialogueViewBase : MonoBehaviour
     {
-        [SerializeField]
-        protected float scrollSpeed = 25f;
-
         [SerializeField] protected TextMeshProUGUI nameText;
         [SerializeField] protected TextMeshProUGUI sentenceText;
 
@@ -20,13 +17,16 @@ namespace Ibralogue.Views
         [SerializeField] protected GameObject choiceButton;
         protected List<ChoiceButton> _choiceButtonInstances = new List<ChoiceButton>();
 
+        public UnityEvent OnSetView = new UnityEvent();
+
         /// <summary>
         /// Sets the according to a line in a given Conversation.
         /// </summary>
-        public void SetView(Conversation conversation, int lineIndex)
+        public virtual void SetView(Conversation conversation, int lineIndex)
         {
             nameText.text = conversation.Lines[lineIndex].Speaker;
             sentenceText.text = conversation.Lines[lineIndex].LineContent.Text;
+            OnSetView.Invoke();
         }
 
         /// <summary>
