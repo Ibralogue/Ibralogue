@@ -1,12 +1,11 @@
 ﻿using Ibralogue.Parser;
 using Ibralogue.Plugins;
-using Ibralogue.UI;
+using Ibralogue.Views;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,9 +16,9 @@ namespace Ibralogue
         public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
     }
 
-    public abstract class DialogueManagerBase : MonoBehaviour
+    public abstract class DialogueEngineBase : MonoBehaviour
     {
-        protected ManagerPlugin[] managerPlugins;
+        protected EnginePlugin[] enginePlugins;
 
         public UnityEvent PersistentOnConversationStart = new UnityEvent();
         public UnityEvent PersistentOnConversationEnd = new UnityEvent();
@@ -33,16 +32,14 @@ namespace Ibralogue
         protected int _lineIndex;
         protected bool _linePlaying;
 
-        [Header("Dialogue UI")]
-        [SerializeField]
-        protected float scrollSpeed = 25f;
+        protected bool _isPaused = false;
+        private Coroutine _displayCoroutine;
 
-        [SerializeField] protected TextMeshProUGUI nameText;
-        [SerializeField] protected TextMeshProUGUI sentenceText;
+        public UnityEvent OnConversationPaused = new UnityEvent();
+        public UnityEvent OnConversationResumed = new UnityEvent();
 
-        [Header("Choice UI")][SerializeField] protected Transform choiceButtonHolder;
-        [SerializeField] protected GameObject choiceButton;
-        protected List<ChoiceButton> _choiceButtonInstances = new List<ChoiceButton>();
+        [Header("Dialogue Views")]
+        [SerializeField] protected DialogueViewBase dialogueView;
 
         [Header("Function Invocations")]
         [SerializeField]
@@ -66,19 +63,17 @@ namespace Ibralogue
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
-            managerPlugins = GetComponents<ManagerPlugin>();
-            StartConversation(ParsedConversations[startIndex]);
+            enginePlugins = GetComponents<EnginePlugin>();
+            SwitchConversation(ParsedConversations[startIndex]);
         }
 
         /// <summary>
         /// <remarks>
-        /// Should only be used inside the DialogueManager, as files should ALWAYS be parsed before any conversations
-        /// are started (use the other overload method for this purpose). This function assumes that you have already parsed the dialogue file, and is to be
-        /// used to avoid parsing the whole file again.
+        /// Switches to a different conversation. This functoin assumes the dialogue file is parsed first.
         /// </remarks>
         /// </summary>
         /// <param name="conversation"></param>
-        private void StartConversation(Conversation conversation)
+        public void SwitchConversation(Conversation conversation)
         {
             StopConversation();
             _currentConversation = conversation;
@@ -87,7 +82,7 @@ namespace Ibralogue
             OnConversationEnd.AddListener(PersistentOnConversationEnd.Invoke);
 
             OnConversationStart.Invoke();
-            StartCoroutine(DisplayDialogue());
+            _displayCoroutine = StartCoroutine(DisplayDialogue());
         }
 
         /// <summary>
@@ -95,16 +90,55 @@ namespace Ibralogue
         /// </summary>
         public void StopConversation()
         {
-            StopCoroutine(DisplayDialogue());
-            ClearDialogueBox();
+            if (_displayCoroutine != null)
+            {
+                StopCoroutine(_displayCoroutine);
+                _displayCoroutine = null;
+            }
 
+            dialogueView.ClearView(enginePlugins);
+
+            _linePlaying = false;
             _lineIndex = 0;
             _currentConversation = null;
+            _isPaused = false;
 
             OnConversationEnd.Invoke();
 
             OnConversationStart.RemoveAllListeners();
             OnConversationEnd.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// Pauses the current conversation.
+        /// </summary>
+        public void PauseConversation()
+        {
+            if (_currentConversation == null || _isPaused) return;
+
+            _isPaused = true;
+            dialogueView.Pause();
+            OnConversationPaused.Invoke();
+        }
+
+        /// <summary>
+        /// Resumes the paused conversation.
+        /// </summary>
+        public void ResumeConversation()
+        {
+            if (_currentConversation == null || !_isPaused) return;
+
+            _isPaused = false;
+            dialogueView.Resume();
+            OnConversationResumed.Invoke();
+        }
+
+        /// <summary>
+        /// Checks if conversation is currently paused.
+        /// </summary>
+        public bool IsConversationPaused()
+        {
+            return _isPaused;
         }
 
         /// <summary>
@@ -123,7 +157,7 @@ namespace Ibralogue
                 throw new ArgumentException($"There is no {nameof(conversation)} matching the given argument",
                     nameof(conversationName));
 
-            StartConversation(conversation);
+            SwitchConversation(conversation);
         }
 
         /// <summary>
@@ -137,18 +171,24 @@ namespace Ibralogue
             {
                 KeyValuePair<Choice, int> foundChoice =
                     _currentConversation.Choices.FirstOrDefault(x => x.Value == _lineIndex);
-                if (foundChoice.Key != null && _lineIndex == foundChoice.Value) DisplayChoices();
+                if (foundChoice.Key != null && _lineIndex == foundChoice.Value) dialogueView.DisplayChoices(this, _currentConversation, ParsedConversations);
             }
 
-            nameText.text = _currentConversation.Lines[_lineIndex].Speaker;
-            sentenceText.text = _currentConversation.Lines[_lineIndex].LineContent.Text;
+            dialogueView.SetView(_currentConversation, _lineIndex);
 
-            foreach(ManagerPlugin plugin in managerPlugins)
+            foreach(EnginePlugin plugin in enginePlugins)
             {
                 plugin.Display(_currentConversation,_lineIndex);
             }
 
             InvokeFunctions(_currentConversation.Lines[_lineIndex].LineContent.Invocations);
+
+            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying() || _isPaused);
+
+            if (_isPaused)
+            {
+                yield return new WaitUntil(() => !_isPaused);
+            }
 
             _linePlaying = false;
             yield return null;
@@ -157,7 +197,6 @@ namespace Ibralogue
         /// <summary>
         /// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
         /// </summary>
-        /// <param name="index">The index of the current visible character.</param>
         /// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
         protected virtual void InvokeFunctions(Dictionary<int, string> functionInvocations)
         {
@@ -174,10 +213,11 @@ namespace Ibralogue
 
                         if (methodInfo.ReturnType == typeof(string))
                         {
+
                             string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
-                            string processedSentence = _currentConversation.Lines[_lineIndex].LineContent.Text
-                                .Insert(function.Key, replacedText);
-                            sentenceText.text = processedSentence;
+                            _currentConversation.Lines[_lineIndex].LineContent.Text = _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.Key, replacedText);
+
+                            dialogueView.SetView(_currentConversation, _lineIndex);
                         }
                         else
                         {
@@ -204,9 +244,10 @@ namespace Ibralogue
         {
             if (_linePlaying) return;
             if (_currentConversation == null) return;
-            if (_choiceButtonInstances.Count > 0) return;
+            //if (_choiceButtonInstances.Count > 0) return;
 
-            ClearDialogueBox();
+            _linePlaying = false;
+            dialogueView.ClearView(enginePlugins);
 
             if (_lineIndex < _currentConversation.Lines.Count - 1)
             {
@@ -216,49 +257,6 @@ namespace Ibralogue
             else
             {
                 StopConversation();
-            }
-        }
-
-
-        /// <summary>
-        /// Uses the Unity UI system and TextMeshPro to render choice buttons.
-        /// </summary>
-        protected void DisplayChoices()
-        {
-            _choiceButtonInstances.Clear();
-            if (_currentConversation.Choices == null || !_currentConversation.Choices.Any()) return;
-            foreach (Choice choice in _currentConversation.Choices.Keys)
-            {
-                ChoiceButton choiceButtonInstance = Instantiate(choiceButton, choiceButtonHolder).GetComponent<ChoiceButton>();
-                if (choiceButtonInstance == null)
-                {
-                    DialogueLogger.LogError(2, "ChoiceButton is null. Make sure you have the ChoiceButton component added to your Button object!");
-                }
-
-                UnityAction onClickAction = null;
-                int conversationIndex = -1;
-
-                switch (choice.LeadingConversationName)
-                {
-                    case ">>":
-                        DialogueLogger.LogError(2,
-                            "The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
-                        break;
-                    default:
-                        conversationIndex =
-                            ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                        if (conversationIndex == -1)
-                            DialogueLogger.LogError(2,
-                                $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{_currentConversation.Name}\".",
-                                this);
-                        onClickAction = () => StartConversation(ParsedConversations[conversationIndex]);
-                        break;
-                }
-
-                choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
-                choiceButtonInstance.OnChoiceClick.AddListener(onClickAction);
-
-                _choiceButtonInstances.Add(choiceButtonInstance);
             }
         }
 
@@ -289,37 +287,6 @@ namespace Ibralogue
             }
 
             return methods;
-        }
-
-        /// <summary>
-        /// Clears all text and Images in the dialogue box.
-        /// </summary>
-        protected virtual void ClearDialogueBox()
-        {
-            _linePlaying = false;
-            nameText.text = string.Empty;
-            sentenceText.text = string.Empty;
-
-            foreach (ManagerPlugin plugin in managerPlugins)
-            {
-                plugin.Clear(_currentConversation, _lineIndex);
-            }
-
-            if (GetComponent<PortraitImagePlugin>() != null)
-            {
-
-            }
-
-            if (_choiceButtonInstances == null)
-                return;
-
-            foreach (ChoiceButton choiceButton in _choiceButtonInstances)
-            {
-                choiceButton.OnChoiceClick.RemoveAllListeners();
-                Destroy(choiceButton.gameObject);
-            }
-
-            _choiceButtonInstances.Clear();
         }
     }
 }

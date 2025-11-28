@@ -7,7 +7,7 @@ namespace Ibralogue.Editor
 {
     public static class CreateIbralogue
     {
-        private const string TemplatePath = "Ibralogue/Editor/Templates/";
+        private const string TemplatePath = "Editor/Templates";
         private const string DefaultScript = "DefaultDialogue.ibra.txt";
 
         /// <summary>
@@ -17,6 +17,7 @@ namespace Ibralogue.Editor
         public static void CreateDialogue()
         {
             string templateFullPath = GetTemplateFullPath();
+
             if (string.IsNullOrEmpty(templateFullPath) || !File.Exists(templateFullPath))
             {
                 Debug.LogError("Template file not found at: " + templateFullPath);
@@ -32,7 +33,7 @@ namespace Ibralogue.Editor
         private static string GetTemplateFullPath()
         {
             // Check in Assets
-            string assetsPath = Path.Combine("Assets/", TemplatePath, DefaultScript);
+            string assetsPath = Path.Combine("Assets/Ibralogue", TemplatePath, DefaultScript);
             if (File.Exists(assetsPath))
                 return assetsPath;
 
@@ -54,13 +55,18 @@ namespace Ibralogue.Editor
         private static string GetPackagePath()
         {
             string packageName = "com.ibra.ibralogue";
-            string packageJsonPath = AssetDatabase.FindAssets("package")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(path => path.Contains(packageName));
 
-            return !string.IsNullOrEmpty(packageJsonPath)
-                ? Path.GetDirectoryName(packageJsonPath)
-                : null;
+            string[] packageJsonPaths = AssetDatabase.FindAssets("a:packages", null)
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(path => path.Contains(packageName))
+                .ToArray();
+
+            if (packageJsonPaths.Length > 0)
+            {
+                return Path.GetDirectoryName(packageJsonPaths[0]);
+            }
+
+            return null;
         }
     }
 }
