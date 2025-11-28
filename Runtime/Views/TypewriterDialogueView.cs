@@ -82,8 +82,9 @@ namespace Ibralogue.Views
         /// <summary>
         /// Requests to skip the typewriter effect and display full text immediately.
         /// </summary>
-        public void SkipTypewriter()
+        public override void SkipViewEffect()
         {
+            base.SkipViewEffect();
             if (_isStillDisplaying)
             {
                 _skipRequested = true;

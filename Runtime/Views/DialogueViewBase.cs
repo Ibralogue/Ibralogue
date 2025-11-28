@@ -67,6 +67,14 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
+        /// Skips whatever display effect the dialogue view is playing.
+        /// </summary>
+        public virtual void SkipViewEffect()
+        {
+
+        }
+
+        /// <summary>
         /// Pauses the currently playing effect.
         /// </summary>
         public virtual void Pause()
