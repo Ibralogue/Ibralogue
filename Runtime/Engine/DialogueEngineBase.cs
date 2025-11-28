@@ -32,6 +32,12 @@ namespace Ibralogue
         protected int _lineIndex;
         protected bool _linePlaying;
 
+        protected bool _isPaused = false;
+        private Coroutine _displayCoroutine;
+
+        public UnityEvent OnConversationPaused = new UnityEvent();
+        public UnityEvent OnConversationResumed = new UnityEvent();
+
         [Header("Dialogue Views")]
         [SerializeField] protected DialogueViewBase dialogueView;
 
@@ -76,7 +82,7 @@ namespace Ibralogue
             OnConversationEnd.AddListener(PersistentOnConversationEnd.Invoke);
 
             OnConversationStart.Invoke();
-            StartCoroutine(DisplayDialogue());
+            _displayCoroutine = StartCoroutine(DisplayDialogue());
         }
 
         /// <summary>
@@ -84,17 +90,55 @@ namespace Ibralogue
         /// </summary>
         public void StopConversation()
         {
-            StopCoroutine(DisplayDialogue());
+            if (_displayCoroutine != null)
+            {
+                StopCoroutine(_displayCoroutine);
+                _displayCoroutine = null;
+            }
+
             dialogueView.ClearView(enginePlugins);
 
             _linePlaying = false;
             _lineIndex = 0;
             _currentConversation = null;
+            _isPaused = false;
 
             OnConversationEnd.Invoke();
 
             OnConversationStart.RemoveAllListeners();
             OnConversationEnd.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// Pauses the current conversation.
+        /// </summary>
+        public void PauseConversation()
+        {
+            if (_currentConversation == null || _isPaused) return;
+
+            _isPaused = true;
+            dialogueView.Pause();
+            OnConversationPaused.Invoke();
+        }
+
+        /// <summary>
+        /// Resumes the paused conversation.
+        /// </summary>
+        public void ResumeConversation()
+        {
+            if (_currentConversation == null || !_isPaused) return;
+
+            _isPaused = false;
+            dialogueView.Resume();
+            OnConversationResumed.Invoke();
+        }
+
+        /// <summary>
+        /// Checks if conversation is currently paused.
+        /// </summary>
+        public bool IsConversationPaused()
+        {
+            return _isPaused;
         }
 
         /// <summary>
@@ -138,7 +182,13 @@ namespace Ibralogue
             }
 
             InvokeFunctions(_currentConversation.Lines[_lineIndex].LineContent.Invocations);
-            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying());
+
+            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying() || _isPaused);
+
+            if (_isPaused)
+            {
+                yield return new WaitUntil(() => !_isPaused);
+            }
 
             _linePlaying = false;
             yield return null;

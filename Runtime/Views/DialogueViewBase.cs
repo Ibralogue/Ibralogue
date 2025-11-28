@@ -14,6 +14,7 @@ namespace Ibralogue.Views
         [SerializeField] protected TextMeshProUGUI sentenceText;
 
         protected bool _isStillDisplaying = false;
+        protected bool _isPaused = false;
 
         [Header("Choice UI")][SerializeField] protected Transform choiceButtonHolder;
         [SerializeField] protected GameObject choiceButton;
@@ -41,7 +42,7 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
-        /// Clears all elements in the view;
+        /// Clears all elements in the view.
         /// </summary>
         public virtual void ClearView(EnginePlugin[] enginePlugins)
         {
@@ -65,6 +66,29 @@ namespace Ibralogue.Views
             _choiceButtonInstances.Clear();
         }
 
+        /// <summary>
+        /// Pauses the currently playing effect.
+        /// </summary>
+        public virtual void Pause()
+        {
+            _isPaused = true;
+        }
+
+        /// <summary>
+        /// Resumed the currently playing effect.
+        /// </summary>
+        public virtual void Resume()
+        {
+            _isPaused = false;
+        }
+
+        /// <summary>
+        /// Returns whether the current effect is playing.
+        /// </summary>
+        public virtual bool IsPaused()
+        {
+            return _isPaused;
+        }
 
         /// <summary>
         /// Uses the Unity UI system and TextMeshPro to render choice buttons.

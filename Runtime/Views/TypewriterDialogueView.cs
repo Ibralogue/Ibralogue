@@ -50,6 +50,11 @@ namespace Ibralogue.Views
 
             while (visibleChars < totalChars)
             {
+                if (_isPaused)
+                {
+                    yield return new WaitUntil(() => !_isPaused);
+                }
+
                 if (_skipRequested)
                 {
                     sentenceText.maxVisibleCharacters = totalChars;
