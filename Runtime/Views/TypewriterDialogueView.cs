@@ -13,7 +13,6 @@ namespace Ibralogue.Views
         [SerializeField] private int characterWindow = 1;
 
         private Coroutine _typewriterCoroutine;
-        private bool _isTyping;
         private bool _skipRequested;
 
         public UnityEvent OnTypewriterEffectUpdated = new UnityEvent();
@@ -38,7 +37,7 @@ namespace Ibralogue.Views
         /// </summary>
         private IEnumerator TypewriterEffect(string fullText)
         {
-            _isTyping = true;
+            _isStillDisplaying = true;
             _skipRequested = false;
 
             sentenceText.text = fullText;
@@ -70,7 +69,8 @@ namespace Ibralogue.Views
                 yield return null;
             }
 
-            _isTyping = false;
+            _isStillDisplaying = false;
+            OnLineComplete.Invoke();
             _typewriterCoroutine = null;
         }
 
@@ -79,18 +79,10 @@ namespace Ibralogue.Views
         /// </summary>
         public void SkipTypewriter()
         {
-            if (_isTyping)
+            if (_isStillDisplaying)
             {
                 _skipRequested = true;
             }
-        }
-
-        /// <summary>
-        /// Checks if the typewriter effect is currently playing.
-        /// </summary>
-        public bool IsTyping()
-        {
-            return _isTyping;
         }
 
         /// <summary>
@@ -104,7 +96,7 @@ namespace Ibralogue.Views
                 _typewriterCoroutine = null;
             }
 
-            _isTyping = false;
+            _isStillDisplaying = false;
             _skipRequested = false;
 
             base.ClearView(enginePlugins);

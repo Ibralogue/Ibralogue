@@ -138,15 +138,15 @@ namespace Ibralogue
             }
 
             InvokeFunctions(_currentConversation.Lines[_lineIndex].LineContent.Invocations);
-            _linePlaying = false;
+            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying());
 
+            _linePlaying = false;
             yield return null;
         }
 
         /// <summary>
         /// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
         /// </summary>
-        /// <param name="index">The index of the current visible character.</param>
         /// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
         protected virtual void InvokeFunctions(Dictionary<int, string> functionInvocations)
         {

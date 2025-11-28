@@ -13,11 +13,22 @@ namespace Ibralogue.Views
         [SerializeField] protected TextMeshProUGUI nameText;
         [SerializeField] protected TextMeshProUGUI sentenceText;
 
+        protected bool _isStillDisplaying = false;
+
         [Header("Choice UI")][SerializeField] protected Transform choiceButtonHolder;
         [SerializeField] protected GameObject choiceButton;
         protected List<ChoiceButton> _choiceButtonInstances = new List<ChoiceButton>();
 
         public UnityEvent OnSetView = new UnityEvent();
+        public UnityEvent OnLineComplete = new UnityEvent();
+
+        /// <summary>
+        /// Checks if the view is currently displaying content (e.g., effect in progress).
+        /// </summary>
+        public virtual bool IsStillDisplaying()
+        {
+            return _isStillDisplaying;
+        }
 
         /// <summary>
         /// Sets the according to a line in a given Conversation.
