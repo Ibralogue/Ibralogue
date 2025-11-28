@@ -11,7 +11,7 @@ Ibralogue
 
 <p align="center" style="margin-top: 25px;">
  <a href="https://unity3d.com/get-unity/download">
- <img src="https://img.shields.io/badge/unity-2019.4%2B-blue.svg" alt="Unity Version Support">
+ <img src="https://img.shields.io/badge/unity-2022.3%2B-blue.svg" alt="Unity Version Support">
  <a href="https://github.com/ibra/Ibralogue/blob/master/LICENSE">
  <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="MIT License">
    <a href="https://github.com/Ibralogue/Ibralogue">
@@ -27,7 +27,7 @@ Ibralogue
    <a href="https://discord.gg/xa3zvF6tP7">Discord</a>
 </p>
 
-> **Warning**: **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid, breaking changes due to how early it is into development!
+> ⚠️ **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid, breaking changes due to how early it is into development!
 
 ## About
 
@@ -60,4 +60,8 @@ Ibralogue is available as a unity package, and you can install it via the Unity 
 
 ## Support
 
-I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors).Ibralogue will be forever free, open source, and under the [MIT License](https://github.com/Ibralogue/Ibralogue/blob/dev/LICENSE). You can support me by starring the project, making code contributions if possible, and identifying bugs or features you'd like to see fixed or implemented. However, if you'd like to give monetary support, you can support me directly on [my Patreon](https://www.patreon.com/ibrahh).
+I really appreciate any form of contribution to Ibralogue, and you can view a list of the code contributers [here](https://github.com/ibralogue/ibralogue/graphs/contributors).
+
+Ibralogue will be forever free, open source, and under the [MIT License](https://github.com/Ibralogue/Ibralogue/blob/dev/LICENSE). You can support me by starring the project, making code contributions if possible, and identifying bugs or features you'd like to see fixed or implemented.
+
+However, if you'd like to give monetary support, you can support me directly on [my Patreon](https://www.patreon.com/ibrahh).
