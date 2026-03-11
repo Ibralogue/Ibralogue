@@ -160,6 +160,35 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
+		public void Jump_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\n{{Jump(B)}}\nHello\n" +
+				"{{ConversationName(B)}}\n[Bar]\nWorld\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(2));
+			Assert.That(result[0].Lines[0].JumpTarget, Is.EqualTo("B"));
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
+			Assert.That(result[1].Lines[0].JumpTarget, Is.Null);
+		}
+
+		[Test]
+		public void Jump_AfterSentences_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\nHello\n{{Jump(B)}}\n" +
+				"{{ConversationName(B)}}\n[Bar]\nWorld\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(2));
+			Assert.That(result[0].Lines[0].JumpTarget, Is.EqualTo("B"));
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
+		}
+
+		[Test]
 		public void Choice_Metadata_ParsesCorrectly()
 		{
 			dialogueAsset.Content =

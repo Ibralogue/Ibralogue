@@ -162,6 +162,19 @@ namespace Ibralogue.Parser
 				}
 			}
 
+			// Check for jump command before sentences
+			string jumpTarget = null;
+			if (Check(DialogueTokenType.Command))
+			{
+				string cmdName = ExtractCommandName(Current().Value);
+				if (cmdName == "Jump")
+				{
+					jumpTarget = ExtractCommandArgument(Current().Value);
+					Advance();
+					SkipBlankLines();
+				}
+			}
+
 			// ParseIntoTree sentences until we hit a speaker, choice, conversation name, or end of file
 			List<SentenceNode> sentences = new List<SentenceNode>();
 			while (!IsAtEnd() && !Check(DialogueTokenType.Speaker) && !Check(DialogueTokenType.Choice))
@@ -174,6 +187,20 @@ namespace Ibralogue.Parser
 						break;
 					if (cmdName == "Image")
 						break;
+
+					// Handle Jump command after sentences
+					if (cmdName == "Jump")
+					{
+						if (jumpTarget != null)
+						{
+							_diagnostics.ReportWarning(Current().Span,
+								"Duplicate Jump command in dialogue line; using last value");
+						}
+						jumpTarget = ExtractCommandArgument(Current().Value);
+						Advance();
+						SkipBlankLines();
+						break;
+					}
 				}
 
 				// Skip blank lines between sentences
@@ -200,7 +227,7 @@ namespace Ibralogue.Parser
 			}
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new DialogueLineNode(speaker, speakerSpan, sentences, imagePath, span);
+			return new DialogueLineNode(speaker, speakerSpan, sentences, imagePath, jumpTarget, span);
 		}
 
 		/// <summary>
