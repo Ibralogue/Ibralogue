@@ -6,7 +6,6 @@ namespace Ibralogue.Parser
 {
 	/// <summary>
 	/// The main entry point for parsing Ibralogue dialogue files.
-	/// Orchestrates the three-phase pipeline: Lexer -> Parser -> Analyzer.
 	/// </summary>
 	public static class DialogueParser
 	{
@@ -26,6 +25,9 @@ namespace Ibralogue.Parser
 			string assetName = dialogueAsset.name ?? "unknown";
 
 			DiagnosticBag diagnostics = new DiagnosticBag();
+
+			DialoguePreprocessor preprocessor = new DialoguePreprocessor(diagnostics, assetName);
+			source = preprocessor.Process(source);
 
 			DialogueLexer lexer = new DialogueLexer(source, diagnostics);
 			List<DialogueToken> tokens = lexer.Tokenize();
