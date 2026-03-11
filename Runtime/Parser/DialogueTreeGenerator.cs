@@ -30,7 +30,6 @@ namespace Ibralogue.Parser
 
 			SkipBlankLines();
 
-			// ParseIntoTree conversations until end of file
 			while (!IsAtEnd())
 			{
 				ConversationNode conversation = ParseConversation(conversations.Count == 0);
@@ -52,7 +51,6 @@ namespace Ibralogue.Parser
 			SourcePosition start = Current().Span.Start;
 			string name = "Default";
 
-			// Check for conversation name command
 			if (Check(DialogueTokenType.Command))
 			{
 				DialogueToken command = Current();
@@ -69,7 +67,6 @@ namespace Ibralogue.Parser
 			List<DialogueLineNode> lines = new List<DialogueLineNode>();
 			List<ChoiceNode> choices = new List<ChoiceNode>();
 
-			// ParseIntoTree dialogue lines until we hit another conversation, a choice block, or end of file
 			while (!IsAtEnd())
 			{
 				SkipBlankLines();
@@ -83,7 +80,6 @@ namespace Ibralogue.Parser
 					continue;
 				}
 
-				// Check if we've reached the start of a new conversation
 				if (Check(DialogueTokenType.Command))
 				{
 					string cmdName = ExtractCommandName(Current().Value);
@@ -91,7 +87,6 @@ namespace Ibralogue.Parser
 						break;
 				}
 
-				// ParseIntoTree choices
 				if (Check(DialogueTokenType.Choice))
 				{
 					while (Check(DialogueTokenType.Choice))
@@ -104,7 +99,6 @@ namespace Ibralogue.Parser
 					continue;
 				}
 
-				// ParseIntoTree a dialogue line (speaker + sentences)
 				if (Check(DialogueTokenType.Speaker))
 				{
 					DialogueLineNode dialogueLine = ParseDialogueLine();
@@ -123,7 +117,6 @@ namespace Ibralogue.Parser
 					continue;
 				}
 
-				// Unexpected token — skip with warning
 				if (!Check(DialogueTokenType.EndOfFile))
 				{
 					_diagnostics.ReportWarning(Current().Span,
