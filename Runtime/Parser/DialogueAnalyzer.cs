@@ -99,6 +99,11 @@ namespace Ibralogue.Parser
 				}
 			};
 
+			if (!string.IsNullOrEmpty(node.JumpTarget))
+			{
+				line.JumpTarget = ReplaceGlobalVariables(node.JumpTarget, node.Span);
+			}
+
 			if (!string.IsNullOrEmpty(node.ImagePath))
 			{
 				Sprite sprite = Resources.Load<Sprite>(node.ImagePath);

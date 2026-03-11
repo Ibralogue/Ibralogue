@@ -255,6 +255,14 @@ namespace Ibralogue
             if (_currentConversation == null) return;
             //if (_choiceButtonInstances.Count > 0) return;
 
+            // Check if the current line has a jump target
+            string jumpTarget = _currentConversation.Lines[_lineIndex].JumpTarget;
+            if (!string.IsNullOrEmpty(jumpTarget))
+            {
+                JumpTo(jumpTarget);
+                return;
+            }
+
             _linePlaying = false;
             dialogueView.ClearView(enginePlugins);
 
