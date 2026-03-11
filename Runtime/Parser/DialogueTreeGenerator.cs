@@ -56,7 +56,7 @@ namespace Ibralogue.Parser
 				DialogueToken command = Current();
 				string commandName = ExtractCommandName(command.Value);
 
-				if (commandName == "ConversationName" || commandName == "DialogueName")
+				if (commandName == "ConversationName")
 				{
 					name = ExtractCommandArgument(command.Value);
 					Advance();
@@ -83,7 +83,7 @@ namespace Ibralogue.Parser
 				if (Check(DialogueTokenType.Command))
 				{
 					string cmdName = ExtractCommandName(Current().Value);
-					if (cmdName == "ConversationName" || cmdName == "DialogueName")
+					if (cmdName == "ConversationName")
 						break;
 				}
 
@@ -170,7 +170,7 @@ namespace Ibralogue.Parser
 				if (Check(DialogueTokenType.Command))
 				{
 					string cmdName = ExtractCommandName(Current().Value);
-					if (cmdName == "ConversationName" || cmdName == "DialogueName")
+					if (cmdName == "ConversationName")
 						break;
 					if (cmdName == "Image")
 						break;

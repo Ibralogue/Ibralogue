@@ -84,21 +84,6 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
-		public void DialogueName_Alias_ParsesCorrectly()
-		{
-			dialogueAsset.Content =
-				"{{DialogueName(Init)}}" +
-				"\n[Foo]\nHello\n";
-
-			var result = DialogueParser.ParseDialogue(dialogueAsset);
-
-			Assert.That(result, Has.Count.EqualTo(1));
-			Assert.That(result[0].Name, Is.EqualTo("Init"));
-			Assert.That(result[0].Lines[0].Speaker, Is.EqualTo("Foo"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
-		}
-
-		[Test]
 		public void ConversationName_SetsCorrectly()
 		{
 			dialogueAsset.Content =
