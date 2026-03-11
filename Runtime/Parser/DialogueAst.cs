@@ -5,12 +5,12 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// Root node of a parsed dialogue file, containing one or more conversations.
 	/// </summary>
-	internal class DialogueDocument
+	internal class DialogueTree
 	{
 		public readonly List<ConversationNode> Conversations;
 		public readonly SourceSpan Span;
 
-		public DialogueDocument(List<ConversationNode> conversations, SourceSpan span)
+		public DialogueTree(List<ConversationNode> conversations, SourceSpan span)
 		{
 			Conversations = conversations;
 			Span = span;

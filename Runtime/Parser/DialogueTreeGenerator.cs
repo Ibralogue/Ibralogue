@@ -7,13 +7,13 @@ namespace Ibralogue.Parser
 	/// The parser is purely structural — it does not perform variable substitution,
 	/// resource loading, or any other side effects.
 	/// </summary>
-	internal class DialogueAstParser
+	internal class DialogueTreeGenerator
 	{
 		private readonly List<DialogueToken> _tokens;
 		private readonly DiagnosticBag _diagnostics;
 		private int _position;
 
-		public DialogueAstParser(List<DialogueToken> tokens, DiagnosticBag diagnostics)
+		public DialogueTreeGenerator(List<DialogueToken> tokens, DiagnosticBag diagnostics)
 		{
 			_tokens = tokens;
 			_diagnostics = diagnostics;
@@ -21,16 +21,16 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Parses the token stream into a DialogueDocument.
+		/// Parses the token stream into a DialogueTree.
 		/// </summary>
-		public DialogueDocument Parse()
+		public DialogueTree ParseIntoTree()
 		{
 			SourcePosition start = Current().Span.Start;
 			List<ConversationNode> conversations = new List<ConversationNode>();
 
 			SkipBlankLines();
 
-			// Parse conversations until end of file
+			// ParseIntoTree conversations until end of file
 			while (!IsAtEnd())
 			{
 				ConversationNode conversation = ParseConversation(conversations.Count == 0);
@@ -39,7 +39,7 @@ namespace Ibralogue.Parser
 			}
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new DialogueDocument(conversations, span);
+			return new DialogueTree(conversations, span);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace Ibralogue.Parser
 			List<DialogueLineNode> lines = new List<DialogueLineNode>();
 			List<ChoiceNode> choices = new List<ChoiceNode>();
 
-			// Parse dialogue lines until we hit another conversation, a choice block, or end of file
+			// ParseIntoTree dialogue lines until we hit another conversation, a choice block, or end of file
 			while (!IsAtEnd())
 			{
 				SkipBlankLines();
@@ -91,7 +91,7 @@ namespace Ibralogue.Parser
 						break;
 				}
 
-				// Parse choices
+				// ParseIntoTree choices
 				if (Check(DialogueTokenType.Choice))
 				{
 					while (Check(DialogueTokenType.Choice))
@@ -104,7 +104,7 @@ namespace Ibralogue.Parser
 					continue;
 				}
 
-				// Parse a dialogue line (speaker + sentences)
+				// ParseIntoTree a dialogue line (speaker + sentences)
 				if (Check(DialogueTokenType.Speaker))
 				{
 					DialogueLineNode dialogueLine = ParseDialogueLine();
@@ -169,7 +169,7 @@ namespace Ibralogue.Parser
 				}
 			}
 
-			// Parse sentences until we hit a speaker, choice, conversation name, or end of file
+			// ParseIntoTree sentences until we hit a speaker, choice, conversation name, or end of file
 			List<SentenceNode> sentences = new List<SentenceNode>();
 			while (!IsAtEnd() && !Check(DialogueTokenType.Speaker) && !Check(DialogueTokenType.Choice))
 			{

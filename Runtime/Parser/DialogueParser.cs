@@ -30,12 +30,11 @@ namespace Ibralogue.Parser
 			DialogueLexer lexer = new DialogueLexer(source, diagnostics);
 			List<DialogueToken> tokens = lexer.Tokenize();
 
-			DialogueAstParser parser = new DialogueAstParser(tokens, diagnostics);
-			DialogueDocument document = parser.Parse();
+			DialogueTreeGenerator generator = new DialogueTreeGenerator(tokens, diagnostics);
+			DialogueTree tree = generator.ParseIntoTree();
 
 			DialogueAnalyzer analyzer = new DialogueAnalyzer(diagnostics, assetName);
-			List<Conversation> conversations = analyzer.Analyze(document);
-
+			List<Conversation> conversations = analyzer.Analyze(tree);
 
 			ReportDiagnostics(diagnostics);
 

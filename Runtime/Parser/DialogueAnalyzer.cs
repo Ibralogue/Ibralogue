@@ -22,7 +22,7 @@ namespace Ibralogue.Parser
 		/// <summary>
 		/// Converts a parsed AST document into the runtime Conversation list.
 		/// </summary>
-		public List<Conversation> Analyze(DialogueDocument document)
+		public List<Conversation> Analyze(DialogueTree document)
 		{
 			List<Conversation> conversations = new List<Conversation>();
 
