@@ -70,7 +70,7 @@ namespace Ibralogue.Parser
 			string speaker = ReplaceGlobalVariables(node.Speaker, node.SpeakerSpan);
 
 			// Gather invocations/metadata from all sentences
-			Dictionary<int, string> invocations = new Dictionary<int, string>();
+			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
 			Dictionary<string, string> metadata = new Dictionary<string, string>();
 			List<string> sentenceTexts = new List<string>();
 
@@ -117,7 +117,7 @@ namespace Ibralogue.Parser
 		/// Builds the rendered text for a sentence, replacing variables and recording
 		/// function invocation positions.
 		/// </summary>
-		private string BuildSentenceText(SentenceNode sentence, Dictionary<int, string> invocations)
+		private string BuildSentenceText(SentenceNode sentence, List<FunctionInvocation> invocations)
 		{
 			int charOffset = 0;
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -139,8 +139,11 @@ namespace Ibralogue.Parser
 				else if (fragment is FunctionInvocationNode funcNode)
 				{
 					funcNode.CharacterIndex = charOffset;
-					if (!invocations.ContainsKey(charOffset))
-						invocations.Add(charOffset, funcNode.FunctionName);
+					invocations.Add(new FunctionInvocation(
+						funcNode.FunctionName,
+						charOffset,
+						funcNode.Span.Start.Line,
+						funcNode.Span.Start.Column));
 				}
 			}
 

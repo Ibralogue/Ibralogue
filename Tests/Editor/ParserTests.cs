@@ -1,4 +1,5 @@
 using Ibralogue.Parser;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -141,7 +142,7 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Assert.That(result[0].Lines[0].LineContent.Invocations, Has.Count.EqualTo(1));
-			Assert.That(result[0].Lines[0].LineContent.Invocations.ContainsValue("GetDay"));
+			Assert.That(result[0].Lines[0].LineContent.Invocations.Any(i => i.Name == "GetDay"));
 			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Today is ."));
 		}
 
