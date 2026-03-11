@@ -8,6 +8,8 @@
       href: conversations.md
     - name: Choices
       href: choices.md
+    - name: Jumps
+      href: jumps.md
     - name: Global Variables
       href: global-variables.md
     - name: Comments & Metadata
@@ -18,6 +20,8 @@
       href: includes.md
     - name: Rich Text
       href: rich-text.md
+    - name: Escape Sequences
+      href: escape-sequences.md
 - name: Engine
   items:
     - name: Dialogue Views
