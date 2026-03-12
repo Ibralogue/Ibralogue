@@ -4,7 +4,7 @@ The `Jump` command lets you automatically move from one conversation to another 
 
 #### Basic Syntax
 
-Use `{{Jump(...)}}` on its own line within a dialogue line, the same way you would use `{{Image(...)}}`:
+Use `{{Jump(...)}}` on its own line within a dialogue line.
 
 ```text
 {{ConversationName(Greeting)}}
@@ -37,17 +37,6 @@ This line will also jump after it finishes.
 
 Both forms are equivalent. The jump always happens after the player advances past the line.
 
-#### Combining with Images
-
-`{{Jump(...)}}` and `{{Image(...)}}` can both appear on the same dialogue line:
-
-```text
-[NPC]
-{{Image(Portraits/NpcWaving)}}
-{{Jump(Farewell)}}
-See you later!
-```
-
 #### Variables in Jump Targets
 
 Jump targets support [global variables](global-variables.md):
@@ -59,7 +48,3 @@ Moving on...
 ```
 
 The variable is resolved at parse time, just like variables in dialogue text.
-
-#### Jumps vs Choices
-
-[Choices](choices.md) present the player with options that branch the dialogue. Jumps are unconditional — the engine switches to the target conversation with no player input required. Use jumps when the flow should continue to a specific conversation automatically.

@@ -31,17 +31,6 @@ If the included file contains multiple conversations and you only need one, pass
 
 This will only pull in the `FineResponse` conversation block from the file.
 
-#### Quoted Arguments
-
-Arguments can optionally be wrapped in quotes. These are equivalent:
-
-```text
-{{Include(SharedChoices)}}
-{{Include("SharedChoices")}}
-{{Include(SharedChoices, FineResponse)}}
-{{Include("SharedChoices", "FineResponse")}}
-```
-
 #### Recursive Includes
 
 Included files can themselves contain `{{Include(...)}}` directives. Ibralogue will expand them recursively.

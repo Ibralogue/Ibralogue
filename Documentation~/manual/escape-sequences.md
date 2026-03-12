@@ -15,7 +15,7 @@ See section \## for more info.
 
 This displays as:
 
-```
+```text
 NPC: The price is $50 per item.
 NPC: Use {{curly braces}} for templates.
 NPC: See section ## for more info.
@@ -35,7 +35,7 @@ Some syntax is only special at the start of a line: `#` (comments), `##` (metada
 
 This displays as:
 
-```
+```text
 NPC: # This is not a comment.
 NPC: [Not a speaker]
 ```
@@ -48,15 +48,3 @@ To include a literal backslash in dialogue text, use a double backslash:
 [NPC]
 The file is at C:\\Users\\NPC\\Documents.
 ```
-
-#### Summary
-
-| Escape | Result |
-|--------|--------|
-| `\{{` | Literal `{{` |
-| `\$` | Literal `$` |
-| `\##` | Literal `##` |
-| `\#` | Literal `#` |
-| `\[` | Literal `[` |
-| `\-` | Literal `-` |
-| `\\` | Literal `\` |

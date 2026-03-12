@@ -30,19 +30,6 @@ I'm sorry to hear that. Hope it gets better.
 
 When the player reaches the choices, they are presented with "I'm fine" and "Not great". Selecting one jumps to the corresponding conversation.
 
-#### Multiple Choices
-
-You can have as many choices as you need:
-
-```text
-[NPC]
-What would you like to order?
-- Coffee -> OrderCoffee
-- Tea -> OrderTea
-- Water -> OrderWater
-- Nothing -> OrderNothing
-```
-
 #### Choices with Metadata
 
 Choices support metadata using the same `##` syntax as dialogue lines:
