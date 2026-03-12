@@ -131,9 +131,8 @@ namespace Ibralogue.Parser
 			{
 				if (fragment is TextNode textNode)
 				{
-					string replaced = ReplaceGlobalVariables(textNode.Text, textNode.Span);
-					sb.Append(replaced);
-					charOffset += replaced.Length;
+					sb.Append(textNode.Text);
+					charOffset += textNode.Text.Length;
 				}
 				else if (fragment is VariableReferenceNode varNode)
 				{

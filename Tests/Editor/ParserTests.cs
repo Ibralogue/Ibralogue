@@ -207,5 +207,62 @@ namespace Ibralogue.Editor.Tests
 				Assert.That(kv.Key.Metadata["tag"], Is.EqualTo("important"));
 			}
 		}
+
+		[Test]
+		public void EscapedDoubleBrace_InlineIsLiteralText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\nThis is \\{{not a function}}.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("This is {{not a function}}."));
+			Assert.That(result[0].Lines[0].LineContent.Invocations, Has.Count.EqualTo(0));
+		}
+
+		[Test]
+		public void EscapedDollar_InlineIsLiteralText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\nPrice is \\$100.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Price is $100."));
+		}
+
+		[Test]
+		public void EscapedHash_AtLineStartIsLiteralText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\n\\# This is not a comment.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("# This is not a comment."));
+		}
+
+		[Test]
+		public void EscapedDoubleHash_InlineIsLiteralText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\nSee section \\## for details.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("See section ## for details."));
+			Assert.That(result[0].Lines[0].LineContent.Metadata, Has.Count.EqualTo(0));
+		}
+
+		[Test]
+		public void EscapedBracket_AtLineStartIsLiteralText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[Foo]\n\\[Not a speaker]\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("[Not a speaker]"));
+		}
 	}
 }

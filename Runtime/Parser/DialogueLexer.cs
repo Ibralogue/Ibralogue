@@ -74,7 +74,12 @@ namespace Ibralogue.Parser
 
 			char current = Peek();
 
-			if (current == '#')
+			if (current == '\\' && IsEscapedLineStart())
+			{
+				Advance(); // skip the backslash
+				TokenizeTextLine();
+			}
+			else if (current == '#')
 			{
 				if (PeekNext() == '#')
 					TokenizeMetadata();
@@ -135,7 +140,6 @@ namespace Ibralogue.Parser
 			Advance();
 			Advance();
 
-			// Consume until end of line
 			while (!IsAtEnd() && Peek() != '\n' && Peek() != '\r')
 				Advance();
 
@@ -207,7 +211,6 @@ namespace Ibralogue.Parser
 			Advance();
 			Advance();
 
-			// Read the command name
 			int nameStart = _position;
 			while (!IsAtEnd() && Peek() != '(' && Peek() != '}' && Peek() != '\n' && Peek() != '\r')
 				Advance();
@@ -250,6 +253,12 @@ namespace Ibralogue.Parser
 		{
 			while (!IsAtEnd() && Peek() != '\n' && Peek() != '\r')
 			{
+				if (Peek() == '\\' && IsEscapedInline())
+				{
+					TokenizeTextSegment();
+					continue;
+				}
+
 				if (Peek() == '#' && PeekNext() == '#')
 				{
 					TokenizeMetadata();
@@ -341,6 +350,14 @@ namespace Ibralogue.Parser
 			{
 				char c = Peek();
 
+				// Backslash escape: skip the \ and consume the next character(s) as text
+				if (c == '\\' && IsEscapedInline())
+				{
+					Advance(); // skip the backslash
+					Advance(); // consume the escaped character
+					continue;
+				}
+
 				if (c == '{' && PeekNext() == '{')
 					break;
 				if (c == '$' && IsAlphanumeric(PeekNext()))
@@ -351,11 +368,46 @@ namespace Ibralogue.Parser
 				Advance();
 			}
 
-			string text = Substring(startPos, _position);
+			string lexeme = Substring(startPos, _position);
+			string text = StripEscapeBackslashes(lexeme);
 			if (text.Length > 0)
 			{
-				AddToken(DialogueTokenType.Text, text, text, start);
+				AddToken(DialogueTokenType.Text, lexeme, text, start);
 			}
+		}
+
+		/// <summary>
+		/// Checks whether a backslash at the current position is escaping a
+		/// reserved line-start sequence (#, ##, [, -, or {{).
+		/// </summary>
+		private bool IsEscapedLineStart()
+		{
+			if (_position + 1 >= _source.Length)
+				return false;
+
+			char next = _source[_position + 1];
+			return next == '#' || next == '[' || next == '-' || (next == '{' && _position + 2 < _source.Length && _source[_position + 2] == '{');
+		}
+
+		/// <summary>
+		/// Checks whether a backslash at the current position is escaping an
+		/// inline reserved sequence ({{, $, or ##).
+		/// </summary>
+		private bool IsEscapedInline()
+		{
+			if (_position + 1 >= _source.Length)
+				return false;
+
+			char next = _source[_position + 1];
+
+			if (next == '{' && _position + 2 < _source.Length && _source[_position + 2] == '{')
+				return true;
+			if (next == '$')
+				return true;
+			if (next == '#' && _position + 2 < _source.Length && _source[_position + 2] == '#')
+				return true;
+
+			return false;
 		}
 
 		/// <summary>
@@ -481,6 +533,32 @@ namespace Ibralogue.Parser
 		{
 			SourceSpan span = new SourceSpan(start, CurrentPosition());
 			_tokens.Add(new DialogueToken(type, lexeme, value, span));
+		}
+
+		/// <summary>
+		/// Removes backslash escape characters that precede reserved sequences
+		/// ({{, $, ##) from the given text. A literal backslash can be written as \\.
+		/// </summary>
+		private static string StripEscapeBackslashes(string text)
+		{
+			if (text.IndexOf('\\') < 0)
+				return text;
+
+			System.Text.StringBuilder sb = new System.Text.StringBuilder(text.Length);
+			for (int i = 0; i < text.Length; i++)
+			{
+				if (text[i] == '\\' && i + 1 < text.Length)
+				{
+					char next = text[i + 1];
+					// Strip backslash before reserved sequences
+					if (next == '{' || next == '$' || next == '#' || next == '\\')
+					{
+						continue; // skip the backslash, the next char will be appended normally
+					}
+				}
+				sb.Append(text[i]);
+			}
+			return sb.ToString();
 		}
 
 		private static bool IsAlphanumeric(char c)

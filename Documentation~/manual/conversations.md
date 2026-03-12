@@ -49,7 +49,22 @@ dialogueManager.StartConversation(dialogueAsset, startIndex: 1);
 
 #### Jumping Between Conversations
 
-You can jump to a conversation by name at runtime using `JumpTo`:
+You can jump to a conversation by name directly in a dialogue file using the `{{Jump(...)}}` command:
+
+```text
+{{ConversationName(Greeting)}}
+[NPC]
+{{Jump(Farewell)}}
+Hello, traveller.
+
+{{ConversationName(Farewell)}}
+[NPC]
+Safe travels, friend.
+```
+
+After the player advances past "Hello, traveller.", the engine automatically switches to the "Farewell" conversation. See the [Jumps](jumps.md) page for more.
+
+You can also jump from code at runtime using `JumpTo`:
 
 ```cs
 dialogueManager.JumpTo("Farewell");
