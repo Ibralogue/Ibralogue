@@ -81,7 +81,7 @@
 <h3 id="jumps">Jumps</h3>
 <p>The <code>Jump</code> command lets you automatically move from one conversation to another without requiring a player choice. When the dialogue line finishes displaying, the engine switches to the target conversation.</p>
 <h4 id="basic-syntax">Basic Syntax</h4>
-<p>Use <code>{{Jump(...)}}</code> on its own line within a dialogue line, the same way you would use <code>{{Image(...)}}</code>:</p>
+<p>Use <code>{{Jump(...)}}</code> on its own line within a dialogue line.</p>
 <pre><code class="lang-text">{{ConversationName(Greeting)}}
 [NPC]
 {{Jump(Farewell)}}
@@ -103,13 +103,6 @@ This line will also jump after it finishes.
 {{Jump(NextConversation)}}
 </code></pre>
 <p>Both forms are equivalent. The jump always happens after the player advances past the line.</p>
-<h4 id="combining-with-images">Combining with Images</h4>
-<p><code>{{Jump(...)}}</code> and <code>{{Image(...)}}</code> can both appear on the same dialogue line:</p>
-<pre><code class="lang-text">[NPC]
-{{Image(Portraits/NpcWaving)}}
-{{Jump(Farewell)}}
-See you later!
-</code></pre>
 <h4 id="variables-in-jump-targets">Variables in Jump Targets</h4>
 <p>Jump targets support <a href="global-variables.html">global variables</a>:</p>
 <pre><code class="lang-text">[NPC]
@@ -117,8 +110,6 @@ See you later!
 Moving on...
 </code></pre>
 <p>The variable is resolved at parse time, just like variables in dialogue text.</p>
-<h4 id="jumps-vs-choices">Jumps vs Choices</h4>
-<p><a href="choices.html">Choices</a> present the player with options that branch the dialogue. Jumps are unconditional — the engine switches to the target conversation with no player input required. Use jumps when the flow should continue to a specific conversation automatically.</p>
 
 </article>
           </div>

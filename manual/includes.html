@@ -97,13 +97,6 @@ How are you?
 <pre><code class="lang-text">{{Include(SharedChoices, FineResponse)}}
 </code></pre>
 <p>This will only pull in the <code>FineResponse</code> conversation block from the file.</p>
-<h4 id="quoted-arguments">Quoted Arguments</h4>
-<p>Arguments can optionally be wrapped in quotes. These are equivalent:</p>
-<pre><code class="lang-text">{{Include(SharedChoices)}}
-{{Include(&quot;SharedChoices&quot;)}}
-{{Include(SharedChoices, FineResponse)}}
-{{Include(&quot;SharedChoices&quot;, &quot;FineResponse&quot;)}}
-</code></pre>
 <h4 id="recursive-includes">Recursive Includes</h4>
 <p>Included files can themselves contain <code>{{Include(...)}}</code> directives. Ibralogue will expand them recursively.</p>
 <p>Circular includes (where file A includes file B which includes file A) are detected and reported as an error.</p>

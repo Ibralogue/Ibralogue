@@ -225,76 +225,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Global.IMetadata.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.IMetadata.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "IMetadata",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.SingleInteraction.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.SingleInteraction.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "SingleInteraction",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.TypewriterDialogueManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.TypewriterDialogueManager.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "TypewriterDialogueManager",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Global.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Global.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Global",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueAsset.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.DialogueAsset.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.DialogueAsset",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "ref/Ibralogue.DialogueEngineBase.yml",
       "output": {
         ".html": {
@@ -347,48 +277,6 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Ibralogue.DialogueLogger",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.yml\" sourcestartlinenumber=\"2\">Represent a single spawned choice button, contains general information about said button</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueManagerBase-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.DialogueManagerBase-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.DialogueManagerBase<ChoiceButtonT>",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueParser.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.DialogueParser.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.DialogueParser",
       "Summary": null
     },
     {
@@ -502,20 +390,6 @@
       "IsMRef": true,
       "Title": "Ibralogue.Interactions.RandomInteraction",
       "Summary": "<p sourcefile=\"ref/Ibralogue.Interactions.RandomInteraction.yml\" sourcestartlinenumber=\"1\">Plays a random dialogue from within the interaction dialogue array.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.RoundRobinInteraction.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.Interactions.RoundRobinInteraction",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.Interactions.RoundRobinInteraction.yml\" sourcestartlinenumber=\"2\">Loops through each dialogue one by one and stops at the last one unless &quot;Loop&quot; is checked in which case it starts from the first dialogue.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -781,20 +655,6 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Ibralogue.SimpleDialogueEngine",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.SimpleDialogueManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.SimpleDialogueManager.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.SimpleDialogueManager",
       "Summary": null
     },
     {
