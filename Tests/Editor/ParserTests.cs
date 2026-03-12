@@ -128,7 +128,39 @@ namespace Ibralogue.Editor.Tests
 
 			Assert.That(result[0].Lines[0].LineContent.Invocations, Has.Count.EqualTo(1));
 			Assert.That(result[0].Lines[0].LineContent.Invocations.Any(i => i.Name == "GetDay"));
+			Assert.That(result[0].Lines[0].LineContent.Invocations[0].Arguments, Has.Count.EqualTo(0));
 			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Today is ."));
+		}
+
+		[Test]
+		public void InlineFunction_WithSingleArgument_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nYou owe {{FormatGold(500)}} coins.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Assert.That(invocation.Name, Is.EqualTo("FormatGold"));
+			Assert.That(invocation.Arguments, Has.Count.EqualTo(1));
+			Assert.That(invocation.Arguments[0], Is.EqualTo("500"));
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("You owe  coins."));
+		}
+
+		[Test]
+		public void InlineFunction_WithMultipleArguments_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nThe answer is {{Add(3, 4)}}.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Assert.That(invocation.Name, Is.EqualTo("Add"));
+			Assert.That(invocation.Arguments, Has.Count.EqualTo(2));
+			Assert.That(invocation.Arguments[0], Is.EqualTo("3"));
+			Assert.That(invocation.Arguments[1], Is.EqualTo("4"));
+			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("The answer is ."));
 		}
 
 		[Test]
