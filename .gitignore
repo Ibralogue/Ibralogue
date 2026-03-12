@@ -47,7 +47,10 @@ sysinfo.txt
 
 crashlytics-build.properties
 
-# TextMeshPro Depdendency
+# TextMeshPro Dependency
 TextMesh Pro
 TextMesh Pro.meta
+
+# DocFX metadata references
+Documentation~/unity_refs/
 _site.meta

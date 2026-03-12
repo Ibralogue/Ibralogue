@@ -3,6 +3,7 @@
     {
       "dest": "ref",
       "filter": "filterConfig.yml",
+      "allowCompilationErrors": true,
       "globalNamespaceId": "Global",
       "src": [
         {

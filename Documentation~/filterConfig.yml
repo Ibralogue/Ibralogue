@@ -2,3 +2,6 @@ apiRules:
   - include:
       uidRegex: ^Ibralogue
       type: Namespace
+  - exclude:
+    uidRegex: .*
+    type: Namespace
