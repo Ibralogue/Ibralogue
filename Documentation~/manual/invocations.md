@@ -1,65 +1,77 @@
-### Invocations
+### Function Invocations
 
-Invocations are a very powerful feature in Ibralogue. They allow you to invoke static functions directly from Ibralogue, and also to define character portraits. they are enclosed like so: `{{Foo}}`. The type of the invocation and name are separated between colons. If the type of an invocation is not supplied, it will automatically be inferred as a function invocation.
+Function invocations allow you to call static C# methods directly from your dialogue files. They are enclosed in double curly braces: `{{FunctionName}}`.
 
-#### Function Invocation
+#### Defining a Dialogue Function
 
-Static functions can be invoked directly from Ibralogue. To set up a static function to be recognized by Ibralogue, add the `DialogueFunction` attribute like so:
+Any static method with the `[DialogueFunction]` attribute can be invoked from Ibralogue:
 
 ```cs
 [DialogueFunction]
-public static void Die() 
+public static void Die()
 {
     Debug.Log("Dead.");
 }
 ```
 
-...and invoking the function is extremely simple! It would look something like this:
+#### Invoking from Dialogue
 
 ```text
 [NPC]
-Time To Die.
+Time to die.
 {{Die}}
 ```
 
-#### Image Invocation
+When this line is displayed, the `Die` method is called.
 
-Character portraits are really important in a lot of story games, and Ibralogue cant forget them. Ibralogue makes use of [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html) to load images directly from dialogue files.
+#### Functions that Return Strings
 
-To use Image invocations, make a Resources folder anywhere in your project and then specify directories relative from that folder in the dialogue file. For example:
+If a dialogue function returns a `string`, the return value is inserted directly into the dialogue text at the position of the invocation. This is useful for injecting dynamic content like dates, names, or computed values.
 
-- With a file located in `./Assets/Sprites/Resources/CharacterPortraits/AvaSmiling.png`, do:
-
-```text
-[Ava]
-{{Image(CharacterPortraits/AvaSmiling.png)}}
-It's a beautiful day outside!
+```cs
+[DialogueFunction]
+public static string GetDay()
+{
+    return System.DateTime.Now.DayOfWeek.ToString();
+}
 ```
 
-#### Choice Invocations
-
-- `{{DialogueName(Foo)}}` allows you to specify the name of a given `Conversation`. This is required for branching dialogue so the interpreter knows what conversation to branch to.
-
- For example:
-
 ```text
-{{DialogueName(Initial)}}
 [NPC]
-Time To Die
-- No -> Denial
-- Sure -> Acceptance
-
-{{DialogueName(Denial)}}
-[Player]
-Did you really think...
-I came this far...
-[Player]
-To give up now? HAHAHAHA
-
-
-{{DialogueName(Acceptance)}}
-[Player]
-Y'know what?
-[Player]
-Maybe you're right... I am tired of life.
+Today is {{GetDay}}.
 ```
+
+The player would see something like "Today is Wednesday." depending on the current day.
+
+#### Accessing the Engine from a Function
+
+A dialogue function can optionally accept a `DialogueEngineBase` parameter. When it does, Ibralogue passes the current engine instance, giving the function access to the full engine API.
+
+```cs
+[DialogueFunction]
+public static void PauseForDrama(DialogueEngineBase engine)
+{
+    engine.PauseConversation();
+    // Resume after some delay elsewhere
+}
+```
+
+This works for both void and string-returning functions:
+
+```cs
+[DialogueFunction]
+public static string CurrentSpeaker(DialogueEngineBase engine)
+{
+    var conversation = engine.ParsedConversations[0];
+    return conversation.Lines[0].Speaker;
+}
+```
+
+If the function has no parameters, Ibralogue calls it without arguments as usual.
+
+#### Assembly Search
+
+By default, Ibralogue searches for dialogue functions in `Assembly-CSharp` and its own assembly. If your dialogue functions live in other assemblies, you can configure this on the `SimpleDialogueEngine` component:
+
+- **Search All Assemblies**: Enable this to search every loaded assembly.
+- **Included Assemblies**: Add specific assembly names to the search list.

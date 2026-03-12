@@ -4,9 +4,33 @@
   items:
     - name: Basic Syntax
       href: basic-syntax.md
+    - name: Conversations
+      href: conversations.md
+    - name: Choices
+      href: choices.md
+    - name: Jumps
+      href: jumps.md
     - name: Global Variables
       href: global-variables.md
-    - name: Invocations
-      href: invocations.md
-    - name: Comments
+    - name: Comments & Metadata
       href: comments.md
+    - name: Function Invocations
+      href: invocations.md
+    - name: Includes
+      href: includes.md
+    - name: Rich Text
+      href: rich-text.md
+    - name: Escape Sequences
+      href: escape-sequences.md
+- name: Engine
+  items:
+    - name: Dialogue Views
+      href: dialogue-views.md
+    - name: Interactions
+      href: interactions.md
+    - name: Engine Plugins
+      href: engine-plugins.md
+    - name: Pause and Resume
+      href: pause-and-resume.md
+    - name: Events
+      href: events.md

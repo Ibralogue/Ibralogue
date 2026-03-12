@@ -1,3 +1,2 @@
 [NPC]
 Hello World!
-{{DialogueEnd}}

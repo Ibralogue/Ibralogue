@@ -198,24 +198,27 @@ namespace Ibralogue
         /// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
         /// </summary>
         /// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
-        protected virtual void InvokeFunctions(Dictionary<int, string> functionInvocations)
+        protected virtual void InvokeFunctions(List<FunctionInvocation> functionInvocations)
         {
             IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
 
             if (functionInvocations != null)
             {
-                foreach (KeyValuePair<int, string> function in functionInvocations)
+                foreach (FunctionInvocation function in functionInvocations)
                 {
+                    bool found = false;
+
                     foreach (MethodInfo methodInfo in dialogueMethods)
                     {
-                        if (methodInfo.Name != function.Value)
+                        if (methodInfo.Name != function.Name)
                             continue;
+
+                        found = true;
 
                         if (methodInfo.ReturnType == typeof(string))
                         {
-
                             string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
-                            _currentConversation.Lines[_lineIndex].LineContent.Text = _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.Key, replacedText);
+                            _currentConversation.Lines[_lineIndex].LineContent.Text = _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.CharacterIndex, replacedText);
 
                             dialogueView.SetView(_currentConversation, _lineIndex);
                         }
@@ -231,6 +234,12 @@ namespace Ibralogue
                             }
                         }
                     }
+
+                    if (!found)
+                    {
+                        Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                            $"No [DialogueFunction] method found for invocation '{function.Name}'");
+                    }
                 }
 
             }
@@ -245,6 +254,14 @@ namespace Ibralogue
             if (_linePlaying) return;
             if (_currentConversation == null) return;
             //if (_choiceButtonInstances.Count > 0) return;
+
+            // Check if the current line has a jump target
+            string jumpTarget = _currentConversation.Lines[_lineIndex].JumpTarget;
+            if (!string.IsNullOrEmpty(jumpTarget))
+            {
+                JumpTo(jumpTarget);
+                return;
+            }
 
             _linePlaying = false;
             dialogueView.ClearView(enginePlugins);

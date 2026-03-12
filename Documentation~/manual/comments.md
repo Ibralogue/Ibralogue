@@ -1,6 +1,6 @@
 ### Comments
 
-`#` is used to denote comments. There are no "block" comments.
+`#` is used to denote comments. Commented lines are ignored by the parser. There are no block comments.
 
 ```text
 # Reminder: Need to rephrase this
@@ -8,41 +8,55 @@
 Time to die.
 ```
 
-### Metadata
-A double-hashtag `##` can be used instead to denote metadata. This metadata can then be accessed via the `DialogueManager`:
-```
+Comments can also appear between dialogue lines:
+
+```text
 [NPC]
-Nice to meet you! ## option-1
+Hello there.
+# The next line is intentionally dramatic
+[NPC]
+We need to talk.
 ```
 
-...which can then be accessed via code like so:
+### Metadata
+
+A double-hashtag `##` denotes metadata. Metadata is attached to the dialogue line it appears on and can be accessed from code.
+
+```text
+[NPC]
+Nice to meet you! ## greeting
+```
+
+You can check for metadata on a line like so:
+
 ```cs
-private void GetOption() 
+if (dialogueManager.ParsedConversations[0].Lines[0].HasMetadata("greeting"))
 {
-    if(dialogueManager.ParsedConversations[0].Lines[0].HasMetadata("option-1"))
-    {
-        Debug.Log("Line has the specified metadata string.");
-    }
+    Debug.Log("This line is a greeting.");
 }
 ```
 
-One line can contain more than one piece of metadata, these are separated via spaces:
-```
+#### Multiple Metadata Tags
+
+One line can carry more than one piece of metadata, separated by spaces:
+
+```text
 [NPC]
 This is a sentence with a lot of metadata. ## cool funny epic sad
 ```
-```cs
-private void GetOption() 
-{
-    foreach(var pair in dialogueManager.ParsedConversations[0].Lines[0].Metadata)
-    {
-        Debug.Log(pair.Key); // will log cool, funny, epic, sad
-    }
-}
-```
 
-Metadata can have keys and values associated with it.
-```
+#### Key-Value Metadata
+
+Metadata can also carry key-value pairs, separated by a colon:
+
+```text
 [NPC]
 Today is a sad day. ## emotion:sad
+```
+
+```cs
+if (dialogueManager.ParsedConversations[0].Lines[0].TryGetMetadata("emotion", out string value))
+{
+    Debug.Log(value); // "sad"
+}
 ```
