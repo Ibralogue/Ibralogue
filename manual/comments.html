@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Comments | Ibralogue Docs </title>
+    <title> | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Comments | Ibralogue Docs ">
-    <meta name="generator" content="docfx 2.59.4.0">
-    
+    <meta name="title" content=" | Ibralogue Docs ">
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    
+  
+  <meta property="docfx:rel" content="../">
+  
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
@@ -47,7 +47,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -57,17 +57,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -77,58 +77,68 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h3 id="comments">Comments</h3>
 
-<p><code>#</code> is used to denote comments. There are no &quot;block&quot; comments.</p>
+<h3 id="comments">Comments</h3>
+<p><code>#</code> is used to denote comments. Commented lines are ignored by the parser. There are no block comments.</p>
 <pre><code class="lang-text"># Reminder: Need to rephrase this
 [NPC]
 Time to die.
-</code></pre><h3 id="metadata">Metadata</h3>
-<p>A double-hashtag <code>##</code> can be used instead to denote metadata. This metadata can then be accessed via the <code>DialogueManager</code>:</p>
-<pre><code>[NPC]
-Nice to meet you! ## option-1
-</code></pre><p>...which can then be accessed via code like so:</p>
-<pre><code class="lang-cs">private void GetOption() 
+</code></pre>
+<p>Comments can also appear between dialogue lines:</p>
+<pre><code class="lang-text">[NPC]
+Hello there.
+# The next line is intentionally dramatic
+[NPC]
+We need to talk.
+</code></pre>
+<h3 id="metadata">Metadata</h3>
+<p>A double-hashtag <code>##</code> denotes metadata. Metadata is attached to the dialogue line it appears on and can be accessed from code.</p>
+<pre><code class="lang-text">[NPC]
+Nice to meet you! ## greeting
+</code></pre>
+<p>You can check for metadata on a line like so:</p>
+<pre><code class="lang-cs">if (dialogueManager.ParsedConversations[0].Lines[0].HasMetadata(&quot;greeting&quot;))
 {
-    if(dialogueManager.ParsedConversations[0].Lines[0].HasMetadata(&quot;option-1&quot;))
-    {
-        Debug.Log(&quot;Line has the specified metadata string.&quot;);
-    }
+    Debug.Log(&quot;This line is a greeting.&quot;);
 }
-</code></pre><p>One line can contain more than one piece of metadata, these are separated via spaces:</p>
-<pre><code>[NPC]
+</code></pre>
+<h4 id="multiple-metadata-tags">Multiple Metadata Tags</h4>
+<p>One line can carry more than one piece of metadata, separated by spaces:</p>
+<pre><code class="lang-text">[NPC]
 This is a sentence with a lot of metadata. ## cool funny epic sad
-</code></pre><pre><code class="lang-cs">private void GetOption() 
-{
-    foreach(var pair in dialogueManager.ParsedConversations[0].Lines[0].Metadata)
-    {
-        Debug.Log(pair.Key); // will log cool, funny, epic, sad
-    }
-}
-</code></pre><p>Metadata can have keys and values associated with it.</p>
-<pre><code>[NPC]
+</code></pre>
+<h4 id="key-value-metadata">Key-Value Metadata</h4>
+<p>Metadata can also carry key-value pairs, separated by a colon:</p>
+<pre><code class="lang-text">[NPC]
 Today is a sad day. ## emotion:sad
-</code></pre></article>
+</code></pre>
+<pre><code class="lang-cs">if (dialogueManager.ParsedConversations[0].Lines[0].TryGetMetadata(&quot;emotion&quot;, out string value))
+{
+    Debug.Log(value); // &quot;sad&quot;
+}
+</code></pre>
+
+</article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/comments.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/comments.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -136,14 +146,14 @@ Today is a sad day. ## emotion:sad
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Ibralogue Docs
-            
+      Ibralogue Docs
+      
           </div>
         </div>
       </footer>
     </div>
-    
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

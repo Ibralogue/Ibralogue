@@ -1,12 +1,410 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: Global
+  name: Global
+  href: ref/Global.html
+  name.vb: ''
+  fullName: Global
+  fullName.vb: ''
+  nameWithType: Global
+  nameWithType.vb: ''
+- uid: Global.IMetadata
+  name: IMetadata
+  href: ref/Global.IMetadata.html
+  commentId: T:Global.IMetadata
+  fullName: IMetadata
+  nameWithType: IMetadata
+- uid: Global.IMetadata.HasMetadata(System.String)
+  name: HasMetadata(String)
+  href: ref/Global.IMetadata.html#Global_IMetadata_HasMetadata_System_String_
+  commentId: M:Global.IMetadata.HasMetadata(System.String)
+  fullName: IMetadata.HasMetadata(System.String)
+  nameWithType: IMetadata.HasMetadata(String)
+- uid: Global.IMetadata.HasMetadata*
+  name: HasMetadata
+  href: ref/Global.IMetadata.html#Global_IMetadata_HasMetadata_
+  commentId: Overload:Global.IMetadata.HasMetadata
+  isSpec: "True"
+  fullName: IMetadata.HasMetadata
+  nameWithType: IMetadata.HasMetadata
+- uid: Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  name: TryGetMetadataValue(String, out String)
+  href: ref/Global.IMetadata.html#Global_IMetadata_TryGetMetadataValue_System_String_System_String__
+  commentId: M:Global.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  name.vb: TryGetMetadataValue(String, ByRef String)
+  fullName: IMetadata.TryGetMetadataValue(System.String, out System.String)
+  fullName.vb: IMetadata.TryGetMetadataValue(System.String, ByRef System.String)
+  nameWithType: IMetadata.TryGetMetadataValue(String, out String)
+  nameWithType.vb: IMetadata.TryGetMetadataValue(String, ByRef String)
+- uid: Global.IMetadata.TryGetMetadataValue*
+  name: TryGetMetadataValue
+  href: ref/Global.IMetadata.html#Global_IMetadata_TryGetMetadataValue_
+  commentId: Overload:Global.IMetadata.TryGetMetadataValue
+  isSpec: "True"
+  fullName: IMetadata.TryGetMetadataValue
+  nameWithType: IMetadata.TryGetMetadataValue
+- uid: Global.SingleInteraction
+  name: SingleInteraction
+  href: ref/Global.SingleInteraction.html
+  commentId: T:Global.SingleInteraction
+  fullName: SingleInteraction
+  nameWithType: SingleInteraction
+- uid: Global.SingleInteraction.StartDialogue
+  name: StartDialogue()
+  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue
+  commentId: M:Global.SingleInteraction.StartDialogue
+  fullName: SingleInteraction.StartDialogue()
+  nameWithType: SingleInteraction.StartDialogue()
+- uid: Global.SingleInteraction.StartDialogue*
+  name: StartDialogue
+  href: ref/Global.SingleInteraction.html#Global_SingleInteraction_StartDialogue_
+  commentId: Overload:Global.SingleInteraction.StartDialogue
+  isSpec: "True"
+  fullName: SingleInteraction.StartDialogue
+  nameWithType: SingleInteraction.StartDialogue
+- uid: Global.TypewriterDialogueManager
+  name: TypewriterDialogueManager
+  href: ref/Global.TypewriterDialogueManager.html
+  commentId: T:Global.TypewriterDialogueManager
+  fullName: TypewriterDialogueManager
+  nameWithType: TypewriterDialogueManager
+- uid: Global.TypewriterDialogueManager.ClearDialogueBox
+  name: ClearDialogueBox()
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_ClearDialogueBox
+  commentId: M:Global.TypewriterDialogueManager.ClearDialogueBox
+  fullName: TypewriterDialogueManager.ClearDialogueBox()
+  nameWithType: TypewriterDialogueManager.ClearDialogueBox()
+- uid: Global.TypewriterDialogueManager.ClearDialogueBox*
+  name: ClearDialogueBox
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_ClearDialogueBox_
+  commentId: Overload:Global.TypewriterDialogueManager.ClearDialogueBox
+  isSpec: "True"
+  fullName: TypewriterDialogueManager.ClearDialogueBox
+  nameWithType: TypewriterDialogueManager.ClearDialogueBox
+- uid: Global.TypewriterDialogueManager.DisplayDialogue
+  name: DisplayDialogue()
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_DisplayDialogue
+  commentId: M:Global.TypewriterDialogueManager.DisplayDialogue
+  fullName: TypewriterDialogueManager.DisplayDialogue()
+  nameWithType: TypewriterDialogueManager.DisplayDialogue()
+- uid: Global.TypewriterDialogueManager.DisplayDialogue*
+  name: DisplayDialogue
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_DisplayDialogue_
+  commentId: Overload:Global.TypewriterDialogueManager.DisplayDialogue
+  isSpec: "True"
+  fullName: TypewriterDialogueManager.DisplayDialogue
+  nameWithType: TypewriterDialogueManager.DisplayDialogue
+- uid: Global.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  name: InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_InvokeFunctionsTimed_System_Int32_Dictionary_System_Int32_System_String__
+  commentId: M:Global.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
+  name.vb: InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
+  fullName: TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary<System.Int32, System.String>)
+  fullName.vb: TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary(Of System.Int32, System.String))
+  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
+  nameWithType.vb: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
+- uid: Global.TypewriterDialogueManager.InvokeFunctionsTimed*
+  name: InvokeFunctionsTimed
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_InvokeFunctionsTimed_
+  commentId: Overload:Global.TypewriterDialogueManager.InvokeFunctionsTimed
+  isSpec: "True"
+  fullName: TypewriterDialogueManager.InvokeFunctionsTimed
+  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed
+- uid: Global.TypewriterDialogueManager.SkipLineAnimation
+  name: SkipLineAnimation()
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_SkipLineAnimation
+  commentId: M:Global.TypewriterDialogueManager.SkipLineAnimation
+  fullName: TypewriterDialogueManager.SkipLineAnimation()
+  nameWithType: TypewriterDialogueManager.SkipLineAnimation()
+- uid: Global.TypewriterDialogueManager.SkipLineAnimation*
+  name: SkipLineAnimation
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_SkipLineAnimation_
+  commentId: Overload:Global.TypewriterDialogueManager.SkipLineAnimation
+  isSpec: "True"
+  fullName: TypewriterDialogueManager.SkipLineAnimation
+  nameWithType: TypewriterDialogueManager.SkipLineAnimation
+- uid: Global.TypewriterDialogueManager.TryAdvanceDialogue
+  name: TryAdvanceDialogue()
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_TryAdvanceDialogue
+  commentId: M:Global.TypewriterDialogueManager.TryAdvanceDialogue
+  fullName: TypewriterDialogueManager.TryAdvanceDialogue()
+  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue()
+- uid: Global.TypewriterDialogueManager.TryAdvanceDialogue*
+  name: TryAdvanceDialogue
+  href: ref/Global.TypewriterDialogueManager.html#Global_TypewriterDialogueManager_TryAdvanceDialogue_
+  commentId: Overload:Global.TypewriterDialogueManager.TryAdvanceDialogue
+  isSpec: "True"
+  fullName: TypewriterDialogueManager.TryAdvanceDialogue
+  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue
 - uid: Ibralogue
   name: Ibralogue
   href: ref/Ibralogue.html
   commentId: N:Ibralogue
   fullName: Ibralogue
   nameWithType: Ibralogue
+- uid: Ibralogue.DialogueAsset
+  name: DialogueAsset
+  href: ref/Ibralogue.DialogueAsset.html
+  commentId: T:Ibralogue.DialogueAsset
+  fullName: Ibralogue.DialogueAsset
+  nameWithType: DialogueAsset
+- uid: Ibralogue.DialogueAsset.Content
+  name: Content
+  href: ref/Ibralogue.DialogueAsset.html#Ibralogue_DialogueAsset_Content
+  commentId: P:Ibralogue.DialogueAsset.Content
+  fullName: Ibralogue.DialogueAsset.Content
+  nameWithType: DialogueAsset.Content
+- uid: Ibralogue.DialogueAsset.Content*
+  name: Content
+  href: ref/Ibralogue.DialogueAsset.html#Ibralogue_DialogueAsset_Content_
+  commentId: Overload:Ibralogue.DialogueAsset.Content
+  isSpec: "True"
+  fullName: Ibralogue.DialogueAsset.Content
+  nameWithType: DialogueAsset.Content
+- uid: Ibralogue.DialogueEngineBase
+  name: DialogueEngineBase
+  href: ref/Ibralogue.DialogueEngineBase.html
+  commentId: T:Ibralogue.DialogueEngineBase
+  fullName: Ibralogue.DialogueEngineBase
+  nameWithType: DialogueEngineBase
+- uid: Ibralogue.DialogueEngineBase.DisplayDialogue
+  name: DisplayDialogue()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_DisplayDialogue
+  commentId: M:Ibralogue.DialogueEngineBase.DisplayDialogue
+  fullName: Ibralogue.DialogueEngineBase.DisplayDialogue()
+  nameWithType: DialogueEngineBase.DisplayDialogue()
+- uid: Ibralogue.DialogueEngineBase.DisplayDialogue*
+  name: DisplayDialogue
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_DisplayDialogue_
+  commentId: Overload:Ibralogue.DialogueEngineBase.DisplayDialogue
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.DisplayDialogue
+  nameWithType: DialogueEngineBase.DisplayDialogue
+- uid: Ibralogue.DialogueEngineBase.GetDialogueMethods
+  name: GetDialogueMethods()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_GetDialogueMethods
+  commentId: M:Ibralogue.DialogueEngineBase.GetDialogueMethods
+  fullName: Ibralogue.DialogueEngineBase.GetDialogueMethods()
+  nameWithType: DialogueEngineBase.GetDialogueMethods()
+- uid: Ibralogue.DialogueEngineBase.GetDialogueMethods*
+  name: GetDialogueMethods
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_GetDialogueMethods_
+  commentId: Overload:Ibralogue.DialogueEngineBase.GetDialogueMethods
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.GetDialogueMethods
+  nameWithType: DialogueEngineBase.GetDialogueMethods
+- uid: Ibralogue.DialogueEngineBase.InvokeFunctions(System.Collections.Generic.List{Ibralogue.Parser.FunctionInvocation})
+  name: InvokeFunctions(List<FunctionInvocation>)
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_InvokeFunctions_System_Collections_Generic_List_Ibralogue_Parser_FunctionInvocation__
+  commentId: M:Ibralogue.DialogueEngineBase.InvokeFunctions(System.Collections.Generic.List{Ibralogue.Parser.FunctionInvocation})
+  name.vb: InvokeFunctions(List(Of FunctionInvocation))
+  fullName: Ibralogue.DialogueEngineBase.InvokeFunctions(System.Collections.Generic.List<Ibralogue.Parser.FunctionInvocation>)
+  fullName.vb: Ibralogue.DialogueEngineBase.InvokeFunctions(System.Collections.Generic.List(Of Ibralogue.Parser.FunctionInvocation))
+  nameWithType: DialogueEngineBase.InvokeFunctions(List<FunctionInvocation>)
+  nameWithType.vb: DialogueEngineBase.InvokeFunctions(List(Of FunctionInvocation))
+- uid: Ibralogue.DialogueEngineBase.InvokeFunctions*
+  name: InvokeFunctions
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_InvokeFunctions_
+  commentId: Overload:Ibralogue.DialogueEngineBase.InvokeFunctions
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.InvokeFunctions
+  nameWithType: DialogueEngineBase.InvokeFunctions
+- uid: Ibralogue.DialogueEngineBase.IsConversationPaused
+  name: IsConversationPaused()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_IsConversationPaused
+  commentId: M:Ibralogue.DialogueEngineBase.IsConversationPaused
+  fullName: Ibralogue.DialogueEngineBase.IsConversationPaused()
+  nameWithType: DialogueEngineBase.IsConversationPaused()
+- uid: Ibralogue.DialogueEngineBase.IsConversationPaused*
+  name: IsConversationPaused
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_IsConversationPaused_
+  commentId: Overload:Ibralogue.DialogueEngineBase.IsConversationPaused
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.IsConversationPaused
+  nameWithType: DialogueEngineBase.IsConversationPaused
+- uid: Ibralogue.DialogueEngineBase.JumpTo(System.String)
+  name: JumpTo(string)
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_JumpTo_System_String_
+  commentId: M:Ibralogue.DialogueEngineBase.JumpTo(System.String)
+  name.vb: JumpTo(String)
+  fullName: Ibralogue.DialogueEngineBase.JumpTo(string)
+  fullName.vb: Ibralogue.DialogueEngineBase.JumpTo(String)
+  nameWithType: DialogueEngineBase.JumpTo(string)
+  nameWithType.vb: DialogueEngineBase.JumpTo(String)
+- uid: Ibralogue.DialogueEngineBase.JumpTo*
+  name: JumpTo
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_JumpTo_
+  commentId: Overload:Ibralogue.DialogueEngineBase.JumpTo
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.JumpTo
+  nameWithType: DialogueEngineBase.JumpTo
+- uid: Ibralogue.DialogueEngineBase.OnConversationEnd
+  name: OnConversationEnd
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_OnConversationEnd
+  commentId: F:Ibralogue.DialogueEngineBase.OnConversationEnd
+  fullName: Ibralogue.DialogueEngineBase.OnConversationEnd
+  nameWithType: DialogueEngineBase.OnConversationEnd
+- uid: Ibralogue.DialogueEngineBase.OnConversationPaused
+  name: OnConversationPaused
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_OnConversationPaused
+  commentId: F:Ibralogue.DialogueEngineBase.OnConversationPaused
+  fullName: Ibralogue.DialogueEngineBase.OnConversationPaused
+  nameWithType: DialogueEngineBase.OnConversationPaused
+- uid: Ibralogue.DialogueEngineBase.OnConversationResumed
+  name: OnConversationResumed
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_OnConversationResumed
+  commentId: F:Ibralogue.DialogueEngineBase.OnConversationResumed
+  fullName: Ibralogue.DialogueEngineBase.OnConversationResumed
+  nameWithType: DialogueEngineBase.OnConversationResumed
+- uid: Ibralogue.DialogueEngineBase.OnConversationStart
+  name: OnConversationStart
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_OnConversationStart
+  commentId: F:Ibralogue.DialogueEngineBase.OnConversationStart
+  fullName: Ibralogue.DialogueEngineBase.OnConversationStart
+  nameWithType: DialogueEngineBase.OnConversationStart
+- uid: Ibralogue.DialogueEngineBase.ParsedConversations
+  name: ParsedConversations
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_ParsedConversations
+  commentId: P:Ibralogue.DialogueEngineBase.ParsedConversations
+  fullName: Ibralogue.DialogueEngineBase.ParsedConversations
+  nameWithType: DialogueEngineBase.ParsedConversations
+- uid: Ibralogue.DialogueEngineBase.ParsedConversations*
+  name: ParsedConversations
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_ParsedConversations_
+  commentId: Overload:Ibralogue.DialogueEngineBase.ParsedConversations
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.ParsedConversations
+  nameWithType: DialogueEngineBase.ParsedConversations
+- uid: Ibralogue.DialogueEngineBase.PauseConversation
+  name: PauseConversation()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_PauseConversation
+  commentId: M:Ibralogue.DialogueEngineBase.PauseConversation
+  fullName: Ibralogue.DialogueEngineBase.PauseConversation()
+  nameWithType: DialogueEngineBase.PauseConversation()
+- uid: Ibralogue.DialogueEngineBase.PauseConversation*
+  name: PauseConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_PauseConversation_
+  commentId: Overload:Ibralogue.DialogueEngineBase.PauseConversation
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.PauseConversation
+  nameWithType: DialogueEngineBase.PauseConversation
+- uid: Ibralogue.DialogueEngineBase.PersistentOnConversationEnd
+  name: PersistentOnConversationEnd
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_PersistentOnConversationEnd
+  commentId: F:Ibralogue.DialogueEngineBase.PersistentOnConversationEnd
+  fullName: Ibralogue.DialogueEngineBase.PersistentOnConversationEnd
+  nameWithType: DialogueEngineBase.PersistentOnConversationEnd
+- uid: Ibralogue.DialogueEngineBase.PersistentOnConversationStart
+  name: PersistentOnConversationStart
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_PersistentOnConversationStart
+  commentId: F:Ibralogue.DialogueEngineBase.PersistentOnConversationStart
+  fullName: Ibralogue.DialogueEngineBase.PersistentOnConversationStart
+  nameWithType: DialogueEngineBase.PersistentOnConversationStart
+- uid: Ibralogue.DialogueEngineBase.ResumeConversation
+  name: ResumeConversation()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_ResumeConversation
+  commentId: M:Ibralogue.DialogueEngineBase.ResumeConversation
+  fullName: Ibralogue.DialogueEngineBase.ResumeConversation()
+  nameWithType: DialogueEngineBase.ResumeConversation()
+- uid: Ibralogue.DialogueEngineBase.ResumeConversation*
+  name: ResumeConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_ResumeConversation_
+  commentId: Overload:Ibralogue.DialogueEngineBase.ResumeConversation
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.ResumeConversation
+  nameWithType: DialogueEngineBase.ResumeConversation
+- uid: Ibralogue.DialogueEngineBase.StartConversation(Ibralogue.Parser.DialogueAsset,System.Int32)
+  name: StartConversation(DialogueAsset, int)
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_StartConversation_Ibralogue_Parser_DialogueAsset_System_Int32_
+  commentId: M:Ibralogue.DialogueEngineBase.StartConversation(Ibralogue.Parser.DialogueAsset,System.Int32)
+  name.vb: StartConversation(DialogueAsset, Integer)
+  fullName: Ibralogue.DialogueEngineBase.StartConversation(Ibralogue.Parser.DialogueAsset, int)
+  fullName.vb: Ibralogue.DialogueEngineBase.StartConversation(Ibralogue.Parser.DialogueAsset, Integer)
+  nameWithType: DialogueEngineBase.StartConversation(DialogueAsset, int)
+  nameWithType.vb: DialogueEngineBase.StartConversation(DialogueAsset, Integer)
+- uid: Ibralogue.DialogueEngineBase.StartConversation*
+  name: StartConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_StartConversation_
+  commentId: Overload:Ibralogue.DialogueEngineBase.StartConversation
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.StartConversation
+  nameWithType: DialogueEngineBase.StartConversation
+- uid: Ibralogue.DialogueEngineBase.StopConversation
+  name: StopConversation()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_StopConversation
+  commentId: M:Ibralogue.DialogueEngineBase.StopConversation
+  fullName: Ibralogue.DialogueEngineBase.StopConversation()
+  nameWithType: DialogueEngineBase.StopConversation()
+- uid: Ibralogue.DialogueEngineBase.StopConversation*
+  name: StopConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_StopConversation_
+  commentId: Overload:Ibralogue.DialogueEngineBase.StopConversation
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.StopConversation
+  nameWithType: DialogueEngineBase.StopConversation
+- uid: Ibralogue.DialogueEngineBase.SwitchConversation(Ibralogue.Parser.Conversation)
+  name: SwitchConversation(Conversation)
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_SwitchConversation_Ibralogue_Parser_Conversation_
+  commentId: M:Ibralogue.DialogueEngineBase.SwitchConversation(Ibralogue.Parser.Conversation)
+  fullName: Ibralogue.DialogueEngineBase.SwitchConversation(Ibralogue.Parser.Conversation)
+  nameWithType: DialogueEngineBase.SwitchConversation(Conversation)
+- uid: Ibralogue.DialogueEngineBase.SwitchConversation*
+  name: SwitchConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_SwitchConversation_
+  commentId: Overload:Ibralogue.DialogueEngineBase.SwitchConversation
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.SwitchConversation
+  nameWithType: DialogueEngineBase.SwitchConversation
+- uid: Ibralogue.DialogueEngineBase.TryDisplayNextLine
+  name: TryDisplayNextLine()
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_TryDisplayNextLine
+  commentId: M:Ibralogue.DialogueEngineBase.TryDisplayNextLine
+  fullName: Ibralogue.DialogueEngineBase.TryDisplayNextLine()
+  nameWithType: DialogueEngineBase.TryDisplayNextLine()
+- uid: Ibralogue.DialogueEngineBase.TryDisplayNextLine*
+  name: TryDisplayNextLine
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_TryDisplayNextLine_
+  commentId: Overload:Ibralogue.DialogueEngineBase.TryDisplayNextLine
+  isSpec: "True"
+  fullName: Ibralogue.DialogueEngineBase.TryDisplayNextLine
+  nameWithType: DialogueEngineBase.TryDisplayNextLine
+- uid: Ibralogue.DialogueEngineBase._currentConversation
+  name: _currentConversation
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase__currentConversation
+  commentId: F:Ibralogue.DialogueEngineBase._currentConversation
+  fullName: Ibralogue.DialogueEngineBase._currentConversation
+  nameWithType: DialogueEngineBase._currentConversation
+- uid: Ibralogue.DialogueEngineBase._isPaused
+  name: _isPaused
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase__isPaused
+  commentId: F:Ibralogue.DialogueEngineBase._isPaused
+  fullName: Ibralogue.DialogueEngineBase._isPaused
+  nameWithType: DialogueEngineBase._isPaused
+- uid: Ibralogue.DialogueEngineBase._lineIndex
+  name: _lineIndex
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase__lineIndex
+  commentId: F:Ibralogue.DialogueEngineBase._lineIndex
+  fullName: Ibralogue.DialogueEngineBase._lineIndex
+  nameWithType: DialogueEngineBase._lineIndex
+- uid: Ibralogue.DialogueEngineBase._linePlaying
+  name: _linePlaying
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase__linePlaying
+  commentId: F:Ibralogue.DialogueEngineBase._linePlaying
+  fullName: Ibralogue.DialogueEngineBase._linePlaying
+  nameWithType: DialogueEngineBase._linePlaying
+- uid: Ibralogue.DialogueEngineBase.dialogueView
+  name: dialogueView
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_dialogueView
+  commentId: F:Ibralogue.DialogueEngineBase.dialogueView
+  fullName: Ibralogue.DialogueEngineBase.dialogueView
+  nameWithType: DialogueEngineBase.dialogueView
+- uid: Ibralogue.DialogueEngineBase.enginePlugins
+  name: enginePlugins
+  href: ref/Ibralogue.DialogueEngineBase.html#Ibralogue_DialogueEngineBase_enginePlugins
+  commentId: F:Ibralogue.DialogueEngineBase.enginePlugins
+  fullName: Ibralogue.DialogueEngineBase.enginePlugins
+  nameWithType: DialogueEngineBase.enginePlugins
 - uid: Ibralogue.DialogueFunctionAttribute
   name: DialogueFunctionAttribute
   href: ref/Ibralogue.DialogueFunctionAttribute.html
@@ -32,11 +430,14 @@ references:
   fullName: Ibralogue.DialogueLogger
   nameWithType: DialogueLogger
 - uid: Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)
-  name: LogError(Int32, String, Object)
+  name: LogError(int, string, Object)
   href: ref/Ibralogue.DialogueLogger.html#Ibralogue_DialogueLogger_LogError_System_Int32_System_String_Object_
   commentId: M:Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)
-  fullName: Ibralogue.DialogueLogger.LogError(System.Int32, System.String, Object)
-  nameWithType: DialogueLogger.LogError(Int32, String, Object)
+  name.vb: LogError(Integer, String, Object)
+  fullName: Ibralogue.DialogueLogger.LogError(int, string, Object)
+  fullName.vb: Ibralogue.DialogueLogger.LogError(Integer, String, Object)
+  nameWithType: DialogueLogger.LogError(int, string, Object)
+  nameWithType.vb: DialogueLogger.LogError(Integer, String, Object)
 - uid: Ibralogue.DialogueLogger.LogError*
   name: LogError
   href: ref/Ibralogue.DialogueLogger.html#Ibralogue_DialogueLogger_LogError_
@@ -53,46 +454,6 @@ references:
   fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)
   nameWithType: DialogueManagerBase<ChoiceButtonT>
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)
-- uid: Ibralogue.DialogueManagerBase`1._choiceButtonInstances
-  name: _choiceButtonInstances
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__choiceButtonInstances
-  commentId: F:Ibralogue.DialogueManagerBase`1._choiceButtonInstances
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._choiceButtonInstances
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._choiceButtonInstances
-  nameWithType: DialogueManagerBase<ChoiceButtonT>._choiceButtonInstances
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._choiceButtonInstances
-- uid: Ibralogue.DialogueManagerBase`1._currentConversation
-  name: _currentConversation
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__currentConversation
-  commentId: F:Ibralogue.DialogueManagerBase`1._currentConversation
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._currentConversation
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._currentConversation
-  nameWithType: DialogueManagerBase<ChoiceButtonT>._currentConversation
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._currentConversation
-- uid: Ibralogue.DialogueManagerBase`1._lineIndex
-  name: _lineIndex
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__lineIndex
-  commentId: F:Ibralogue.DialogueManagerBase`1._lineIndex
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._lineIndex
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._lineIndex
-  nameWithType: DialogueManagerBase<ChoiceButtonT>._lineIndex
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._lineIndex
-- uid: Ibralogue.DialogueManagerBase`1._linePlaying
-  name: _linePlaying
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__linePlaying
-  commentId: F:Ibralogue.DialogueManagerBase`1._linePlaying
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._linePlaying
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._linePlaying
-  nameWithType: DialogueManagerBase<ChoiceButtonT>._linePlaying
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._linePlaying
-- uid: Ibralogue.DialogueManagerBase`1.choiceButton
-  name: choiceButton
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_choiceButton
-  commentId: F:Ibralogue.DialogueManagerBase`1.choiceButton
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.choiceButton
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).choiceButton
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.choiceButton
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).choiceButton
 - uid: Ibralogue.DialogueManagerBase`1.ChoiceButtonHandle
   name: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle
   href: ref/Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.html
@@ -170,14 +531,6 @@ references:
   fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
   nameWithType: DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle.ClickEvent
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).ChoiceButtonHandle.ClickEvent
-- uid: Ibralogue.DialogueManagerBase`1.choiceButtonHolder
-  name: choiceButtonHolder
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_choiceButtonHolder
-  commentId: F:Ibralogue.DialogueManagerBase`1.choiceButtonHolder
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.choiceButtonHolder
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).choiceButtonHolder
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.choiceButtonHolder
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).choiceButtonHolder
 - uid: Ibralogue.DialogueManagerBase`1.ClearChoiceButton(Ibralogue.DialogueManagerBase{`0}.ChoiceButtonHandle)
   name: ClearChoiceButton(DialogueManagerBase<ChoiceButtonT>.ChoiceButtonHandle)
   href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_ClearChoiceButton_Ibralogue_DialogueManagerBase__0__ChoiceButtonHandle_
@@ -333,14 +686,6 @@ references:
   fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).JumpTo
   nameWithType: DialogueManagerBase<ChoiceButtonT>.JumpTo
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).JumpTo
-- uid: Ibralogue.DialogueManagerBase`1.nameText
-  name: nameText
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_nameText
-  commentId: F:Ibralogue.DialogueManagerBase`1.nameText
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.nameText
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).nameText
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.nameText
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).nameText
 - uid: Ibralogue.DialogueManagerBase`1.OnConversationEnd
   name: OnConversationEnd
   href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_OnConversationEnd
@@ -428,36 +773,12 @@ references:
   fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).RemoveChoiceButton
   nameWithType: DialogueManagerBase<ChoiceButtonT>.RemoveChoiceButton
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).RemoveChoiceButton
-- uid: Ibralogue.DialogueManagerBase`1.scrollSpeed
-  name: scrollSpeed
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_scrollSpeed
-  commentId: F:Ibralogue.DialogueManagerBase`1.scrollSpeed
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.scrollSpeed
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).scrollSpeed
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.scrollSpeed
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).scrollSpeed
-- uid: Ibralogue.DialogueManagerBase`1.sentenceText
-  name: sentenceText
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_sentenceText
-  commentId: F:Ibralogue.DialogueManagerBase`1.sentenceText
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.sentenceText
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).sentenceText
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.sentenceText
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).sentenceText
-- uid: Ibralogue.DialogueManagerBase`1.speakerPortrait
-  name: speakerPortrait
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_speakerPortrait
-  commentId: F:Ibralogue.DialogueManagerBase`1.speakerPortrait
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.speakerPortrait
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).speakerPortrait
-  nameWithType: DialogueManagerBase<ChoiceButtonT>.speakerPortrait
-  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).speakerPortrait
-- uid: Ibralogue.DialogueManagerBase`1.StartConversation(DialogueAsset,System.Int32)
+- uid: Ibralogue.DialogueManagerBase`1.StartConversation(Ibralogue.DialogueAsset,System.Int32)
   name: StartConversation(DialogueAsset, Int32)
-  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_StartConversation_DialogueAsset_System_Int32_
-  commentId: M:Ibralogue.DialogueManagerBase`1.StartConversation(DialogueAsset,System.Int32)
-  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.StartConversation(DialogueAsset, System.Int32)
-  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).StartConversation(DialogueAsset, System.Int32)
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_StartConversation_Ibralogue_DialogueAsset_System_Int32_
+  commentId: M:Ibralogue.DialogueManagerBase`1.StartConversation(Ibralogue.DialogueAsset,System.Int32)
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.StartConversation(Ibralogue.DialogueAsset, System.Int32)
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).StartConversation(Ibralogue.DialogueAsset, System.Int32)
   nameWithType: DialogueManagerBase<ChoiceButtonT>.StartConversation(DialogueAsset, Int32)
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).StartConversation(DialogueAsset, Int32)
 - uid: Ibralogue.DialogueManagerBase`1.StartConversation*
@@ -503,17 +824,97 @@ references:
   fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).TryDisplayNextLine
   nameWithType: DialogueManagerBase<ChoiceButtonT>.TryDisplayNextLine
   nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).TryDisplayNextLine
+- uid: Ibralogue.DialogueManagerBase`1._choiceButtonInstances
+  name: _choiceButtonInstances
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__choiceButtonInstances
+  commentId: F:Ibralogue.DialogueManagerBase`1._choiceButtonInstances
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._choiceButtonInstances
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._choiceButtonInstances
+  nameWithType: DialogueManagerBase<ChoiceButtonT>._choiceButtonInstances
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._choiceButtonInstances
+- uid: Ibralogue.DialogueManagerBase`1._currentConversation
+  name: _currentConversation
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__currentConversation
+  commentId: F:Ibralogue.DialogueManagerBase`1._currentConversation
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._currentConversation
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._currentConversation
+  nameWithType: DialogueManagerBase<ChoiceButtonT>._currentConversation
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._currentConversation
+- uid: Ibralogue.DialogueManagerBase`1._lineIndex
+  name: _lineIndex
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__lineIndex
+  commentId: F:Ibralogue.DialogueManagerBase`1._lineIndex
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._lineIndex
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._lineIndex
+  nameWithType: DialogueManagerBase<ChoiceButtonT>._lineIndex
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._lineIndex
+- uid: Ibralogue.DialogueManagerBase`1._linePlaying
+  name: _linePlaying
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1__linePlaying
+  commentId: F:Ibralogue.DialogueManagerBase`1._linePlaying
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>._linePlaying
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT)._linePlaying
+  nameWithType: DialogueManagerBase<ChoiceButtonT>._linePlaying
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT)._linePlaying
+- uid: Ibralogue.DialogueManagerBase`1.choiceButton
+  name: choiceButton
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_choiceButton
+  commentId: F:Ibralogue.DialogueManagerBase`1.choiceButton
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.choiceButton
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).choiceButton
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.choiceButton
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).choiceButton
+- uid: Ibralogue.DialogueManagerBase`1.choiceButtonHolder
+  name: choiceButtonHolder
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_choiceButtonHolder
+  commentId: F:Ibralogue.DialogueManagerBase`1.choiceButtonHolder
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.choiceButtonHolder
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).choiceButtonHolder
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.choiceButtonHolder
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).choiceButtonHolder
+- uid: Ibralogue.DialogueManagerBase`1.nameText
+  name: nameText
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_nameText
+  commentId: F:Ibralogue.DialogueManagerBase`1.nameText
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.nameText
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).nameText
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.nameText
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).nameText
+- uid: Ibralogue.DialogueManagerBase`1.scrollSpeed
+  name: scrollSpeed
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_scrollSpeed
+  commentId: F:Ibralogue.DialogueManagerBase`1.scrollSpeed
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.scrollSpeed
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).scrollSpeed
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.scrollSpeed
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).scrollSpeed
+- uid: Ibralogue.DialogueManagerBase`1.sentenceText
+  name: sentenceText
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_sentenceText
+  commentId: F:Ibralogue.DialogueManagerBase`1.sentenceText
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.sentenceText
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).sentenceText
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.sentenceText
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).sentenceText
+- uid: Ibralogue.DialogueManagerBase`1.speakerPortrait
+  name: speakerPortrait
+  href: ref/Ibralogue.DialogueManagerBase-1.html#Ibralogue_DialogueManagerBase_1_speakerPortrait
+  commentId: F:Ibralogue.DialogueManagerBase`1.speakerPortrait
+  fullName: Ibralogue.DialogueManagerBase<ChoiceButtonT>.speakerPortrait
+  fullName.vb: Ibralogue.DialogueManagerBase(Of ChoiceButtonT).speakerPortrait
+  nameWithType: DialogueManagerBase<ChoiceButtonT>.speakerPortrait
+  nameWithType.vb: DialogueManagerBase(Of ChoiceButtonT).speakerPortrait
 - uid: Ibralogue.DialogueParser
   name: DialogueParser
   href: ref/Ibralogue.DialogueParser.html
   commentId: T:Ibralogue.DialogueParser
   fullName: Ibralogue.DialogueParser
   nameWithType: DialogueParser
-- uid: Ibralogue.DialogueParser.ParseDialogue(DialogueAsset)
+- uid: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
   name: ParseDialogue(DialogueAsset)
-  href: ref/Ibralogue.DialogueParser.html#Ibralogue_DialogueParser_ParseDialogue_DialogueAsset_
-  commentId: M:Ibralogue.DialogueParser.ParseDialogue(DialogueAsset)
-  fullName: Ibralogue.DialogueParser.ParseDialogue(DialogueAsset)
+  href: ref/Ibralogue.DialogueParser.html#Ibralogue_DialogueParser_ParseDialogue_Ibralogue_DialogueAsset_
+  commentId: M:Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
+  fullName: Ibralogue.DialogueParser.ParseDialogue(Ibralogue.DialogueAsset)
   nameWithType: DialogueParser.ParseDialogue(DialogueAsset)
 - uid: Ibralogue.DialogueParser.ParseDialogue*
   name: ParseDialogue
@@ -566,41 +967,38 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Editor.IbralogueImporter.OnImportAsset
   nameWithType: IbralogueImporter.OnImportAsset
-- uid: Ibralogue.IMetadata
-  name: IMetadata
-  href: ref/Ibralogue.IMetadata.html
-  commentId: T:Ibralogue.IMetadata
-  fullName: Ibralogue.IMetadata
-  nameWithType: IMetadata
-- uid: Ibralogue.IMetadata.HasMetadata(System.String)
-  name: HasMetadata(String)
-  href: ref/Ibralogue.IMetadata.html#Ibralogue_IMetadata_HasMetadata_System_String_
-  commentId: M:Ibralogue.IMetadata.HasMetadata(System.String)
-  fullName: Ibralogue.IMetadata.HasMetadata(System.String)
-  nameWithType: IMetadata.HasMetadata(String)
-- uid: Ibralogue.IMetadata.HasMetadata*
-  name: HasMetadata
-  href: ref/Ibralogue.IMetadata.html#Ibralogue_IMetadata_HasMetadata_
-  commentId: Overload:Ibralogue.IMetadata.HasMetadata
+- uid: Ibralogue.Editor.IbralogueImporterEditor
+  name: IbralogueImporterEditor
+  href: ref/Ibralogue.Editor.IbralogueImporterEditor.html
+  commentId: T:Ibralogue.Editor.IbralogueImporterEditor
+  fullName: Ibralogue.Editor.IbralogueImporterEditor
+  nameWithType: IbralogueImporterEditor
+- uid: Ibralogue.Editor.IbralogueImporterEditor.OnEnable
+  name: OnEnable()
+  href: ref/Ibralogue.Editor.IbralogueImporterEditor.html#Ibralogue_Editor_IbralogueImporterEditor_OnEnable
+  commentId: M:Ibralogue.Editor.IbralogueImporterEditor.OnEnable
+  fullName: Ibralogue.Editor.IbralogueImporterEditor.OnEnable()
+  nameWithType: IbralogueImporterEditor.OnEnable()
+- uid: Ibralogue.Editor.IbralogueImporterEditor.OnEnable*
+  name: OnEnable
+  href: ref/Ibralogue.Editor.IbralogueImporterEditor.html#Ibralogue_Editor_IbralogueImporterEditor_OnEnable_
+  commentId: Overload:Ibralogue.Editor.IbralogueImporterEditor.OnEnable
   isSpec: "True"
-  fullName: Ibralogue.IMetadata.HasMetadata
-  nameWithType: IMetadata.HasMetadata
-- uid: Ibralogue.IMetadata.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
-  href: ref/Ibralogue.IMetadata.html#Ibralogue_IMetadata_TryGetMetadataValue_System_String_System_String__
-  commentId: M:Ibralogue.IMetadata.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: Ibralogue.IMetadata.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: Ibralogue.IMetadata.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: IMetadata.TryGetMetadataValue(String, out String)
-  nameWithType.vb: IMetadata.TryGetMetadataValue(String, ByRef String)
-- uid: Ibralogue.IMetadata.TryGetMetadataValue*
-  name: TryGetMetadataValue
-  href: ref/Ibralogue.IMetadata.html#Ibralogue_IMetadata_TryGetMetadataValue_
-  commentId: Overload:Ibralogue.IMetadata.TryGetMetadataValue
+  fullName: Ibralogue.Editor.IbralogueImporterEditor.OnEnable
+  nameWithType: IbralogueImporterEditor.OnEnable
+- uid: Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI
+  name: OnInspectorGUI()
+  href: ref/Ibralogue.Editor.IbralogueImporterEditor.html#Ibralogue_Editor_IbralogueImporterEditor_OnInspectorGUI
+  commentId: M:Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI
+  fullName: Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI()
+  nameWithType: IbralogueImporterEditor.OnInspectorGUI()
+- uid: Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI*
+  name: OnInspectorGUI
+  href: ref/Ibralogue.Editor.IbralogueImporterEditor.html#Ibralogue_Editor_IbralogueImporterEditor_OnInspectorGUI_
+  commentId: Overload:Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI
   isSpec: "True"
-  fullName: Ibralogue.IMetadata.TryGetMetadataValue
-  nameWithType: IMetadata.TryGetMetadataValue
+  fullName: Ibralogue.Editor.IbralogueImporterEditor.OnInspectorGUI
+  nameWithType: IbralogueImporterEditor.OnInspectorGUI
 - uid: Ibralogue.Interactions
   name: Ibralogue.Interactions
   href: ref/Ibralogue.Interactions.html
@@ -613,12 +1011,22 @@ references:
   commentId: T:Ibralogue.Interactions.BaseInteraction
   fullName: Ibralogue.Interactions.BaseInteraction
   nameWithType: BaseInteraction
-- uid: Ibralogue.Interactions.BaseInteraction.dialogueManager
-  name: dialogueManager
-  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_dialogueManager
-  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueManager
-  fullName: Ibralogue.Interactions.BaseInteraction.dialogueManager
-  nameWithType: BaseInteraction.dialogueManager
+- uid: Ibralogue.Interactions.BaseInteraction.GetDialogueAsset(System.Int32)
+  name: GetDialogueAsset(int)
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_GetDialogueAsset_System_Int32_
+  commentId: M:Ibralogue.Interactions.BaseInteraction.GetDialogueAsset(System.Int32)
+  name.vb: GetDialogueAsset(Integer)
+  fullName: Ibralogue.Interactions.BaseInteraction.GetDialogueAsset(int)
+  fullName.vb: Ibralogue.Interactions.BaseInteraction.GetDialogueAsset(Integer)
+  nameWithType: BaseInteraction.GetDialogueAsset(int)
+  nameWithType.vb: BaseInteraction.GetDialogueAsset(Integer)
+- uid: Ibralogue.Interactions.BaseInteraction.GetDialogueAsset*
+  name: GetDialogueAsset
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_GetDialogueAsset_
+  commentId: Overload:Ibralogue.Interactions.BaseInteraction.GetDialogueAsset
+  isSpec: "True"
+  fullName: Ibralogue.Interactions.BaseInteraction.GetDialogueAsset
+  nameWithType: BaseInteraction.GetDialogueAsset
 - uid: Ibralogue.Interactions.BaseInteraction.InteractionDialogues
   name: InteractionDialogues
   href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_InteractionDialogues
@@ -638,6 +1046,12 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Interactions.BaseInteraction.StartDialogue
   nameWithType: BaseInteraction.StartDialogue
+- uid: Ibralogue.Interactions.BaseInteraction.dialogueEngine
+  name: dialogueEngine
+  href: ref/Ibralogue.Interactions.BaseInteraction.html#Ibralogue_Interactions_BaseInteraction_dialogueEngine
+  commentId: F:Ibralogue.Interactions.BaseInteraction.dialogueEngine
+  fullName: Ibralogue.Interactions.BaseInteraction.dialogueEngine
+  nameWithType: BaseInteraction.dialogueEngine
 - uid: Ibralogue.Interactions.CircularInteraction
   name: CircularInteraction
   href: ref/Ibralogue.Interactions.CircularInteraction.html
@@ -657,6 +1071,53 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Interactions.CircularInteraction.StartDialogue
   nameWithType: CircularInteraction.StartDialogue
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction
+  name: LocalizedBaseInteraction
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html
+  commentId: T:Ibralogue.Interactions.LocalizedBaseInteraction
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction
+  nameWithType: LocalizedBaseInteraction
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset(System.Int32)
+  name: GetDialogueAsset(int)
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_GetDialogueAsset_System_Int32_
+  commentId: M:Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset(System.Int32)
+  name.vb: GetDialogueAsset(Integer)
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset(int)
+  fullName.vb: Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset(Integer)
+  nameWithType: LocalizedBaseInteraction.GetDialogueAsset(int)
+  nameWithType.vb: LocalizedBaseInteraction.GetDialogueAsset(Integer)
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset*
+  name: GetDialogueAsset
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_GetDialogueAsset_
+  commentId: Overload:Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset
+  isSpec: "True"
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.GetDialogueAsset
+  nameWithType: LocalizedBaseInteraction.GetDialogueAsset
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.InteractionDialogues
+  name: InteractionDialogues
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_InteractionDialogues
+  commentId: F:Ibralogue.Interactions.LocalizedBaseInteraction.InteractionDialogues
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.InteractionDialogues
+  nameWithType: LocalizedBaseInteraction.InteractionDialogues
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue
+  name: StartDialogue()
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_StartDialogue
+  commentId: M:Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue()
+  nameWithType: LocalizedBaseInteraction.StartDialogue()
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue*
+  name: StartDialogue
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_StartDialogue_
+  commentId: Overload:Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue
+  isSpec: "True"
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.StartDialogue
+  nameWithType: LocalizedBaseInteraction.StartDialogue
+- uid: Ibralogue.Interactions.LocalizedBaseInteraction.dialogueEngine
+  name: dialogueEngine
+  href: ref/Ibralogue.Interactions.LocalizedBaseInteraction.html#Ibralogue_Interactions_LocalizedBaseInteraction_dialogueEngine
+  commentId: F:Ibralogue.Interactions.LocalizedBaseInteraction.dialogueEngine
+  fullName: Ibralogue.Interactions.LocalizedBaseInteraction.dialogueEngine
+  nameWithType: LocalizedBaseInteraction.dialogueEngine
 - uid: Ibralogue.Interactions.RandomInteraction
   name: RandomInteraction
   href: ref/Ibralogue.Interactions.RandomInteraction.html
@@ -676,6 +1137,25 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Interactions.RandomInteraction.StartDialogue
   nameWithType: RandomInteraction.StartDialogue
+- uid: Ibralogue.Interactions.RoundRobinInteraction
+  name: RoundRobinInteraction
+  href: ref/Ibralogue.Interactions.RoundRobinInteraction.html
+  commentId: T:Ibralogue.Interactions.RoundRobinInteraction
+  fullName: Ibralogue.Interactions.RoundRobinInteraction
+  nameWithType: RoundRobinInteraction
+- uid: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  name: StartDialogue()
+  href: ref/Ibralogue.Interactions.RoundRobinInteraction.html#Ibralogue_Interactions_RoundRobinInteraction_StartDialogue
+  commentId: M:Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  fullName: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue()
+  nameWithType: RoundRobinInteraction.StartDialogue()
+- uid: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue*
+  name: StartDialogue
+  href: ref/Ibralogue.Interactions.RoundRobinInteraction.html#Ibralogue_Interactions_RoundRobinInteraction_StartDialogue_
+  commentId: Overload:Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  isSpec: "True"
+  fullName: Ibralogue.Interactions.RoundRobinInteraction.StartDialogue
+  nameWithType: RoundRobinInteraction.StartDialogue
 - uid: Ibralogue.Interactions.SingleInteraction
   name: SingleInteraction
   href: ref/Ibralogue.Interactions.SingleInteraction.html
@@ -695,6 +1175,49 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Interactions.SingleInteraction.StartDialogue
   nameWithType: SingleInteraction.StartDialogue
+- uid: Ibralogue.Localization
+  name: Ibralogue.Localization
+  href: ref/Ibralogue.Localization.html
+  commentId: N:Ibralogue.Localization
+  fullName: Ibralogue.Localization
+  nameWithType: Ibralogue.Localization
+- uid: Ibralogue.Localization.LocalizedDialogueAsset
+  name: LocalizedDialogueAsset
+  href: ref/Ibralogue.Localization.LocalizedDialogueAsset.html
+  commentId: T:Ibralogue.Localization.LocalizedDialogueAsset
+  fullName: Ibralogue.Localization.LocalizedDialogueAsset
+  nameWithType: LocalizedDialogueAsset
+- uid: Ibralogue.Localization.LocalizedIbralogueComponent
+  name: LocalizedIbralogueComponent
+  href: ref/Ibralogue.Localization.LocalizedIbralogueComponent.html
+  commentId: T:Ibralogue.Localization.LocalizedIbralogueComponent
+  fullName: Ibralogue.Localization.LocalizedIbralogueComponent
+  nameWithType: LocalizedIbralogueComponent
+- uid: Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset(Ibralogue.Parser.DialogueAsset)
+  name: UpdateAsset(DialogueAsset)
+  href: ref/Ibralogue.Localization.LocalizedIbralogueComponent.html#Ibralogue_Localization_LocalizedIbralogueComponent_UpdateAsset_Ibralogue_Parser_DialogueAsset_
+  commentId: M:Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset(Ibralogue.Parser.DialogueAsset)
+  fullName: Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset(Ibralogue.Parser.DialogueAsset)
+  nameWithType: LocalizedIbralogueComponent.UpdateAsset(DialogueAsset)
+- uid: Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset*
+  name: UpdateAsset
+  href: ref/Ibralogue.Localization.LocalizedIbralogueComponent.html#Ibralogue_Localization_LocalizedIbralogueComponent_UpdateAsset_
+  commentId: Overload:Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset
+  isSpec: "True"
+  fullName: Ibralogue.Localization.LocalizedIbralogueComponent.UpdateAsset
+  nameWithType: LocalizedIbralogueComponent.UpdateAsset
+- uid: Ibralogue.Localization.LocalizedIbralogueComponent.dialogueAsset
+  name: dialogueAsset
+  href: ref/Ibralogue.Localization.LocalizedIbralogueComponent.html#Ibralogue_Localization_LocalizedIbralogueComponent_dialogueAsset
+  commentId: F:Ibralogue.Localization.LocalizedIbralogueComponent.dialogueAsset
+  fullName: Ibralogue.Localization.LocalizedIbralogueComponent.dialogueAsset
+  nameWithType: LocalizedIbralogueComponent.dialogueAsset
+- uid: Ibralogue.Localization.UnityEventDialogueAsset
+  name: UnityEventDialogueAsset
+  href: ref/Ibralogue.Localization.UnityEventDialogueAsset.html
+  commentId: T:Ibralogue.Localization.UnityEventDialogueAsset
+  fullName: Ibralogue.Localization.UnityEventDialogueAsset
+  nameWithType: UnityEventDialogueAsset
 - uid: Ibralogue.Parser
   name: Ibralogue.Parser
   href: ref/Ibralogue.Parser.html
@@ -714,11 +1237,14 @@ references:
   fullName: Ibralogue.Parser.Choice.ChoiceName
   nameWithType: Choice.ChoiceName
 - uid: Ibralogue.Parser.Choice.HasMetadata(System.String)
-  name: HasMetadata(String)
+  name: HasMetadata(string)
   href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_HasMetadata_System_String_
   commentId: M:Ibralogue.Parser.Choice.HasMetadata(System.String)
-  fullName: Ibralogue.Parser.Choice.HasMetadata(System.String)
-  nameWithType: Choice.HasMetadata(String)
+  name.vb: HasMetadata(String)
+  fullName: Ibralogue.Parser.Choice.HasMetadata(string)
+  fullName.vb: Ibralogue.Parser.Choice.HasMetadata(String)
+  nameWithType: Choice.HasMetadata(string)
+  nameWithType.vb: Choice.HasMetadata(String)
 - uid: Ibralogue.Parser.Choice.HasMetadata*
   name: HasMetadata
   href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_HasMetadata_
@@ -739,14 +1265,14 @@ references:
   fullName: Ibralogue.Parser.Choice.Metadata
   nameWithType: Choice.Metadata
 - uid: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
+  name: TryGetMetadataValue(string, out string)
   href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_TryGetMetadataValue_System_String_System_String__
   commentId: M:Ibralogue.Parser.Choice.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: Ibralogue.Parser.Choice.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: Choice.TryGetMetadataValue(String, out String)
-  nameWithType.vb: Choice.TryGetMetadataValue(String, ByRef String)
+  name.vb: TryGetMetadataValue(String, String)
+  fullName: Ibralogue.Parser.Choice.TryGetMetadataValue(string, out string)
+  fullName.vb: Ibralogue.Parser.Choice.TryGetMetadataValue(String, String)
+  nameWithType: Choice.TryGetMetadataValue(string, out string)
+  nameWithType.vb: Choice.TryGetMetadataValue(String, String)
 - uid: Ibralogue.Parser.Choice.TryGetMetadataValue*
   name: TryGetMetadataValue
   href: ref/Ibralogue.Parser.Choice.html#Ibralogue_Parser_Choice_TryGetMetadataValue_
@@ -797,6 +1323,112 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Parser.DialogueAsset.Content
   nameWithType: DialogueAsset.Content
+- uid: Ibralogue.Parser.DialogueParser
+  name: DialogueParser
+  href: ref/Ibralogue.Parser.DialogueParser.html
+  commentId: T:Ibralogue.Parser.DialogueParser
+  fullName: Ibralogue.Parser.DialogueParser
+  nameWithType: DialogueParser
+- uid: Ibralogue.Parser.DialogueParser.ParseDialogue(Ibralogue.Parser.DialogueAsset)
+  name: ParseDialogue(DialogueAsset)
+  href: ref/Ibralogue.Parser.DialogueParser.html#Ibralogue_Parser_DialogueParser_ParseDialogue_Ibralogue_Parser_DialogueAsset_
+  commentId: M:Ibralogue.Parser.DialogueParser.ParseDialogue(Ibralogue.Parser.DialogueAsset)
+  fullName: Ibralogue.Parser.DialogueParser.ParseDialogue(Ibralogue.Parser.DialogueAsset)
+  nameWithType: DialogueParser.ParseDialogue(DialogueAsset)
+- uid: Ibralogue.Parser.DialogueParser.ParseDialogue*
+  name: ParseDialogue
+  href: ref/Ibralogue.Parser.DialogueParser.html#Ibralogue_Parser_DialogueParser_ParseDialogue_
+  commentId: Overload:Ibralogue.Parser.DialogueParser.ParseDialogue
+  isSpec: "True"
+  fullName: Ibralogue.Parser.DialogueParser.ParseDialogue
+  nameWithType: DialogueParser.ParseDialogue
+- uid: Ibralogue.Parser.FunctionInvocation
+  name: FunctionInvocation
+  href: ref/Ibralogue.Parser.FunctionInvocation.html
+  commentId: T:Ibralogue.Parser.FunctionInvocation
+  fullName: Ibralogue.Parser.FunctionInvocation
+  nameWithType: FunctionInvocation
+- uid: Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)
+  name: FunctionInvocation(string, int, int, int)
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Int32_System_Int32_System_Int32_
+  commentId: M:Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)
+  name.vb: New(String, Integer, Integer, Integer)
+  fullName: Ibralogue.Parser.FunctionInvocation.FunctionInvocation(string, int, int, int)
+  fullName.vb: Ibralogue.Parser.FunctionInvocation.New(String, Integer, Integer, Integer)
+  nameWithType: FunctionInvocation.FunctionInvocation(string, int, int, int)
+  nameWithType.vb: FunctionInvocation.New(String, Integer, Integer, Integer)
+- uid: Ibralogue.Parser.FunctionInvocation.#ctor*
+  name: FunctionInvocation
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation__ctor_
+  commentId: Overload:Ibralogue.Parser.FunctionInvocation.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Ibralogue.Parser.FunctionInvocation.FunctionInvocation
+  fullName.vb: Ibralogue.Parser.FunctionInvocation.New
+  nameWithType: FunctionInvocation.FunctionInvocation
+  nameWithType.vb: FunctionInvocation.New
+- uid: Ibralogue.Parser.FunctionInvocation.CharacterIndex
+  name: CharacterIndex
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_CharacterIndex
+  commentId: F:Ibralogue.Parser.FunctionInvocation.CharacterIndex
+  fullName: Ibralogue.Parser.FunctionInvocation.CharacterIndex
+  nameWithType: FunctionInvocation.CharacterIndex
+- uid: Ibralogue.Parser.FunctionInvocation.Column
+  name: Column
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_Column
+  commentId: F:Ibralogue.Parser.FunctionInvocation.Column
+  fullName: Ibralogue.Parser.FunctionInvocation.Column
+  nameWithType: FunctionInvocation.Column
+- uid: Ibralogue.Parser.FunctionInvocation.Line
+  name: Line
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_Line
+  commentId: F:Ibralogue.Parser.FunctionInvocation.Line
+  fullName: Ibralogue.Parser.FunctionInvocation.Line
+  nameWithType: FunctionInvocation.Line
+- uid: Ibralogue.Parser.FunctionInvocation.Name
+  name: Name
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_Name
+  commentId: F:Ibralogue.Parser.FunctionInvocation.Name
+  fullName: Ibralogue.Parser.FunctionInvocation.Name
+  nameWithType: FunctionInvocation.Name
+- uid: Ibralogue.Parser.IMetadata
+  name: IMetadata
+  href: ref/Ibralogue.Parser.IMetadata.html
+  commentId: T:Ibralogue.Parser.IMetadata
+  fullName: Ibralogue.Parser.IMetadata
+  nameWithType: IMetadata
+- uid: Ibralogue.Parser.IMetadata.HasMetadata(System.String)
+  name: HasMetadata(string)
+  href: ref/Ibralogue.Parser.IMetadata.html#Ibralogue_Parser_IMetadata_HasMetadata_System_String_
+  commentId: M:Ibralogue.Parser.IMetadata.HasMetadata(System.String)
+  name.vb: HasMetadata(String)
+  fullName: Ibralogue.Parser.IMetadata.HasMetadata(string)
+  fullName.vb: Ibralogue.Parser.IMetadata.HasMetadata(String)
+  nameWithType: IMetadata.HasMetadata(string)
+  nameWithType.vb: IMetadata.HasMetadata(String)
+- uid: Ibralogue.Parser.IMetadata.HasMetadata*
+  name: HasMetadata
+  href: ref/Ibralogue.Parser.IMetadata.html#Ibralogue_Parser_IMetadata_HasMetadata_
+  commentId: Overload:Ibralogue.Parser.IMetadata.HasMetadata
+  isSpec: "True"
+  fullName: Ibralogue.Parser.IMetadata.HasMetadata
+  nameWithType: IMetadata.HasMetadata
+- uid: Ibralogue.Parser.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  name: TryGetMetadataValue(string, out string)
+  href: ref/Ibralogue.Parser.IMetadata.html#Ibralogue_Parser_IMetadata_TryGetMetadataValue_System_String_System_String__
+  commentId: M:Ibralogue.Parser.IMetadata.TryGetMetadataValue(System.String,System.String@)
+  name.vb: TryGetMetadataValue(String, String)
+  fullName: Ibralogue.Parser.IMetadata.TryGetMetadataValue(string, out string)
+  fullName.vb: Ibralogue.Parser.IMetadata.TryGetMetadataValue(String, String)
+  nameWithType: IMetadata.TryGetMetadataValue(string, out string)
+  nameWithType.vb: IMetadata.TryGetMetadataValue(String, String)
+- uid: Ibralogue.Parser.IMetadata.TryGetMetadataValue*
+  name: TryGetMetadataValue
+  href: ref/Ibralogue.Parser.IMetadata.html#Ibralogue_Parser_IMetadata_TryGetMetadataValue_
+  commentId: Overload:Ibralogue.Parser.IMetadata.TryGetMetadataValue
+  isSpec: "True"
+  fullName: Ibralogue.Parser.IMetadata.TryGetMetadataValue
+  nameWithType: IMetadata.TryGetMetadataValue
 - uid: Ibralogue.Parser.Line
   name: Line
   href: ref/Ibralogue.Parser.Line.html
@@ -804,11 +1436,14 @@ references:
   fullName: Ibralogue.Parser.Line
   nameWithType: Line
 - uid: Ibralogue.Parser.Line.HasMetadata(System.String)
-  name: HasMetadata(String)
+  name: HasMetadata(string)
   href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_HasMetadata_System_String_
   commentId: M:Ibralogue.Parser.Line.HasMetadata(System.String)
-  fullName: Ibralogue.Parser.Line.HasMetadata(System.String)
-  nameWithType: Line.HasMetadata(String)
+  name.vb: HasMetadata(String)
+  fullName: Ibralogue.Parser.Line.HasMetadata(string)
+  fullName.vb: Ibralogue.Parser.Line.HasMetadata(String)
+  nameWithType: Line.HasMetadata(string)
+  nameWithType.vb: Line.HasMetadata(String)
 - uid: Ibralogue.Parser.Line.HasMetadata*
   name: HasMetadata
   href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_HasMetadata_
@@ -816,6 +1451,12 @@ references:
   isSpec: "True"
   fullName: Ibralogue.Parser.Line.HasMetadata
   nameWithType: Line.HasMetadata
+- uid: Ibralogue.Parser.Line.JumpTarget
+  name: JumpTarget
+  href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_JumpTarget
+  commentId: F:Ibralogue.Parser.Line.JumpTarget
+  fullName: Ibralogue.Parser.Line.JumpTarget
+  nameWithType: Line.JumpTarget
 - uid: Ibralogue.Parser.Line.LineContent
   name: LineContent
   href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_LineContent
@@ -835,14 +1476,14 @@ references:
   fullName: Ibralogue.Parser.Line.SpeakerImage
   nameWithType: Line.SpeakerImage
 - uid: Ibralogue.Parser.Line.TryGetMetadataValue(System.String,System.String@)
-  name: TryGetMetadataValue(String, out String)
+  name: TryGetMetadataValue(string, out string)
   href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_TryGetMetadataValue_System_String_System_String__
   commentId: M:Ibralogue.Parser.Line.TryGetMetadataValue(System.String,System.String@)
-  name.vb: TryGetMetadataValue(String, ByRef String)
-  fullName: Ibralogue.Parser.Line.TryGetMetadataValue(System.String, out System.String)
-  fullName.vb: Ibralogue.Parser.Line.TryGetMetadataValue(System.String, ByRef System.String)
-  nameWithType: Line.TryGetMetadataValue(String, out String)
-  nameWithType.vb: Line.TryGetMetadataValue(String, ByRef String)
+  name.vb: TryGetMetadataValue(String, String)
+  fullName: Ibralogue.Parser.Line.TryGetMetadataValue(string, out string)
+  fullName.vb: Ibralogue.Parser.Line.TryGetMetadataValue(String, String)
+  nameWithType: Line.TryGetMetadataValue(string, out string)
+  nameWithType.vb: Line.TryGetMetadataValue(String, String)
 - uid: Ibralogue.Parser.Line.TryGetMetadataValue*
   name: TryGetMetadataValue
   href: ref/Ibralogue.Parser.Line.html#Ibralogue_Parser_Line_TryGetMetadataValue_
@@ -874,6 +1515,94 @@ references:
   commentId: F:Ibralogue.Parser.LineContent.Text
   fullName: Ibralogue.Parser.LineContent.Text
   nameWithType: LineContent.Text
+- uid: Ibralogue.Plugins
+  name: Ibralogue.Plugins
+  href: ref/Ibralogue.Plugins.html
+  commentId: N:Ibralogue.Plugins
+  fullName: Ibralogue.Plugins
+  nameWithType: Ibralogue.Plugins
+- uid: Ibralogue.Plugins.EnginePlugin
+  name: EnginePlugin
+  href: ref/Ibralogue.Plugins.EnginePlugin.html
+  commentId: T:Ibralogue.Plugins.EnginePlugin
+  fullName: Ibralogue.Plugins.EnginePlugin
+  nameWithType: EnginePlugin
+- uid: Ibralogue.Plugins.EnginePlugin.Clear
+  name: Clear()
+  href: ref/Ibralogue.Plugins.EnginePlugin.html#Ibralogue_Plugins_EnginePlugin_Clear
+  commentId: M:Ibralogue.Plugins.EnginePlugin.Clear
+  fullName: Ibralogue.Plugins.EnginePlugin.Clear()
+  nameWithType: EnginePlugin.Clear()
+- uid: Ibralogue.Plugins.EnginePlugin.Clear*
+  name: Clear
+  href: ref/Ibralogue.Plugins.EnginePlugin.html#Ibralogue_Plugins_EnginePlugin_Clear_
+  commentId: Overload:Ibralogue.Plugins.EnginePlugin.Clear
+  isSpec: "True"
+  fullName: Ibralogue.Plugins.EnginePlugin.Clear
+  nameWithType: EnginePlugin.Clear
+- uid: Ibralogue.Plugins.EnginePlugin.Display(Ibralogue.Parser.Conversation,System.Int32)
+  name: Display(Conversation, int)
+  href: ref/Ibralogue.Plugins.EnginePlugin.html#Ibralogue_Plugins_EnginePlugin_Display_Ibralogue_Parser_Conversation_System_Int32_
+  commentId: M:Ibralogue.Plugins.EnginePlugin.Display(Ibralogue.Parser.Conversation,System.Int32)
+  name.vb: Display(Conversation, Integer)
+  fullName: Ibralogue.Plugins.EnginePlugin.Display(Ibralogue.Parser.Conversation, int)
+  fullName.vb: Ibralogue.Plugins.EnginePlugin.Display(Ibralogue.Parser.Conversation, Integer)
+  nameWithType: EnginePlugin.Display(Conversation, int)
+  nameWithType.vb: EnginePlugin.Display(Conversation, Integer)
+- uid: Ibralogue.Plugins.EnginePlugin.Display*
+  name: Display
+  href: ref/Ibralogue.Plugins.EnginePlugin.html#Ibralogue_Plugins_EnginePlugin_Display_
+  commentId: Overload:Ibralogue.Plugins.EnginePlugin.Display
+  isSpec: "True"
+  fullName: Ibralogue.Plugins.EnginePlugin.Display
+  nameWithType: EnginePlugin.Display
+- uid: Ibralogue.Plugins.PortraitImagePlugin
+  name: PortraitImagePlugin
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html
+  commentId: T:Ibralogue.Plugins.PortraitImagePlugin
+  fullName: Ibralogue.Plugins.PortraitImagePlugin
+  nameWithType: PortraitImagePlugin
+- uid: Ibralogue.Plugins.PortraitImagePlugin.Clear
+  name: Clear()
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html#Ibralogue_Plugins_PortraitImagePlugin_Clear
+  commentId: M:Ibralogue.Plugins.PortraitImagePlugin.Clear
+  fullName: Ibralogue.Plugins.PortraitImagePlugin.Clear()
+  nameWithType: PortraitImagePlugin.Clear()
+- uid: Ibralogue.Plugins.PortraitImagePlugin.Clear*
+  name: Clear
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html#Ibralogue_Plugins_PortraitImagePlugin_Clear_
+  commentId: Overload:Ibralogue.Plugins.PortraitImagePlugin.Clear
+  isSpec: "True"
+  fullName: Ibralogue.Plugins.PortraitImagePlugin.Clear
+  nameWithType: PortraitImagePlugin.Clear
+- uid: Ibralogue.Plugins.PortraitImagePlugin.Display(Ibralogue.Parser.Conversation,System.Int32)
+  name: Display(Conversation, int)
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html#Ibralogue_Plugins_PortraitImagePlugin_Display_Ibralogue_Parser_Conversation_System_Int32_
+  commentId: M:Ibralogue.Plugins.PortraitImagePlugin.Display(Ibralogue.Parser.Conversation,System.Int32)
+  name.vb: Display(Conversation, Integer)
+  fullName: Ibralogue.Plugins.PortraitImagePlugin.Display(Ibralogue.Parser.Conversation, int)
+  fullName.vb: Ibralogue.Plugins.PortraitImagePlugin.Display(Ibralogue.Parser.Conversation, Integer)
+  nameWithType: PortraitImagePlugin.Display(Conversation, int)
+  nameWithType.vb: PortraitImagePlugin.Display(Conversation, Integer)
+- uid: Ibralogue.Plugins.PortraitImagePlugin.Display*
+  name: Display
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html#Ibralogue_Plugins_PortraitImagePlugin_Display_
+  commentId: Overload:Ibralogue.Plugins.PortraitImagePlugin.Display
+  isSpec: "True"
+  fullName: Ibralogue.Plugins.PortraitImagePlugin.Display
+  nameWithType: PortraitImagePlugin.Display
+- uid: Ibralogue.Plugins.PortraitImagePlugin.speakerPortrait
+  name: speakerPortrait
+  href: ref/Ibralogue.Plugins.PortraitImagePlugin.html#Ibralogue_Plugins_PortraitImagePlugin_speakerPortrait
+  commentId: F:Ibralogue.Plugins.PortraitImagePlugin.speakerPortrait
+  fullName: Ibralogue.Plugins.PortraitImagePlugin.speakerPortrait
+  nameWithType: PortraitImagePlugin.speakerPortrait
+- uid: Ibralogue.SimpleDialogueEngine
+  name: SimpleDialogueEngine
+  href: ref/Ibralogue.SimpleDialogueEngine.html
+  commentId: T:Ibralogue.SimpleDialogueEngine
+  fullName: Ibralogue.SimpleDialogueEngine
+  nameWithType: SimpleDialogueEngine
 - uid: Ibralogue.SimpleDialogueManager
   name: SimpleDialogueManager
   href: ref/Ibralogue.SimpleDialogueManager.html
@@ -896,77 +1625,373 @@ references:
   isSpec: "True"
   fullName: Ibralogue.SimpleDialogueManager.PrepareChoiceButton
   nameWithType: SimpleDialogueManager.PrepareChoiceButton
-- uid: Ibralogue.TypewriterDialogueManager
-  name: TypewriterDialogueManager
-  href: ref/Ibralogue.TypewriterDialogueManager.html
-  commentId: T:Ibralogue.TypewriterDialogueManager
-  fullName: Ibralogue.TypewriterDialogueManager
-  nameWithType: TypewriterDialogueManager
-- uid: Ibralogue.TypewriterDialogueManager.ClearDialogueBox
-  name: ClearDialogueBox()
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_ClearDialogueBox
-  commentId: M:Ibralogue.TypewriterDialogueManager.ClearDialogueBox
-  fullName: Ibralogue.TypewriterDialogueManager.ClearDialogueBox()
-  nameWithType: TypewriterDialogueManager.ClearDialogueBox()
-- uid: Ibralogue.TypewriterDialogueManager.ClearDialogueBox*
-  name: ClearDialogueBox
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_ClearDialogueBox_
-  commentId: Overload:Ibralogue.TypewriterDialogueManager.ClearDialogueBox
+- uid: Ibralogue.Views
+  name: Ibralogue.Views
+  href: ref/Ibralogue.Views.html
+  commentId: N:Ibralogue.Views
+  fullName: Ibralogue.Views
+  nameWithType: Ibralogue.Views
+- uid: Ibralogue.Views.ChoiceButton
+  name: ChoiceButton
+  href: ref/Ibralogue.Views.ChoiceButton.html
+  commentId: T:Ibralogue.Views.ChoiceButton
+  fullName: Ibralogue.Views.ChoiceButton
+  nameWithType: ChoiceButton
+- uid: Ibralogue.Views.ChoiceButton.OnChoiceClick
+  name: OnChoiceClick
+  href: ref/Ibralogue.Views.ChoiceButton.html#Ibralogue_Views_ChoiceButton_OnChoiceClick
+  commentId: P:Ibralogue.Views.ChoiceButton.OnChoiceClick
+  fullName: Ibralogue.Views.ChoiceButton.OnChoiceClick
+  nameWithType: ChoiceButton.OnChoiceClick
+- uid: Ibralogue.Views.ChoiceButton.OnChoiceClick*
+  name: OnChoiceClick
+  href: ref/Ibralogue.Views.ChoiceButton.html#Ibralogue_Views_ChoiceButton_OnChoiceClick_
+  commentId: Overload:Ibralogue.Views.ChoiceButton.OnChoiceClick
   isSpec: "True"
-  fullName: Ibralogue.TypewriterDialogueManager.ClearDialogueBox
-  nameWithType: TypewriterDialogueManager.ClearDialogueBox
-- uid: Ibralogue.TypewriterDialogueManager.DisplayDialogue
-  name: DisplayDialogue()
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_DisplayDialogue
-  commentId: M:Ibralogue.TypewriterDialogueManager.DisplayDialogue
-  fullName: Ibralogue.TypewriterDialogueManager.DisplayDialogue()
-  nameWithType: TypewriterDialogueManager.DisplayDialogue()
-- uid: Ibralogue.TypewriterDialogueManager.DisplayDialogue*
-  name: DisplayDialogue
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_DisplayDialogue_
-  commentId: Overload:Ibralogue.TypewriterDialogueManager.DisplayDialogue
+  fullName: Ibralogue.Views.ChoiceButton.OnChoiceClick
+  nameWithType: ChoiceButton.OnChoiceClick
+- uid: Ibralogue.Views.DialogueViewBase
+  name: DialogueViewBase
+  href: ref/Ibralogue.Views.DialogueViewBase.html
+  commentId: T:Ibralogue.Views.DialogueViewBase
+  fullName: Ibralogue.Views.DialogueViewBase
+  nameWithType: DialogueViewBase
+- uid: Ibralogue.Views.DialogueViewBase.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name: ClearView(EnginePlugin[])
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_ClearView_Ibralogue_Plugins_EnginePlugin___
+  commentId: M:Ibralogue.Views.DialogueViewBase.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name.vb: ClearView(EnginePlugin())
+  fullName: Ibralogue.Views.DialogueViewBase.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  fullName.vb: Ibralogue.Views.DialogueViewBase.ClearView(Ibralogue.Plugins.EnginePlugin())
+  nameWithType: DialogueViewBase.ClearView(EnginePlugin[])
+  nameWithType.vb: DialogueViewBase.ClearView(EnginePlugin())
+- uid: Ibralogue.Views.DialogueViewBase.ClearView*
+  name: ClearView
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_ClearView_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.ClearView
   isSpec: "True"
-  fullName: Ibralogue.TypewriterDialogueManager.DisplayDialogue
-  nameWithType: TypewriterDialogueManager.DisplayDialogue
-- uid: Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
-  name: InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_InvokeFunctionsTimed_System_Int32_Dictionary_System_Int32_System_String__
-  commentId: M:Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32,Dictionary{System.Int32,System.String})
-  name.vb: InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
-  fullName: Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary<System.Int32, System.String>)
-  fullName.vb: Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed(System.Int32, Dictionary(Of System.Int32, System.String))
-  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary<Int32, String>)
-  nameWithType.vb: TypewriterDialogueManager.InvokeFunctionsTimed(Int32, Dictionary(Of Int32, String))
-- uid: Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed*
-  name: InvokeFunctionsTimed
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_InvokeFunctionsTimed_
-  commentId: Overload:Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed
+  fullName: Ibralogue.Views.DialogueViewBase.ClearView
+  nameWithType: DialogueViewBase.ClearView
+- uid: Ibralogue.Views.DialogueViewBase.DisplayChoices(Ibralogue.DialogueEngineBase,Ibralogue.Parser.Conversation,System.Collections.Generic.List{Ibralogue.Parser.Conversation})
+  name: DisplayChoices(DialogueEngineBase, Conversation, List<Conversation>)
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_DisplayChoices_Ibralogue_DialogueEngineBase_Ibralogue_Parser_Conversation_System_Collections_Generic_List_Ibralogue_Parser_Conversation__
+  commentId: M:Ibralogue.Views.DialogueViewBase.DisplayChoices(Ibralogue.DialogueEngineBase,Ibralogue.Parser.Conversation,System.Collections.Generic.List{Ibralogue.Parser.Conversation})
+  name.vb: DisplayChoices(DialogueEngineBase, Conversation, List(Of Conversation))
+  fullName: Ibralogue.Views.DialogueViewBase.DisplayChoices(Ibralogue.DialogueEngineBase, Ibralogue.Parser.Conversation, System.Collections.Generic.List<Ibralogue.Parser.Conversation>)
+  fullName.vb: Ibralogue.Views.DialogueViewBase.DisplayChoices(Ibralogue.DialogueEngineBase, Ibralogue.Parser.Conversation, System.Collections.Generic.List(Of Ibralogue.Parser.Conversation))
+  nameWithType: DialogueViewBase.DisplayChoices(DialogueEngineBase, Conversation, List<Conversation>)
+  nameWithType.vb: DialogueViewBase.DisplayChoices(DialogueEngineBase, Conversation, List(Of Conversation))
+- uid: Ibralogue.Views.DialogueViewBase.DisplayChoices*
+  name: DisplayChoices
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_DisplayChoices_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.DisplayChoices
   isSpec: "True"
-  fullName: Ibralogue.TypewriterDialogueManager.InvokeFunctionsTimed
-  nameWithType: TypewriterDialogueManager.InvokeFunctionsTimed
-- uid: Ibralogue.TypewriterDialogueManager.SkipLineAnimation
-  name: SkipLineAnimation()
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_SkipLineAnimation
-  commentId: M:Ibralogue.TypewriterDialogueManager.SkipLineAnimation
-  fullName: Ibralogue.TypewriterDialogueManager.SkipLineAnimation()
-  nameWithType: TypewriterDialogueManager.SkipLineAnimation()
-- uid: Ibralogue.TypewriterDialogueManager.SkipLineAnimation*
-  name: SkipLineAnimation
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_SkipLineAnimation_
-  commentId: Overload:Ibralogue.TypewriterDialogueManager.SkipLineAnimation
+  fullName: Ibralogue.Views.DialogueViewBase.DisplayChoices
+  nameWithType: DialogueViewBase.DisplayChoices
+- uid: Ibralogue.Views.DialogueViewBase.IsPaused
+  name: IsPaused()
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_IsPaused
+  commentId: M:Ibralogue.Views.DialogueViewBase.IsPaused
+  fullName: Ibralogue.Views.DialogueViewBase.IsPaused()
+  nameWithType: DialogueViewBase.IsPaused()
+- uid: Ibralogue.Views.DialogueViewBase.IsPaused*
+  name: IsPaused
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_IsPaused_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.IsPaused
   isSpec: "True"
-  fullName: Ibralogue.TypewriterDialogueManager.SkipLineAnimation
-  nameWithType: TypewriterDialogueManager.SkipLineAnimation
-- uid: Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue
-  name: TryAdvanceDialogue()
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_TryAdvanceDialogue
-  commentId: M:Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue
-  fullName: Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue()
-  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue()
-- uid: Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue*
-  name: TryAdvanceDialogue
-  href: ref/Ibralogue.TypewriterDialogueManager.html#Ibralogue_TypewriterDialogueManager_TryAdvanceDialogue_
-  commentId: Overload:Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue
+  fullName: Ibralogue.Views.DialogueViewBase.IsPaused
+  nameWithType: DialogueViewBase.IsPaused
+- uid: Ibralogue.Views.DialogueViewBase.IsStillDisplaying
+  name: IsStillDisplaying()
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_IsStillDisplaying
+  commentId: M:Ibralogue.Views.DialogueViewBase.IsStillDisplaying
+  fullName: Ibralogue.Views.DialogueViewBase.IsStillDisplaying()
+  nameWithType: DialogueViewBase.IsStillDisplaying()
+- uid: Ibralogue.Views.DialogueViewBase.IsStillDisplaying*
+  name: IsStillDisplaying
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_IsStillDisplaying_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.IsStillDisplaying
   isSpec: "True"
-  fullName: Ibralogue.TypewriterDialogueManager.TryAdvanceDialogue
-  nameWithType: TypewriterDialogueManager.TryAdvanceDialogue
+  fullName: Ibralogue.Views.DialogueViewBase.IsStillDisplaying
+  nameWithType: DialogueViewBase.IsStillDisplaying
+- uid: Ibralogue.Views.DialogueViewBase.OnLineComplete
+  name: OnLineComplete
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_OnLineComplete
+  commentId: F:Ibralogue.Views.DialogueViewBase.OnLineComplete
+  fullName: Ibralogue.Views.DialogueViewBase.OnLineComplete
+  nameWithType: DialogueViewBase.OnLineComplete
+- uid: Ibralogue.Views.DialogueViewBase.OnSetView
+  name: OnSetView
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_OnSetView
+  commentId: F:Ibralogue.Views.DialogueViewBase.OnSetView
+  fullName: Ibralogue.Views.DialogueViewBase.OnSetView
+  nameWithType: DialogueViewBase.OnSetView
+- uid: Ibralogue.Views.DialogueViewBase.Pause
+  name: Pause()
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_Pause
+  commentId: M:Ibralogue.Views.DialogueViewBase.Pause
+  fullName: Ibralogue.Views.DialogueViewBase.Pause()
+  nameWithType: DialogueViewBase.Pause()
+- uid: Ibralogue.Views.DialogueViewBase.Pause*
+  name: Pause
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_Pause_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.Pause
+  isSpec: "True"
+  fullName: Ibralogue.Views.DialogueViewBase.Pause
+  nameWithType: DialogueViewBase.Pause
+- uid: Ibralogue.Views.DialogueViewBase.Resume
+  name: Resume()
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_Resume
+  commentId: M:Ibralogue.Views.DialogueViewBase.Resume
+  fullName: Ibralogue.Views.DialogueViewBase.Resume()
+  nameWithType: DialogueViewBase.Resume()
+- uid: Ibralogue.Views.DialogueViewBase.Resume*
+  name: Resume
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_Resume_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.Resume
+  isSpec: "True"
+  fullName: Ibralogue.Views.DialogueViewBase.Resume
+  nameWithType: DialogueViewBase.Resume
+- uid: Ibralogue.Views.DialogueViewBase.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name: SetView(Conversation, int)
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_SetView_Ibralogue_Parser_Conversation_System_Int32_
+  commentId: M:Ibralogue.Views.DialogueViewBase.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name.vb: SetView(Conversation, Integer)
+  fullName: Ibralogue.Views.DialogueViewBase.SetView(Ibralogue.Parser.Conversation, int)
+  fullName.vb: Ibralogue.Views.DialogueViewBase.SetView(Ibralogue.Parser.Conversation, Integer)
+  nameWithType: DialogueViewBase.SetView(Conversation, int)
+  nameWithType.vb: DialogueViewBase.SetView(Conversation, Integer)
+- uid: Ibralogue.Views.DialogueViewBase.SetView*
+  name: SetView
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_SetView_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.SetView
+  isSpec: "True"
+  fullName: Ibralogue.Views.DialogueViewBase.SetView
+  nameWithType: DialogueViewBase.SetView
+- uid: Ibralogue.Views.DialogueViewBase.SkipViewEffect
+  name: SkipViewEffect()
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_SkipViewEffect
+  commentId: M:Ibralogue.Views.DialogueViewBase.SkipViewEffect
+  fullName: Ibralogue.Views.DialogueViewBase.SkipViewEffect()
+  nameWithType: DialogueViewBase.SkipViewEffect()
+- uid: Ibralogue.Views.DialogueViewBase.SkipViewEffect*
+  name: SkipViewEffect
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_SkipViewEffect_
+  commentId: Overload:Ibralogue.Views.DialogueViewBase.SkipViewEffect
+  isSpec: "True"
+  fullName: Ibralogue.Views.DialogueViewBase.SkipViewEffect
+  nameWithType: DialogueViewBase.SkipViewEffect
+- uid: Ibralogue.Views.DialogueViewBase._choiceButtonInstances
+  name: _choiceButtonInstances
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase__choiceButtonInstances
+  commentId: F:Ibralogue.Views.DialogueViewBase._choiceButtonInstances
+  fullName: Ibralogue.Views.DialogueViewBase._choiceButtonInstances
+  nameWithType: DialogueViewBase._choiceButtonInstances
+- uid: Ibralogue.Views.DialogueViewBase._isPaused
+  name: _isPaused
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase__isPaused
+  commentId: F:Ibralogue.Views.DialogueViewBase._isPaused
+  fullName: Ibralogue.Views.DialogueViewBase._isPaused
+  nameWithType: DialogueViewBase._isPaused
+- uid: Ibralogue.Views.DialogueViewBase._isStillDisplaying
+  name: _isStillDisplaying
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase__isStillDisplaying
+  commentId: F:Ibralogue.Views.DialogueViewBase._isStillDisplaying
+  fullName: Ibralogue.Views.DialogueViewBase._isStillDisplaying
+  nameWithType: DialogueViewBase._isStillDisplaying
+- uid: Ibralogue.Views.DialogueViewBase.choiceButton
+  name: choiceButton
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_choiceButton
+  commentId: F:Ibralogue.Views.DialogueViewBase.choiceButton
+  fullName: Ibralogue.Views.DialogueViewBase.choiceButton
+  nameWithType: DialogueViewBase.choiceButton
+- uid: Ibralogue.Views.DialogueViewBase.choiceButtonHolder
+  name: choiceButtonHolder
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_choiceButtonHolder
+  commentId: F:Ibralogue.Views.DialogueViewBase.choiceButtonHolder
+  fullName: Ibralogue.Views.DialogueViewBase.choiceButtonHolder
+  nameWithType: DialogueViewBase.choiceButtonHolder
+- uid: Ibralogue.Views.DialogueViewBase.nameText
+  name: nameText
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_nameText
+  commentId: F:Ibralogue.Views.DialogueViewBase.nameText
+  fullName: Ibralogue.Views.DialogueViewBase.nameText
+  nameWithType: DialogueViewBase.nameText
+- uid: Ibralogue.Views.DialogueViewBase.sentenceText
+  name: sentenceText
+  href: ref/Ibralogue.Views.DialogueViewBase.html#Ibralogue_Views_DialogueViewBase_sentenceText
+  commentId: F:Ibralogue.Views.DialogueViewBase.sentenceText
+  fullName: Ibralogue.Views.DialogueViewBase.sentenceText
+  nameWithType: DialogueViewBase.sentenceText
+- uid: Ibralogue.Views.PunchDialogueView
+  name: PunchDialogueView
+  href: ref/Ibralogue.Views.PunchDialogueView.html
+  commentId: T:Ibralogue.Views.PunchDialogueView
+  fullName: Ibralogue.Views.PunchDialogueView
+  nameWithType: PunchDialogueView
+- uid: Ibralogue.Views.PunchDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name: ClearView(EnginePlugin[])
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_ClearView_Ibralogue_Plugins_EnginePlugin___
+  commentId: M:Ibralogue.Views.PunchDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name.vb: ClearView(EnginePlugin())
+  fullName: Ibralogue.Views.PunchDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  fullName.vb: Ibralogue.Views.PunchDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin())
+  nameWithType: PunchDialogueView.ClearView(EnginePlugin[])
+  nameWithType.vb: PunchDialogueView.ClearView(EnginePlugin())
+- uid: Ibralogue.Views.PunchDialogueView.ClearView*
+  name: ClearView
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_ClearView_
+  commentId: Overload:Ibralogue.Views.PunchDialogueView.ClearView
+  isSpec: "True"
+  fullName: Ibralogue.Views.PunchDialogueView.ClearView
+  nameWithType: PunchDialogueView.ClearView
+- uid: Ibralogue.Views.PunchDialogueView.GetWordDelay
+  name: GetWordDelay()
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_GetWordDelay
+  commentId: M:Ibralogue.Views.PunchDialogueView.GetWordDelay
+  fullName: Ibralogue.Views.PunchDialogueView.GetWordDelay()
+  nameWithType: PunchDialogueView.GetWordDelay()
+- uid: Ibralogue.Views.PunchDialogueView.GetWordDelay*
+  name: GetWordDelay
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_GetWordDelay_
+  commentId: Overload:Ibralogue.Views.PunchDialogueView.GetWordDelay
+  isSpec: "True"
+  fullName: Ibralogue.Views.PunchDialogueView.GetWordDelay
+  nameWithType: PunchDialogueView.GetWordDelay
+- uid: Ibralogue.Views.PunchDialogueView.OnPunchEffectUpdated
+  name: OnPunchEffectUpdated
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_OnPunchEffectUpdated
+  commentId: F:Ibralogue.Views.PunchDialogueView.OnPunchEffectUpdated
+  fullName: Ibralogue.Views.PunchDialogueView.OnPunchEffectUpdated
+  nameWithType: PunchDialogueView.OnPunchEffectUpdated
+- uid: Ibralogue.Views.PunchDialogueView.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name: SetView(Conversation, int)
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SetView_Ibralogue_Parser_Conversation_System_Int32_
+  commentId: M:Ibralogue.Views.PunchDialogueView.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name.vb: SetView(Conversation, Integer)
+  fullName: Ibralogue.Views.PunchDialogueView.SetView(Ibralogue.Parser.Conversation, int)
+  fullName.vb: Ibralogue.Views.PunchDialogueView.SetView(Ibralogue.Parser.Conversation, Integer)
+  nameWithType: PunchDialogueView.SetView(Conversation, int)
+  nameWithType.vb: PunchDialogueView.SetView(Conversation, Integer)
+- uid: Ibralogue.Views.PunchDialogueView.SetView*
+  name: SetView
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SetView_
+  commentId: Overload:Ibralogue.Views.PunchDialogueView.SetView
+  isSpec: "True"
+  fullName: Ibralogue.Views.PunchDialogueView.SetView
+  nameWithType: PunchDialogueView.SetView
+- uid: Ibralogue.Views.PunchDialogueView.SetWordDelay(System.Single)
+  name: SetWordDelay(float)
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SetWordDelay_System_Single_
+  commentId: M:Ibralogue.Views.PunchDialogueView.SetWordDelay(System.Single)
+  name.vb: SetWordDelay(Single)
+  fullName: Ibralogue.Views.PunchDialogueView.SetWordDelay(float)
+  fullName.vb: Ibralogue.Views.PunchDialogueView.SetWordDelay(Single)
+  nameWithType: PunchDialogueView.SetWordDelay(float)
+  nameWithType.vb: PunchDialogueView.SetWordDelay(Single)
+- uid: Ibralogue.Views.PunchDialogueView.SetWordDelay*
+  name: SetWordDelay
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SetWordDelay_
+  commentId: Overload:Ibralogue.Views.PunchDialogueView.SetWordDelay
+  isSpec: "True"
+  fullName: Ibralogue.Views.PunchDialogueView.SetWordDelay
+  nameWithType: PunchDialogueView.SetWordDelay
+- uid: Ibralogue.Views.PunchDialogueView.SkipViewEffect
+  name: SkipViewEffect()
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SkipViewEffect
+  commentId: M:Ibralogue.Views.PunchDialogueView.SkipViewEffect
+  fullName: Ibralogue.Views.PunchDialogueView.SkipViewEffect()
+  nameWithType: PunchDialogueView.SkipViewEffect()
+- uid: Ibralogue.Views.PunchDialogueView.SkipViewEffect*
+  name: SkipViewEffect
+  href: ref/Ibralogue.Views.PunchDialogueView.html#Ibralogue_Views_PunchDialogueView_SkipViewEffect_
+  commentId: Overload:Ibralogue.Views.PunchDialogueView.SkipViewEffect
+  isSpec: "True"
+  fullName: Ibralogue.Views.PunchDialogueView.SkipViewEffect
+  nameWithType: PunchDialogueView.SkipViewEffect
+- uid: Ibralogue.Views.TypewriterDialogueView
+  name: TypewriterDialogueView
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html
+  commentId: T:Ibralogue.Views.TypewriterDialogueView
+  fullName: Ibralogue.Views.TypewriterDialogueView
+  nameWithType: TypewriterDialogueView
+- uid: Ibralogue.Views.TypewriterDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name: ClearView(EnginePlugin[])
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_ClearView_Ibralogue_Plugins_EnginePlugin___
+  commentId: M:Ibralogue.Views.TypewriterDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  name.vb: ClearView(EnginePlugin())
+  fullName: Ibralogue.Views.TypewriterDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin[])
+  fullName.vb: Ibralogue.Views.TypewriterDialogueView.ClearView(Ibralogue.Plugins.EnginePlugin())
+  nameWithType: TypewriterDialogueView.ClearView(EnginePlugin[])
+  nameWithType.vb: TypewriterDialogueView.ClearView(EnginePlugin())
+- uid: Ibralogue.Views.TypewriterDialogueView.ClearView*
+  name: ClearView
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_ClearView_
+  commentId: Overload:Ibralogue.Views.TypewriterDialogueView.ClearView
+  isSpec: "True"
+  fullName: Ibralogue.Views.TypewriterDialogueView.ClearView
+  nameWithType: TypewriterDialogueView.ClearView
+- uid: Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay
+  name: GetCharacterDelay()
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_GetCharacterDelay
+  commentId: M:Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay
+  fullName: Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay()
+  nameWithType: TypewriterDialogueView.GetCharacterDelay()
+- uid: Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay*
+  name: GetCharacterDelay
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_GetCharacterDelay_
+  commentId: Overload:Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay
+  isSpec: "True"
+  fullName: Ibralogue.Views.TypewriterDialogueView.GetCharacterDelay
+  nameWithType: TypewriterDialogueView.GetCharacterDelay
+- uid: Ibralogue.Views.TypewriterDialogueView.OnTypewriterEffectUpdated
+  name: OnTypewriterEffectUpdated
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_OnTypewriterEffectUpdated
+  commentId: F:Ibralogue.Views.TypewriterDialogueView.OnTypewriterEffectUpdated
+  fullName: Ibralogue.Views.TypewriterDialogueView.OnTypewriterEffectUpdated
+  nameWithType: TypewriterDialogueView.OnTypewriterEffectUpdated
+- uid: Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay(System.Single)
+  name: SetCharacterDelay(float)
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SetCharacterDelay_System_Single_
+  commentId: M:Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay(System.Single)
+  name.vb: SetCharacterDelay(Single)
+  fullName: Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay(float)
+  fullName.vb: Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay(Single)
+  nameWithType: TypewriterDialogueView.SetCharacterDelay(float)
+  nameWithType.vb: TypewriterDialogueView.SetCharacterDelay(Single)
+- uid: Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay*
+  name: SetCharacterDelay
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SetCharacterDelay_
+  commentId: Overload:Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay
+  isSpec: "True"
+  fullName: Ibralogue.Views.TypewriterDialogueView.SetCharacterDelay
+  nameWithType: TypewriterDialogueView.SetCharacterDelay
+- uid: Ibralogue.Views.TypewriterDialogueView.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name: SetView(Conversation, int)
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SetView_Ibralogue_Parser_Conversation_System_Int32_
+  commentId: M:Ibralogue.Views.TypewriterDialogueView.SetView(Ibralogue.Parser.Conversation,System.Int32)
+  name.vb: SetView(Conversation, Integer)
+  fullName: Ibralogue.Views.TypewriterDialogueView.SetView(Ibralogue.Parser.Conversation, int)
+  fullName.vb: Ibralogue.Views.TypewriterDialogueView.SetView(Ibralogue.Parser.Conversation, Integer)
+  nameWithType: TypewriterDialogueView.SetView(Conversation, int)
+  nameWithType.vb: TypewriterDialogueView.SetView(Conversation, Integer)
+- uid: Ibralogue.Views.TypewriterDialogueView.SetView*
+  name: SetView
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SetView_
+  commentId: Overload:Ibralogue.Views.TypewriterDialogueView.SetView
+  isSpec: "True"
+  fullName: Ibralogue.Views.TypewriterDialogueView.SetView
+  nameWithType: TypewriterDialogueView.SetView
+- uid: Ibralogue.Views.TypewriterDialogueView.SkipViewEffect
+  name: SkipViewEffect()
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SkipViewEffect
+  commentId: M:Ibralogue.Views.TypewriterDialogueView.SkipViewEffect
+  fullName: Ibralogue.Views.TypewriterDialogueView.SkipViewEffect()
+  nameWithType: TypewriterDialogueView.SkipViewEffect()
+- uid: Ibralogue.Views.TypewriterDialogueView.SkipViewEffect*
+  name: SkipViewEffect
+  href: ref/Ibralogue.Views.TypewriterDialogueView.html#Ibralogue_Views_TypewriterDialogueView_SkipViewEffect_
+  commentId: Overload:Ibralogue.Views.TypewriterDialogueView.SkipViewEffect
+  isSpec: "True"
+  fullName: Ibralogue.Views.TypewriterDialogueView.SkipViewEffect
+  nameWithType: TypewriterDialogueView.SkipViewEffect

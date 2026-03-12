@@ -1,22 +1,25 @@
-﻿
+
 <div id="sidetoggle">
   <div>
     <div class="sidefilter">
       <form class="toc-filter">
         <span class="glyphicon glyphicon-filter filter-icon"></span>
         <span class="glyphicon glyphicon-remove clear-icon" id="toc_filter_clear"></span>
-        <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+        <input type="text" id="toc_filter_input" placeholder="Filter by title" onkeypress="if(event.keyCode==13) {return false;}">
       </form>
     </div>
     <div class="sidetoc">
       <div class="toc" id="toc">
-          
+
           <ul class="nav level1">
                 <li>
                     <span class="expand-stub"></span>
                     <a href="Ibralogue.html" name="" title="Ibralogue">Ibralogue</a>
-                    
+
                     <ul class="nav level2">
+                          <li>
+                              <a href="Ibralogue.DialogueEngineBase.html" name="" title="DialogueEngineBase">DialogueEngineBase</a>
+                          </li>
                           <li>
                               <a href="Ibralogue.DialogueFunctionAttribute.html" name="" title="DialogueFunctionAttribute">DialogueFunctionAttribute</a>
                           </li>
@@ -27,29 +30,14 @@
                               <a href="Ibralogue.DialogueLogger.html" name="" title="DialogueLogger">DialogueLogger</a>
                           </li>
                           <li>
-                              <a href="Ibralogue.DialogueManagerBase-1.html" name="" title="DialogueManagerBase&lt;ChoiceButtonT&gt;">DialogueManagerBase&lt;ChoiceButtonT&gt;</a>
-                          </li>
-                          <li>
-                              <a href="Ibralogue.DialogueManagerBase-1.ChoiceButtonHandle.html" name="" title="DialogueManagerBase&lt;ChoiceButtonT&gt;.ChoiceButtonHandle">DialogueManagerBase&lt;ChoiceButtonT&gt;.ChoiceButtonHandle</a>
-                          </li>
-                          <li>
-                              <a href="Ibralogue.DialogueParser.html" name="" title="DialogueParser">DialogueParser</a>
-                          </li>
-                          <li>
-                              <a href="Ibralogue.IMetadata.html" name="" title="IMetadata">IMetadata</a>
-                          </li>
-                          <li>
-                              <a href="Ibralogue.SimpleDialogueManager.html" name="" title="SimpleDialogueManager">SimpleDialogueManager</a>
-                          </li>
-                          <li>
-                              <a href="Ibralogue.TypewriterDialogueManager.html" name="" title="TypewriterDialogueManager">TypewriterDialogueManager</a>
+                              <a href="Ibralogue.SimpleDialogueEngine.html" name="" title="SimpleDialogueEngine">SimpleDialogueEngine</a>
                           </li>
                     </ul>
                 </li>
                 <li>
                     <span class="expand-stub"></span>
                     <a href="Ibralogue.Editor.html" name="" title="Ibralogue.Editor">Ibralogue.Editor</a>
-                    
+
                     <ul class="nav level2">
                           <li>
                               <a href="Ibralogue.Editor.CreateIbralogue.html" name="" title="CreateIbralogue">CreateIbralogue</a>
@@ -57,18 +45,24 @@
                           <li>
                               <a href="Ibralogue.Editor.IbralogueImporter.html" name="" title="IbralogueImporter">IbralogueImporter</a>
                           </li>
+                          <li>
+                              <a href="Ibralogue.Editor.IbralogueImporterEditor.html" name="" title="IbralogueImporterEditor">IbralogueImporterEditor</a>
+                          </li>
                     </ul>
                 </li>
                 <li>
                     <span class="expand-stub"></span>
                     <a href="Ibralogue.Interactions.html" name="" title="Ibralogue.Interactions">Ibralogue.Interactions</a>
-                    
+
                     <ul class="nav level2">
                           <li>
                               <a href="Ibralogue.Interactions.BaseInteraction.html" name="" title="BaseInteraction">BaseInteraction</a>
                           </li>
                           <li>
                               <a href="Ibralogue.Interactions.CircularInteraction.html" name="" title="CircularInteraction">CircularInteraction</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Interactions.LocalizedBaseInteraction.html" name="" title="LocalizedBaseInteraction">LocalizedBaseInteraction</a>
                           </li>
                           <li>
                               <a href="Ibralogue.Interactions.RandomInteraction.html" name="" title="RandomInteraction">RandomInteraction</a>
@@ -80,8 +74,24 @@
                 </li>
                 <li>
                     <span class="expand-stub"></span>
+                    <a href="Ibralogue.Localization.html" name="" title="Ibralogue.Localization">Ibralogue.Localization</a>
+
+                    <ul class="nav level2">
+                          <li>
+                              <a href="Ibralogue.Localization.LocalizedDialogueAsset.html" name="" title="LocalizedDialogueAsset">LocalizedDialogueAsset</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Localization.LocalizedIbralogueComponent.html" name="" title="LocalizedIbralogueComponent">LocalizedIbralogueComponent</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Localization.UnityEventDialogueAsset.html" name="" title="UnityEventDialogueAsset">UnityEventDialogueAsset</a>
+                          </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="expand-stub"></span>
                     <a href="Ibralogue.Parser.html" name="" title="Ibralogue.Parser">Ibralogue.Parser</a>
-                    
+
                     <ul class="nav level2">
                           <li>
                               <a href="Ibralogue.Parser.Choice.html" name="" title="Choice">Choice</a>
@@ -93,10 +103,51 @@
                               <a href="Ibralogue.Parser.DialogueAsset.html" name="" title="DialogueAsset">DialogueAsset</a>
                           </li>
                           <li>
+                              <a href="Ibralogue.Parser.DialogueParser.html" name="" title="DialogueParser">DialogueParser</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Parser.FunctionInvocation.html" name="" title="FunctionInvocation">FunctionInvocation</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Parser.IMetadata.html" name="" title="IMetadata">IMetadata</a>
+                          </li>
+                          <li>
                               <a href="Ibralogue.Parser.Line.html" name="" title="Line">Line</a>
                           </li>
                           <li>
                               <a href="Ibralogue.Parser.LineContent.html" name="" title="LineContent">LineContent</a>
+                          </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="expand-stub"></span>
+                    <a href="Ibralogue.Plugins.html" name="" title="Ibralogue.Plugins">Ibralogue.Plugins</a>
+
+                    <ul class="nav level2">
+                          <li>
+                              <a href="Ibralogue.Plugins.EnginePlugin.html" name="" title="EnginePlugin">EnginePlugin</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Plugins.PortraitImagePlugin.html" name="" title="PortraitImagePlugin">PortraitImagePlugin</a>
+                          </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="expand-stub"></span>
+                    <a href="Ibralogue.Views.html" name="" title="Ibralogue.Views">Ibralogue.Views</a>
+
+                    <ul class="nav level2">
+                          <li>
+                              <a href="Ibralogue.Views.ChoiceButton.html" name="" title="ChoiceButton">ChoiceButton</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Views.DialogueViewBase.html" name="" title="DialogueViewBase">DialogueViewBase</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Views.PunchDialogueView.html" name="" title="PunchDialogueView">PunchDialogueView</a>
+                          </li>
+                          <li>
+                              <a href="Ibralogue.Views.TypewriterDialogueView.html" name="" title="TypewriterDialogueView">TypewriterDialogueView</a>
                           </li>
                     </ul>
                 </li>

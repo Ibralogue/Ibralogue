@@ -1,29 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Global Variables | Ibralogue Docs </title>
+    <title> | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Global Variables | Ibralogue Docs ">
-    <meta name="generator" content="docfx 2.59.4.0">
-    
+    <meta name="title" content=" | Ibralogue Docs ">
+    <meta name="generator" content="docfx ">
+  
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    
+  
+  <meta property="docfx:rel" content="../">
+  
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
@@ -47,7 +47,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -57,17 +57,17 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -77,37 +77,56 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h3 id="global-variables">Global Variables</h3>
 
-<p>Global variables allow for predefined variables that can be used in dialogues for things like player names and other options that can be chosen or changed at runtime. They would be defined in the code like so:</p>
-<pre><code class="lang-cs">private void Awake() =&gt;
-    DialogueManager.GlobalVariables.Add(&quot;PLAYERNAME&quot;,&quot;Ibrahim&quot;);
-</code></pre><p>and would be declared in <code>.ibra</code> files like so:  </p>
+<h3 id="global-variables">Global Variables</h3>
+<p>Global variables allow you to define values in code that can be referenced in dialogue files. They are useful for things like player names and other values that change at runtime.</p>
+<h4 id="defining-variables">Defining Variables</h4>
+<p>Register variables through <code>DialogueGlobals.GlobalVariables</code>:</p>
+<pre><code class="lang-cs">private void Awake()
+{
+    DialogueGlobals.GlobalVariables.Add(&quot;PLAYERNAME&quot;, &quot;Ibrahim&quot;);
+}
+</code></pre>
+<h4 id="using-variables-in-dialogue">Using Variables in Dialogue</h4>
+<p>Reference a global variable with the <code>$</code> prefix:</p>
 <pre><code class="lang-text">[NPC]
 Hi, $PLAYERNAME.
 [$PLAYERNAME]
-Hi. What&#39;s up?
-</code></pre></article>
+Hi. What's up?
+</code></pre>
+<p>Variables can be used in both dialogue text and speaker names. If the variable <code>PLAYERNAME</code> is set to &quot;Ibrahim&quot;, the above would display as:</p>
+<pre><code>NPC: Hi, Ibrahim.
+Ibrahim: Hi. What's up?
+</code></pre>
+<h4 id="updating-variables-at-runtime">Updating Variables at Runtime</h4>
+<p>Since <code>GlobalVariables</code> is a standard dictionary, you can update values at any time:</p>
+<pre><code class="lang-cs">DialogueGlobals.GlobalVariables[&quot;PLAYERNAME&quot;] = &quot;New Name&quot;;
+</code></pre>
+<p>The new value will be used the next time the dialogue is parsed.</p>
+<h4 id="missing-variables">Missing Variables</h4>
+<p>If a variable is referenced in a dialogue file but has no entry in the dictionary, Ibralogue will emit a warning and leave the <code>$VARIABLE</code> text as-is.</p>
+
+</article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/global-variables.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/global-variables.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -115,14 +134,14 @@ Hi. What&#39;s up?
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Ibralogue Docs
-            
+      Ibralogue Docs
+      
           </div>
         </div>
       </footer>
     </div>
-    
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

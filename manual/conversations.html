@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title> | Ibralogue Docs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" | Ibralogue Docs ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<h3 id="conversations">Conversations</h3>
+<p>A single <code>.ibra</code> file can contain multiple conversations. Conversations are named blocks of dialogue that can be jumped to by name, which is how branching dialogue works.</p>
+<h4 id="naming-a-conversation">Naming a Conversation</h4>
+<p>Use <code>{{ConversationName(...)}}</code> on its own line to mark the start of a conversation:</p>
+<pre><code class="lang-text">{{ConversationName(Greeting)}}
+[NPC]
+Hello, traveller.
+[NPC]
+What brings you here?
+</code></pre>
+<p>Everything after the <code>{{ConversationName(...)}}</code> line belongs to that conversation, until the next <code>{{ConversationName(...)}}</code> or the end of the file.</p>
+<h4 id="multiple-conversations">Multiple Conversations</h4>
+<pre><code class="lang-text">{{ConversationName(Greeting)}}
+[NPC]
+Hello, traveller.
+
+{{ConversationName(Farewell)}}
+[NPC]
+Safe travels, friend.
+</code></pre>
+<p>This file contains two conversations: &quot;Greeting&quot; and &quot;Farewell&quot;.</p>
+<h4 id="default-conversation">Default Conversation</h4>
+<p>If no <code>{{ConversationName(...)}}</code> is specified, the conversation is named &quot;Default&quot;. This is fine for simple files that only need one conversation:</p>
+<pre><code class="lang-text">[NPC]
+Hello World!
+</code></pre>
+<h4 id="starting-a-specific-conversation">Starting a Specific Conversation</h4>
+<p>By default, <code>StartConversation</code> begins at the first conversation in the file. You can pass a <code>startIndex</code> to start at a different one:</p>
+<pre><code class="lang-cs">dialogueManager.StartConversation(dialogueAsset, startIndex: 1);
+</code></pre>
+<h4 id="jumping-between-conversations">Jumping Between Conversations</h4>
+<p>You can jump to a conversation by name directly in a dialogue file using the <code>{{Jump(...)}}</code> command:</p>
+<pre><code class="lang-text">{{ConversationName(Greeting)}}
+[NPC]
+{{Jump(Farewell)}}
+Hello, traveller.
+
+{{ConversationName(Farewell)}}
+[NPC]
+Safe travels, friend.
+</code></pre>
+<p>After the player advances past &quot;Hello, traveller.&quot;, the engine automatically switches to the &quot;Farewell&quot; conversation. See the <a href="jumps.html">Jumps</a> page for more.</p>
+<p>You can also jump from code at runtime using <code>JumpTo</code>:</p>
+<pre><code class="lang-cs">dialogueManager.JumpTo(&quot;Farewell&quot;);
+</code></pre>
+<p>This stops the current conversation and switches to the named one. The dialogue file must already be parsed (i.e., a conversation must be in progress).</p>
+<p>Jumping is also how choices work behind the scenes. See the <a href="choices.html">Choices</a> page for more.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/conversations.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Ibralogue Docs
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title> | Ibralogue Docs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" | Ibralogue Docs ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<h3 id="dialogue-views">Dialogue Views</h3>
+<p>A dialogue view controls how text is presented to the player. Every <code>SimpleDialogueEngine</code> requires a view assigned to its <code>Dialogue View</code> field.</p>
+<p>Ibralogue ships with two built-in views. You can also create your own by subclassing <code>DialogueViewBase</code>.</p>
+<h4 id="typewriterdialogueview">TypewriterDialogueView</h4>
+<p>Reveals text one character at a time, like a typewriter.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Character Delay</code></td>
+<td>Seconds between each character reveal. Default: <code>0.03</code>.</td>
+</tr>
+<tr>
+<td><code>Character Window</code></td>
+<td>Number of characters revealed per step. Default: <code>1</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>OnTypewriterEffectUpdated</code> event fires each time characters are revealed. This is useful for playing a typing sound effect.</p>
+<p>The delay can also be changed at runtime:</p>
+<pre><code class="lang-cs">typewriterView.SetCharacterDelay(0.01f);
+</code></pre>
+<h4 id="punchdialogueview">PunchDialogueView</h4>
+<p>Reveals text one word at a time.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Word Delay</code></td>
+<td>Seconds between each word reveal. Default: <code>0.2</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>OnPunchEffectUpdated</code> event fires each time a new word becomes visible.</p>
+<pre><code class="lang-cs">punchView.SetWordDelay(0.1f);
+</code></pre>
+<h4 id="skipping-the-effect">Skipping the Effect</h4>
+<p>Both built-in views support skipping the reveal animation. Call <code>SkipViewEffect()</code> to instantly show all text for the current line:</p>
+<pre><code class="lang-cs">dialogueView.SkipViewEffect();
+</code></pre>
+<h4 id="shared-fields">Shared Fields</h4>
+<p>All views inherit these fields from <code>DialogueViewBase</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name Text</code></td>
+<td>A TextMeshProUGUI component for displaying the speaker name.</td>
+</tr>
+<tr>
+<td><code>Sentence Text</code></td>
+<td>A TextMeshProUGUI component for displaying the dialogue text.</td>
+</tr>
+<tr>
+<td><code>Choice Button Holder</code></td>
+<td>A Transform that serves as the parent for instantiated choice buttons.</td>
+</tr>
+<tr>
+<td><code>Choice Button</code></td>
+<td>A prefab with a <code>ChoiceButton</code> component. Used when choices are displayed.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>OnSetView</code> event fires every time a new dialogue line is displayed. The <code>OnLineComplete</code> event fires when the view finishes its display effect.</p>
+<h4 id="creating-a-custom-view">Creating a Custom View</h4>
+<p>To create your own view, subclass <code>DialogueViewBase</code> and override the relevant methods:</p>
+<pre><code class="lang-cs">public class MyCustomView : DialogueViewBase
+{
+    public override void SetView(Conversation conversation, int lineIndex)
+    {
+        base.SetView(conversation, lineIndex);
+        // Your custom display logic here
+    }
+
+    public override bool IsStillDisplaying()
+    {
+        // Return true while your effect is still running
+        return false;
+    }
+
+    public override void SkipViewEffect()
+    {
+        // Instantly complete your effect
+    }
+
+    public override void ClearView(EnginePlugin[] plugins)
+    {
+        base.ClearView(plugins);
+        // Any additional cleanup
+    }
+}
+</code></pre>
+<p>The engine calls <code>SetView</code> when a line should be displayed, waits until <code>IsStillDisplaying</code> returns <code>false</code>, and then waits for the player to advance. <code>ClearView</code> is called before each new line and when the conversation ends.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/dialogue-views.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Ibralogue Docs
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
