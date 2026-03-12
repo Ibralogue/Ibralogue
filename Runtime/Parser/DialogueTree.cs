@@ -127,7 +127,7 @@ namespace Ibralogue.Parser
 	}
 
 	/// <summary>
-	/// A global variable reference within a sentence: $VariableName
+	/// A global variable reference within a sentence: $VARIABLE.
 	/// </summary>
 	internal class VariableReferenceNode : InlineNode
 	{
