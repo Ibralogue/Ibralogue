@@ -241,6 +241,80 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
+		public void GlobalVariable_InFunctionArgument_ResolvesCorrectly()
+		{
+			DialogueGlobals.GlobalVariables["ITEM"] = "Sword";
+
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nYou received {{GiveItem($ITEM)}}.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Assert.That(invocation.Name, Is.EqualTo("GiveItem"));
+			Assert.That(invocation.Arguments, Has.Count.EqualTo(1));
+			Assert.That(invocation.Arguments[0], Is.EqualTo("Sword"));
+
+			DialogueGlobals.GlobalVariables.Remove("ITEM");
+		}
+
+		[Test]
+		public void GlobalVariable_InFunctionArgument_WithMultipleArgs_ResolvesCorrectly()
+		{
+			DialogueGlobals.GlobalVariables["TARGET"] = "Dragon";
+			DialogueGlobals.GlobalVariables["DMG"] = "50";
+
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nYou hit {{DealDamage($TARGET, $DMG)}}!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Assert.That(invocation.Arguments, Has.Count.EqualTo(2));
+			Assert.That(invocation.Arguments[0], Is.EqualTo("Dragon"));
+			Assert.That(invocation.Arguments[1], Is.EqualTo("50"));
+
+			DialogueGlobals.GlobalVariables.Remove("TARGET");
+			DialogueGlobals.GlobalVariables.Remove("DMG");
+		}
+
+		[Test]
+		public void GlobalVariable_InMetadata_ResolvesCorrectly()
+		{
+			DialogueGlobals.GlobalVariables["MOOD"] = "angry";
+
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nGet out of here! ## emotion:$MOOD\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Lines[0].LineContent.Metadata, Contains.Key("emotion"));
+			Assert.That(result[0].Lines[0].LineContent.Metadata["emotion"], Is.EqualTo("angry"));
+
+			DialogueGlobals.GlobalVariables.Remove("MOOD");
+		}
+
+		[Test]
+		public void GlobalVariable_InChoiceMetadata_ResolvesCorrectly()
+		{
+			DialogueGlobals.GlobalVariables["QUESTID"] = "main01";
+
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nWill you help?\n" +
+				"- Sure -> Accept ## quest:$QUESTID\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			foreach (var kv in result[0].Choices)
+			{
+				Assert.That(kv.Key.Metadata, Contains.Key("quest"));
+				Assert.That(kv.Key.Metadata["quest"], Is.EqualTo("main01"));
+			}
+
+			DialogueGlobals.GlobalVariables.Remove("QUESTID");
+		}
+
+		[Test]
 		public void EscapedDoubleBrace_InlineIsLiteralText()
 		{
 			dialogueAsset.Content =

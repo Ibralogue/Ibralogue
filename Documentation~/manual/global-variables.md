@@ -15,7 +15,7 @@ private void Awake()
 
 #### Using Variables in Dialogue
 
-Reference a global variable with the `$` prefix:
+Reference a global variable with the `$` prefix. Variables are resolved anywhere in your dialogue -- text, speaker names, function arguments, metadata values, choices, etc.
 
 ```text
 [NPC]
@@ -24,11 +24,33 @@ Hi, $PLAYERNAME.
 Hi. What's up?
 ```
 
-Variables can be used in both dialogue text and speaker names. If the variable `PLAYERNAME` is set to "Ibrahim", the above would display as:
+If the variable `PLAYERNAME` is set to "Ibrahim", the above would display as:
 
 ```
 NPC: Hi, Ibrahim.
 Ibrahim: Hi. What's up?
+```
+
+#### Variables in Function Arguments
+
+Global variables can be passed directly as function arguments:
+
+```text
+[NPC]
+You received {{GiveItem($REWARD)}}.
+The $TARGET takes {{FormatDamage($DMG)}} damage!
+```
+
+This lets your dialogue functions receive dynamic values without hardcoding them in the dialogue file.
+
+#### Variables in Metadata and Choices
+
+Variables are also resolved in metadata values and choice text:
+
+```text
+[NPC]
+How do you feel? ## emotion:$MOOD
+- Go to $LOCATION -> $LOCATION ## quest:$QUESTID
 ```
 
 #### Updating Variables at Runtime
