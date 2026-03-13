@@ -79,7 +79,8 @@ namespace Ibralogue.Parser
 				string text = BuildSentenceText(sentence, invocations);
 				sentenceTexts.Add(text);
 
-				foreach (KeyValuePair<string, string> kv in sentence.Metadata)
+				Dictionary<string, string> resolvedSentenceMetadata = ResolveMetadata(sentence.Metadata, sentence.Span);
+				foreach (KeyValuePair<string, string> kv in resolvedSentenceMetadata)
 				{
 					if (!metadata.ContainsKey(kv.Key))
 						metadata.Add(kv.Key, kv.Value);
@@ -106,11 +107,12 @@ namespace Ibralogue.Parser
 
 			if (!string.IsNullOrEmpty(node.ImagePath))
 			{
-				Sprite sprite = Resources.Load<Sprite>(node.ImagePath);
+				string resolvedPath = ReplaceGlobalVariables(node.ImagePath, node.Span);
+				Sprite sprite = Resources.Load<Sprite>(resolvedPath);
 				if (sprite == null)
 				{
 					_diagnostics.ReportError(node.Span,
-						$"Invalid image path '{node.ImagePath}' in {_assetName}");
+						$"Invalid image path '{resolvedPath}' in {_assetName}");
 				}
 				line.SpeakerImage = sprite;
 			}
@@ -143,9 +145,14 @@ namespace Ibralogue.Parser
 				else if (fragment is FunctionInvocationNode funcNode)
 				{
 					funcNode.CharacterIndex = charOffset;
+
+					List<string> resolvedArgs = new List<string>(funcNode.Arguments.Count);
+					foreach (string arg in funcNode.Arguments)
+						resolvedArgs.Add(ReplaceGlobalVariables(arg, funcNode.Span));
+
 					invocations.Add(new FunctionInvocation(
 						funcNode.FunctionName,
-						funcNode.Arguments,
+						resolvedArgs,
 						charOffset,
 						funcNode.Span.Start.Line,
 						funcNode.Span.Start.Column));
@@ -161,7 +168,7 @@ namespace Ibralogue.Parser
 			{
 				ChoiceName = ReplaceGlobalVariables(node.Text, node.Span),
 				LeadingConversationName = ReplaceGlobalVariables(node.TargetConversation, node.Span),
-				Metadata = new Dictionary<string, string>(node.Metadata)
+				Metadata = ResolveMetadata(node.Metadata, node.Span)
 			};
 		}
 
@@ -176,6 +183,17 @@ namespace Ibralogue.Parser
 			_diagnostics.ReportWarning(node.Span,
 				$"Variable declaration detected, ({node.VariableName}) but no entry found in dictionary!");
 			return "$" + node.VariableName;
+		}
+
+		/// <summary>
+		/// Returns a copy of the metadata dictionary with global variables resolved in all values.
+		/// </summary>
+		private Dictionary<string, string> ResolveMetadata(Dictionary<string, string> metadata, SourceSpan span)
+		{
+			Dictionary<string, string> resolved = new Dictionary<string, string>(metadata.Count);
+			foreach (KeyValuePair<string, string> kv in metadata)
+				resolved.Add(kv.Key, ReplaceGlobalVariables(kv.Value, span));
+			return resolved;
 		}
 
 		/// <summary>
