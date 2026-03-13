@@ -4,6 +4,7 @@ using Ibralogue.Views;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -195,54 +196,123 @@ namespace Ibralogue
         }
 
         /// <summary>
-        /// Looks for functions and invokes them in a given line. The function also handles multiple return types and the parameters passed in.
+        /// Looks for functions and invokes them in a given line. Supports multiple arguments
+        /// and any return type that can be converted to a string for text insertion.
         /// </summary>
         /// <param name="functionInvocations">The invocations inside the current line being displayed.</param>
         protected virtual void InvokeFunctions(List<FunctionInvocation> functionInvocations)
         {
+            if (functionInvocations == null || functionInvocations.Count == 0)
+                return;
+
             IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
 
-            if (functionInvocations != null)
+            foreach (FunctionInvocation function in functionInvocations)
             {
-                foreach (FunctionInvocation function in functionInvocations)
+                MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
+                if (method == null)
+                    continue;
+
+                object[] args = BuildInvocationArguments(method, function);
+                if (args == null)
+                    continue;
+
+                object result = method.Invoke(null, args);
+
+                if (method.ReturnType != typeof(void))
                 {
-                    bool found = false;
+                    string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
+                    _currentConversation.Lines[_lineIndex].LineContent.Text =
+                        _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.CharacterIndex, insertText);
+                    dialogueView.SetView(_currentConversation, _lineIndex);
+                }
+            }
+        }
 
-                    foreach (MethodInfo methodInfo in dialogueMethods)
-                    {
-                        if (methodInfo.Name != function.Name)
-                            continue;
+        /// <summary>
+        /// Finds the first <see cref="DialogueFunctionAttribute"/> method whose name matches the
+        /// invocation and whose parameter count is compatible with the supplied arguments.
+        /// The first parameter may optionally accept a <see cref="DialogueEngineBase"/> instance.
+        /// </summary>
+        private MethodInfo ResolveDialogueFunction(IEnumerable<MethodInfo> methods, FunctionInvocation function)
+        {
+            bool nameFound = false;
+            int argCount = function.Arguments != null ? function.Arguments.Count : 0;
 
-                        found = true;
+            foreach (MethodInfo method in methods)
+            {
+                if (method.Name != function.Name)
+                    continue;
 
-                        if (methodInfo.ReturnType == typeof(string))
-                        {
-                            string replacedText = methodInfo.GetParameters().Length > 0 ? (string)methodInfo.Invoke(null, new object[] { this }) : (string)methodInfo.Invoke(null, null);
-                            _currentConversation.Lines[_lineIndex].LineContent.Text = _currentConversation.Lines[_lineIndex].LineContent.Text.Insert(function.CharacterIndex, replacedText);
+                nameFound = true;
+                ParameterInfo[] parameters = method.GetParameters();
+                int expectedArgs = parameters.Length;
 
-                            dialogueView.SetView(_currentConversation, _lineIndex);
-                        }
-                        else
-                        {
-                            if (methodInfo.GetParameters().Length > 0)
-                            {
-                                methodInfo.Invoke(null, new object[] { this });
-                            }
-                            else
-                            {
-                                methodInfo.Invoke(null, null);
-                            }
-                        }
-                    }
+                if (expectedArgs > 0 && typeof(DialogueEngineBase).IsAssignableFrom(parameters[0].ParameterType))
+                    expectedArgs--;
 
-                    if (!found)
-                    {
-                        Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
-                            $"No [DialogueFunction] method found for invocation '{function.Name}'");
-                    }
+                if (expectedArgs == argCount)
+                    return method;
+            }
+
+            if (nameFound)
+            {
+                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                    $"[DialogueFunction] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
+            }
+            else
+            {
+                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                    $"No [DialogueFunction] method found for invocation '{function.Name}'");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Converts the string arguments from a <see cref="FunctionInvocation"/> into a typed
+        /// <c>object[]</c> matching the target method's parameter signature. Returns null if
+        /// any conversion fails.
+        /// </summary>
+        private object[] BuildInvocationArguments(MethodInfo method, FunctionInvocation function)
+        {
+            ParameterInfo[] parameters = method.GetParameters();
+            if (parameters.Length == 0)
+                return Array.Empty<object>();
+
+            object[] args = new object[parameters.Length];
+            int argIndex = 0;
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                Type paramType = parameters[i].ParameterType;
+
+                if (i == 0 && typeof(DialogueEngineBase).IsAssignableFrom(paramType))
+                {
+                    args[i] = this;
+                    continue;
                 }
 
+                string rawValue = function.Arguments[argIndex];
+
+                try
+                {
+                    args[i] = paramType == typeof(string)
+                        ? rawValue
+                        : Convert.ChangeType(rawValue, paramType, CultureInfo.InvariantCulture);
+                }
+                catch (Exception ex) when (ex is FormatException || ex is InvalidCastException || ex is OverflowException)
+                {
+                    Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                        $"Failed to convert argument {argIndex} ('{rawValue}') to {paramType.Name} " +
+                        $"for function '{function.Name}': {ex.Message}");
+                    return null;
+                }
+
+                argIndex++;
             }
+
+            return args;
         }
 
         /// <summary>
