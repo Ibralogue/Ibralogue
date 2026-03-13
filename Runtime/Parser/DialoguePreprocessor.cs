@@ -65,9 +65,15 @@ namespace Ibralogue.Parser
 		private string ExpandInclude(string args, int lineNumber)
 		{
 			// Parse arguments: AssetName or "AssetName", with optional ConversationName
-			string[] parts = args.Split(',');
-			string assetName = StripQuotes(parts[0].Trim());
-			string conversationName = parts.Length > 1 ? StripQuotes(parts[1].Trim()) : null;
+			List<string> parts = InvocationSyntax.SplitArguments(args);
+			if (parts.Count == 0)
+			{
+				SourceSpan span = MakeSpan(lineNumber);
+				_diagnostics.ReportError(span, "Include directive has no arguments");
+				return "";
+			}
+			string assetName = InvocationSyntax.StripQuotes(parts[0]);
+			string conversationName = parts.Count > 1 ? InvocationSyntax.StripQuotes(parts[1]) : null;
 
 			// Circular include detection
 			if (_includeStack.Contains(assetName))
@@ -155,22 +161,6 @@ namespace Ibralogue.Parser
 					line++;
 			}
 			return line;
-		}
-
-		/// <summary>
-		/// Strips surrounding double or single quotes from a string, if present.
-		/// </summary>
-		private static string StripQuotes(string value)
-		{
-			if (value.Length >= 2)
-			{
-				if ((value[0] == '"' && value[value.Length - 1] == '"') ||
-					(value[0] == '\'' && value[value.Length - 1] == '\''))
-				{
-					return value.Substring(1, value.Length - 2);
-				}
-			}
-			return value;
 		}
 
 		/// <summary>
