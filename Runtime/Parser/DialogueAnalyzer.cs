@@ -145,6 +145,7 @@ namespace Ibralogue.Parser
 					funcNode.CharacterIndex = charOffset;
 					invocations.Add(new FunctionInvocation(
 						funcNode.FunctionName,
+						funcNode.Arguments,
 						charOffset,
 						funcNode.Span.Start.Line,
 						funcNode.Span.Start.Column));
