@@ -821,13 +821,13 @@ namespace Ibralogue.Editor.Tests
 		public void InlineFunctionInvocation_HasCorrectCharacterIndex()
 		{
 			dialogueAsset.Content =
-				"[NPC]\nHello {{PlaySFX(boom)}} world!\n";
+				"[NPC]\nHello {{Audio(boom)}} world!\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Line line = GetLine(result[0], 0);
 			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(1));
-			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("PlaySFX"));
+			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("Audio"));
 			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(6));
 			Assert.That(line.LineContent.Text, Is.EqualTo("Hello  world!"));
 		}

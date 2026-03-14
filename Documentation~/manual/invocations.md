@@ -43,10 +43,10 @@ When a function invocation appears inline within dialogue text, it fires at its 
 
 ```text
 [NPC]
-I have a gift for you. {{PlaySFX(fanfare)}} Ta-da!
+I have a gift for you. {{Audio(fanfare)}} Ta-da!
 ```
 
-The `PlaySFX` function fires when the typewriter reaches the space after "you. " -- not when the line first appears.
+The `Audio` function fires when the typewriter reaches the space after "you. " -- not when the line first appears.
 
 Functions that return a string (see below) are an exception: they fire immediately **before** the animation starts, so their returned text is part of the full line from the beginning.
 
