@@ -5,8 +5,9 @@ using UnityEngine;
 namespace Ibralogue.Parser
 {
 	/// <summary>
-	/// Performs semantic analysis on the AST and converts it into runtime structures. 
-	/// This includes converting function invocations, and builtins.
+	/// Converts the AST into runtime content structures.
+	/// Variables are NOT resolved here — they are preserved as references
+	/// for the engine to resolve at display time.
 	/// </summary>
 	internal class DialogueAnalyzer
 	{
@@ -19,9 +20,6 @@ namespace Ibralogue.Parser
 			_assetName = assetName ?? "unknown";
 		}
 
-		/// <summary>
-		/// Converts a parsed AST document into the runtime Conversation list.
-		/// </summary>
 		public List<Conversation> Analyze(DialogueTree document)
 		{
 			List<Conversation> conversations = new List<Conversation>();
@@ -40,212 +38,129 @@ namespace Ibralogue.Parser
 
 		private Conversation AnalyzeConversation(ConversationNode node)
 		{
-			Conversation conversation = new Conversation
-			{
-				Name = ReplaceGlobalVariables(node.Name, node.Span),
-				Lines = new List<Line>()
-			};
-
-			foreach (DialogueLineNode lineNode in node.Lines)
-			{
-				Line line = AnalyzeDialogueLine(lineNode);
-				conversation.Lines.Add(line);
-			}
+			List<RuntimeContentNode> content = AnalyzeContentList(node.Content);
 
 			if (node.Choices.Count > 0)
 			{
-				conversation.Choices = new Dictionary<Choice, int>();
+				List<ChoiceData> choices = new List<ChoiceData>();
 				foreach (ChoiceNode choiceNode in node.Choices)
+					choices.Add(AnalyzeChoice(choiceNode));
+				content.Add(new RuntimeChoicePoint(choices));
+			}
+
+			return new Conversation
+			{
+				Name = node.Name,
+				Content = content
+			};
+		}
+
+		private List<RuntimeContentNode> AnalyzeContentList(List<ContentNode> nodes)
+		{
+			List<RuntimeContentNode> result = new List<RuntimeContentNode>();
+
+			foreach (ContentNode node in nodes)
+			{
+				if (node is DialogueLineNode lineNode)
 				{
-					Choice choice = AnalyzeChoice(choiceNode);
-					conversation.Choices.Add(choice, choiceNode.LineIndex);
+					result.Add(AnalyzeDialogueLine(lineNode));
+				}
+				else if (node is ConditionalBlockNode condNode)
+				{
+					result.Add(AnalyzeConditionalBlock(condNode));
+				}
+				else if (node is SetCommandNode setNode)
+				{
+					result.Add(new RuntimeSetCommand(setNode.VariableName, setNode.Value));
+				}
+				else if (node is GlobalDeclNode globalNode)
+				{
+					result.Add(new RuntimeGlobalDecl(globalNode.VariableName, globalNode.DefaultValue));
 				}
 			}
 
-			return conversation;
+			return result;
 		}
 
-		private Line AnalyzeDialogueLine(DialogueLineNode node)
+		private RuntimeLine AnalyzeDialogueLine(DialogueLineNode node)
 		{
-			string speaker = ReplaceGlobalVariables(node.Speaker, node.SpeakerSpan);
-
-			// Gather invocations/metadata from all sentences
-			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
-			Dictionary<string, string> metadata = new Dictionary<string, string>();
-			List<string> sentenceTexts = new List<string>();
-
-			foreach (SentenceNode sentence in node.Sentences)
+			Sprite speakerImage = null;
+			if (!string.IsNullOrEmpty(node.ImagePath))
 			{
-				string text = BuildSentenceText(sentence, invocations);
-				sentenceTexts.Add(text);
+				speakerImage = Resources.Load<Sprite>(node.ImagePath);
+				if (speakerImage == null)
+				{
+					_diagnostics.ReportError(node.Span,
+						$"Invalid image path '{node.ImagePath}' in {_assetName}");
+				}
+			}
 
-				Dictionary<string, string> resolvedSentenceMetadata = ResolveMetadata(sentence.Metadata, sentence.Span);
-				foreach (KeyValuePair<string, string> kv in resolvedSentenceMetadata)
+			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
+			foreach (SentenceNode sentence in node.Sentences)
+				CollectInvocations(sentence, invocations);
+
+			Line line = new Line
+			{
+				Speaker = node.Speaker,
+				LineContent = new LineContent
+				{
+					Text = "",
+					Invocations = invocations,
+					Metadata = CollectMetadata(node.Sentences)
+				},
+				SpeakerImage = speakerImage,
+				JumpTarget = node.JumpTarget
+			};
+
+			return new RuntimeLine(line, node.Sentences, node.Speaker, node.JumpTarget);
+		}
+
+		private void CollectInvocations(SentenceNode sentence, List<FunctionInvocation> invocations)
+		{
+			foreach (InlineNode fragment in sentence.Fragments)
+			{
+				if (fragment is FunctionInvocationNode funcNode)
+				{
+					invocations.Add(new FunctionInvocation(
+						funcNode.FunctionName,
+						new List<string>(funcNode.Arguments),
+						0,
+						funcNode.Span.Start.Line,
+						funcNode.Span.Start.Column));
+				}
+			}
+		}
+
+		private Dictionary<string, string> CollectMetadata(List<SentenceNode> sentences)
+		{
+			Dictionary<string, string> metadata = new Dictionary<string, string>();
+			foreach (SentenceNode sentence in sentences)
+			{
+				foreach (KeyValuePair<string, string> kv in sentence.Metadata)
 				{
 					if (!metadata.ContainsKey(kv.Key))
 						metadata.Add(kv.Key, kv.Value);
 				}
 			}
+			return metadata;
+		}
 
-			string combinedText = string.Join("\n", sentenceTexts);
+		private RuntimeConditionalBlock AnalyzeConditionalBlock(ConditionalBlockNode node)
+		{
+			List<RuntimeBranch> branches = new List<RuntimeBranch>();
 
-			Line line = new Line
+			foreach (ConditionalBranch branch in node.Branches)
 			{
-				Speaker = speaker,
-				LineContent = new LineContent
-				{
-					Text = combinedText,
-					Invocations = invocations,
-					Metadata = metadata
-				}
-			};
-
-			if (!string.IsNullOrEmpty(node.JumpTarget))
-			{
-				line.JumpTarget = ReplaceGlobalVariables(node.JumpTarget, node.Span);
+				List<RuntimeContentNode> body = AnalyzeContentList(branch.Body);
+				branches.Add(new RuntimeBranch(branch.Condition, body));
 			}
 
-			if (!string.IsNullOrEmpty(node.ImagePath))
-			{
-				string resolvedPath = ReplaceGlobalVariables(node.ImagePath, node.Span);
-				Sprite sprite = Resources.Load<Sprite>(resolvedPath);
-				if (sprite == null)
-				{
-					_diagnostics.ReportError(node.Span,
-						$"Invalid image path '{resolvedPath}' in {_assetName}");
-				}
-				line.SpeakerImage = sprite;
-			}
-
-			return line;
+			return new RuntimeConditionalBlock(branches);
 		}
 
-		/// <summary>
-		/// Builds the rendered text for a sentence, replacing variables and recording
-		/// function invocation positions.
-		/// </summary>
-		private string BuildSentenceText(SentenceNode sentence, List<FunctionInvocation> invocations)
+		private ChoiceData AnalyzeChoice(ChoiceNode node)
 		{
-			int charOffset = 0;
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-			foreach (InlineNode fragment in sentence.Fragments)
-			{
-				if (fragment is TextNode textNode)
-				{
-					sb.Append(textNode.Text);
-					charOffset += textNode.Text.Length;
-				}
-				else if (fragment is VariableReferenceNode varNode)
-				{
-					string value = ResolveVariable(varNode);
-					sb.Append(value);
-					charOffset += value.Length;
-				}
-				else if (fragment is FunctionInvocationNode funcNode)
-				{
-					funcNode.CharacterIndex = charOffset;
-
-					List<string> resolvedArgs = new List<string>(funcNode.Arguments.Count);
-					foreach (string arg in funcNode.Arguments)
-						resolvedArgs.Add(ReplaceGlobalVariables(arg, funcNode.Span));
-
-					invocations.Add(new FunctionInvocation(
-						funcNode.FunctionName,
-						resolvedArgs,
-						charOffset,
-						funcNode.Span.Start.Line,
-						funcNode.Span.Start.Column));
-				}
-			}
-
-			return sb.ToString();
-		}
-
-		private Choice AnalyzeChoice(ChoiceNode node)
-		{
-			return new Choice
-			{
-				ChoiceName = ReplaceGlobalVariables(node.Text, node.Span),
-				LeadingConversationName = ReplaceGlobalVariables(node.TargetConversation, node.Span),
-				Metadata = ResolveMetadata(node.Metadata, node.Span)
-			};
-		}
-
-		/// <summary>
-		/// Resolves a variable reference to its value from DialogueGlobals.
-		/// </summary>
-		private string ResolveVariable(VariableReferenceNode node)
-		{
-			if (DialogueGlobals.GlobalVariables.TryGetValue(node.VariableName, out string value))
-				return value;
-
-			_diagnostics.ReportWarning(node.Span,
-				$"Variable declaration detected, ({node.VariableName}) but no entry found in dictionary!");
-			return "$" + node.VariableName;
-		}
-
-		/// <summary>
-		/// Returns a copy of the metadata dictionary with global variables resolved in all values.
-		/// </summary>
-		private Dictionary<string, string> ResolveMetadata(Dictionary<string, string> metadata, SourceSpan span)
-		{
-			Dictionary<string, string> resolved = new Dictionary<string, string>(metadata.Count);
-			foreach (KeyValuePair<string, string> kv in metadata)
-				resolved.Add(kv.Key, ReplaceGlobalVariables(kv.Value, span));
-			return resolved;
-		}
-
-		/// <summary>
-		/// Replaces $VARIABLE references in a plain string using DialogueGlobals.
-		/// Used for speaker names and other non-fragment strings.
-		/// </summary>
-		private string ReplaceGlobalVariables(string text, SourceSpan span)
-		{
-			if (text == null || text.IndexOf('$') < 0)
-				return text;
-
-			int i = 0;
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-			while (i < text.Length)
-			{
-				if (text[i] == '$')
-				{
-					i++;
-					int nameStart = i;
-					while (i < text.Length && IsAlphanumeric(text[i]))
-						i++;
-
-					string varName = text.Substring(nameStart, i - nameStart);
-					if (varName.Length > 0 && DialogueGlobals.GlobalVariables.TryGetValue(varName, out string value))
-					{
-						sb.Append(value);
-					}
-					else
-					{
-						if (varName.Length > 0)
-						{
-							_diagnostics.ReportWarning(span,
-								$"Variable declaration detected, ({varName}) but no entry found in dictionary!");
-						}
-						sb.Append('$');
-						sb.Append(varName);
-					}
-				}
-				else
-				{
-					sb.Append(text[i]);
-					i++;
-				}
-			}
-
-			return sb.ToString();
-		}
-
-		private static bool IsAlphanumeric(char c)
-		{
-			return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+			return new ChoiceData(node.Text, node.TargetConversation, node.Metadata);
 		}
 	}
 }
