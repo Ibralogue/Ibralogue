@@ -38,20 +38,10 @@ namespace Ibralogue.Parser
 
 		private Conversation AnalyzeConversation(ConversationNode node)
 		{
-			List<RuntimeContentNode> content = AnalyzeContentList(node.Content);
-
-			if (node.Choices.Count > 0)
-			{
-				List<ChoiceData> choices = new List<ChoiceData>();
-				foreach (ChoiceNode choiceNode in node.Choices)
-					choices.Add(AnalyzeChoice(choiceNode));
-				content.Add(new RuntimeChoicePoint(choices));
-			}
-
 			return new Conversation
 			{
 				Name = node.Name,
-				Content = content
+				Content = AnalyzeContentList(node.Content)
 			};
 		}
 
@@ -64,6 +54,13 @@ namespace Ibralogue.Parser
 				if (node is DialogueLineNode lineNode)
 				{
 					result.Add(AnalyzeDialogueLine(lineNode));
+				}
+				else if (node is ChoiceGroupNode choiceGroup)
+				{
+					List<ChoiceData> choices = new List<ChoiceData>();
+					foreach (ChoiceNode choiceNode in choiceGroup.Choices)
+						choices.Add(AnalyzeChoice(choiceNode));
+					result.Add(new RuntimeChoicePoint(choices));
 				}
 				else if (node is ConditionalBlockNode condNode)
 				{
@@ -99,9 +96,11 @@ namespace Ibralogue.Parser
 			foreach (SentenceNode sentence in node.Sentences)
 				CollectInvocations(sentence, invocations);
 
+			bool silent = node.Speaker == ">>";
+
 			Line line = new Line
 			{
-				Speaker = node.Speaker,
+				Speaker = silent ? "" : node.Speaker,
 				LineContent = new LineContent
 				{
 					Text = "",
@@ -109,7 +108,8 @@ namespace Ibralogue.Parser
 					Metadata = CollectMetadata(node.Sentences)
 				},
 				SpeakerImage = speakerImage,
-				JumpTarget = node.JumpTarget
+				JumpTarget = node.JumpTarget,
+				Silent = silent
 			};
 
 			return new RuntimeLine(line, node.Sentences, node.Speaker, node.JumpTarget);
