@@ -375,9 +375,18 @@ namespace Ibralogue
         /// Called when a dialogue line is ready to be displayed. Override this to
         /// customize how lines are presented, add custom effects, or inject
         /// additional logic between lines.
+        ///
+        /// Text-producing functions (non-void return) fire immediately before
+        /// the animation starts. Void functions fire at their character position
+        /// during the animated reveal.
         /// </summary>
         protected virtual IEnumerator OnDisplayLine(Line line)
         {
+            IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
+            List<ResolvedInvocation> resolved = ResolveAllInvocations(line, dialogueMethods);
+
+            InvokeTextProducingFunctions(resolved, line);
+
             dialogueView.SetView(line);
 
             foreach (EnginePlugin plugin in enginePlugins)
@@ -385,14 +394,33 @@ namespace Ibralogue
                 plugin.Display(line);
             }
 
-            InvokeFunctions(line.LineContent.Invocations, line);
+            List<ResolvedInvocation> pending = CollectPendingVoidInvocations(resolved);
+            int nextPending = 0;
 
-            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying() || _isPaused);
+            while (dialogueView.IsStillDisplaying())
+            {
+                if (_isPaused)
+                    yield return new WaitUntil(() => !_isPaused);
+
+                int visibleChars = dialogueView.VisibleCharacterCount;
+                while (nextPending < pending.Count &&
+                       pending[nextPending].Invocation.CharacterIndex <= visibleChars)
+                {
+                    InvokeSingle(pending[nextPending], line);
+                    nextPending++;
+                }
+
+                yield return null;
+            }
+
+            while (nextPending < pending.Count)
+            {
+                InvokeSingle(pending[nextPending], line);
+                nextPending++;
+            }
 
             if (_isPaused)
-            {
                 yield return new WaitUntil(() => !_isPaused);
-            }
         }
 
         private void OnChoiceSelected(Choice choice)
@@ -438,10 +466,75 @@ namespace Ibralogue
             return new Parser.Expressions.ExpressionEvaluator(name => VariableStore.Resolve(assetName, name));
         }
 
+        private struct ResolvedInvocation
+        {
+            public FunctionInvocation Invocation;
+            public MethodInfo Method;
+            public object[] Arguments;
+        }
+
+        private List<ResolvedInvocation> ResolveAllInvocations(Line line,
+            IEnumerable<MethodInfo> dialogueMethods)
+        {
+            List<ResolvedInvocation> result = new List<ResolvedInvocation>();
+            if (line.LineContent.Invocations == null)
+                return result;
+
+            foreach (FunctionInvocation function in line.LineContent.Invocations)
+            {
+                MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
+                if (method == null) continue;
+
+                object[] args = BuildInvocationArguments(method, function);
+                if (args == null) continue;
+
+                result.Add(new ResolvedInvocation
+                {
+                    Invocation = function,
+                    Method = method,
+                    Arguments = args
+                });
+            }
+
+            return result;
+        }
+
+        private void InvokeTextProducingFunctions(List<ResolvedInvocation> resolved, Line line)
+        {
+            foreach (ResolvedInvocation r in resolved)
+            {
+                if (r.Method.ReturnType == typeof(void))
+                    continue;
+
+                object result = r.Method.Invoke(null, r.Arguments);
+                string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
+                line.LineContent.Text =
+                    line.LineContent.Text.Insert(r.Invocation.CharacterIndex, insertText);
+            }
+        }
+
+        private List<ResolvedInvocation> CollectPendingVoidInvocations(List<ResolvedInvocation> resolved)
+        {
+            List<ResolvedInvocation> pending = new List<ResolvedInvocation>();
+            foreach (ResolvedInvocation r in resolved)
+            {
+                if (r.Method.ReturnType == typeof(void))
+                    pending.Add(r);
+            }
+            pending.Sort((a, b) => a.Invocation.CharacterIndex.CompareTo(b.Invocation.CharacterIndex));
+            return pending;
+        }
+
+        private void InvokeSingle(ResolvedInvocation r, Line line)
+        {
+            r.Method.Invoke(null, r.Arguments);
+        }
+
         /// <summary>
-        /// Invokes [DialogueFunction] methods found in the current line's invocations.
+        /// Invokes all functions immediately. Used for silent lines where
+        /// there is no animated display.
         /// </summary>
-        protected virtual void InvokeFunctions(List<FunctionInvocation> functionInvocations, Line line)
+        protected void InvokeFunctions(List<FunctionInvocation> functionInvocations, Line line)
         {
             if (functionInvocations == null || functionInvocations.Count == 0)
                 return;
@@ -451,12 +544,10 @@ namespace Ibralogue
             foreach (FunctionInvocation function in functionInvocations)
             {
                 MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
-                if (method == null)
-                    continue;
+                if (method == null) continue;
 
                 object[] args = BuildInvocationArguments(method, function);
-                if (args == null)
-                    continue;
+                if (args == null) continue;
 
                 object result = method.Invoke(null, args);
 
@@ -465,7 +556,6 @@ namespace Ibralogue
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
                     line.LineContent.Text =
                         line.LineContent.Text.Insert(function.CharacterIndex, insertText);
-                    dialogueView.SetView(line);
                 }
             }
         }
