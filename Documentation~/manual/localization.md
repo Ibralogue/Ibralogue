@@ -25,7 +25,7 @@ Greeting.choice.1,"Pas super"
 speaker.NPC,"PNJ"
 ```
 
-At display time, the engine checks the active localization provider. If a translation exists for the current line's key, it replaces the default text. Variables (`$NAME`) and functions (`{{GetDay}}`) in translated text are resolved the same way as in the original.
+At display time, the engine checks the active localization provider. If a translation exists for the current line's key, it replaces the default text. Variables (`$NAME`) and invocations (`{{GetDay}}`) in translated text are resolved the same way as in the original.
 
 #### Localization Keys
 
@@ -101,9 +101,9 @@ Assign the component to the engine's `Localization Provider Component` field, or
 engine.LocalizationProvider = myProvider;
 ```
 
-#### Translated Text with Variables and Functions
+#### Translated Text with Variables and Invocations
 
-Translated strings can contain variable references and function invocations. They are parsed and resolved at display time just like the original text:
+Translated strings can contain variable references and invocations. They are parsed and resolved at display time just like the original text:
 
 ```csv
 key,text

@@ -15,7 +15,7 @@ Ibralogue includes a `PortraitImagePlugin` that handles speaker portrait display
 
 The plugin reads the `image` metadata key from each line. When present, it loads the sprite via `Resources.Load` and displays it. When absent, the portrait is hidden.
 
-Set the image in your dialogue file using the `Image` command or metadata:
+Set the image in your dialogue file using the `Image` invocation or metadata:
 
 ```text
 [NPC]

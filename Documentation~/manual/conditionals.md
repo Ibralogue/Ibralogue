@@ -1,6 +1,6 @@
 ### Conditionals
 
-Conditionals let you show or hide dialogue lines based on variable state. They are evaluated at runtime as the engine reaches them, so earlier `{{Set(...)}}` commands within the same conversation affect later conditions.
+Conditionals let you show or hide dialogue lines based on variable state. They are evaluated at runtime as the engine reaches them, so earlier `{{Set(...)}}` invocations within the same conversation affect later conditions.
 
 #### Basic If/Else
 

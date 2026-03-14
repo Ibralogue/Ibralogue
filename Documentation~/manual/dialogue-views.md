@@ -90,13 +90,13 @@ public class MyCustomView : DialogueViewBase
 
 The engine calls `SetView` when a line should be displayed, waits until `IsStillDisplaying` returns `false`, and then waits for the player to advance. `ClearView` is called before each new line and when the conversation ends.
 
-#### Function Timing in Animated Views
+#### Invocation Timing in Animated Views
 
-When a view reveals text incrementally (like the typewriter or punch views), [functions](invocations.md) placed inline in dialogue text fire at their character position as the text is revealed. For example, `{{Audio(boom)}}` placed mid-sentence fires when the view reaches that point in the text.
+When a view reveals text incrementally (like the typewriter or punch views), [invocations](invocations.md) placed inline in dialogue text fire at their character position as the text is revealed. For example, `{{Audio(boom)}}` placed mid-sentence fires when the view reaches that point in the text.
 
-With views that display text instantly (like the base `DialogueViewBase`), all functions fire immediately since the full text is visible from the start.
+With views that display text instantly (like the base `DialogueViewBase`), all invocations fire immediately since the full text is visible from the start.
 
-Custom views that implement incremental text reveal should update `VisibleCharacterCount` to enable position-based function timing:
+Custom views that implement incremental text reveal should update `VisibleCharacterCount` to enable position-based invocation timing:
 
 ```cs
 public override int VisibleCharacterCount

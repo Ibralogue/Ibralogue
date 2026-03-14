@@ -51,4 +51,4 @@ Let me check something...
 All done!
 ```
 
-The `[>>]` line is processed silently by the engine, so any [functions](invocations.md) on it are called, but no dialogue box or speaker name is shown. This is useful for triggering game logic between visible dialogue lines.
+The `[>>]` line is processed silently by the engine, so any [invocations](invocations.md) on it are called, but no dialogue box or speaker name is shown. This is useful for triggering game logic between visible dialogue lines.
