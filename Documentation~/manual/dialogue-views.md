@@ -58,14 +58,14 @@ The `OnSetView` event fires every time a new dialogue line is displayed. The `On
 
 #### Creating a Custom View
 
-To create your own view, subclass `DialogueViewBase` and override the relevant methods:
+To create your own view, subclass `DialogueViewBase` and override the relevant methods. The `SetView` method receives a `Line` object containing the speaker, text, image, and metadata for the current line:
 
 ```cs
 public class MyCustomView : DialogueViewBase
 {
-    public override void SetView(Conversation conversation, int lineIndex)
+    public override void SetView(Line line)
     {
-        base.SetView(conversation, lineIndex);
+        base.SetView(line);
         // Your custom display logic here
     }
 
@@ -89,3 +89,23 @@ public class MyCustomView : DialogueViewBase
 ```
 
 The engine calls `SetView` when a line should be displayed, waits until `IsStillDisplaying` returns `false`, and then waits for the player to advance. `ClearView` is called before each new line and when the conversation ends.
+
+#### Customizing the Engine Display Loop
+
+If you need to customize what happens when a line is displayed (beyond what a view provides), you can subclass the engine and override `OnDisplayLine`:
+
+```cs
+public class MyEngine : SimpleDialogueEngine
+{
+    protected override IEnumerator OnDisplayLine(Line line)
+    {
+        // Custom logic before display
+        Debug.Log($"{line.Speaker} says: {line.LineContent.Text}");
+
+        // Call base to use the standard view/plugin/function pipeline
+        yield return base.OnDisplayLine(line);
+
+        // Custom logic after display
+    }
+}
+```

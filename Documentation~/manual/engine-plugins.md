@@ -6,7 +6,7 @@ Engine plugins let you hook into the dialogue display lifecycle without modifyin
 
 Any `EnginePlugin` component on the same GameObject as the `SimpleDialogueEngine` is automatically discovered. The engine calls into each plugin at two points:
 
-- `Display(Conversation, int lineIndex)` is called every time a new dialogue line is shown.
+- `Display(Line line)` is called every time a new dialogue line is shown. The `Line` object contains the speaker, text, image, metadata, and other properties for the current line.
 - `Clear()` is called when the view is cleared (between lines and at conversation end).
 
 #### Built-in: PortraitImagePlugin
@@ -20,7 +20,7 @@ When a dialogue line has a `SpeakerImage` set (via the `{{Image(...)}}` command)
 Subclass `EnginePlugin` and implement the two abstract methods:
 
 ```cs
-using Ibralogue;
+using Ibralogue.Parser;
 using Ibralogue.Plugins;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class AudioPlugin : EnginePlugin
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip talkSound;
 
-    public override void Display(Conversation conversation, int lineIndex)
+    public override void Display(Line line)
     {
         // Play a sound when each line appears
         audioSource.PlayOneShot(talkSound);

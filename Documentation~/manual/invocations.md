@@ -56,22 +56,11 @@ public static void PauseForDrama(DialogueEngineBase engine)
 }
 ```
 
-This works for both void and string-returning functions:
-
-```cs
-[DialogueFunction]
-public static string CurrentSpeaker(DialogueEngineBase engine)
-{
-    var conversation = engine.ParsedConversations[0];
-    return conversation.Lines[0].Speaker;
-}
-```
-
-If the function has no parameters, Ibralogue calls it without arguments as usual.
+This works for both void and string-returning functions. If the function has no parameters, Ibralogue calls it without arguments as usual.
 
 #### Using Global Variables as Arguments
 
-[Global variables](global-variables.md) are resolved inside function arguments, so you can pass dynamic values:
+[Variables](global-variables.md) are resolved inside function arguments, so you can pass dynamic values:
 
 ```text
 [NPC]

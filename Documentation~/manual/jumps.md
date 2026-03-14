@@ -39,7 +39,7 @@ Both forms are equivalent. The jump always happens after the player advances pas
 
 #### Variables in Jump Targets
 
-Jump targets support [global variables](global-variables.md):
+Jump targets support [variables](global-variables.md):
 
 ```text
 [NPC]
@@ -47,4 +47,4 @@ Jump targets support [global variables](global-variables.md):
 Moving on...
 ```
 
-The variable is resolved at parse time, just like variables in dialogue text.
+The variable is resolved at runtime when the line is displayed, just like variables in dialogue text.

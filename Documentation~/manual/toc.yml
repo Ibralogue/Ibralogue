@@ -10,8 +10,10 @@
       href: choices.md
     - name: Jumps
       href: jumps.md
-    - name: Global Variables
+    - name: Variables
       href: global-variables.md
+    - name: Conditionals
+      href: conditionals.md
     - name: Comments & Metadata
       href: comments.md
     - name: Function Invocations
