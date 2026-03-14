@@ -57,6 +57,21 @@ It's a beautiful day outside! ## image:Portraits/AvaSmiling
 
 Both forms are equivalent. The `{{Image(...)}}` command is stored as `image` metadata on the line.
 
+To change the portrait mid-sentence (e.g., an expression change during animated text), use a [DialogueFunction](invocations.md) that calls the plugin's `SetImage` method. It will fire at the correct character position during the typewriter effect:
+
+```cs
+[DialogueFunction]
+public static void Expression(DialogueEngineBase engine, string path)
+{
+    engine.GetComponent<PortraitImagePlugin>().SetImage(path);
+}
+```
+
+```text
+[NPC]
+Hello! {{Expression(Portraits/Surprised)}} I didn't expect that!
+```
+
 ### Audio
 
 Attach audio to a dialogue line using the `audio` metadata key:
