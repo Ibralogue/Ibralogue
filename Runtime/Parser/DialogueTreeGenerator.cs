@@ -346,19 +346,6 @@ namespace Ibralogue.Parser
 			SourceSpan speakerSpan = speakerToken.Span;
 			SkipBlankLines();
 
-			Dictionary<string, string> lineMetadata = new Dictionary<string, string>();
-
-			if (Check(DialogueTokenType.Command))
-			{
-				string cmdName = ExtractCommandName(Current().Value);
-				if (cmdName == "Image")
-				{
-					lineMetadata["image"] = ExtractCommandArgument(Current().Value);
-					Advance();
-					SkipBlankLines();
-				}
-			}
-
 			string jumpTarget = null;
 			if (Check(DialogueTokenType.Command))
 			{
@@ -380,13 +367,6 @@ namespace Ibralogue.Parser
 					string cmdName = ExtractCommandName(Current().Value);
 					if (cmdName == "ConversationName")
 						break;
-					if (cmdName == "Image")
-					{
-						lineMetadata["image"] = ExtractCommandArgument(Current().Value);
-						Advance();
-						SkipBlankLines();
-						continue;
-					}
 
 					if (cmdName == "Jump")
 					{
@@ -421,15 +401,6 @@ namespace Ibralogue.Parser
 				SentenceNode sentence = ParseSentence();
 				if (sentence != null)
 					sentences.Add(sentence);
-			}
-
-			if (lineMetadata.Count > 0 && sentences.Count > 0)
-			{
-				foreach (KeyValuePair<string, string> kv in lineMetadata)
-				{
-					if (!sentences[0].Metadata.ContainsKey(kv.Key))
-						sentences[0].Metadata[kv.Key] = kv.Value;
-				}
 			}
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
