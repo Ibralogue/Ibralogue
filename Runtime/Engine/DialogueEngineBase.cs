@@ -429,15 +429,6 @@ namespace Ibralogue
                 plugin.Display(line);
             }
 
-            IAudioProvider audio = AudioProvider;
-            if (audio != null)
-            {
-                string audioClipId;
-                if (line.LineContent.Metadata.TryGetValue("audio", out audioClipId)
-                    && !string.IsNullOrEmpty(audioClipId))
-                    audio.Play(audioClipId);
-            }
-
             List<ResolvedInvocation> pending = CollectPendingVoidInvocations(resolved);
             int nextPending = 0;
             _pendingWaitSeconds = 0f;

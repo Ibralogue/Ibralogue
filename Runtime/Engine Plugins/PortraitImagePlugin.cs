@@ -14,18 +14,11 @@ namespace Ibralogue.Plugins
 
         public override void Display(Line line)
         {
-            string imagePath;
-            if (line.LineContent.Metadata.TryGetValue("image", out imagePath)
-                && !string.IsNullOrEmpty(imagePath))
-                SetImage(imagePath);
-            else
-                HidePortrait();
         }
 
         /// <summary>
-        /// Changes the displayed portrait sprite. Can be called from a
-        /// [DialogueFunction] to update the portrait mid-line during
-        /// animated display.
+        /// Changes the displayed portrait sprite. Called by the built-in
+        /// {{Image(path)}} function during dialogue display.
         /// </summary>
         public void SetImage(string path)
         {
