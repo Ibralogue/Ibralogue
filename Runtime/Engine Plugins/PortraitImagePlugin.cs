@@ -41,7 +41,7 @@ namespace Ibralogue.Plugins
             }
             else
             {
-                Debug.LogWarning($"[Ibralogue] Sprite not found at path: {path}");
+                DialogueLogger.LogWarning($"Sprite not found at path: {path}");
                 HidePortrait();
             }
         }

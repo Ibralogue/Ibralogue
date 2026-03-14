@@ -37,7 +37,7 @@ namespace Ibralogue
 
 			if (clip == null)
 			{
-				Debug.LogWarning($"[Ibralogue] AudioClip not found at path: {clipId}");
+				DialogueLogger.LogWarning($"AudioClip not found at path: {clipId}");
 				return;
 			}
 

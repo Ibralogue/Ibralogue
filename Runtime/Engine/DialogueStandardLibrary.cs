@@ -41,7 +41,7 @@ namespace Ibralogue
 			if (provider != null)
 				provider.Play(clipId);
 			else
-				Debug.LogWarning("[Ibralogue] {{Audio}} called but no IAudioProvider is configured on the engine");
+				DialogueLogger.LogWarning("{{Audio}} called but no IAudioProvider is configured on the engine");
 		}
 
 		/// <summary>

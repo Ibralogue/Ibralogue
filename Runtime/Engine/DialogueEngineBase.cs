@@ -633,12 +633,12 @@ namespace Ibralogue
 
             if (nameFound)
             {
-                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                DialogueLogger.LogWarning(function.Line, function.Column,
                     $"[DialogueInvocation] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
             }
             else
             {
-                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                DialogueLogger.LogWarning(function.Line, function.Column,
                     $"No [DialogueInvocation] method found for invocation '{function.Name}'");
             }
 
@@ -674,9 +674,9 @@ namespace Ibralogue
                 }
                 catch (Exception ex) when (ex is FormatException || ex is InvalidCastException || ex is OverflowException)
                 {
-                    Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                    DialogueLogger.LogWarning(function.Line, function.Column,
                         $"Failed to convert argument {argIndex} ('{rawValue}') to {paramType.Name} " +
-                        $"for function '{function.Name}': {ex.Message}");
+                        $"for invocation '{function.Name}': {ex.Message}");
                     return null;
                 }
 
