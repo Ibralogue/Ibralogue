@@ -1,6 +1,6 @@
 ### Localization
 
-Ibralogue uses a string-table approach to localization. Your `.ibra` file is the single source of truth for dialogue structure and default-locale text. Translations live in separate CSV files that overlay only the displayable text.
+Ibralogue uses a string-table approach to localization. The `.ibra` file is the main reference point for dialogue structure and default-locale text. Translations live in separate CSV files that serve to modify only the displayable text.
 
 #### How It Works
 

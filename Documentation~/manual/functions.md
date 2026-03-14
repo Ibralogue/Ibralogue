@@ -2,9 +2,9 @@
 
 Ibralogue uses the `{{Name(args)}}` syntax for two purposes: **keywords** that control dialogue structure, and **functions** that trigger behavior at runtime.
 
-#### Keywords
+#### Keyword Functions
 
-Keywords are structural -- they shape which content plays and how the dialogue is organized. They are NOT functions and cannot be used inline in text.
+Keywords are structural. They shape which content plays and how the dialogue is organized. They are NOT functions and cannot be used inline in text.
 
 | Keyword | Purpose |
 |---------|---------|
@@ -17,7 +17,7 @@ Keywords are structural -- they shape which content plays and how the dialogue i
 
 See [Conversations](conversations.md), [Conditionals](conditionals.md), and [Variables](global-variables.md) for details.
 
-#### Standard Library
+#### Standard Functions
 
 Ibralogue ships with built-in functions for common tasks. These can be placed on their own line (fires at line start) or inline in text (fires at that point in the text):
 
