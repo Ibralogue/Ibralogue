@@ -115,21 +115,16 @@ namespace Ibralogue.Parser
 	}
 
 	/// <summary>
-	/// An inline function invocation within a sentence: {{FunctionName}} or {{FunctionName(arg1, arg2)}}
+	/// An inline invocation within a sentence: {{Name}} or {{Name(arg1, arg2)}}
 	/// </summary>
-	internal class FunctionInvocationNode : InlineNode
+	internal class InvocationNode : InlineNode
 	{
 		public readonly string FunctionName;
 		public readonly List<string> Arguments;
 
-		/// <summary>
-		/// The character position in the final rendered text where this function
-		/// should insert its result (for string-returning functions).
-		/// Computed during analysis.
-		/// </summary>
 		public int CharacterIndex;
 
-		public FunctionInvocationNode(string functionName, List<string> arguments, SourceSpan span) : base(span)
+		public InvocationNode(string functionName, List<string> arguments, SourceSpan span) : base(span)
 		{
 			FunctionName = functionName;
 			Arguments = arguments;
