@@ -446,19 +446,25 @@ namespace Ibralogue.Parser
 
 		/// <summary>
 		/// Checks whether the current line is a standalone command line.
-		/// Matches both {{Command(arg)}} and argument-less forms like {{Else}} or {{EndIf}}.
-		/// Peeks ahead without advancing the position.
+		/// Matches {{Command(arg)}} with parenthesized arguments, and argument-less
+		/// forms only for known structural keywords (Else, EndIf).
+		/// An unknown {{Name}} alone on a line is treated as an inline function, not a command.
 		/// </summary>
 		private bool IsCommandLine()
 		{
 			int peekPos = _position + 2; // skip {{
 
+			int nameStart = peekPos;
 			while (peekPos < _source.Length && _source[peekPos] != '(' && _source[peekPos] != '}'
 				   && _source[peekPos] != '\n' && _source[peekPos] != '\r')
 				peekPos++;
 
+			int nameEnd = peekPos;
+			bool hasArgs = false;
+
 			if (peekPos < _source.Length && _source[peekPos] == '(')
 			{
+				hasArgs = true;
 				while (peekPos < _source.Length && _source[peekPos] != ')' && _source[peekPos] != '\n')
 					peekPos++;
 				if (peekPos < _source.Length && _source[peekPos] == ')')
@@ -472,7 +478,15 @@ namespace Ibralogue.Parser
 				while (peekPos < _source.Length && _source[peekPos] == ' ')
 					peekPos++;
 
-				return peekPos >= _source.Length || _source[peekPos] == '\n' || _source[peekPos] == '\r';
+				bool isEndOfLine = peekPos >= _source.Length || _source[peekPos] == '\n' || _source[peekPos] == '\r';
+				if (!isEndOfLine)
+					return false;
+
+				if (hasArgs)
+					return true;
+
+				string name = _source.Substring(nameStart, nameEnd - nameStart).Trim();
+				return ResolveCommandTokenType(name) != DialogueTokenType.Command;
 			}
 
 			return false;
