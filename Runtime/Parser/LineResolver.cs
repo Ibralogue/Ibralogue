@@ -57,7 +57,9 @@ namespace Ibralogue.Parser
 				}
 			}
 
-			runtimeLine.Line.Speaker = ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
+			runtimeLine.Line.Speaker = runtimeLine.Line.Silent
+				? ""
+				: ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
 			runtimeLine.Line.JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName);
 			runtimeLine.Line.LineContent.Text = sb.ToString();
 			runtimeLine.Line.LineContent.Invocations = invocations;
