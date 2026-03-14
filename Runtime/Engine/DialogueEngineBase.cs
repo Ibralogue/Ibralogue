@@ -250,32 +250,43 @@ namespace Ibralogue
         /// </summary>
         private void AdvanceAndDisplay()
         {
-            RuntimeContentNode displayable = AdvanceToNextDisplayable();
+            while (true)
+            {
+                RuntimeContentNode displayable = AdvanceToNextDisplayable();
 
-            if (displayable is RuntimeLine line)
-            {
-                _currentRuntimeLine = line;
-                ResolveLineText(line);
+                if (displayable is RuntimeLine line)
+                {
+                    _currentRuntimeLine = line;
+                    ResolveLineText(line);
 
-                RuntimeContentNode peek = PeekNextDisplayable();
-                if (peek is RuntimeChoicePoint choicePoint)
-                {
-                    _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, choicePoint));
+                    if (line.Line.Silent)
+                    {
+                        InvokeFunctions(line.Line.LineContent.Invocations, line.Line);
+                        continue;
+                    }
+
+                    RuntimeContentNode peek = PeekNextDisplayable();
+                    if (peek is RuntimeChoicePoint choicePoint)
+                    {
+                        _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, choicePoint));
+                    }
+                    else
+                    {
+                        _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, null));
+                    }
+                    return;
                 }
-                else
+
+                if (displayable is RuntimeChoicePoint standAloneChoices)
                 {
-                    _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, null));
+                    _choicesActive = true;
+                    List<Choice> resolved = ResolveChoices(standAloneChoices);
+                    dialogueView.DisplayChoices(resolved, OnChoiceSelected);
+                    return;
                 }
-            }
-            else if (displayable is RuntimeChoicePoint standAloneChoices)
-            {
-                _choicesActive = true;
-                List<Choice> resolved = ResolveChoices(standAloneChoices);
-                dialogueView.DisplayChoices(resolved, OnChoiceSelected);
-            }
-            else
-            {
+
                 StopConversation();
+                return;
             }
         }
 
@@ -366,6 +377,13 @@ namespace Ibralogue
         private void OnChoiceSelected(Choice choice)
         {
             _choicesActive = false;
+
+            if (choice.LeadingConversationName == ">>")
+            {
+                dialogueView.ClearView(enginePlugins);
+                AdvanceAndDisplay();
+                return;
+            }
 
             if (ParsedConversations == null) return;
 
