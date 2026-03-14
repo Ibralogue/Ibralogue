@@ -5,22 +5,21 @@ using UnityEngine;
 namespace Ibralogue
 {
 	/// <summary>
-	/// Built-in dialogue functions that ship with Ibralogue.
+	/// Standard invocations that ship with Ibralogue.
 	/// These follow the same {{Name(args)}} syntax as the rest of the language
 	/// and can be used inline in dialogue text.
 	/// </summary>
 	public static class DialogueStandardLibrary
 	{
 		/// <summary>
-		/// Changes the speaker portrait. Works both as a standalone command
-		/// (stored as metadata, applied at line start) and inline in text
-		/// (fires at character position during animated display).
+		/// Changes the speaker portrait. On its own line, fires at line start.
+		/// Inline in text, fires at that position.
 		/// <code>
 		/// [NPC]
 		/// Hello! {{Image(Portraits/Surprised)}} Whoa!
 		/// </code>
 		/// </summary>
-		[DialogueFunction]
+		[DialogueInvocation]
 		public static void Image(DialogueEngineBase engine, string path)
 		{
 			PortraitImagePlugin plugin = engine.GetComponent<PortraitImagePlugin>();
@@ -35,7 +34,7 @@ namespace Ibralogue
 		/// Watch out! {{Audio(SFX/explosion)}}
 		/// </code>
 		/// </summary>
-		[DialogueFunction]
+		[DialogueInvocation]
 		public static void Audio(DialogueEngineBase engine, string clipId)
 		{
 			IAudioProvider provider = engine.AudioProvider;
@@ -52,7 +51,7 @@ namespace Ibralogue
 		/// And the winner is... {{Wait(2)}} you!
 		/// </code>
 		/// </summary>
-		[DialogueFunction]
+		[DialogueInvocation]
 		public static void Wait(DialogueEngineBase engine, float seconds)
 		{
 			engine.RequestWait(seconds);
@@ -66,7 +65,7 @@ namespace Ibralogue
 		/// This is normal. {{Speed(0.3)}} This... is... slow.
 		/// </code>
 		/// </summary>
-		[DialogueFunction]
+		[DialogueInvocation]
 		public static void Speed(DialogueEngineBase engine, float multiplier)
 		{
 			TypewriterDialogueView typewriter =

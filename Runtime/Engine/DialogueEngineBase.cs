@@ -704,7 +704,7 @@ namespace Ibralogue
             {
                 IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
-                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunctionAttribute), false).Length > 0);
+                    .Where(m => m.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0);
                 methods.AddRange(allMethods);
             }
 
