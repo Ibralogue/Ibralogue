@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
 namespace Ibralogue.Parser
 {
     /// <summary>
@@ -13,7 +11,6 @@ namespace Ibralogue.Parser
 	{
 		public string Speaker;
 		public LineContent LineContent;
-		public Sprite SpeakerImage;
 		public string JumpTarget;
 
 		/// <summary>

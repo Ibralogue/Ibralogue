@@ -57,16 +57,14 @@ namespace Ibralogue.Parser
 		public readonly string Speaker;
 		public readonly SourceSpan SpeakerSpan;
 		public readonly List<SentenceNode> Sentences;
-		public readonly string ImagePath;
 		public readonly string JumpTarget;
 
 		public DialogueLineNode(string speaker, SourceSpan speakerSpan, List<SentenceNode> sentences,
-			string imagePath, string jumpTarget, SourceSpan span) : base(span)
+			string jumpTarget, SourceSpan span) : base(span)
 		{
 			Speaker = speaker;
 			SpeakerSpan = speakerSpan;
 			Sentences = sentences;
-			ImagePath = imagePath;
 			JumpTarget = jumpTarget;
 		}
 	}

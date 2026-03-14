@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Ibralogue.Parser
 {
@@ -90,17 +89,6 @@ namespace Ibralogue.Parser
 
 		private RuntimeLine AnalyzeDialogueLine(DialogueLineNode node)
 		{
-			Sprite speakerImage = null;
-			if (!string.IsNullOrEmpty(node.ImagePath))
-			{
-				speakerImage = Resources.Load<Sprite>(node.ImagePath);
-				if (speakerImage == null)
-				{
-					_diagnostics.ReportError(node.Span,
-						$"Invalid image path '{node.ImagePath}' in {_assetName}");
-				}
-			}
-
 			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
 			foreach (SentenceNode sentence in node.Sentences)
 				CollectInvocations(sentence, invocations);
@@ -127,7 +115,6 @@ namespace Ibralogue.Parser
 					Invocations = invocations,
 					Metadata = metadata
 				},
-				SpeakerImage = speakerImage,
 				JumpTarget = node.JumpTarget,
 				Silent = silent
 			};
