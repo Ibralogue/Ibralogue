@@ -461,6 +461,12 @@ namespace Ibralogue
             {
                 InvokeSingle(pending[nextPending], line);
                 nextPending++;
+
+                if (_pendingWaitSeconds > 0f)
+                {
+                    yield return new WaitForSeconds(_pendingWaitSeconds);
+                    _pendingWaitSeconds = 0f;
+                }
             }
 
             if (_isPaused)
