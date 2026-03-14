@@ -111,11 +111,8 @@ namespace Ibralogue
         /// </summary>
         public void StopConversation()
         {
-            if (_displayCoroutine != null)
-            {
-                StopCoroutine(_displayCoroutine);
-                _displayCoroutine = null;
-            }
+            StopAllCoroutines();
+            _displayCoroutine = null;
 
             dialogueView.ClearView(enginePlugins);
 
@@ -404,6 +401,9 @@ namespace Ibralogue
 
             if (choice.LeadingConversationName == ">>")
             {
+                StopAllCoroutines();
+                _displayCoroutine = null;
+                _linePlaying = false;
                 dialogueView.ClearView(enginePlugins);
                 AdvanceAndDisplay();
                 return;
