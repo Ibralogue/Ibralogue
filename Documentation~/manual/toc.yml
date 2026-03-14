@@ -16,7 +16,7 @@
       href: conditionals.md
     - name: Comments & Metadata
       href: comments.md
-    - name: Function Invocations
+    - name: Functions
       href: invocations.md
     - name: Includes
       href: includes.md
