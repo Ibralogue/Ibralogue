@@ -534,5 +534,82 @@ namespace Ibralogue.Editor.Tests
 			LineResolver.Resolve(lines[0], null);
 			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello Bob!"));
 		}
+
+		[Test]
+		public void ContinueChoice_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nDo you listen?\n" +
+				"- Nope -> Angry\n" +
+				"- Sure -> >>\n" +
+				"[NPC]\nI thought so.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var choices = GetChoices(result[0]);
+			Assert.That(choices, Has.Count.EqualTo(2));
+			Assert.That(choices[0].LeadingConversationName, Is.EqualTo("Angry"));
+			Assert.That(choices[1].LeadingConversationName, Is.EqualTo(">>"));
+
+			Assert.That(LineResolver.CollectLines(result[0].Content), Has.Count.EqualTo(2));
+		}
+
+		[Test]
+		public void MultipleContinueChoiceGroups_ParseCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nFirst question?\n" +
+				"- No -> Angry\n" +
+				"- Yes -> >>\n" +
+				"[NPC]\nSecond question?\n" +
+				"- No -> Angry\n" +
+				"- Yes -> >>\n" +
+				"[NPC]\nOk then.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines, Has.Count.EqualTo(3));
+
+			int choiceCount = 0;
+			foreach (RuntimeContentNode node in result[0].Content)
+			{
+				if (node is RuntimeChoicePoint)
+					choiceCount++;
+			}
+			Assert.That(choiceCount, Is.EqualTo(2));
+		}
+
+		[Test]
+		public void SilentLine_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello!\n" +
+				"[>>]\n{{TriggerEffect}}\n" +
+				"[NPC]\nGoodbye!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines, Has.Count.EqualTo(3));
+
+			LineResolver.Resolve(lines[1], null);
+			Assert.That(lines[1].Line.Silent, Is.True);
+			Assert.That(lines[1].Line.Speaker, Is.EqualTo(""));
+		}
+
+		[Test]
+		public void SilentLine_WithSet_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[>>]\n{{TriggerSetup}}\n" +
+				"[NPC]\nReady!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines[0].Line.Silent, Is.True);
+			Assert.That(lines[1].Line.Silent, Is.False);
+		}
 	}
 }
