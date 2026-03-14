@@ -29,6 +29,24 @@ namespace Ibralogue.Parser
 		/// <summary>A global variable reference: $VariableName</summary>
 		Variable,
 
+		/// <summary>A conditional block start: {{If(expression)}}</summary>
+		If,
+
+		/// <summary>An alternate conditional branch: {{ElseIf(expression)}}</summary>
+		ElseIf,
+
+		/// <summary>A fallback branch: {{Else}}</summary>
+		Else,
+
+		/// <summary>End of a conditional block: {{EndIf}}</summary>
+		EndIf,
+
+		/// <summary>A variable assignment: {{Set($Var, expression)}}</summary>
+		Set,
+
+		/// <summary>A global variable declaration: {{Global($Var)}} or {{Global($Var, expression)}}</summary>
+		Global,
+
 		/// <summary>End of a source line.</summary>
 		EndOfLine,
 
