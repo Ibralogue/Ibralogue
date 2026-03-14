@@ -1,3 +1,4 @@
+using Ibralogue.Localization;
 using Ibralogue.Parser;
 using Ibralogue.Plugins;
 using Ibralogue.Views;
@@ -40,11 +41,34 @@ namespace Ibralogue
         [Header("Dialogue Views")]
         [SerializeField] protected DialogueViewBase dialogueView;
 
+        [Header("Localization")]
+        [SerializeField] private MonoBehaviour localizationProviderComponent;
+
         [Header("Function Invocations")]
         [SerializeField]
         private bool searchAllAssemblies;
 
         [SerializeField] private List<string> includedAssemblies = new List<string>();
+
+        /// <summary>
+        /// The active localization provider. When set, translated text is used
+        /// in place of the original dialogue text. Assign a MonoBehaviour
+        /// implementing <see cref="ILocalizationProvider"/> in the Inspector,
+        /// or set this property from code.
+        /// </summary>
+        public ILocalizationProvider LocalizationProvider
+        {
+            get
+            {
+                if (_localizationProvider != null)
+                    return _localizationProvider;
+                if (localizationProviderComponent is ILocalizationProvider provider)
+                    return provider;
+                return null;
+            }
+            set { _localizationProvider = value; }
+        }
+        private ILocalizationProvider _localizationProvider;
 
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
@@ -87,11 +111,8 @@ namespace Ibralogue
         /// </summary>
         public void StopConversation()
         {
-            if (_displayCoroutine != null)
-            {
-                StopCoroutine(_displayCoroutine);
-                _displayCoroutine = null;
-            }
+            StopAllCoroutines();
+            _displayCoroutine = null;
 
             dialogueView.ClearView(enginePlugins);
 
@@ -380,6 +401,9 @@ namespace Ibralogue
 
             if (choice.LeadingConversationName == ">>")
             {
+                StopAllCoroutines();
+                _displayCoroutine = null;
+                _linePlaying = false;
                 dialogueView.ClearView(enginePlugins);
                 AdvanceAndDisplay();
                 return;
@@ -400,12 +424,12 @@ namespace Ibralogue
 
         private void ResolveLineText(RuntimeLine runtimeLine)
         {
-            LineResolver.Resolve(runtimeLine, _currentAssetName);
+            LineResolver.Resolve(runtimeLine, _currentAssetName, LocalizationProvider);
         }
 
         private List<Choice> ResolveChoices(RuntimeChoicePoint choicePoint)
         {
-            return LineResolver.ResolveChoices(choicePoint, _currentAssetName);
+            return LineResolver.ResolveChoices(choicePoint, _currentAssetName, LocalizationProvider);
         }
 
         private Parser.Expressions.ExpressionEvaluator CreateEvaluator()

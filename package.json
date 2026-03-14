@@ -12,8 +12,7 @@
   ],
   "category": "Framework",
   "dependencies": {
-    "com.unity.textmeshpro": "3.0.6",
-    "com.unity.localization": "1.4.5"
+    "com.unity.textmeshpro": "3.0.6"
   },
   "samples": [
     {

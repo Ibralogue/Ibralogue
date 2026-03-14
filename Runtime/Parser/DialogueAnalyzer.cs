@@ -6,13 +6,18 @@ namespace Ibralogue.Parser
 {
 	/// <summary>
 	/// Converts the AST into runtime content structures.
-	/// Variables are NOT resolved here — they are preserved as references
-	/// for the engine to resolve at display time.
+	/// Variables are NOT resolved here -- they are preserved as references
+	/// for the engine to resolve at display time. Localization keys are
+	/// assigned to every displayable content node.
 	/// </summary>
 	internal class DialogueAnalyzer
 	{
 		private readonly DiagnosticBag _diagnostics;
 		private readonly string _assetName;
+
+		private string _conversationName;
+		private int _lineIndex;
+		private int _choiceIndex;
 
 		public DialogueAnalyzer(DiagnosticBag diagnostics, string assetName = null)
 		{
@@ -38,6 +43,10 @@ namespace Ibralogue.Parser
 
 		private Conversation AnalyzeConversation(ConversationNode node)
 		{
+			_conversationName = node.Name;
+			_lineIndex = 0;
+			_choiceIndex = 0;
+
 			return new Conversation
 			{
 				Name = node.Name,
@@ -96,7 +105,18 @@ namespace Ibralogue.Parser
 			foreach (SentenceNode sentence in node.Sentences)
 				CollectInvocations(sentence, invocations);
 
+			Dictionary<string, string> metadata = CollectMetadata(node.Sentences);
+
+			string locKey = metadata.TryGetValue("loc", out string customKey)
+				? customKey
+				: $"{_conversationName}.line.{_lineIndex}";
+
+			string speakerKey = node.Speaker != ">>"
+				? $"speaker.{node.Speaker}"
+				: null;
+
 			bool silent = node.Speaker == ">>";
+			_lineIndex++;
 
 			Line line = new Line
 			{
@@ -105,14 +125,26 @@ namespace Ibralogue.Parser
 				{
 					Text = "",
 					Invocations = invocations,
-					Metadata = CollectMetadata(node.Sentences)
+					Metadata = metadata
 				},
 				SpeakerImage = speakerImage,
 				JumpTarget = node.JumpTarget,
 				Silent = silent
 			};
 
-			return new RuntimeLine(line, node.Sentences, node.Speaker, node.JumpTarget);
+			return new RuntimeLine(line, node.Sentences, node.Speaker, node.JumpTarget,
+				locKey, speakerKey);
+		}
+
+		private ChoiceData AnalyzeChoice(ChoiceNode node)
+		{
+			string locKey = node.Metadata.TryGetValue("loc", out string customKey)
+				? customKey
+				: $"{_conversationName}.choice.{_choiceIndex}";
+
+			_choiceIndex++;
+
+			return new ChoiceData(node.Text, node.TargetConversation, node.Metadata, locKey);
 		}
 
 		private void CollectInvocations(SentenceNode sentence, List<FunctionInvocation> invocations)
@@ -156,11 +188,6 @@ namespace Ibralogue.Parser
 			}
 
 			return new RuntimeConditionalBlock(branches);
-		}
-
-		private ChoiceData AnalyzeChoice(ChoiceNode node)
-		{
-			return new ChoiceData(node.Text, node.TargetConversation, node.Metadata);
 		}
 	}
 }
