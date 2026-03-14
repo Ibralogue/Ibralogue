@@ -1,11 +1,11 @@
-# this example only works with the TypewriterDialogueManager!
+# this example works with the TypewriterDialogueView!
 [NPC]
 Psssst kid. New feature dropped.
 [NPC]
-You can invoke functions {{TriggerFunction}} mid-sentence, heh.
+You can use invocations {{TriggerFunction}} mid-sentence, heh.
 [NPC]
-All the fancy people call "Inline Function Invocation".
+All the fancy people call it "Inline Invocation".
 [NPC]
-Plus, its context-aware, the DialogueManager gets passed in.
+Plus, its context-aware, the DialogueEngine gets passed in.
 [NPC]
 Heh, pretty cool, right?

@@ -21,9 +21,9 @@
       "path": "Samples~/Simple Dialogue"
     },
     {
-      "displayName": "Animal Crossing Dialogue",
-      "description": "Example of a scrolling text user interface akin to that of Animal Crossing.",
-      "path": "Samples~/Animal Crossing Dialogue"
+      "displayName": "Typewriter Dialogue",
+      "description": "Example of a typewriter-style dialogue interface with character-by-character text reveal.",
+      "path": "Samples~/Typewriter Dialogue"
     }
   ]
 }

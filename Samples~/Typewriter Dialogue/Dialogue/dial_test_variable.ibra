@@ -1,4 +1,4 @@
-# this dialogue file needs the GlobalVariableInteraction script to replace the variable.
+# this dialogue file requires PLAYERNAME to be set via VariableStore.SetGlobal before starting.
 [Wizard]
 Hello traveller. 
 What is your name?

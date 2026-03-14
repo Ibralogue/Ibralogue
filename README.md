@@ -27,7 +27,7 @@ Ibralogue
    <a href="https://discord.gg/xa3zvF6tP7">Discord</a>
 </p>
 
-> ⚠️ **Ibralogue is still in pre-release**, this means it is not production-ready yet. Feel free to toy around with it but it is subject to rapid, breaking changes due to how early it is into development!
+> Ibralogue has reached **1.0.0**! If you're upgrading from 0.x, check the [release notes](https://github.com/Ibralogue/Ibralogue/releases/tag/v1.0.0) for breaking changes.
 
 ## About
 
@@ -36,16 +36,15 @@ learn more about in the [docs](https://ibralogue.github.io/Ibralogue/manual/basi
 
 ## Features
 
-Although still early in development, Ibralogue has quite a few features, including but not limited to:
-
 - rich, easy-to-grasp syntax
-- localization-first approach to writing dialogue
-- using variables within your dialogue
-- branching dialogue with choices
-- invoking functions from dialogue files
-- line-by-line character portraits
+- conditionals and expressions for branching logic
+- runtime variables with global and local scoping
+- string-table localization with pluggable providers
+- inline invocations with position-based timing
+- pluggable audio, portrait, and engine plugin systems
+- branching dialogue with choices and continue paths
 
-In it's current state Ibralogue is still very usable, even if not production-ready, and if you'd like to report a bug or request a new feature, be sure to [open an issue](https://github.com/Ibralogue/Ibralogue/issues/new/choose)!
+If you'd like to report a bug or request a new feature, [open an issue](https://github.com/Ibralogue/Ibralogue/issues/new/choose)!
 
 ## Installation
 
@@ -56,7 +55,7 @@ Ibralogue is available as a unity package, and you can install it via the Unity 
 
 - Then select "Add package from git URL..."
 - Then type `https://github.com/Ibralogue/Ibralogue.git` as the URL
-  > **Note**: _If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v0.7.0`_
+  > **Note**: _If you want to choose a specific version, suffix the URL with `#version`, for example `https://github.com/Ibralogue/Ibralogue.git#v1.0.0`_
 
 ## Support
 
