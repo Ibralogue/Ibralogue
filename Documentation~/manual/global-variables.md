@@ -1,21 +1,12 @@
-### Global Variables
+### Variables
 
-Global variables allow you to define values in code that can be referenced in dialogue files. They are useful for things like player names and other values that change at runtime.
+Ibralogue has a flexible variable system with two scopes: **global** variables that persist across all dialogue files, and **local** variables scoped to a single file.
 
-#### Defining Variables
+Variables are resolved at **runtime**, meaning changes to variable values are reflected immediately in any dialogue that references them, without reparsing.
 
-Register variables through `DialogueGlobals.GlobalVariables`:
+#### Reading Variables in Dialogue
 
-```cs
-private void Awake()
-{
-    DialogueGlobals.GlobalVariables.Add("PLAYERNAME", "Ibrahim");
-}
-```
-
-#### Using Variables in Dialogue
-
-Reference a global variable with the `$` prefix. Variables are resolved anywhere in your dialogue -- text, speaker names, function arguments, metadata values, choices, etc.
+Reference any variable with the `$` prefix. Variables work anywhere in dialogue -- text, speaker names, function arguments, metadata values, choices, and jump targets.
 
 ```text
 [NPC]
@@ -24,24 +15,71 @@ Hi, $PLAYERNAME.
 Hi. What's up?
 ```
 
-If the variable `PLAYERNAME` is set to "Ibrahim", the above would display as:
+#### Setting Variables from Code
 
+Register global variables through the `VariableStore`:
+
+```cs
+VariableStore.SetGlobal("PLAYERNAME", "Ibrahim");
+VariableStore.SetGlobal("HEALTH", 100.0);
+VariableStore.SetGlobal("QUEST_DONE", false);
 ```
-NPC: Hi, Ibrahim.
-Ibrahim: Hi. What's up?
+
+#### Setting Variables from Dialogue
+
+Use `{{Set(...)}}` to assign a variable from within a dialogue file:
+
+```text
+{{Set($GOLD, 100)}}
+{{Set($NAME, "Alice")}}
+{{Set($QUEST_DONE, true)}}
 ```
+
+The value can be any expression, including references to other variables and arithmetic:
+
+```text
+{{Set($HEALTH, $HEALTH - 10)}}
+{{Set($TOTAL, $BASE_PRICE * $QUANTITY)}}
+{{Set($GREETING, "Hello " + $PLAYERNAME)}}
+```
+
+If the variable already exists in any scope, `{{Set(...)}}` updates it in place. If it does not exist, a new **local** variable is created, scoped to the current dialogue file.
+
+#### Global vs Local Scope
+
+Variables set from C# are always global. Variables created by `{{Set(...)}}` in a dialogue file are local by default.
+
+To explicitly declare a variable as global from within dialogue, use `{{Global(...)}}`:
+
+```text
+{{Global($PLAYER_SCORE, 0)}}
+```
+
+This creates (or updates) a global variable that persists across all dialogue files. If only a name is provided, the variable is registered without a value:
+
+```text
+{{Global($PLAYER_SCORE)}}
+```
+
+#### Resolution Order
+
+When a variable is referenced, Ibralogue checks scopes in this order:
+
+1. **Local** (current dialogue file)
+2. **Global** (set via `VariableStore.SetGlobal` or `{{Global(...)}}`)
+
+
+The first match wins. This means a local variable can shadow a global variable of the same name.
 
 #### Variables in Function Arguments
 
-Global variables can be passed directly as function arguments:
+Variables are resolved inside function arguments:
 
 ```text
 [NPC]
 You received {{GiveItem($REWARD)}}.
 The $TARGET takes {{FormatDamage($DMG)}} damage!
 ```
-
-This lets your dialogue functions receive dynamic values without hardcoding them in the dialogue file.
 
 #### Variables in Metadata and Choices
 
@@ -53,16 +91,27 @@ How do you feel? ## emotion:$MOOD
 - Go to $LOCATION -> $LOCATION ## quest:$QUESTID
 ```
 
-#### Updating Variables at Runtime
+#### Managing Variables from Code
 
-Since `GlobalVariables` is a standard dictionary, you can update values at any time:
+The `VariableStore` API provides full control:
 
 ```cs
-DialogueGlobals.GlobalVariables["PLAYERNAME"] = "New Name";
-```
+// Set a global variable
+VariableStore.SetGlobal("SCORE", 100.0);
 
-The new value will be used the next time the dialogue is parsed.
+// Set a file-local variable
+VariableStore.SetLocal("myDialogue", "temp", "hello");
+
+// Read a variable (checks local first, then global)
+object value = VariableStore.Resolve("myDialogue", "SCORE");
+
+// Clear local variables for a specific asset
+VariableStore.ClearLocals("myDialogue");
+
+// Clear all variables
+VariableStore.ClearAll();
+```
 
 #### Missing Variables
 
-If a variable is referenced in a dialogue file but has no entry in the dictionary, Ibralogue will emit a warning and leave the `$VARIABLE` text as-is.
+If a variable is referenced but has no entry in any scope, the `$VARIABLE` text is left as-is.

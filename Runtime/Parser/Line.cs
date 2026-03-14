@@ -16,6 +16,12 @@ namespace Ibralogue.Parser
 		public Sprite SpeakerImage;
 		public string JumpTarget;
 
+		/// <summary>
+		/// When true, the engine processes this line (invocations, metadata) without
+		/// displaying it in the dialogue view. Set by the [>>] speaker syntax.
+		/// </summary>
+		public bool Silent;
+
 		public bool HasMetadata(string key) =>
 			LineContent.Metadata.ContainsKey(key);
 

@@ -200,14 +200,14 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Scans a built-in command that occupies the entire line: {{CommandName(argument)}}
+		/// Scans a built-in command that occupies the entire line: {{CommandName(argument)}} or {{Keyword}}.
+		/// Emits specific token types for structural keywords (If, ElseIf, Else, EndIf, Set, Global).
 		/// </summary>
 		private void TokenizeCommand()
 		{
 			SourcePosition start = CurrentPosition();
 			int startPos = _position;
 
-			// Skip the {{ characters
 			Advance();
 			Advance();
 
@@ -220,7 +220,7 @@ namespace Ibralogue.Parser
 			string argument = "";
 			if (!IsAtEnd() && Peek() == '(')
 			{
-				Advance(); // skip (
+				Advance();
 				int argStart = _position;
 				while (!IsAtEnd() && Peek() != ')' && Peek() != '\n' && Peek() != '\r')
 					Advance();
@@ -228,7 +228,7 @@ namespace Ibralogue.Parser
 				argument = Substring(argStart, _position);
 
 				if (!IsAtEnd() && Peek() == ')')
-					Advance(); // skip )
+					Advance();
 				else
 					_diagnostics.ReportError(MakeSpan(start), "Unterminated command argument, expected ')'");
 			}
@@ -240,8 +240,26 @@ namespace Ibralogue.Parser
 
 			string lexeme = Substring(startPos, _position);
 
-			string value = argument.Length > 0 ? $"{commandName}({argument})" : commandName;
-			AddToken(DialogueTokenType.Command, lexeme, value, start);
+			DialogueTokenType tokenType = ResolveCommandTokenType(commandName);
+			string value = tokenType == DialogueTokenType.Command
+				? (argument.Length > 0 ? $"{commandName}({argument})" : commandName)
+				: argument;
+
+			AddToken(tokenType, lexeme, value, start);
+		}
+
+		private static DialogueTokenType ResolveCommandTokenType(string commandName)
+		{
+			switch (commandName)
+			{
+				case "If": return DialogueTokenType.If;
+				case "ElseIf": return DialogueTokenType.ElseIf;
+				case "Else": return DialogueTokenType.Else;
+				case "EndIf": return DialogueTokenType.EndIf;
+				case "Set": return DialogueTokenType.Set;
+				case "Global": return DialogueTokenType.Global;
+				default: return DialogueTokenType.Command;
+			}
 		}
 
 		/// <summary>
@@ -427,34 +445,50 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Checks whether the current line is a standalone command line (entire line is {{Command(arg)}}).
-		/// Peeks ahead without advancing the position.
+		/// Checks whether the current line is a standalone command line.
+		/// Matches {{Command(arg)}} with parenthesized arguments, and argument-less
+		/// forms only for known structural keywords (Else, EndIf).
+		/// An unknown {{Name}} alone on a line is treated as an inline function, not a command.
 		/// </summary>
 		private bool IsCommandLine()
 		{
 			int peekPos = _position + 2; // skip {{
 
+			int nameStart = peekPos;
 			while (peekPos < _source.Length && _source[peekPos] != '(' && _source[peekPos] != '}'
 				   && _source[peekPos] != '\n' && _source[peekPos] != '\r')
 				peekPos++;
 
+			int nameEnd = peekPos;
+			bool hasArgs = false;
+
 			if (peekPos < _source.Length && _source[peekPos] == '(')
 			{
+				hasArgs = true;
 				while (peekPos < _source.Length && _source[peekPos] != ')' && _source[peekPos] != '\n')
 					peekPos++;
 				if (peekPos < _source.Length && _source[peekPos] == ')')
 					peekPos++;
-
-				if (peekPos + 1 < _source.Length && _source[peekPos] == '}' && _source[peekPos + 1] == '}')
-				{
-					peekPos += 2;
-
-					while (peekPos < _source.Length && _source[peekPos] == ' ')
-						peekPos++;
-
-					return peekPos >= _source.Length || _source[peekPos] == '\n' || _source[peekPos] == '\r';
-				}
 			}
+
+			if (peekPos + 1 < _source.Length && _source[peekPos] == '}' && _source[peekPos + 1] == '}')
+			{
+				peekPos += 2;
+
+				while (peekPos < _source.Length && _source[peekPos] == ' ')
+					peekPos++;
+
+				bool isEndOfLine = peekPos >= _source.Length || _source[peekPos] == '\n' || _source[peekPos] == '\r';
+				if (!isEndOfLine)
+					return false;
+
+				if (hasArgs)
+					return true;
+
+				string name = _source.Substring(nameStart, nameEnd - nameStart).Trim();
+				return ResolveCommandTokenType(name) != DialogueTokenType.Command;
+			}
+
 			return false;
 		}
 

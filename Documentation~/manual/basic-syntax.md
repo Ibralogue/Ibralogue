@@ -51,3 +51,18 @@ It's a beautiful day outside!
 ```
 
 The `{{Image(...)}}` command must appear on its own line, directly after the speaker tag.
+
+### Silent Lines
+
+Use `[>>]` as the speaker to create a line that runs commands and invocations without displaying anything in the dialogue view:
+
+```text
+[NPC]
+Let me check something...
+[>>]
+{{RunCheck}}
+[NPC]
+All done!
+```
+
+The `[>>]` line is processed silently by the engine -- any [function invocations](invocations.md) on it are called, but no dialogue box or speaker name is shown. This is useful for triggering game logic between visible dialogue lines.

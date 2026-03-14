@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ibralogue.Parser.Expressions;
 
 namespace Ibralogue.Parser
 {
@@ -44,7 +45,7 @@ namespace Ibralogue.Parser
 		/// <summary>
 		/// Parses a single conversation block.
 		/// A conversation starts with an optional {{ConversationName(name)}} command
-		/// and contains one or more dialogue lines and optional choices.
+		/// and contains dialogue lines, conditional blocks, variable commands, and optional choices.
 		/// </summary>
 		private ConversationNode ParseConversation(bool isFirst)
 		{
@@ -64,16 +65,26 @@ namespace Ibralogue.Parser
 				}
 			}
 
-			List<DialogueLineNode> lines = new List<DialogueLineNode>();
-			List<ChoiceNode> choices = new List<ChoiceNode>();
+			List<ContentNode> content = new List<ContentNode>();
+			ParseContentBlock(content, false);
 
+			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+			return new ConversationNode(name, content, span);
+		}
+
+		/// <summary>
+		/// Parses a sequence of content nodes (dialogue lines, choices, conditionals,
+		/// Set, Global). Stops at EOF, a new ConversationName command, or (when inside
+		/// a conditional branch) at ElseIf, Else, or EndIf.
+		/// </summary>
+		private void ParseContentBlock(List<ContentNode> content, bool insideConditional)
+		{
 			while (!IsAtEnd())
 			{
 				SkipBlankLines();
 				if (IsAtEnd())
 					break;
 
-				// Skip standalone comments at the conversation level
 				if (Check(DialogueTokenType.Comment))
 				{
 					Advance();
@@ -87,15 +98,38 @@ namespace Ibralogue.Parser
 						break;
 				}
 
+				if (insideConditional && (Check(DialogueTokenType.ElseIf) || Check(DialogueTokenType.Else) || Check(DialogueTokenType.EndIf)))
+					break;
+
+				if (Check(DialogueTokenType.If))
+				{
+					ConditionalBlockNode conditional = ParseConditionalBlock();
+					if (conditional != null)
+						content.Add(conditional);
+					continue;
+				}
+
+				if (Check(DialogueTokenType.Set))
+				{
+					SetCommandNode setNode = ParseSetCommand();
+					if (setNode != null)
+						content.Add(setNode);
+					continue;
+				}
+
+				if (Check(DialogueTokenType.Global))
+				{
+					GlobalDeclNode globalNode = ParseGlobalDecl();
+					if (globalNode != null)
+						content.Add(globalNode);
+					continue;
+				}
+
 				if (Check(DialogueTokenType.Choice))
 				{
-					while (Check(DialogueTokenType.Choice))
-					{
-						ChoiceNode choice = ParseChoice(lines.Count);
-						if (choice != null)
-							choices.Add(choice);
-						SkipBlankLines();
-					}
+					ChoiceGroupNode group = ParseChoiceGroup();
+					if (group != null)
+						content.Add(group);
 					continue;
 				}
 
@@ -103,11 +137,10 @@ namespace Ibralogue.Parser
 				{
 					DialogueLineNode dialogueLine = ParseDialogueLine();
 					if (dialogueLine != null)
-						lines.Add(dialogueLine);
+						content.Add(dialogueLine);
 					continue;
 				}
 
-				// Handle command lines within a conversation (Image is handled inside ParseDialogueLine)
 				if (Check(DialogueTokenType.Command))
 				{
 					_diagnostics.ReportWarning(Current().Span,
@@ -127,9 +160,174 @@ namespace Ibralogue.Parser
 
 				break;
 			}
+		}
+
+		/// <summary>
+		/// Parses a group of consecutive choice lines into a single ChoiceGroupNode.
+		/// </summary>
+		private ChoiceGroupNode ParseChoiceGroup()
+		{
+			SourcePosition start = Current().Span.Start;
+			List<ChoiceNode> choices = new List<ChoiceNode>();
+
+			while (Check(DialogueTokenType.Choice))
+			{
+				ChoiceNode choice = ParseChoice();
+				if (choice != null)
+					choices.Add(choice);
+				SkipBlankLines();
+			}
+
+			if (choices.Count == 0)
+				return null;
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new ConversationNode(name, lines, choices, span);
+			return new ChoiceGroupNode(choices, span);
+		}
+
+		/// <summary>
+		/// Parses a conditional block starting from an {{If}} token through to {{EndIf}},
+		/// including any {{ElseIf}} and {{Else}} branches. Supports nesting.
+		/// </summary>
+		private ConditionalBlockNode ParseConditionalBlock()
+		{
+			SourcePosition start = Current().Span.Start;
+			List<ConditionalBranch> branches = new List<ConditionalBranch>();
+
+			ExpressionNode ifCondition = ParseExpression(Current().Value);
+			SourcePosition branchStart = Current().Span.Start;
+			Advance();
+			SkipBlankLines();
+
+			List<ContentNode> ifBody = new List<ContentNode>();
+			ParseContentBlock(ifBody, true);
+
+			SourceSpan ifSpan = new SourceSpan(branchStart, Previous().Span.End);
+			branches.Add(new ConditionalBranch(ifCondition, ifBody, ifSpan));
+
+			while (Check(DialogueTokenType.ElseIf))
+			{
+				ExpressionNode elseIfCondition = ParseExpression(Current().Value);
+				SourcePosition elseIfStart = Current().Span.Start;
+				Advance();
+				SkipBlankLines();
+
+				List<ContentNode> elseIfBody = new List<ContentNode>();
+				ParseContentBlock(elseIfBody, true);
+
+				SourceSpan elseIfSpan = new SourceSpan(elseIfStart, Previous().Span.End);
+				branches.Add(new ConditionalBranch(elseIfCondition, elseIfBody, elseIfSpan));
+			}
+
+			if (Check(DialogueTokenType.Else))
+			{
+				SourcePosition elseStart = Current().Span.Start;
+				Advance();
+				SkipBlankLines();
+
+				List<ContentNode> elseBody = new List<ContentNode>();
+				ParseContentBlock(elseBody, true);
+
+				SourceSpan elseSpan = new SourceSpan(elseStart, Previous().Span.End);
+				branches.Add(new ConditionalBranch(null, elseBody, elseSpan));
+			}
+
+			if (Check(DialogueTokenType.EndIf))
+			{
+				Advance();
+				SkipBlankLines();
+			}
+			else
+			{
+				_diagnostics.ReportError(Current().Span, "Expected {{EndIf}} to close conditional block");
+			}
+
+			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+			return new ConditionalBlockNode(branches, span);
+		}
+
+		/// <summary>
+		/// Parses a {{Set($Var, expression)}} command.
+		/// </summary>
+		private SetCommandNode ParseSetCommand()
+		{
+			SourcePosition start = Current().Span.Start;
+			string rawArgs = Current().Value;
+			Advance();
+			SkipBlankLines();
+
+			int commaIndex = FindTopLevelComma(rawArgs);
+			if (commaIndex < 0)
+			{
+				_diagnostics.ReportError(new SourceSpan(start, Previous().Span.End),
+					"{{Set}} requires two arguments: {{Set($Variable, expression)}}");
+				return null;
+			}
+
+			string varPart = rawArgs.Substring(0, commaIndex).Trim();
+			string exprPart = rawArgs.Substring(commaIndex + 1).Trim();
+
+			if (varPart.Length > 0 && varPart[0] == '$')
+				varPart = varPart.Substring(1);
+
+			ExpressionNode value = ParseExpression(exprPart);
+			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+			return new SetCommandNode(varPart, value, span);
+		}
+
+		/// <summary>
+		/// Parses a {{Global($Var)}} or {{Global($Var, expression)}} declaration.
+		/// </summary>
+		private GlobalDeclNode ParseGlobalDecl()
+		{
+			SourcePosition start = Current().Span.Start;
+			string rawArgs = Current().Value;
+			Advance();
+			SkipBlankLines();
+
+			int commaIndex = FindTopLevelComma(rawArgs);
+			string varPart;
+			ExpressionNode defaultValue = null;
+
+			if (commaIndex >= 0)
+			{
+				varPart = rawArgs.Substring(0, commaIndex).Trim();
+				string exprPart = rawArgs.Substring(commaIndex + 1).Trim();
+				defaultValue = ParseExpression(exprPart);
+			}
+			else
+			{
+				varPart = rawArgs.Trim();
+			}
+
+			if (varPart.Length > 0 && varPart[0] == '$')
+				varPart = varPart.Substring(1);
+
+			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+			return new GlobalDeclNode(varPart, defaultValue, span);
+		}
+
+		/// <summary>
+		/// Finds the first comma that is not nested inside parentheses.
+		/// </summary>
+		private static int FindTopLevelComma(string text)
+		{
+			int depth = 0;
+			for (int i = 0; i < text.Length; i++)
+			{
+				if (text[i] == '(') depth++;
+				else if (text[i] == ')') depth--;
+				else if (text[i] == ',' && depth == 0) return i;
+			}
+			return -1;
+		}
+
+		private ExpressionNode ParseExpression(string expressionText)
+		{
+			ExpressionLexer lexer = new ExpressionLexer(expressionText);
+			List<ExpressionToken> tokens = lexer.Tokenize();
+			ExpressionParser parser = new ExpressionParser(tokens);
+			return parser.Parse();
 		}
 
 		/// <summary>
@@ -175,11 +373,10 @@ namespace Ibralogue.Parser
 				}
 			}
 
-			// ParseIntoTree sentences until we hit a speaker, choice, conversation name, or end of file
 			List<SentenceNode> sentences = new List<SentenceNode>();
-			while (!IsAtEnd() && !Check(DialogueTokenType.Speaker) && !Check(DialogueTokenType.Choice))
+			while (!IsAtEnd() && !Check(DialogueTokenType.Speaker) && !Check(DialogueTokenType.Choice)
+				&& !IsStructuralToken(Current().Type))
 			{
-				// Stop if we hit a conversation-level command
 				if (Check(DialogueTokenType.Command))
 				{
 					string cmdName = ExtractCommandName(Current().Value);
@@ -296,7 +493,7 @@ namespace Ibralogue.Parser
 		/// <summary>
 		/// Parses a choice: - ChoiceText -> TargetConversation ## metadata
 		/// </summary>
-		private ChoiceNode ParseChoice(int lineIndex)
+		private ChoiceNode ParseChoice()
 		{
 			SourcePosition start = Current().Span.Start;
 			DialogueToken choiceToken = Expect(DialogueTokenType.Choice);
@@ -305,15 +502,12 @@ namespace Ibralogue.Parser
 
 			string value = choiceToken.Value;
 
-			// Split on -> to get choice text and target
-			// Also extract metadata (## ...) from the value
 			Dictionary<string, string> metadata = new Dictionary<string, string>();
-			string metadataPart = "";
 
 			int metadataIndex = value.IndexOf("##");
 			if (metadataIndex >= 0)
 			{
-				metadataPart = value.Substring(metadataIndex + 2).Trim();
+				string metadataPart = value.Substring(metadataIndex + 2).Trim();
 				value = value.Substring(0, metadataIndex).Trim();
 				ParseMetadataValue(metadataPart, metadata);
 			}
@@ -325,7 +519,7 @@ namespace Ibralogue.Parser
 					"Choice is missing '->' separator between choice text and target conversation");
 				SkipBlankLines();
 				SourceSpan errSpan = new SourceSpan(start, Previous().Span.End);
-				return new ChoiceNode(value.Trim(), "", metadata, lineIndex, errSpan);
+				return new ChoiceNode(value.Trim(), "", metadata, errSpan);
 			}
 
 			string choiceText = value.Substring(0, arrowIndex).Trim();
@@ -333,7 +527,7 @@ namespace Ibralogue.Parser
 
 			SkipBlankLines();
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new ChoiceNode(choiceText, target, metadata, lineIndex, span);
+			return new ChoiceNode(choiceText, target, metadata, span);
 		}
 
 		/// <summary>
@@ -431,6 +625,13 @@ namespace Ibralogue.Parser
 				Advance();
 			if (Check(DialogueTokenType.EndOfLine))
 				Advance();
+		}
+
+		private static bool IsStructuralToken(DialogueTokenType type)
+		{
+			return type == DialogueTokenType.If || type == DialogueTokenType.ElseIf
+				|| type == DialogueTokenType.Else || type == DialogueTokenType.EndIf
+				|| type == DialogueTokenType.Set || type == DialogueTokenType.Global;
 		}
 	}
 }
