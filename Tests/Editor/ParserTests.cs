@@ -706,8 +706,8 @@ namespace Ibralogue.Editor.Tests
 			Assert.That(fragments[2], Is.InstanceOf<TextNode>());
 			Assert.That(((TextNode)fragments[2]).Text, Is.EqualTo(", today is "));
 
-			Assert.That(fragments[3], Is.InstanceOf<FunctionInvocationNode>());
-			Assert.That(((FunctionInvocationNode)fragments[3]).FunctionName, Is.EqualTo("GetDay"));
+			Assert.That(fragments[3], Is.InstanceOf<InvocationNode>());
+			Assert.That(((InvocationNode)fragments[3]).FunctionName, Is.EqualTo("GetDay"));
 
 			Assert.That(fragments[4], Is.InstanceOf<TextNode>());
 			Assert.That(((TextNode)fragments[4]).Text, Is.EqualTo("."));
@@ -806,7 +806,7 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
-		public void InlineFunctionInvocation_HasCorrectCharacterIndex()
+		public void InlineInvocation_HasCorrectCharacterIndex()
 		{
 			dialogueAsset.Content =
 				"[NPC]\nHello {{Audio(boom)}} world!\n";

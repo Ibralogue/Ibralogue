@@ -89,7 +89,7 @@ namespace Ibralogue.Parser
 
 		private RuntimeLine AnalyzeDialogueLine(DialogueLineNode node)
 		{
-			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
+			List<Invocation> invocations = new List<Invocation>();
 			foreach (SentenceNode sentence in node.Sentences)
 				CollectInvocations(sentence, invocations);
 
@@ -134,13 +134,13 @@ namespace Ibralogue.Parser
 			return new ChoiceData(node.Text, node.TargetConversation, node.Metadata, locKey);
 		}
 
-		private void CollectInvocations(SentenceNode sentence, List<FunctionInvocation> invocations)
+		private void CollectInvocations(SentenceNode sentence, List<Invocation> invocations)
 		{
 			foreach (InlineNode fragment in sentence.Fragments)
 			{
-				if (fragment is FunctionInvocationNode funcNode)
+				if (fragment is InvocationNode funcNode)
 				{
-					invocations.Add(new FunctionInvocation(
+					invocations.Add(new Invocation(
 						funcNode.FunctionName,
 						new List<string>(funcNode.Arguments),
 						0,

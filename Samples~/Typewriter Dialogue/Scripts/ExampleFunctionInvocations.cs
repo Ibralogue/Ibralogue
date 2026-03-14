@@ -1,19 +1,17 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Ibralogue.Examples
 {
-    public static class ExampleFunctionInvocations
+    public static class ExampleInvocations
     {
-        [DialogueFunction]
-        public static void TriggerFunction(DialogueManagerBase dialogueManager)
+        [DialogueInvocation]
+        public static void TriggerFunction(DialogueEngineBase engine)
         {
-            Debug.Log($"There are {dialogueManager.ParsedConversations.Count} conversations in this file.");
-            Debug.Log("Function Trigger");
+            Debug.Log($"There are {engine.ParsedConversations.Count} conversations in this file.");
         }
 
-        [DialogueFunction]
+        [DialogueInvocation]
         public static string GetDay()
         {
             return DateTime.Now.DayOfWeek.ToString();

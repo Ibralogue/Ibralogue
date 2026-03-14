@@ -432,7 +432,7 @@ namespace Ibralogue.Parser
 						string funcName = InvocationSyntax.ExtractName(token.Value);
 						List<string> funcArgs = InvocationSyntax.SplitArguments(
 							InvocationSyntax.ExtractRawArgument(token.Value));
-						fragments.Add(new FunctionInvocationNode(funcName, funcArgs, token.Span));
+						fragments.Add(new InvocationNode(funcName, funcArgs, token.Span));
 						Advance();
 						break;
 

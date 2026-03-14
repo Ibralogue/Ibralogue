@@ -417,7 +417,7 @@ namespace Ibralogue
         /// </summary>
         protected virtual IEnumerator OnDisplayLine(Line line)
         {
-            IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
+            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
             List<ResolvedInvocation> resolved = ResolveAllInvocations(line, dialogueMethods);
 
             InvokeTextProducingFunctions(resolved, line);
@@ -518,7 +518,7 @@ namespace Ibralogue
 
         private struct ResolvedInvocation
         {
-            public FunctionInvocation Invocation;
+            public Invocation Invocation;
             public MethodInfo Method;
             public object[] Arguments;
         }
@@ -530,9 +530,9 @@ namespace Ibralogue
             if (line.LineContent.Invocations == null)
                 return result;
 
-            foreach (FunctionInvocation function in line.LineContent.Invocations)
+            foreach (Invocation function in line.LineContent.Invocations)
             {
-                MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
+                MethodInfo method = ResolveInvocation(dialogueMethods, function);
                 if (method == null) continue;
 
                 object[] args = BuildInvocationArguments(method, function);
@@ -584,16 +584,16 @@ namespace Ibralogue
         /// Invokes all functions immediately. Used for silent lines where
         /// there is no animated display.
         /// </summary>
-        protected void InvokeFunctions(List<FunctionInvocation> functionInvocations, Line line)
+        protected void InvokeFunctions(List<Invocation> functionInvocations, Line line)
         {
             if (functionInvocations == null || functionInvocations.Count == 0)
                 return;
 
-            IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
+            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
 
-            foreach (FunctionInvocation function in functionInvocations)
+            foreach (Invocation function in functionInvocations)
             {
-                MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
+                MethodInfo method = ResolveInvocation(dialogueMethods, function);
                 if (method == null) continue;
 
                 object[] args = BuildInvocationArguments(method, function);
@@ -610,7 +610,7 @@ namespace Ibralogue
             }
         }
 
-        private MethodInfo ResolveDialogueFunction(IEnumerable<MethodInfo> methods, FunctionInvocation function)
+        private MethodInfo ResolveInvocation(IEnumerable<MethodInfo> methods, Invocation function)
         {
             bool nameFound = false;
             int argCount = function.Arguments != null ? function.Arguments.Count : 0;
@@ -634,18 +634,18 @@ namespace Ibralogue
             if (nameFound)
             {
                 Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
-                    $"[DialogueFunction] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
+                    $"[DialogueInvocation] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
             }
             else
             {
                 Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
-                    $"No [DialogueFunction] method found for invocation '{function.Name}'");
+                    $"No [DialogueInvocation] method found for invocation '{function.Name}'");
             }
 
             return null;
         }
 
-        private object[] BuildInvocationArguments(MethodInfo method, FunctionInvocation function)
+        private object[] BuildInvocationArguments(MethodInfo method, Invocation function)
         {
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length == 0)
@@ -686,7 +686,7 @@ namespace Ibralogue
             return args;
         }
 
-        protected IEnumerable<MethodInfo> GetDialogueMethods()
+        protected IEnumerable<MethodInfo> GetInvocationMethods()
         {
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();

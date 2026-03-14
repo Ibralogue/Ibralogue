@@ -28,7 +28,7 @@ namespace Ibralogue.Parser
 			}
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
+			List<Invocation> invocations = new List<Invocation>();
 			int charOffset = 0;
 
 			bool hasVisibleText = false;
@@ -55,13 +55,13 @@ namespace Ibralogue.Parser
 						sb.Append(value);
 						charOffset += value.Length;
 					}
-					else if (fragment is FunctionInvocationNode funcNode)
+					else if (fragment is InvocationNode funcNode)
 					{
 						List<string> resolvedArgs = new List<string>(funcNode.Arguments.Count);
 						foreach (string arg in funcNode.Arguments)
 							resolvedArgs.Add(ResolveVariablesInString(arg, assetName));
 
-						invocations.Add(new FunctionInvocation(
+						invocations.Add(new Invocation(
 							funcNode.FunctionName,
 							resolvedArgs,
 							charOffset,
