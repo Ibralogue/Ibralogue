@@ -40,9 +40,7 @@ How have you been?
 
 ### Speaker Images
 
-Character portraits can be attached to a dialogue line using the `Image` command. Ibralogue uses [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html) to find images, so sprites must be placed in a `Resources` folder.
-
-For a file located at `Assets/Sprites/Resources/Portraits/AvaSmiling.png`:
+Character portraits can be attached to a dialogue line using the `Image` command or the `image` metadata key. The built-in `PortraitImagePlugin` loads sprites via [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html), so sprites must be placed in a `Resources` folder.
 
 ```text
 [Ava]
@@ -50,7 +48,38 @@ For a file located at `Assets/Sprites/Resources/Portraits/AvaSmiling.png`:
 It's a beautiful day outside!
 ```
 
-The `{{Image(...)}}` command must appear on its own line, directly after the speaker tag.
+The same result using metadata:
+
+```text
+[Ava]
+It's a beautiful day outside! ## image:Portraits/AvaSmiling
+```
+
+Both forms are equivalent. The `{{Image(...)}}` command is stored as `image` metadata on the line.
+
+### Audio
+
+Attach audio to a dialogue line using the `audio` metadata key:
+
+```text
+[NPC]
+Welcome to the shop! ## audio:Voiceover/shop_greeting
+```
+
+Audio requires an audio provider component on the engine's GameObject. Ibralogue ships with `UnityAudioProvider` for Unity's built-in AudioSource. For FMOD, Wwise, or other backends, implement the `IAudioProvider` interface.
+
+See [Engine Plugins](engine-plugins.md) for more details on audio setup.
+
+### Inline Triggers
+
+[Function invocations](invocations.md) placed inline in dialogue text fire at their character position during animated display. This means they trigger when the typewriter or punch effect reaches them, not all at once:
+
+```text
+[NPC]
+Hello! {{PlaySFX(greeting)}} Welcome to my shop.
+```
+
+When the typewriter effect reaches the point after "Hello! ", the `PlaySFX` function fires. Functions that return text (inserting dynamic content) still fire immediately before the animation starts.
 
 ### Silent Lines
 

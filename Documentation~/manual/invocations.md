@@ -24,6 +24,19 @@ Time to die.
 
 When this line is displayed, the `Die` method is called.
 
+#### Invocation Timing
+
+When a function invocation appears inline within dialogue text, it fires at its **character position** during the animated display effect (typewriter, punch, etc.). This lets you trigger side effects at precise moments in the text:
+
+```text
+[NPC]
+I have a gift for you. {{PlaySFX(fanfare)}} Ta-da!
+```
+
+The `PlaySFX` function fires when the typewriter reaches the space after "you. " -- not when the line first appears.
+
+Functions that return a string (see below) are an exception: they fire immediately **before** the animation starts, so their returned text is part of the full line from the beginning.
+
 #### Functions that Return Strings
 
 If a dialogue function returns a `string`, the return value is inserted directly into the dialogue text at the position of the invocation. This is useful for injecting dynamic content like dates, names, or computed values.
