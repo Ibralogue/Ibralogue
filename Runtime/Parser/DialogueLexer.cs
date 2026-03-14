@@ -262,6 +262,25 @@ namespace Ibralogue.Parser
 			}
 		}
 
+		private static bool IsStructuralKeyword(string name)
+		{
+			switch (name)
+			{
+				case "ConversationName":
+				case "If":
+				case "ElseIf":
+				case "Else":
+				case "EndIf":
+				case "Set":
+				case "Global":
+				case "Jump":
+				case "Include":
+					return true;
+				default:
+					return false;
+			}
+		}
+
 		/// <summary>
 		/// Scans a text line, which may contain inline functions ({{Name}}),
 		/// variable references ($Name), and trailing metadata (## key:value).
@@ -482,11 +501,8 @@ namespace Ibralogue.Parser
 				if (!isEndOfLine)
 					return false;
 
-				if (hasArgs)
-					return true;
-
 				string name = _source.Substring(nameStart, nameEnd - nameStart).Trim();
-				return ResolveCommandTokenType(name) != DialogueTokenType.Command;
+				return IsStructuralKeyword(name);
 			}
 
 			return false;
