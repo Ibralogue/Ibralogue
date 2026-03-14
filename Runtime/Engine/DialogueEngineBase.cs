@@ -44,6 +44,9 @@ namespace Ibralogue
         [Header("Localization")]
         [SerializeField] private MonoBehaviour localizationProviderComponent;
 
+        [Header("Audio")]
+        [SerializeField] private MonoBehaviour audioProviderComponent;
+
         [Header("Function Invocations")]
         [SerializeField]
         private bool searchAllAssemblies;
@@ -69,6 +72,24 @@ namespace Ibralogue
             set { _localizationProvider = value; }
         }
         private ILocalizationProvider _localizationProvider;
+
+        /// <summary>
+        /// The active audio provider. When set and a dialogue line has an "audio"
+        /// metadata key, the provider plays the corresponding clip.
+        /// </summary>
+        public IAudioProvider AudioProvider
+        {
+            get
+            {
+                if (_audioProvider != null)
+                    return _audioProvider;
+                if (audioProviderComponent is IAudioProvider provider)
+                    return provider;
+                return null;
+            }
+            set { _audioProvider = value; }
+        }
+        private IAudioProvider _audioProvider;
 
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
@@ -115,6 +136,10 @@ namespace Ibralogue
             _displayCoroutine = null;
 
             dialogueView.ClearView(enginePlugins);
+
+            IAudioProvider audio = AudioProvider;
+            if (audio != null)
+                audio.Stop();
 
             _linePlaying = false;
             _currentConversation = null;
@@ -392,6 +417,15 @@ namespace Ibralogue
             foreach (EnginePlugin plugin in enginePlugins)
             {
                 plugin.Display(line);
+            }
+
+            IAudioProvider audio = AudioProvider;
+            if (audio != null)
+            {
+                string audioClipId;
+                if (line.LineContent.Metadata.TryGetValue("audio", out audioClipId)
+                    && !string.IsNullOrEmpty(audioClipId))
+                    audio.Play(audioClipId);
             }
 
             List<ResolvedInvocation> pending = CollectPendingVoidInvocations(resolved);
