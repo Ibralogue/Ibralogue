@@ -706,8 +706,8 @@ namespace Ibralogue.Editor.Tests
 			Assert.That(fragments[2], Is.InstanceOf<TextNode>());
 			Assert.That(((TextNode)fragments[2]).Text, Is.EqualTo(", today is "));
 
-			Assert.That(fragments[3], Is.InstanceOf<FunctionInvocationNode>());
-			Assert.That(((FunctionInvocationNode)fragments[3]).FunctionName, Is.EqualTo("GetDay"));
+			Assert.That(fragments[3], Is.InstanceOf<InvocationNode>());
+			Assert.That(((InvocationNode)fragments[3]).FunctionName, Is.EqualTo("GetDay"));
 
 			Assert.That(fragments[4], Is.InstanceOf<TextNode>());
 			Assert.That(((TextNode)fragments[4]).Text, Is.EqualTo("."));
@@ -774,6 +774,50 @@ namespace Ibralogue.Editor.Tests
 
 			LineResolver.Resolve(lines[0], null, provider);
 			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour Ibrahim!"));
+		}
+
+		[Test]
+		public void ImageOnOwnLine_BecomesInvocationAtPositionZero()
+		{
+			dialogueAsset.Content =
+				"[NPC]\n{{Image(Portraits/AvaSmiling)}}\nHello!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(0));
+			Assert.That(line.LineContent.Invocations[0].Arguments[0], Is.EqualTo("Portraits/AvaSmiling"));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!"));
+		}
+
+		[Test]
+		public void ImageInline_FiresAtCharacterPosition()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello! {{Image(Portraits/Surprised)}} Whoa!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(7));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!  Whoa!"));
+		}
+
+		[Test]
+		public void InlineInvocation_HasCorrectCharacterIndex()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello {{Audio(boom)}} world!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(1));
+			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("Audio"));
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(6));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello  world!"));
 		}
 
 		private class DictionaryLocalizationProvider : ILocalizationProvider

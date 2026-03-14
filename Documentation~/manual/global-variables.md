@@ -6,7 +6,7 @@ Variables are resolved at **runtime**, meaning changes to variable values are re
 
 #### Reading Variables in Dialogue
 
-Reference any variable with the `$` prefix. Variables work anywhere in dialogue -- text, speaker names, function arguments, metadata values, choices, and jump targets.
+Reference any variable with the `$` prefix. Variables work anywhere in dialogue -- text, speaker names, invocation arguments, metadata values, choices, and jump targets.
 
 ```text
 [NPC]
@@ -71,9 +71,9 @@ When a variable is referenced, Ibralogue checks scopes in this order:
 
 The first match wins. This means a local variable can shadow a global variable of the same name.
 
-#### Variables in Function Arguments
+#### Variables in Invocation Arguments
 
-Variables are resolved inside function arguments:
+Variables are resolved inside invocation arguments:
 
 ```text
 [NPC]

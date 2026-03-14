@@ -17,6 +17,11 @@ namespace Ibralogue.Views
 
         public UnityEvent OnTypewriterEffectUpdated = new UnityEvent();
 
+        public override int VisibleCharacterCount
+        {
+            get { return sentenceText != null ? sentenceText.maxVisibleCharacters : 0; }
+        }
+
         /// <summary>
         /// Displays a dialogue line with a character-by-character typewriter effect.
         /// </summary>

@@ -28,17 +28,19 @@ namespace Ibralogue.Parser
 			}
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
+			List<Invocation> invocations = new List<Invocation>();
 			int charOffset = 0;
 
+			bool hasVisibleText = false;
 			for (int i = 0; i < sentences.Count; i++)
 			{
-				if (i > 0)
+				if (hasVisibleText && SentenceHasVisibleText(sentences[i]))
 				{
 					sb.Append('\n');
 					charOffset++;
 				}
 
+				int lengthBefore = sb.Length;
 				foreach (InlineNode fragment in sentences[i].Fragments)
 				{
 					if (fragment is TextNode textNode)
@@ -53,13 +55,13 @@ namespace Ibralogue.Parser
 						sb.Append(value);
 						charOffset += value.Length;
 					}
-					else if (fragment is FunctionInvocationNode funcNode)
+					else if (fragment is InvocationNode funcNode)
 					{
 						List<string> resolvedArgs = new List<string>(funcNode.Arguments.Count);
 						foreach (string arg in funcNode.Arguments)
 							resolvedArgs.Add(ResolveVariablesInString(arg, assetName));
 
-						invocations.Add(new FunctionInvocation(
+						invocations.Add(new Invocation(
 							funcNode.FunctionName,
 							resolvedArgs,
 							charOffset,
@@ -67,6 +69,9 @@ namespace Ibralogue.Parser
 							funcNode.Span.Start.Column));
 					}
 				}
+
+				if (sb.Length > lengthBefore)
+					hasVisibleText = true;
 			}
 
 			string speaker;
@@ -205,6 +210,16 @@ namespace Ibralogue.Parser
 						CollectLinesRecursive(branch.Body, lines);
 				}
 			}
+		}
+
+		private static bool SentenceHasVisibleText(SentenceNode sentence)
+		{
+			foreach (InlineNode fragment in sentence.Fragments)
+			{
+				if (fragment is TextNode || fragment is VariableReferenceNode)
+					return true;
+			}
+			return false;
 		}
 
 		private static bool IsAlphanumeric(char c)

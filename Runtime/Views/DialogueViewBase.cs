@@ -32,6 +32,16 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
+        /// Returns the number of characters currently visible in the dialogue text.
+        /// Used by the engine to fire inline function invocations at the correct
+        /// character position during animated display.
+        /// </summary>
+        public virtual int VisibleCharacterCount
+        {
+            get { return sentenceText != null ? sentenceText.text.Length : 0; }
+        }
+
+        /// <summary>
         /// Displays a single dialogue line.
         /// </summary>
         public virtual void SetView(Line line)

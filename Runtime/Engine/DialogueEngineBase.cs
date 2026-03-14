@@ -34,6 +34,7 @@ namespace Ibralogue
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
         private bool _choicesActive;
+        private float _pendingWaitSeconds;
 
         public UnityEvent OnConversationPaused = new UnityEvent();
         public UnityEvent OnConversationResumed = new UnityEvent();
@@ -43,6 +44,9 @@ namespace Ibralogue
 
         [Header("Localization")]
         [SerializeField] private MonoBehaviour localizationProviderComponent;
+
+        [Header("Audio")]
+        [SerializeField] private MonoBehaviour audioProviderComponent;
 
         [Header("Function Invocations")]
         [SerializeField]
@@ -69,6 +73,24 @@ namespace Ibralogue
             set { _localizationProvider = value; }
         }
         private ILocalizationProvider _localizationProvider;
+
+        /// <summary>
+        /// The active audio provider. When set and a dialogue line has an "audio"
+        /// metadata key, the provider plays the corresponding clip.
+        /// </summary>
+        public IAudioProvider AudioProvider
+        {
+            get
+            {
+                if (_audioProvider != null)
+                    return _audioProvider;
+                if (audioProviderComponent is IAudioProvider provider)
+                    return provider;
+                return null;
+            }
+            set { _audioProvider = value; }
+        }
+        private IAudioProvider _audioProvider;
 
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
@@ -116,6 +138,10 @@ namespace Ibralogue
 
             dialogueView.ClearView(enginePlugins);
 
+            IAudioProvider audio = AudioProvider;
+            if (audio != null)
+                audio.Stop();
+
             _linePlaying = false;
             _currentConversation = null;
             _currentRuntimeLine = null;
@@ -148,6 +174,15 @@ namespace Ibralogue
         public bool IsConversationPaused()
         {
             return _isPaused;
+        }
+
+        /// <summary>
+        /// Requests a pause in the display animation for the given duration.
+        /// Called by the built-in {{Wait(seconds)}} function.
+        /// </summary>
+        public void RequestWait(float seconds)
+        {
+            _pendingWaitSeconds = seconds;
         }
 
         /// <summary>
@@ -375,9 +410,18 @@ namespace Ibralogue
         /// Called when a dialogue line is ready to be displayed. Override this to
         /// customize how lines are presented, add custom effects, or inject
         /// additional logic between lines.
+        ///
+        /// Text-producing functions (non-void return) fire immediately before
+        /// the animation starts. Void functions fire at their character position
+        /// during the animated reveal.
         /// </summary>
         protected virtual IEnumerator OnDisplayLine(Line line)
         {
+            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
+            List<ResolvedInvocation> resolved = ResolveAllInvocations(line, dialogueMethods);
+
+            InvokeTextProducingFunctions(resolved, line);
+
             dialogueView.SetView(line);
 
             foreach (EnginePlugin plugin in enginePlugins)
@@ -385,14 +429,48 @@ namespace Ibralogue
                 plugin.Display(line);
             }
 
-            InvokeFunctions(line.LineContent.Invocations, line);
+            List<ResolvedInvocation> pending = CollectPendingVoidInvocations(resolved);
+            int nextPending = 0;
+            _pendingWaitSeconds = 0f;
 
-            yield return new WaitUntil(() => !dialogueView.IsStillDisplaying() || _isPaused);
+            while (dialogueView.IsStillDisplaying())
+            {
+                if (_isPaused)
+                    yield return new WaitUntil(() => !_isPaused);
+
+                int visibleChars = dialogueView.VisibleCharacterCount;
+                while (nextPending < pending.Count &&
+                       pending[nextPending].Invocation.CharacterIndex <= visibleChars)
+                {
+                    InvokeSingle(pending[nextPending], line);
+                    nextPending++;
+
+                    if (_pendingWaitSeconds > 0f)
+                    {
+                        dialogueView.Pause();
+                        yield return new WaitForSeconds(_pendingWaitSeconds);
+                        _pendingWaitSeconds = 0f;
+                        dialogueView.Resume();
+                    }
+                }
+
+                yield return null;
+            }
+
+            while (nextPending < pending.Count)
+            {
+                InvokeSingle(pending[nextPending], line);
+                nextPending++;
+
+                if (_pendingWaitSeconds > 0f)
+                {
+                    yield return new WaitForSeconds(_pendingWaitSeconds);
+                    _pendingWaitSeconds = 0f;
+                }
+            }
 
             if (_isPaused)
-            {
                 yield return new WaitUntil(() => !_isPaused);
-            }
         }
 
         private void OnChoiceSelected(Choice choice)
@@ -438,25 +516,88 @@ namespace Ibralogue
             return new Parser.Expressions.ExpressionEvaluator(name => VariableStore.Resolve(assetName, name));
         }
 
+        private struct ResolvedInvocation
+        {
+            public Invocation Invocation;
+            public MethodInfo Method;
+            public object[] Arguments;
+        }
+
+        private List<ResolvedInvocation> ResolveAllInvocations(Line line,
+            IEnumerable<MethodInfo> dialogueMethods)
+        {
+            List<ResolvedInvocation> result = new List<ResolvedInvocation>();
+            if (line.LineContent.Invocations == null)
+                return result;
+
+            foreach (Invocation function in line.LineContent.Invocations)
+            {
+                MethodInfo method = ResolveInvocation(dialogueMethods, function);
+                if (method == null) continue;
+
+                object[] args = BuildInvocationArguments(method, function);
+                if (args == null) continue;
+
+                result.Add(new ResolvedInvocation
+                {
+                    Invocation = function,
+                    Method = method,
+                    Arguments = args
+                });
+            }
+
+            return result;
+        }
+
+        private void InvokeTextProducingFunctions(List<ResolvedInvocation> resolved, Line line)
+        {
+            foreach (ResolvedInvocation r in resolved)
+            {
+                if (r.Method.ReturnType == typeof(void))
+                    continue;
+
+                object result = r.Method.Invoke(null, r.Arguments);
+                string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
+                line.LineContent.Text =
+                    line.LineContent.Text.Insert(r.Invocation.CharacterIndex, insertText);
+            }
+        }
+
+        private List<ResolvedInvocation> CollectPendingVoidInvocations(List<ResolvedInvocation> resolved)
+        {
+            List<ResolvedInvocation> pending = new List<ResolvedInvocation>();
+            foreach (ResolvedInvocation r in resolved)
+            {
+                if (r.Method.ReturnType == typeof(void))
+                    pending.Add(r);
+            }
+            pending.Sort((a, b) => a.Invocation.CharacterIndex.CompareTo(b.Invocation.CharacterIndex));
+            return pending;
+        }
+
+        private void InvokeSingle(ResolvedInvocation r, Line line)
+        {
+            r.Method.Invoke(null, r.Arguments);
+        }
+
         /// <summary>
-        /// Invokes [DialogueFunction] methods found in the current line's invocations.
+        /// Invokes all functions immediately. Used for silent lines where
+        /// there is no animated display.
         /// </summary>
-        protected virtual void InvokeFunctions(List<FunctionInvocation> functionInvocations, Line line)
+        protected void InvokeFunctions(List<Invocation> functionInvocations, Line line)
         {
             if (functionInvocations == null || functionInvocations.Count == 0)
                 return;
 
-            IEnumerable<MethodInfo> dialogueMethods = GetDialogueMethods();
+            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
 
-            foreach (FunctionInvocation function in functionInvocations)
+            foreach (Invocation function in functionInvocations)
             {
-                MethodInfo method = ResolveDialogueFunction(dialogueMethods, function);
-                if (method == null)
-                    continue;
+                MethodInfo method = ResolveInvocation(dialogueMethods, function);
+                if (method == null) continue;
 
                 object[] args = BuildInvocationArguments(method, function);
-                if (args == null)
-                    continue;
+                if (args == null) continue;
 
                 object result = method.Invoke(null, args);
 
@@ -465,12 +606,11 @@ namespace Ibralogue
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
                     line.LineContent.Text =
                         line.LineContent.Text.Insert(function.CharacterIndex, insertText);
-                    dialogueView.SetView(line);
                 }
             }
         }
 
-        private MethodInfo ResolveDialogueFunction(IEnumerable<MethodInfo> methods, FunctionInvocation function)
+        private MethodInfo ResolveInvocation(IEnumerable<MethodInfo> methods, Invocation function)
         {
             bool nameFound = false;
             int argCount = function.Arguments != null ? function.Arguments.Count : 0;
@@ -493,19 +633,19 @@ namespace Ibralogue
 
             if (nameFound)
             {
-                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
-                    $"[DialogueFunction] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
+                DialogueLogger.LogWarning(function.Line, function.Column,
+                    $"[DialogueInvocation] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
             }
             else
             {
-                Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
-                    $"No [DialogueFunction] method found for invocation '{function.Name}'");
+                DialogueLogger.LogWarning(function.Line, function.Column,
+                    $"No [DialogueInvocation] method found for invocation '{function.Name}'");
             }
 
             return null;
         }
 
-        private object[] BuildInvocationArguments(MethodInfo method, FunctionInvocation function)
+        private object[] BuildInvocationArguments(MethodInfo method, Invocation function)
         {
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length == 0)
@@ -534,9 +674,9 @@ namespace Ibralogue
                 }
                 catch (Exception ex) when (ex is FormatException || ex is InvalidCastException || ex is OverflowException)
                 {
-                    Debug.LogWarning($"[Ibralogue] [line {function.Line}:{function.Column}] " +
+                    DialogueLogger.LogWarning(function.Line, function.Column,
                         $"Failed to convert argument {argIndex} ('{rawValue}') to {paramType.Name} " +
-                        $"for function '{function.Name}': {ex.Message}");
+                        $"for invocation '{function.Name}': {ex.Message}");
                     return null;
                 }
 
@@ -546,7 +686,7 @@ namespace Ibralogue
             return args;
         }
 
-        protected IEnumerable<MethodInfo> GetDialogueMethods()
+        protected IEnumerable<MethodInfo> GetInvocationMethods()
         {
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -564,7 +704,7 @@ namespace Ibralogue
             {
                 IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
-                    .Where(m => m.GetCustomAttributes(typeof(DialogueFunctionAttribute), false).Length > 0);
+                    .Where(m => m.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0);
                 methods.AddRange(allMethods);
             }
 

@@ -331,14 +331,13 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Parses a dialogue line: a [Speaker], followed by optional Image command,
-		/// and one or more sentence lines.
+		/// Parses a dialogue line: a [Speaker], followed by optional Image/Jump commands,
+		/// and one or more sentence lines. Image commands are stored as metadata.
 		/// </summary>
 		private DialogueLineNode ParseDialogueLine()
 		{
 			SourcePosition start = Current().Span.Start;
 
-			// Expect a Speaker token
 			DialogueToken speakerToken = Expect(DialogueTokenType.Speaker);
 			if (speakerToken.Type == DialogueTokenType.EndOfFile)
 				return null;
@@ -347,20 +346,6 @@ namespace Ibralogue.Parser
 			SourceSpan speakerSpan = speakerToken.Span;
 			SkipBlankLines();
 
-			// Check for image command
-			string imagePath = null;
-			if (Check(DialogueTokenType.Command))
-			{
-				string cmdName = ExtractCommandName(Current().Value);
-				if (cmdName == "Image")
-				{
-					imagePath = ExtractCommandArgument(Current().Value);
-					Advance();
-					SkipBlankLines();
-				}
-			}
-
-			// Check for jump command before sentences
 			string jumpTarget = null;
 			if (Check(DialogueTokenType.Command))
 			{
@@ -382,10 +367,7 @@ namespace Ibralogue.Parser
 					string cmdName = ExtractCommandName(Current().Value);
 					if (cmdName == "ConversationName")
 						break;
-					if (cmdName == "Image")
-						break;
 
-					// Handle Jump command after sentences
 					if (cmdName == "Jump")
 					{
 						if (jumpTarget != null)
@@ -400,7 +382,6 @@ namespace Ibralogue.Parser
 					}
 				}
 
-				// Skip blank lines between sentences
 				if (Check(DialogueTokenType.EndOfLine))
 				{
 					Advance();
@@ -410,7 +391,6 @@ namespace Ibralogue.Parser
 				if (Check(DialogueTokenType.EndOfFile))
 					break;
 
-				// Skip standalone comments within dialogue lines
 				if (Check(DialogueTokenType.Comment))
 				{
 					Advance();
@@ -424,7 +404,7 @@ namespace Ibralogue.Parser
 			}
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new DialogueLineNode(speaker, speakerSpan, sentences, imagePath, jumpTarget, span);
+			return new DialogueLineNode(speaker, speakerSpan, sentences, jumpTarget, span);
 		}
 
 		/// <summary>
@@ -452,7 +432,7 @@ namespace Ibralogue.Parser
 						string funcName = InvocationSyntax.ExtractName(token.Value);
 						List<string> funcArgs = InvocationSyntax.SplitArguments(
 							InvocationSyntax.ExtractRawArgument(token.Value));
-						fragments.Add(new FunctionInvocationNode(funcName, funcArgs, token.Span));
+						fragments.Add(new InvocationNode(funcName, funcArgs, token.Span));
 						Advance();
 						break;
 

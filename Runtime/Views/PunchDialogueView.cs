@@ -17,6 +17,11 @@ namespace Ibralogue.Views
 
         public UnityEvent OnPunchEffectUpdated = new UnityEvent();
 
+        public override int VisibleCharacterCount
+        {
+            get { return sentenceText != null ? sentenceText.maxVisibleCharacters : 0; }
+        }
+
         /// <summary>
         /// Displays a dialogue line with a word-by-word punch effect.
         /// </summary>

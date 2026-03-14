@@ -108,7 +108,7 @@ namespace Ibralogue.Editor
 						sb.Append(textNode.Text);
 					else if (fragment is VariableReferenceNode varNode)
 						sb.Append('$').Append(varNode.VariableName);
-					else if (fragment is FunctionInvocationNode funcNode)
+					else if (fragment is InvocationNode funcNode)
 					{
 						sb.Append("{{").Append(funcNode.FunctionName);
 						if (funcNode.Arguments.Count > 0)

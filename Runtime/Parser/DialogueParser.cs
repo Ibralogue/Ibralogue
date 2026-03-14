@@ -59,7 +59,7 @@ namespace Ibralogue.Parser
 						DialogueLogger.LogError(line, message);
 						break;
 					case DiagnosticSeverity.Warning:
-						Debug.LogWarning($"[Ibralogue] [line {line}:{diagnostic.Span.Start.Column}] {message}");
+						DialogueLogger.LogWarning(line, diagnostic.Span.Start.Column, message);
 						break;
 				}
 			}

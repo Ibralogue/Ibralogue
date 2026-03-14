@@ -13,7 +13,7 @@ namespace Ibralogue.Parser
 		/// Converts a raw text string (potentially from a localization table) into
 		/// a list of SentenceNode objects, split on literal newlines.
 		/// Each sentence's fragments include TextNode, VariableReferenceNode,
-		/// and FunctionInvocationNode as appropriate.
+		/// and InvocationNode as appropriate.
 		/// </summary>
 		public static List<SentenceNode> Parse(string text)
 		{
@@ -90,7 +90,7 @@ namespace Ibralogue.Parser
 					if (i < text.Length && text[i] == '}')
 						i++;
 
-					fragments.Add(new FunctionInvocationNode(funcName, args, dummySpan));
+					fragments.Add(new InvocationNode(funcName, args, dummySpan));
 					textStart = i;
 				}
 				else

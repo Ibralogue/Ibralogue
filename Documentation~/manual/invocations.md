@@ -1,20 +1,59 @@
-### Function Invocations
+### Invocations
 
-Function invocations allow you to call static C# methods directly from your dialogue files. They are enclosed in double curly braces: `{{FunctionName}}`.
+Everything in `{{Name(args)}}` syntax is an invocation. There are three kinds: **keyword invocations** that control dialogue structure, **standard invocations** that ship with Ibralogue, and **custom invocations** that you write yourself.
 
-#### Defining a Dialogue Function
+#### Keyword Invocations
 
-Any static method with the `[DialogueFunction]` attribute can be invoked from Ibralogue:
+Keyword invocations are structural -- they shape which content plays and how the dialogue is organized. They cannot be used inline in text.
+
+| Keyword | Purpose |
+|---------|---------|
+| `{{ConversationName(name)}}` | Defines a named conversation block |
+| `{{Jump(target)}}` | Jumps to another conversation after the current line |
+| `{{If(expr)}}` / `{{ElseIf(expr)}}` / `{{Else}}` / `{{EndIf}}` | Conditional flow control |
+| `{{Set($var, expr)}}` | Assigns a variable |
+| `{{Global($var, expr)}}` | Declares a global variable |
+| `{{Include(asset)}}` | Includes another dialogue file |
+
+See [Conversations](conversations.md), [Conditionals](conditionals.md), and [Variables](global-variables.md) for details.
+
+#### Standard Invocations
+
+Ibralogue ships with built-in invocations for common tasks. These can be placed on their own line (fires at line start) or inline in text (fires at that point in the text):
+
+| Invocation | Description |
+|------------|-------------|
+| `{{Image(path)}}` | Changes the speaker portrait via the `PortraitImagePlugin`. |
+| `{{Audio(clipId)}}` | Plays an audio clip via the engine's `IAudioProvider`. |
+| `{{Wait(seconds)}}` | Pauses the display for the given duration. |
+| `{{Speed(multiplier)}}` | Changes the text reveal speed. 2 = twice as fast, 0.5 = half speed. Affects animated views only. |
+
+```text
+[NPC]
+{{Image(Portraits/Happy)}}
+{{Audio(Voiceover/greeting)}}
+Hello there!
+
+[NPC]
+And the winner is... {{Wait(2)}} you!
+
+[NPC]
+Hello! {{Image(Portraits/Surprised)}} I didn't expect that!
+```
+
+`{{Wait(seconds)}}` and `{{Speed(multiplier)}}` are meaningful with animated [dialogue views](dialogue-views.md) like the typewriter or punch views. With views that display text instantly, Wait still inserts a timed pause but Speed has no effect.
+
+#### Custom Invocations
+
+Any static C# method with the `[DialogueInvocation]` attribute can be called from dialogue:
 
 ```cs
-[DialogueFunction]
+[DialogueInvocation]
 public static void Die()
 {
     Debug.Log("Dead.");
 }
 ```
-
-#### Invoking from Dialogue
 
 ```text
 [NPC]
@@ -22,14 +61,12 @@ Time to die.
 {{Die}}
 ```
 
-When this line is displayed, the `Die` method is called.
+#### Invocations that Return Strings
 
-#### Functions that Return Strings
-
-If a dialogue function returns a `string`, the return value is inserted directly into the dialogue text at the position of the invocation. This is useful for injecting dynamic content like dates, names, or computed values.
+If an invocation returns a `string`, the return value is inserted into the dialogue text at the position of the invocation. These always fire before the line is displayed so that the full text is known upfront.
 
 ```cs
-[DialogueFunction]
+[DialogueInvocation]
 public static string GetDay()
 {
     return System.DateTime.Now.DayOfWeek.ToString();
@@ -41,37 +78,34 @@ public static string GetDay()
 Today is {{GetDay}}.
 ```
 
-The player would see something like "Today is Wednesday." depending on the current day.
+The player sees "Today is Wednesday." (or whichever day it is).
 
-#### Accessing the Engine from a Function
+#### Accessing the Engine
 
-A dialogue function can optionally accept a `DialogueEngineBase` parameter. When it does, Ibralogue passes the current engine instance, giving the function access to the full engine API.
+An invocation can optionally accept a `DialogueEngineBase` parameter to access the engine API:
 
 ```cs
-[DialogueFunction]
+[DialogueInvocation]
 public static void PauseForDrama(DialogueEngineBase engine)
 {
     engine.PauseConversation();
-    // Resume after some delay elsewhere
 }
 ```
 
-This works for both void and string-returning functions. If the function has no parameters, Ibralogue calls it without arguments as usual.
+#### Variables as Arguments
 
-#### Using Global Variables as Arguments
-
-[Variables](global-variables.md) are resolved inside function arguments, so you can pass dynamic values:
+[Variables](global-variables.md) are resolved inside invocation arguments:
 
 ```text
 [NPC]
 You received {{GiveItem($REWARD)}}.
 ```
 
-If `REWARD` is set to `"Sword"`, the function `GiveItem` receives `"Sword"` as its argument.
+If `REWARD` is `"Sword"`, `GiveItem` receives `"Sword"`.
 
 #### Assembly Search
 
-By default, Ibralogue searches for dialogue functions in `Assembly-CSharp` and its own assembly. If your dialogue functions live in other assemblies, you can configure this on the `SimpleDialogueEngine` component:
+By default, Ibralogue searches for invocations in `Assembly-CSharp` and its own assembly. If your invocations live in other assemblies, configure this on the `SimpleDialogueEngine` component:
 
 - **Search All Assemblies**: Enable this to search every loaded assembly.
 - **Included Assemblies**: Add specific assembly names to the search list.

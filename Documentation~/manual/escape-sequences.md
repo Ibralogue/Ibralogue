@@ -21,11 +21,11 @@ NPC: Use {{curly braces}} for templates.
 NPC: See section ## for more info.
 ```
 
-Without the backslashes, `$50` would be treated as a [variable](global-variables.md), `{{curly braces}}` as a [function invocation](invocations.md), and `##` as [metadata](comments.md).
+Without the backslashes, `$50` would be treated as a [variable](global-variables.md), `{{curly braces}}` as an [invocation](invocations.md), and `##` as [metadata](comments.md).
 
 #### Escaping Line-Start Syntax
 
-Some syntax is only special at the start of a line: `#` (comments), `##` (metadata), `[` (speaker names), `-` (choices), and `{{` (commands). A backslash at the start of the line prevents this:
+Some syntax is only special at the start of a line: `#` (comments), `##` (metadata), `[` (speaker names), `-` (choices), and `{{` (invocations). A backslash at the start of the line prevents this:
 
 ```text
 [NPC]
