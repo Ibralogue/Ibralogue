@@ -21,13 +21,18 @@ namespace Ibralogue.Parser
 		public readonly List<SentenceNode> Sentences;
 		public readonly string RawSpeaker;
 		public readonly string RawJumpTarget;
+		public readonly string LocalizationKey;
+		public readonly string SpeakerLocalizationKey;
 
-		public RuntimeLine(Line line, List<SentenceNode> sentences, string rawSpeaker, string rawJumpTarget)
+		public RuntimeLine(Line line, List<SentenceNode> sentences, string rawSpeaker,
+			string rawJumpTarget, string localizationKey, string speakerLocalizationKey)
 		{
 			Line = line;
 			Sentences = sentences;
 			RawSpeaker = rawSpeaker;
 			RawJumpTarget = rawJumpTarget;
+			LocalizationKey = localizationKey;
+			SpeakerLocalizationKey = speakerLocalizationKey;
 		}
 	}
 
@@ -52,12 +57,15 @@ namespace Ibralogue.Parser
 		public readonly string RawText;
 		public readonly string RawTarget;
 		public readonly Dictionary<string, string> RawMetadata;
+		public readonly string LocalizationKey;
 
-		public ChoiceData(string rawText, string rawTarget, Dictionary<string, string> rawMetadata)
+		public ChoiceData(string rawText, string rawTarget, Dictionary<string, string> rawMetadata,
+			string localizationKey)
 		{
 			RawText = rawText;
 			RawTarget = rawTarget;
 			RawMetadata = rawMetadata;
+			LocalizationKey = localizationKey;
 		}
 	}
 
