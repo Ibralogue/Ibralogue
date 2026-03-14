@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ibralogue.Parser.Expressions;
 
 namespace Ibralogue.Parser
 {
@@ -23,16 +24,30 @@ namespace Ibralogue.Parser
 	internal class ConversationNode
 	{
 		public readonly string Name;
-		public readonly List<DialogueLineNode> Lines;
+		public readonly List<ContentNode> Content;
 		public readonly List<ChoiceNode> Choices;
 		public readonly SourceSpan Span;
 
-		public ConversationNode(string name, List<DialogueLineNode> lines, List<ChoiceNode> choices,
+		public ConversationNode(string name, List<ContentNode> content, List<ChoiceNode> choices,
 			SourceSpan span)
 		{
 			Name = name;
-			Lines = lines;
+			Content = content;
 			Choices = choices;
+			Span = span;
+		}
+	}
+
+	/// <summary>
+	/// Base type for top-level content within a conversation: dialogue lines,
+	/// conditional blocks, and variable commands.
+	/// </summary>
+	internal abstract class ContentNode
+	{
+		public readonly SourceSpan Span;
+
+		protected ContentNode(SourceSpan span)
+		{
 			Span = span;
 		}
 	}
@@ -40,24 +55,22 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// A single dialogue line: a speaker followed by one or more sentences of content.
 	/// </summary>
-	internal class DialogueLineNode
+	internal class DialogueLineNode : ContentNode
 	{
 		public readonly string Speaker;
 		public readonly SourceSpan SpeakerSpan;
 		public readonly List<SentenceNode> Sentences;
 		public readonly string ImagePath;
 		public readonly string JumpTarget;
-		public readonly SourceSpan Span;
 
 		public DialogueLineNode(string speaker, SourceSpan speakerSpan, List<SentenceNode> sentences,
-			string imagePath, string jumpTarget, SourceSpan span)
+			string imagePath, string jumpTarget, SourceSpan span) : base(span)
 		{
 			Speaker = speaker;
 			SpeakerSpan = speakerSpan;
 			Sentences = sentences;
 			ImagePath = imagePath;
 			JumpTarget = jumpTarget;
-			Span = span;
 		}
 	}
 
@@ -160,6 +173,71 @@ namespace Ibralogue.Parser
 			Metadata = metadata;
 			LineIndex = lineIndex;
 			Span = span;
+		}
+	}
+
+	/// <summary>
+	/// A single branch within a conditional block (If, ElseIf, or Else).
+	/// </summary>
+	internal class ConditionalBranch
+	{
+		/// <summary>
+		/// The condition expression to evaluate. Null for the Else branch.
+		/// </summary>
+		public readonly ExpressionNode Condition;
+
+		public readonly List<ContentNode> Body;
+		public readonly SourceSpan Span;
+
+		public ConditionalBranch(ExpressionNode condition, List<ContentNode> body, SourceSpan span)
+		{
+			Condition = condition;
+			Body = body;
+			Span = span;
+		}
+	}
+
+	/// <summary>
+	/// A conditional block: {{If}} / {{ElseIf}} / {{Else}} / {{EndIf}}.
+	/// Contains one or more branches evaluated in order at runtime.
+	/// </summary>
+	internal class ConditionalBlockNode : ContentNode
+	{
+		public readonly List<ConditionalBranch> Branches;
+
+		public ConditionalBlockNode(List<ConditionalBranch> branches, SourceSpan span) : base(span)
+		{
+			Branches = branches;
+		}
+	}
+
+	/// <summary>
+	/// A variable assignment command: {{Set($Var, expression)}}.
+	/// </summary>
+	internal class SetCommandNode : ContentNode
+	{
+		public readonly string VariableName;
+		public readonly ExpressionNode Value;
+
+		public SetCommandNode(string variableName, ExpressionNode value, SourceSpan span) : base(span)
+		{
+			VariableName = variableName;
+			Value = value;
+		}
+	}
+
+	/// <summary>
+	/// A global variable declaration: {{Global($Var)}} or {{Global($Var, expression)}}.
+	/// </summary>
+	internal class GlobalDeclNode : ContentNode
+	{
+		public readonly string VariableName;
+		public readonly ExpressionNode DefaultValue;
+
+		public GlobalDeclNode(string variableName, ExpressionNode defaultValue, SourceSpan span) : base(span)
+		{
+			VariableName = variableName;
+			DefaultValue = defaultValue;
 		}
 	}
 }
