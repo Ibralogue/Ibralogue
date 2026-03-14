@@ -88,15 +88,28 @@
 }
 </code></pre>
 <h4 id="using-variables-in-dialogue">Using Variables in Dialogue</h4>
-<p>Reference a global variable with the <code>$</code> prefix:</p>
+<p>Reference a global variable with the <code>$</code> prefix. Variables are resolved anywhere in your dialogue -- text, speaker names, function arguments, metadata values, choices, etc.</p>
 <pre><code class="lang-text">[NPC]
 Hi, $PLAYERNAME.
 [$PLAYERNAME]
 Hi. What's up?
 </code></pre>
-<p>Variables can be used in both dialogue text and speaker names. If the variable <code>PLAYERNAME</code> is set to &quot;Ibrahim&quot;, the above would display as:</p>
+<p>If the variable <code>PLAYERNAME</code> is set to &quot;Ibrahim&quot;, the above would display as:</p>
 <pre><code>NPC: Hi, Ibrahim.
 Ibrahim: Hi. What's up?
+</code></pre>
+<h4 id="variables-in-function-arguments">Variables in Function Arguments</h4>
+<p>Global variables can be passed directly as function arguments:</p>
+<pre><code class="lang-text">[NPC]
+You received {{GiveItem($REWARD)}}.
+The $TARGET takes {{FormatDamage($DMG)}} damage!
+</code></pre>
+<p>This lets your dialogue functions receive dynamic values without hardcoding them in the dialogue file.</p>
+<h4 id="variables-in-metadata-and-choices">Variables in Metadata and Choices</h4>
+<p>Variables are also resolved in metadata values and choice text:</p>
+<pre><code class="lang-text">[NPC]
+How do you feel? ## emotion:$MOOD
+- Go to $LOCATION -&gt; $LOCATION ## quest:$QUESTID
 </code></pre>
 <h4 id="updating-variables-at-runtime">Updating Variables at Runtime</h4>
 <p>Since <code>GlobalVariables</code> is a standard dictionary, you can update values at any time:</p>

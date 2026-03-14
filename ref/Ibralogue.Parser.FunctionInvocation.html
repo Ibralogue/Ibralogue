@@ -115,18 +115,18 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Int32_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.%23ctor(System.String%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Collections_Generic_List_System_String__System_Int32_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.%23ctor(System.String%2CSystem.Collections.Generic.List%7BSystem.String%7D%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L22">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L25">View Source</a>
   </span>
   <a id="Ibralogue_Parser_FunctionInvocation__ctor_" data-uid="Ibralogue.Parser.FunctionInvocation.#ctor*"></a>
-  <h4 id="Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Int32_System_Int32_System_Int32_" data-uid="Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)">FunctionInvocation(string, int, int, int)</h4>
+  <h4 id="Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Collections_Generic_List_System_String__System_Int32_System_Int32_System_Int32_" data-uid="Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Collections.Generic.List{System.String},System.Int32,System.Int32,System.Int32)">FunctionInvocation(string, List&lt;string&gt;, int, int, int)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FunctionInvocation(string name, int characterIndex, int line, int column)</code></pre>
+    <pre><code class="lang-csharp hljs">public FunctionInvocation(string name, List&lt;string&gt; arguments, int characterIndex, int line, int column)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -141,6 +141,11 @@
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">arguments</span></td>
         <td></td>
       </tr>
       <tr>
@@ -164,10 +169,40 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation_CharacterIndex.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.CharacterIndex%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation_Arguments.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.Arguments%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L14">View Source</a>
+  </span>
+  <h4 id="Ibralogue_Parser_FunctionInvocation_Arguments" data-uid="Ibralogue.Parser.FunctionInvocation.Arguments">Arguments</h4>
+  <div class="markdown level1 summary"><p>The arguments passed to the function, as raw strings from the source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly List&lt;string&gt; Arguments</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation_CharacterIndex.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.CharacterIndex%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L17">View Source</a>
   </span>
   <h4 id="Ibralogue_Parser_FunctionInvocation_CharacterIndex" data-uid="Ibralogue.Parser.FunctionInvocation.CharacterIndex">CharacterIndex</h4>
   <div class="markdown level1 summary"><p>The character position in the rendered text where this invocation occurs.</p>
@@ -197,7 +232,7 @@
     <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation_Column.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.Column%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L20">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L23">View Source</a>
   </span>
   <h4 id="Ibralogue_Parser_FunctionInvocation_Column" data-uid="Ibralogue.Parser.FunctionInvocation.Column">Column</h4>
   <div class="markdown level1 summary"><p>The source column number for diagnostic reporting.</p>
@@ -227,7 +262,7 @@
     <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Parser_FunctionInvocation_Line.md&amp;value=---%0Auid%3A%20Ibralogue.Parser.FunctionInvocation.Line%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L17">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/LineContent.cs/#L20">View Source</a>
   </span>
   <h4 id="Ibralogue_Parser_FunctionInvocation_Line" data-uid="Ibralogue.Parser.FunctionInvocation.Line">Line</h4>
   <div class="markdown level1 summary"><p>The source line number for diagnostic reporting.</p>

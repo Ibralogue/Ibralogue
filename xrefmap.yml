@@ -696,15 +696,15 @@ references:
   commentId: T:Ibralogue.Parser.FunctionInvocation
   fullName: Ibralogue.Parser.FunctionInvocation
   nameWithType: FunctionInvocation
-- uid: Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)
-  name: FunctionInvocation(string, int, int, int)
-  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Int32_System_Int32_System_Int32_
-  commentId: M:Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Int32,System.Int32,System.Int32)
-  name.vb: New(String, Integer, Integer, Integer)
-  fullName: Ibralogue.Parser.FunctionInvocation.FunctionInvocation(string, int, int, int)
-  fullName.vb: Ibralogue.Parser.FunctionInvocation.New(String, Integer, Integer, Integer)
-  nameWithType: FunctionInvocation.FunctionInvocation(string, int, int, int)
-  nameWithType.vb: FunctionInvocation.New(String, Integer, Integer, Integer)
+- uid: Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Collections.Generic.List{System.String},System.Int32,System.Int32,System.Int32)
+  name: FunctionInvocation(string, List<string>, int, int, int)
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation__ctor_System_String_System_Collections_Generic_List_System_String__System_Int32_System_Int32_System_Int32_
+  commentId: M:Ibralogue.Parser.FunctionInvocation.#ctor(System.String,System.Collections.Generic.List{System.String},System.Int32,System.Int32,System.Int32)
+  name.vb: New(String, List(Of String), Integer, Integer, Integer)
+  fullName: Ibralogue.Parser.FunctionInvocation.FunctionInvocation(string, System.Collections.Generic.List<string>, int, int, int)
+  fullName.vb: Ibralogue.Parser.FunctionInvocation.New(String, System.Collections.Generic.List(Of String), Integer, Integer, Integer)
+  nameWithType: FunctionInvocation.FunctionInvocation(string, List<string>, int, int, int)
+  nameWithType.vb: FunctionInvocation.New(String, List(Of String), Integer, Integer, Integer)
 - uid: Ibralogue.Parser.FunctionInvocation.#ctor*
   name: FunctionInvocation
   href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation__ctor_
@@ -715,6 +715,12 @@ references:
   fullName.vb: Ibralogue.Parser.FunctionInvocation.New
   nameWithType: FunctionInvocation.FunctionInvocation
   nameWithType.vb: FunctionInvocation.New
+- uid: Ibralogue.Parser.FunctionInvocation.Arguments
+  name: Arguments
+  href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_Arguments
+  commentId: F:Ibralogue.Parser.FunctionInvocation.Arguments
+  fullName: Ibralogue.Parser.FunctionInvocation.Arguments
+  nameWithType: FunctionInvocation.Arguments
 - uid: Ibralogue.Parser.FunctionInvocation.CharacterIndex
   name: CharacterIndex
   href: ref/Ibralogue.Parser.FunctionInvocation.html#Ibralogue_Parser_FunctionInvocation_CharacterIndex
