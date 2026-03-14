@@ -2,7 +2,20 @@
 
 Function invocations allow you to call static C# methods directly from your dialogue files. They are enclosed in double curly braces: `{{FunctionName}}`.
 
-#### Defining a Dialogue Function
+#### Built-in Functions
+
+Ibralogue ships with a standard library of functions that work out of the box:
+
+| Function | Description |
+|----------|-------------|
+| `{{Image(path)}}` | Changes the speaker portrait. Works as a standalone command or inline. |
+| `{{Audio(clipId)}}` | Plays an audio clip through the engine's audio provider. |
+| `{{Wait(seconds)}}` | Pauses the text animation for the given duration. |
+| `{{Speed(multiplier)}}` | Changes the typewriter speed. 2 = twice as fast, 0.5 = half speed. |
+
+See [Basic Syntax](basic-syntax.md) for usage examples.
+
+#### Defining a Custom Dialogue Function
 
 Any static method with the `[DialogueFunction]` attribute can be invoked from Ibralogue:
 

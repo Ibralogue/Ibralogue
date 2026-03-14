@@ -57,44 +57,54 @@ It's a beautiful day outside! ## image:Portraits/AvaSmiling
 
 Both forms are equivalent. The `{{Image(...)}}` command is stored as `image` metadata on the line.
 
-To change the portrait mid-sentence (e.g., an expression change during animated text), use a [DialogueFunction](invocations.md) that calls the plugin's `SetImage` method. It will fire at the correct character position during the typewriter effect:
-
-```cs
-[DialogueFunction]
-public static void Expression(DialogueEngineBase engine, string path)
-{
-    engine.GetComponent<PortraitImagePlugin>().SetImage(path);
-}
-```
+`{{Image(...)}}` also works inline to change the portrait mid-sentence. It fires at the character position during the typewriter effect:
 
 ```text
 [NPC]
-Hello! {{Expression(Portraits/Surprised)}} I didn't expect that!
+Hello! {{Image(Portraits/Surprised)}} I didn't expect that!
 ```
 
 ### Audio
 
-Attach audio to a dialogue line using the `audio` metadata key:
+Attach audio to a dialogue line using the `audio` metadata key or the built-in `{{Audio(...)}}` function:
 
 ```text
 [NPC]
 Welcome to the shop! ## audio:Voiceover/shop_greeting
 ```
 
-Audio requires an audio provider component on the engine's GameObject. Ibralogue ships with `UnityAudioProvider` for Unity's built-in AudioSource. For FMOD, Wwise, or other backends, implement the `IAudioProvider` interface.
-
-See [Engine Plugins](engine-plugins.md) for more details on audio setup.
-
-### Inline Triggers
-
-[Function invocations](invocations.md) placed inline in dialogue text fire at their character position during animated display. This means they trigger when the typewriter or punch effect reaches them, not all at once:
+Inline audio fires at the character position during animated display:
 
 ```text
 [NPC]
-Hello! {{PlaySFX(greeting)}} Welcome to my shop.
+And then... {{Audio(SFX/explosion)}} BOOM!
 ```
 
-When the typewriter effect reaches the point after "Hello! ", the `PlaySFX` function fires. Functions that return text (inserting dynamic content) still fire immediately before the animation starts.
+Audio requires an audio provider component on the engine's GameObject. Ibralogue ships with `UnityAudioProvider` for Unity's built-in AudioSource. For FMOD, Wwise, or other backends, implement the `IAudioProvider` interface. See [Engine Plugins](engine-plugins.md) for setup details.
+
+### Wait and Speed
+
+Use `{{Wait(seconds)}}` to pause the text animation mid-sentence:
+
+```text
+[NPC]
+And the winner is... {{Wait(2)}} you!
+```
+
+Use `{{Speed(multiplier)}}` to change the typewriter reveal speed mid-sentence. A multiplier of 2 is twice as fast, 0.5 is half speed:
+
+```text
+[NPC]
+This is normal speed. {{Speed(0.3)}} This... is... very... slow. {{Speed(2)}} And this is fast!
+```
+
+### Inline Triggers
+
+All inline [function invocations](invocations.md) fire at their character position during animated display. This means they trigger when the typewriter or punch effect reaches that point in the text, not all at once.
+
+Functions that return text (inserting dynamic content) are the exception -- they fire immediately before the animation starts, so their returned text is part of the full line.
+
+Beyond the built-in functions, you can define your own with `[DialogueFunction]`. See [Function Invocations](invocations.md) for details.
 
 ### Silent Lines
 
