@@ -776,6 +776,62 @@ namespace Ibralogue.Editor.Tests
 			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour Ibrahim!"));
 		}
 
+		[Test]
+		public void ImageCommand_StoredAsMetadata()
+		{
+			dialogueAsset.Content =
+				"[NPC]\n{{Image(Portraits/AvaSmiling)}}\nHello!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Metadata, Contains.Key("image"));
+			Assert.That(line.LineContent.Metadata["image"], Is.EqualTo("Portraits/AvaSmiling"));
+		}
+
+		[Test]
+		public void ImageCommand_MidConversation_StoredAsMetadata()
+		{
+			dialogueAsset.Content =
+				"[NPC]\n{{Image(Portraits/Happy)}}\nFirst line\n" +
+				"[NPC]\n{{Image(Portraits/Sad)}}\nSecond line\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(GetLine(result[0], 0).LineContent.Metadata["image"],
+				Is.EqualTo("Portraits/Happy"));
+			Assert.That(GetLine(result[0], 1).LineContent.Metadata["image"],
+				Is.EqualTo("Portraits/Sad"));
+		}
+
+		[Test]
+		public void AudioMetadata_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello there! ## audio:voiceover_001\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Metadata, Contains.Key("audio"));
+			Assert.That(line.LineContent.Metadata["audio"], Is.EqualTo("voiceover_001"));
+		}
+
+		[Test]
+		public void InlineFunctionInvocation_HasCorrectCharacterIndex()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello {{PlaySFX(boom)}} world!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(1));
+			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("PlaySFX"));
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(6));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello  world!"));
+		}
+
 		private class DictionaryLocalizationProvider : ILocalizationProvider
 		{
 			private readonly Dictionary<string, string> _entries;
