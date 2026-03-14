@@ -17,13 +17,10 @@ Hi. What's up?
 
 #### Setting Variables from Code
 
-Register global variables through `DialogueGlobals.GlobalVariables` or the `VariableStore`:
+Register global variables through the `VariableStore`:
 
 ```cs
-// Legacy API (still works)
-DialogueGlobals.GlobalVariables.Add("PLAYERNAME", "Ibrahim");
-
-// New API with typed values
+VariableStore.SetGlobal("PLAYERNAME", "Ibrahim");
 VariableStore.SetGlobal("HEALTH", 100.0);
 VariableStore.SetGlobal("QUEST_DONE", false);
 ```
@@ -70,7 +67,7 @@ When a variable is referenced, Ibralogue checks scopes in this order:
 
 1. **Local** (current dialogue file)
 2. **Global** (set via `VariableStore.SetGlobal` or `{{Global(...)}}`)
-3. **Legacy** (`DialogueGlobals.GlobalVariables`)
+
 
 The first match wins. This means a local variable can shadow a global variable of the same name.
 
@@ -105,13 +102,13 @@ VariableStore.SetGlobal("SCORE", 100.0);
 // Set a file-local variable
 VariableStore.SetLocal("myDialogue", "temp", "hello");
 
-// Read a variable (checks local, then global, then legacy)
+// Read a variable (checks local first, then global)
 object value = VariableStore.Resolve("myDialogue", "SCORE");
 
 // Clear local variables for a specific asset
 VariableStore.ClearLocals("myDialogue");
 
-// Clear all variables (does not affect legacy DialogueGlobals)
+// Clear all variables
 VariableStore.ClearAll();
 ```
 

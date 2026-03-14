@@ -5,7 +5,7 @@ namespace Ibralogue
 {
 	/// <summary>
 	/// Centralized variable storage with global and per-asset local scoping.
-	/// Resolution order: local (current asset) -> global -> legacy DialogueGlobals.
+	/// Resolution order: local (current asset) -> global.
 	/// </summary>
 	public static class VariableStore
 	{
@@ -51,19 +51,12 @@ namespace Ibralogue
 				return;
 			}
 
-			if (DialogueGlobals.GlobalVariables.ContainsKey(name))
-			{
-				DialogueGlobals.GlobalVariables[name] = ToString(value);
-				return;
-			}
-
 			SetLocal(assetName, name, value);
 		}
 
 		/// <summary>
-		/// Resolves a variable by name: checks local scope first, then global scope,
-		/// then falls back to the legacy <see cref="DialogueGlobals.GlobalVariables"/> dictionary.
-		/// Returns null if the variable is not defined anywhere.
+		/// Resolves a variable by name: checks local scope first, then global scope.
+		/// Returns null if the variable is not defined in any scope.
 		/// </summary>
 		public static object Resolve(string assetName, string name)
 		{
@@ -72,9 +65,6 @@ namespace Ibralogue
 
 			if (_globals.TryGetValue(name, out object globalVal))
 				return globalVal;
-
-			if (DialogueGlobals.GlobalVariables.TryGetValue(name, out string legacyVal))
-				return legacyVal;
 
 			return null;
 		}
@@ -96,7 +86,7 @@ namespace Ibralogue
 		}
 
 		/// <summary>
-		/// Clears all variables (global and local). Does not affect legacy DialogueGlobals.
+		/// Clears all variables, both global and local.
 		/// </summary>
 		public static void ClearAll()
 		{

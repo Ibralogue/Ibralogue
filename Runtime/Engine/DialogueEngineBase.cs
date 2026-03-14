@@ -12,11 +12,6 @@ using UnityEngine.Events;
 
 namespace Ibralogue
 {
-    public static class DialogueGlobals
-    {
-        public static readonly Dictionary<string, string> GlobalVariables = new Dictionary<string, string>();
-    }
-
     public abstract class DialogueEngineBase : MonoBehaviour
     {
         protected EnginePlugin[] enginePlugins;

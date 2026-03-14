@@ -15,7 +15,6 @@ namespace Ibralogue.Editor.Tests
 		{
 			dialogueAsset = ScriptableObject.CreateInstance<DialogueAsset>();
 			VariableStore.ClearAll();
-			DialogueGlobals.GlobalVariables.Clear();
 		}
 
 		[TearDown]
@@ -23,7 +22,6 @@ namespace Ibralogue.Editor.Tests
 		{
 			Object.DestroyImmediate(dialogueAsset);
 			VariableStore.ClearAll();
-			DialogueGlobals.GlobalVariables.Clear();
 		}
 
 		private Line GetLine(Conversation conversation, int index)
@@ -187,7 +185,7 @@ namespace Ibralogue.Editor.Tests
 		[Test]
 		public void GlobalVariable_ReplacesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["PLAYERNAME"] = "TestPlayer";
+			VariableStore.SetGlobal("PLAYERNAME", "TestPlayer");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[$PLAYERNAME]\nHello $PLAYERNAME.\n";
@@ -260,7 +258,7 @@ namespace Ibralogue.Editor.Tests
 		[Test]
 		public void GlobalVariable_InFunctionArgument_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["ITEM"] = "Sword";
+			VariableStore.SetGlobal("ITEM", "Sword");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nYou received {{GiveItem($ITEM)}}.\n";
@@ -277,8 +275,8 @@ namespace Ibralogue.Editor.Tests
 		[Test]
 		public void GlobalVariable_InFunctionArgument_WithMultipleArgs_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["TARGET"] = "Dragon";
-			DialogueGlobals.GlobalVariables["DMG"] = "50";
+			VariableStore.SetGlobal("TARGET", "Dragon");
+			VariableStore.SetGlobal("DMG", "50");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nYou hit {{DealDamage($TARGET, $DMG)}}!\n";
@@ -295,7 +293,7 @@ namespace Ibralogue.Editor.Tests
 		[Test]
 		public void GlobalVariable_InMetadata_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["MOOD"] = "angry";
+			VariableStore.SetGlobal("MOOD", "angry");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nGet out of here! ## emotion:$MOOD\n";
@@ -310,7 +308,7 @@ namespace Ibralogue.Editor.Tests
 		[Test]
 		public void GlobalVariable_InChoiceMetadata_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["QUESTID"] = "main01";
+			VariableStore.SetGlobal("QUESTID", "main01");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nWill you help?\n" +
@@ -517,15 +515,6 @@ namespace Ibralogue.Editor.Tests
 
 			Assert.That(VariableStore.Resolve("testAsset", "X"), Is.EqualTo("local"));
 			Assert.That(VariableStore.Resolve(null, "X"), Is.EqualTo("global"));
-		}
-
-		[Test]
-		public void VariableStore_LegacyDialogueGlobals_FallsThrough()
-		{
-			DialogueGlobals.GlobalVariables["LEGACY"] = "old_value";
-
-			object value = VariableStore.Resolve(null, "LEGACY");
-			Assert.That(value, Is.EqualTo("old_value"));
 		}
 
 		[Test]
