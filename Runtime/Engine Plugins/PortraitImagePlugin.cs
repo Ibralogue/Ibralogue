@@ -1,4 +1,4 @@
-﻿using Ibralogue.Parser;
+using Ibralogue.Parser;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,20 +9,14 @@ namespace Ibralogue.Plugins
     {
         [SerializeField] protected Image speakerPortrait;
 
-        /// <summary>
-        /// Sets the speaker image and makes the Image transparent if there is no speaker image.
-        /// </summary>
-        public override void Display(Conversation currentConversation, int lineIndex)
+        public override void Display(Line line)
         {
-            speakerPortrait.color = currentConversation.Lines[lineIndex].SpeakerImage == null
+            speakerPortrait.color = line.SpeakerImage == null
                 ? new Color(0, 0, 0, 0)
                 : new Color(255, 255, 255, 255);
-            speakerPortrait.sprite = currentConversation.Lines[lineIndex].SpeakerImage;
+            speakerPortrait.sprite = line.SpeakerImage;
         }
 
-        /// <summary>
-        /// Sets the speaker image and makes the Image transparent if there is no speaker image.
-        /// </summary>
         public override void Clear()
         {
             speakerPortrait.color = new Color(0, 0, 0, 0);
