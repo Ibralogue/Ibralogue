@@ -51,6 +51,9 @@ crashlytics-build.properties
 TextMesh Pro
 TextMesh Pro.meta
 
+# Obsidian
+.obsidian/
+
 # DocFX metadata references
 Documentation~/ref
 _site.meta
