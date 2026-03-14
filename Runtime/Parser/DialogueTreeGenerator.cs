@@ -66,19 +66,18 @@ namespace Ibralogue.Parser
 			}
 
 			List<ContentNode> content = new List<ContentNode>();
-			List<ChoiceNode> choices = new List<ChoiceNode>();
-			ParseContentBlock(content, choices, false);
+			ParseContentBlock(content, false);
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new ConversationNode(name, content, choices, span);
+			return new ConversationNode(name, content, span);
 		}
 
 		/// <summary>
-		/// Parses a sequence of content nodes (dialogue lines, conditionals, Set, Global)
-		/// and choices. Stops at EOF, a new ConversationName command, or (when inside a
-		/// conditional branch) at ElseIf, Else, or EndIf.
+		/// Parses a sequence of content nodes (dialogue lines, choices, conditionals,
+		/// Set, Global). Stops at EOF, a new ConversationName command, or (when inside
+		/// a conditional branch) at ElseIf, Else, or EndIf.
 		/// </summary>
-		private void ParseContentBlock(List<ContentNode> content, List<ChoiceNode> choices, bool insideConditional)
+		private void ParseContentBlock(List<ContentNode> content, bool insideConditional)
 		{
 			while (!IsAtEnd())
 			{
@@ -128,14 +127,9 @@ namespace Ibralogue.Parser
 
 				if (Check(DialogueTokenType.Choice))
 				{
-					int lineCount = CountDialogueLines(content);
-					while (Check(DialogueTokenType.Choice))
-					{
-						ChoiceNode choice = ParseChoice(lineCount);
-						if (choice != null)
-							choices.Add(choice);
-						SkipBlankLines();
-					}
+					ChoiceGroupNode group = ParseChoiceGroup();
+					if (group != null)
+						content.Add(group);
 					continue;
 				}
 
@@ -169,18 +163,26 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Counts the number of DialogueLineNode instances in a content list,
-		/// used to compute choice line indices.
+		/// Parses a group of consecutive choice lines into a single ChoiceGroupNode.
 		/// </summary>
-		private static int CountDialogueLines(List<ContentNode> content)
+		private ChoiceGroupNode ParseChoiceGroup()
 		{
-			int count = 0;
-			foreach (ContentNode node in content)
+			SourcePosition start = Current().Span.Start;
+			List<ChoiceNode> choices = new List<ChoiceNode>();
+
+			while (Check(DialogueTokenType.Choice))
 			{
-				if (node is DialogueLineNode)
-					count++;
+				ChoiceNode choice = ParseChoice();
+				if (choice != null)
+					choices.Add(choice);
+				SkipBlankLines();
 			}
-			return count;
+
+			if (choices.Count == 0)
+				return null;
+
+			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+			return new ChoiceGroupNode(choices, span);
 		}
 
 		/// <summary>
@@ -198,8 +200,7 @@ namespace Ibralogue.Parser
 			SkipBlankLines();
 
 			List<ContentNode> ifBody = new List<ContentNode>();
-			List<ChoiceNode> ifChoices = new List<ChoiceNode>();
-			ParseContentBlock(ifBody, ifChoices, true);
+			ParseContentBlock(ifBody, true);
 
 			SourceSpan ifSpan = new SourceSpan(branchStart, Previous().Span.End);
 			branches.Add(new ConditionalBranch(ifCondition, ifBody, ifSpan));
@@ -212,8 +213,7 @@ namespace Ibralogue.Parser
 				SkipBlankLines();
 
 				List<ContentNode> elseIfBody = new List<ContentNode>();
-				List<ChoiceNode> elseIfChoices = new List<ChoiceNode>();
-				ParseContentBlock(elseIfBody, elseIfChoices, true);
+				ParseContentBlock(elseIfBody, true);
 
 				SourceSpan elseIfSpan = new SourceSpan(elseIfStart, Previous().Span.End);
 				branches.Add(new ConditionalBranch(elseIfCondition, elseIfBody, elseIfSpan));
@@ -226,8 +226,7 @@ namespace Ibralogue.Parser
 				SkipBlankLines();
 
 				List<ContentNode> elseBody = new List<ContentNode>();
-				List<ChoiceNode> elseChoices = new List<ChoiceNode>();
-				ParseContentBlock(elseBody, elseChoices, true);
+				ParseContentBlock(elseBody, true);
 
 				SourceSpan elseSpan = new SourceSpan(elseStart, Previous().Span.End);
 				branches.Add(new ConditionalBranch(null, elseBody, elseSpan));
@@ -494,7 +493,7 @@ namespace Ibralogue.Parser
 		/// <summary>
 		/// Parses a choice: - ChoiceText -> TargetConversation ## metadata
 		/// </summary>
-		private ChoiceNode ParseChoice(int lineIndex)
+		private ChoiceNode ParseChoice()
 		{
 			SourcePosition start = Current().Span.Start;
 			DialogueToken choiceToken = Expect(DialogueTokenType.Choice);
@@ -503,15 +502,12 @@ namespace Ibralogue.Parser
 
 			string value = choiceToken.Value;
 
-			// Split on -> to get choice text and target
-			// Also extract metadata (## ...) from the value
 			Dictionary<string, string> metadata = new Dictionary<string, string>();
-			string metadataPart = "";
 
 			int metadataIndex = value.IndexOf("##");
 			if (metadataIndex >= 0)
 			{
-				metadataPart = value.Substring(metadataIndex + 2).Trim();
+				string metadataPart = value.Substring(metadataIndex + 2).Trim();
 				value = value.Substring(0, metadataIndex).Trim();
 				ParseMetadataValue(metadataPart, metadata);
 			}
@@ -523,7 +519,7 @@ namespace Ibralogue.Parser
 					"Choice is missing '->' separator between choice text and target conversation");
 				SkipBlankLines();
 				SourceSpan errSpan = new SourceSpan(start, Previous().Span.End);
-				return new ChoiceNode(value.Trim(), "", metadata, lineIndex, errSpan);
+				return new ChoiceNode(value.Trim(), "", metadata, errSpan);
 			}
 
 			string choiceText = value.Substring(0, arrowIndex).Trim();
@@ -531,7 +527,7 @@ namespace Ibralogue.Parser
 
 			SkipBlankLines();
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
-			return new ChoiceNode(choiceText, target, metadata, lineIndex, span);
+			return new ChoiceNode(choiceText, target, metadata, span);
 		}
 
 		/// <summary>
