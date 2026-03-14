@@ -1,25 +1,37 @@
 using System.Collections.Generic;
+using Ibralogue.Localization;
 
 namespace Ibralogue.Parser
 {
 	/// <summary>
 	/// Resolves runtime dialogue lines by substituting variable references with
 	/// current values from the <see cref="VariableStore"/> and computing function
-	/// invocation character indices.
+	/// invocation character indices. When a localization provider is active,
+	/// translated text is used in place of the original fragments.
 	/// </summary>
 	internal static class LineResolver
 	{
 		/// <summary>
 		/// Rebuilds a line's text, speaker, and jump target from its unresolved
-		/// sentence fragments using the current variable state.
+		/// sentence fragments (or localized text) using the current variable state.
 		/// </summary>
-		public static void Resolve(RuntimeLine runtimeLine, string assetName)
+		public static void Resolve(RuntimeLine runtimeLine, string assetName,
+			ILocalizationProvider localization = null)
 		{
+			List<SentenceNode> sentences = runtimeLine.Sentences;
+
+			if (localization != null && runtimeLine.LocalizationKey != null)
+			{
+				string translated = localization.Resolve(runtimeLine.LocalizationKey);
+				if (translated != null)
+					sentences = FragmentParser.Parse(translated);
+			}
+
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			List<FunctionInvocation> invocations = new List<FunctionInvocation>();
 			int charOffset = 0;
 
-			for (int i = 0; i < runtimeLine.Sentences.Count; i++)
+			for (int i = 0; i < sentences.Count; i++)
 			{
 				if (i > 0)
 				{
@@ -27,7 +39,7 @@ namespace Ibralogue.Parser
 					charOffset++;
 				}
 
-				foreach (InlineNode fragment in runtimeLine.Sentences[i].Fragments)
+				foreach (InlineNode fragment in sentences[i].Fragments)
 				{
 					if (fragment is TextNode textNode)
 					{
@@ -57,9 +69,24 @@ namespace Ibralogue.Parser
 				}
 			}
 
-			runtimeLine.Line.Speaker = runtimeLine.Line.Silent
-				? ""
-				: ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
+			string speaker;
+			if (runtimeLine.Line.Silent)
+			{
+				speaker = "";
+			}
+			else if (localization != null && runtimeLine.SpeakerLocalizationKey != null)
+			{
+				string translatedSpeaker = localization.Resolve(runtimeLine.SpeakerLocalizationKey);
+				speaker = translatedSpeaker != null
+					? ResolveVariablesInString(translatedSpeaker, assetName)
+					: ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
+			}
+			else
+			{
+				speaker = ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
+			}
+
+			runtimeLine.Line.Speaker = speaker;
 			runtimeLine.Line.JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName);
 			runtimeLine.Line.LineContent.Text = sb.ToString();
 			runtimeLine.Line.LineContent.Invocations = invocations;
@@ -113,20 +140,29 @@ namespace Ibralogue.Parser
 
 		/// <summary>
 		/// Resolves a RuntimeChoicePoint into a list of Choice objects with
-		/// variable references substituted.
+		/// variable references and localized text substituted.
 		/// </summary>
-		public static List<Choice> ResolveChoices(RuntimeChoicePoint choicePoint, string assetName)
+		public static List<Choice> ResolveChoices(RuntimeChoicePoint choicePoint, string assetName,
+			ILocalizationProvider localization = null)
 		{
 			List<Choice> resolved = new List<Choice>(choicePoint.Choices.Count);
 			foreach (ChoiceData data in choicePoint.Choices)
 			{
+				string choiceText = data.RawText;
+				if (localization != null && data.LocalizationKey != null)
+				{
+					string translated = localization.Resolve(data.LocalizationKey);
+					if (translated != null)
+						choiceText = translated;
+				}
+
 				Dictionary<string, string> resolvedMeta = new Dictionary<string, string>();
 				foreach (KeyValuePair<string, string> kv in data.RawMetadata)
 					resolvedMeta[kv.Key] = ResolveVariablesInString(kv.Value, assetName);
 
 				resolved.Add(new Choice
 				{
-					ChoiceName = ResolveVariablesInString(data.RawText, assetName),
+					ChoiceName = ResolveVariablesInString(choiceText, assetName),
 					LeadingConversationName = ResolveVariablesInString(data.RawTarget, assetName),
 					Metadata = resolvedMeta
 				});
