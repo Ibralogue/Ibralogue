@@ -107,11 +107,12 @@ namespace Ibralogue.Parser
 	}
 
 	/// <summary>
-	/// An inline function invocation within a sentence: {{FunctionName}}
+	/// An inline function invocation within a sentence: {{FunctionName}} or {{FunctionName(arg1, arg2)}}
 	/// </summary>
 	internal class FunctionInvocationNode : InlineNode
 	{
 		public readonly string FunctionName;
+		public readonly List<string> Arguments;
 
 		/// <summary>
 		/// The character position in the final rendered text where this function
@@ -120,9 +121,10 @@ namespace Ibralogue.Parser
 		/// </summary>
 		public int CharacterIndex;
 
-		public FunctionInvocationNode(string functionName, SourceSpan span) : base(span)
+		public FunctionInvocationNode(string functionName, List<string> arguments, SourceSpan span) : base(span)
 		{
 			FunctionName = functionName;
+			Arguments = arguments;
 		}
 	}
 

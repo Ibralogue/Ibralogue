@@ -10,6 +10,9 @@ namespace Ibralogue.Parser
         /// <summary>The name of the function to invoke.</summary>
         public readonly string Name;
 
+        /// <summary>The arguments passed to the function, as raw strings from the source.</summary>
+        public readonly List<string> Arguments;
+
         /// <summary>The character position in the rendered text where this invocation occurs.</summary>
         public readonly int CharacterIndex;
 
@@ -19,9 +22,10 @@ namespace Ibralogue.Parser
         /// <summary>The source column number for diagnostic reporting.</summary>
         public readonly int Column;
 
-        public FunctionInvocation(string name, int characterIndex, int line, int column)
+        public FunctionInvocation(string name, List<string> arguments, int characterIndex, int line, int column)
         {
             Name = name;
+            Arguments = arguments;
             CharacterIndex = characterIndex;
             Line = line;
             Column = column;

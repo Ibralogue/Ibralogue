@@ -69,6 +69,17 @@ public static string CurrentSpeaker(DialogueEngineBase engine)
 
 If the function has no parameters, Ibralogue calls it without arguments as usual.
 
+#### Using Global Variables as Arguments
+
+[Global variables](global-variables.md) are resolved inside function arguments, so you can pass dynamic values:
+
+```text
+[NPC]
+You received {{GiveItem($REWARD)}}.
+```
+
+If `REWARD` is set to `"Sword"`, the function `GiveItem` receives `"Sword"` as its argument.
+
 #### Assembly Search
 
 By default, Ibralogue searches for dialogue functions in `Assembly-CSharp` and its own assembly. If your dialogue functions live in other assemblies, you can configure this on the `SimpleDialogueEngine` component:

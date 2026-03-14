@@ -252,7 +252,10 @@ namespace Ibralogue.Parser
 						break;
 
 					case DialogueTokenType.Function:
-						fragments.Add(new FunctionInvocationNode(token.Value, token.Span));
+						string funcName = InvocationSyntax.ExtractName(token.Value);
+						List<string> funcArgs = InvocationSyntax.SplitArguments(
+							InvocationSyntax.ExtractRawArgument(token.Value));
+						fragments.Add(new FunctionInvocationNode(funcName, funcArgs, token.Span));
 						Advance();
 						break;
 
@@ -364,28 +367,14 @@ namespace Ibralogue.Parser
 			}
 		}
 
-		/// <summary>
-		/// Extracts the command name from a command value string.
-		/// e.g. "ConversationName(Init)" returns "ConversationName"
-		/// e.g. "ConversationName" returns "ConversationName"
-		/// </summary>
-		private string ExtractCommandName(string commandValue)
+		private static string ExtractCommandName(string commandValue)
 		{
-			int parenIndex = commandValue.IndexOf('(');
-			return parenIndex >= 0 ? commandValue.Substring(0, parenIndex) : commandValue;
+			return InvocationSyntax.ExtractName(commandValue);
 		}
 
-		/// <summary>
-		/// Extracts the argument from a command value string.
-		/// e.g. "ConversationName(Init)" returns "Init"
-		/// </summary>
-		private string ExtractCommandArgument(string commandValue)
+		private static string ExtractCommandArgument(string commandValue)
 		{
-			int openParen = commandValue.IndexOf('(');
-			int closeParen = commandValue.LastIndexOf(')');
-			if (openParen >= 0 && closeParen > openParen)
-				return commandValue.Substring(openParen + 1, closeParen - openParen - 1);
-			return "";
+			return InvocationSyntax.ExtractRawArgument(commandValue);
 		}
 
 		private DialogueToken Current()
