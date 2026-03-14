@@ -36,3 +36,5 @@
       href: pause-and-resume.md
     - name: Events
       href: events.md
+    - name: Localization
+      href: localization.md
