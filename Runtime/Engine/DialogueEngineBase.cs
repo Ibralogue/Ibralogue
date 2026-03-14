@@ -34,6 +34,7 @@ namespace Ibralogue
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
         private bool _choicesActive;
+        private float _pendingWaitSeconds;
 
         public UnityEvent OnConversationPaused = new UnityEvent();
         public UnityEvent OnConversationResumed = new UnityEvent();
@@ -173,6 +174,15 @@ namespace Ibralogue
         public bool IsConversationPaused()
         {
             return _isPaused;
+        }
+
+        /// <summary>
+        /// Requests a pause in the display animation for the given duration.
+        /// Called by the built-in {{Wait(seconds)}} function.
+        /// </summary>
+        public void RequestWait(float seconds)
+        {
+            _pendingWaitSeconds = seconds;
         }
 
         /// <summary>
@@ -430,6 +440,7 @@ namespace Ibralogue
 
             List<ResolvedInvocation> pending = CollectPendingVoidInvocations(resolved);
             int nextPending = 0;
+            _pendingWaitSeconds = 0f;
 
             while (dialogueView.IsStillDisplaying())
             {
@@ -442,6 +453,14 @@ namespace Ibralogue
                 {
                     InvokeSingle(pending[nextPending], line);
                     nextPending++;
+
+                    if (_pendingWaitSeconds > 0f)
+                    {
+                        dialogueView.Pause();
+                        yield return new WaitForSeconds(_pendingWaitSeconds);
+                        _pendingWaitSeconds = 0f;
+                        dialogueView.Resume();
+                    }
                 }
 
                 yield return null;
