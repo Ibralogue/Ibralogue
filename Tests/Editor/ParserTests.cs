@@ -777,7 +777,7 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
-		public void ImageCommand_StoredAsMetadata()
+		public void ImageOnOwnLine_BecomesInvocationAtPositionZero()
 		{
 			dialogueAsset.Content =
 				"[NPC]\n{{Image(Portraits/AvaSmiling)}}\nHello!\n";
@@ -785,36 +785,24 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Line line = GetLine(result[0], 0);
-			Assert.That(line.LineContent.Metadata, Contains.Key("image"));
-			Assert.That(line.LineContent.Metadata["image"], Is.EqualTo("Portraits/AvaSmiling"));
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(0));
+			Assert.That(line.LineContent.Invocations[0].Arguments[0], Is.EqualTo("Portraits/AvaSmiling"));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!"));
 		}
 
 		[Test]
-		public void ImageCommand_MidConversation_StoredAsMetadata()
+		public void ImageInline_FiresAtCharacterPosition()
 		{
 			dialogueAsset.Content =
-				"[NPC]\n{{Image(Portraits/Happy)}}\nFirst line\n" +
-				"[NPC]\n{{Image(Portraits/Sad)}}\nSecond line\n";
-
-			var result = DialogueParser.ParseDialogue(dialogueAsset);
-
-			Assert.That(GetLine(result[0], 0).LineContent.Metadata["image"],
-				Is.EqualTo("Portraits/Happy"));
-			Assert.That(GetLine(result[0], 1).LineContent.Metadata["image"],
-				Is.EqualTo("Portraits/Sad"));
-		}
-
-		[Test]
-		public void AudioMetadata_ParsesCorrectly()
-		{
-			dialogueAsset.Content =
-				"[NPC]\nHello there! ## audio:voiceover_001\n";
+				"[NPC]\nHello! {{Image(Portraits/Surprised)}} Whoa!\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Line line = GetLine(result[0], 0);
-			Assert.That(line.LineContent.Metadata, Contains.Key("audio"));
-			Assert.That(line.LineContent.Metadata["audio"], Is.EqualTo("voiceover_001"));
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(7));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!  Whoa!"));
 		}
 
 		[Test]
