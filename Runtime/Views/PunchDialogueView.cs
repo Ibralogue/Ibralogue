@@ -17,24 +17,26 @@ namespace Ibralogue.Views
 
         public UnityEvent OnPunchEffectUpdated = new UnityEvent();
 
-        /// <summary>
-        /// Sets the view according to a line in a given Conversation with a word-by-word punch effect.
-        /// </summary>
-        public override void SetView(Conversation conversation, int lineIndex)
+        public override int VisibleCharacterCount
         {
-            nameText.text = conversation.Lines[lineIndex].Speaker;
+            get { return sentenceText != null ? sentenceText.maxVisibleCharacters : 0; }
+        }
+
+        /// <summary>
+        /// Displays a dialogue line with a word-by-word punch effect.
+        /// </summary>
+        public override void SetView(Line line)
+        {
+            nameText.text = line.Speaker;
 
             if (_punchCoroutine != null)
             {
                 StopCoroutine(_punchCoroutine);
             }
 
-            _punchCoroutine = StartCoroutine(PunchEffect(conversation.Lines[lineIndex].LineContent.Text));
+            _punchCoroutine = StartCoroutine(PunchEffect(line.LineContent.Text));
         }
 
-        /// <summary>
-        /// Displays text word by word.
-        /// </summary>
         private IEnumerator PunchEffect(string fullText)
         {
             _isStillDisplaying = true;
@@ -86,9 +88,6 @@ namespace Ibralogue.Views
             _punchCoroutine = null;
         }
 
-        /// <summary>
-        /// Requests to skip the effect and display full text immediately.
-        /// </summary>
         public override void SkipViewEffect()
         {
             if (_isStillDisplaying)
@@ -97,9 +96,6 @@ namespace Ibralogue.Views
             }
         }
 
-        /// <summary>
-        /// Clears all elements in the view and stops the coroutine.
-        /// </summary>
         public override void ClearView(EnginePlugin[] enginePlugins)
         {
             if (_punchCoroutine != null)
@@ -113,17 +109,11 @@ namespace Ibralogue.Views
             base.ClearView(enginePlugins);
         }
 
-        /// <summary>
-        /// Sets the delay between words.
-        /// </summary>
         public void SetWordDelay(float delay)
         {
             wordDelay = Mathf.Max(0f, delay);
         }
 
-        /// <summary>
-        /// Gets the current word delay.
-        /// </summary>
         public float GetWordDelay()
         {
             return wordDelay;

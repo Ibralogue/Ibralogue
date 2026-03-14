@@ -17,24 +17,26 @@ namespace Ibralogue.Views
 
         public UnityEvent OnTypewriterEffectUpdated = new UnityEvent();
 
-        /// <summary>
-        /// Sets the view according to a line in a given Conversation with typewriter effect.
-        /// </summary>
-        public override void SetView(Conversation conversation, int lineIndex)
+        public override int VisibleCharacterCount
         {
-            nameText.text = conversation.Lines[lineIndex].Speaker;
+            get { return sentenceText != null ? sentenceText.maxVisibleCharacters : 0; }
+        }
+
+        /// <summary>
+        /// Displays a dialogue line with a character-by-character typewriter effect.
+        /// </summary>
+        public override void SetView(Line line)
+        {
+            nameText.text = line.Speaker;
 
             if (_typewriterCoroutine != null)
             {
                 StopCoroutine(_typewriterCoroutine);
             }
 
-            _typewriterCoroutine = StartCoroutine(TypewriterEffect(conversation.Lines[lineIndex].LineContent.Text));
+            _typewriterCoroutine = StartCoroutine(TypewriterEffect(line.LineContent.Text));
         }
 
-        /// <summary>
-        /// Displays text character by character with typewriter effect.
-        /// </summary>
         private IEnumerator TypewriterEffect(string fullText)
         {
             _isStillDisplaying = true;
@@ -79,9 +81,6 @@ namespace Ibralogue.Views
             _typewriterCoroutine = null;
         }
 
-        /// <summary>
-        /// Requests to skip the typewriter effect and display full text immediately.
-        /// </summary>
         public override void SkipViewEffect()
         {
             base.SkipViewEffect();
@@ -91,9 +90,6 @@ namespace Ibralogue.Views
             }
         }
 
-        /// <summary>
-        /// Clears all elements in the view and stops the typewriter effect.
-        /// </summary>
         public override void ClearView(EnginePlugin[] enginePlugins)
         {
             if (_typewriterCoroutine != null)
@@ -108,17 +104,11 @@ namespace Ibralogue.Views
             base.ClearView(enginePlugins);
         }
 
-        /// <summary>
-        /// Sets the character delay for the typewriter effect.
-        /// </summary>
         public void SetCharacterDelay(float delay)
         {
             characterDelay = Mathf.Max(0f, delay);
         }
 
-        /// <summary>
-        /// Gets the current character delay.
-        /// </summary>
         public float GetCharacterDelay()
         {
             return characterDelay;

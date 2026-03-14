@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using Ibralogue.Parser;
 using Ibralogue.Plugins;
 using TMPro;
@@ -32,12 +32,22 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
-        /// Sets the according to a line in a given Conversation.
+        /// Returns the number of characters currently visible in the dialogue text.
+        /// Used by the engine to fire inline function invocations at the correct
+        /// character position during animated display.
         /// </summary>
-        public virtual void SetView(Conversation conversation, int lineIndex)
+        public virtual int VisibleCharacterCount
         {
-            nameText.text = conversation.Lines[lineIndex].Speaker;
-            sentenceText.text = conversation.Lines[lineIndex].LineContent.Text;
+            get { return sentenceText != null ? sentenceText.text.Length : 0; }
+        }
+
+        /// <summary>
+        /// Displays a single dialogue line.
+        /// </summary>
+        public virtual void SetView(Line line)
+        {
+            nameText.text = line.Speaker;
+            sentenceText.text = line.LineContent.Text;
             OnSetView.Invoke();
         }
 
@@ -71,7 +81,6 @@ namespace Ibralogue.Views
         /// </summary>
         public virtual void SkipViewEffect()
         {
-
         }
 
         /// <summary>
@@ -99,42 +108,26 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
-        /// Uses the Unity UI system and TextMeshPro to render choice buttons.
+        /// Presents choice buttons to the player. When a choice is selected, the
+        /// <paramref name="onChoiceSelected"/> callback is invoked with the chosen option.
         /// </summary>
-        public virtual void DisplayChoices(DialogueEngineBase engine, Conversation conversation, List<Conversation> parsedConversations)
+        public virtual void DisplayChoices(List<Choice> choices, Action<Choice> onChoiceSelected)
         {
             _choiceButtonInstances.Clear();
-            if (conversation.Choices == null || !conversation.Choices.Any()) return;
-            foreach (Choice choice in conversation.Choices.Keys)
+            if (choices == null || choices.Count == 0) return;
+
+            foreach (Choice choice in choices)
             {
                 ChoiceButton choiceButtonInstance = Instantiate(choiceButton, choiceButtonHolder).GetComponent<ChoiceButton>();
                 if (choiceButtonInstance == null)
                 {
                     DialogueLogger.LogError(2, "ChoiceButton is null. Make sure you have the ChoiceButton component added to your Button object!");
+                    continue;
                 }
 
-                UnityAction onClickAction = null;
-                int conversationIndex = -1;
-
-                switch (choice.LeadingConversationName)
-                {
-                    case ">>":
-                        DialogueLogger.LogError(2,
-                            "The embedded choice is not yet implemented, '>>' keyword is reserved for future use");
-                        break;
-                    default:
-                        conversationIndex =
-                            parsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
-                        if (conversationIndex == -1)
-                            DialogueLogger.LogError(2,
-                                $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\" in \"{conversation.Name}\".",
-                                this);
-                        onClickAction = () => engine.SwitchConversation(parsedConversations[conversationIndex]);
-                        break;
-                }
-
+                Choice captured = choice;
+                choiceButtonInstance.OnChoiceClick.AddListener(() => onChoiceSelected(captured));
                 choiceButtonInstance.GetComponentInChildren<TextMeshProUGUI>().text = choice.ChoiceName;
-                choiceButtonInstance.OnChoiceClick.AddListener(onClickAction);
 
                 _choiceButtonInstances.Add(choiceButtonInstance);
             }

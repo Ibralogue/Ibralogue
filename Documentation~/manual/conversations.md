@@ -49,7 +49,7 @@ dialogueManager.StartConversation(dialogueAsset, startIndex: 1);
 
 #### Jumping Between Conversations
 
-You can jump to a conversation by name directly in a dialogue file using the `{{Jump(...)}}` command:
+You can jump to a conversation by name directly in a dialogue file using the `{{Jump(...)}}` invocation:
 
 ```text
 {{ConversationName(Greeting)}}

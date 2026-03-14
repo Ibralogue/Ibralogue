@@ -1,6 +1,6 @@
 ### Jumps
 
-The `Jump` command lets you automatically move from one conversation to another without requiring a player choice. When the dialogue line finishes displaying, the engine switches to the target conversation.
+The `Jump` invocation lets you automatically move from one conversation to another without requiring a player choice. When the dialogue line finishes displaying, the engine switches to the target conversation.
 
 #### Basic Syntax
 
@@ -21,7 +21,7 @@ After the player advances past "Welcome, traveller.", the engine jumps to the "F
 
 #### Placement
 
-The `{{Jump(...)}}` command can appear before or after the sentence text, as long as it is inside a dialogue line (after a `[Speaker]` tag):
+The `{{Jump(...)}}` invocation can appear before or after the sentence text, as long as it is inside a dialogue line (after a `[Speaker]` tag):
 
 ```text
 [NPC]
@@ -39,7 +39,7 @@ Both forms are equivalent. The jump always happens after the player advances pas
 
 #### Variables in Jump Targets
 
-Jump targets support [global variables](global-variables.md):
+Jump targets support [variables](global-variables.md):
 
 ```text
 [NPC]
@@ -47,4 +47,4 @@ Jump targets support [global variables](global-variables.md):
 Moving on...
 ```
 
-The variable is resolved at parse time, just like variables in dialogue text.
+The variable is resolved at runtime when the line is displayed, just like variables in dialogue text.

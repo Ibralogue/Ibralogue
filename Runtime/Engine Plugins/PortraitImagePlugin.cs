@@ -1,4 +1,4 @@
-﻿using Ibralogue.Parser;
+using Ibralogue.Parser;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,23 +9,52 @@ namespace Ibralogue.Plugins
     {
         [SerializeField] protected Image speakerPortrait;
 
-        /// <summary>
-        /// Sets the speaker image and makes the Image transparent if there is no speaker image.
-        /// </summary>
-        public override void Display(Conversation currentConversation, int lineIndex)
+        private Sprite _cachedSprite;
+        private string _cachedPath;
+
+        public override void Display(Line line)
         {
-            speakerPortrait.color = currentConversation.Lines[lineIndex].SpeakerImage == null
-                ? new Color(0, 0, 0, 0)
-                : new Color(255, 255, 255, 255);
-            speakerPortrait.sprite = currentConversation.Lines[lineIndex].SpeakerImage;
         }
 
         /// <summary>
-        /// Sets the speaker image and makes the Image transparent if there is no speaker image.
+        /// Changes the displayed portrait sprite. Called by the built-in
+        /// {{Image(path)}} function during dialogue display.
         /// </summary>
+        public void SetImage(string path)
+        {
+            Sprite sprite;
+            if (path == _cachedPath && _cachedSprite != null)
+            {
+                sprite = _cachedSprite;
+            }
+            else
+            {
+                sprite = Resources.Load<Sprite>(path);
+                _cachedPath = path;
+                _cachedSprite = sprite;
+            }
+
+            if (sprite != null)
+            {
+                speakerPortrait.color = new Color(255, 255, 255, 255);
+                speakerPortrait.sprite = sprite;
+            }
+            else
+            {
+                DialogueLogger.LogWarning($"Sprite not found at path: {path}");
+                HidePortrait();
+            }
+        }
+
         public override void Clear()
         {
+            HidePortrait();
+        }
+
+        private void HidePortrait()
+        {
             speakerPortrait.color = new Color(0, 0, 0, 0);
+            speakerPortrait.sprite = null;
         }
     }
 }

@@ -1,4 +1,6 @@
+using Ibralogue.Localization;
 using Ibralogue.Parser;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
@@ -13,12 +15,28 @@ namespace Ibralogue.Editor.Tests
 		public void Setup()
 		{
 			dialogueAsset = ScriptableObject.CreateInstance<DialogueAsset>();
+			VariableStore.ClearAll();
 		}
 
 		[TearDown]
 		public void Teardown()
 		{
 			Object.DestroyImmediate(dialogueAsset);
+			VariableStore.ClearAll();
+		}
+
+		private Line GetLine(Conversation conversation, int index)
+		{
+			List<RuntimeLine> lines = LineResolver.CollectLines(conversation.Content);
+			LineResolver.Resolve(lines[index], null);
+			return lines[index].Line;
+		}
+
+		private List<Choice> GetChoices(Conversation conversation)
+		{
+			RuntimeChoicePoint cp = LineResolver.FindChoicePoint(conversation.Content);
+			if (cp == null) return new List<Choice>();
+			return LineResolver.ResolveChoices(cp, null);
 		}
 
 		[Test]
@@ -42,11 +60,10 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Assert.That(result, Has.Count.EqualTo(1));
-			Assert.That(result[0].Lines, Is.Not.Null);
-			Assert.That(result[0].Lines[0].Speaker, Is.EqualTo("Foo"));
-			Assert.That(result[0].Lines[1].Speaker, Is.EqualTo("Bar"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Message"));
-			Assert.That(result[0].Lines[1].LineContent.Text, Is.EqualTo("Other message"));
+			Assert.That(GetLine(result[0], 0).Speaker, Is.EqualTo("Foo"));
+			Assert.That(GetLine(result[0], 1).Speaker, Is.EqualTo("Bar"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Message"));
+			Assert.That(GetLine(result[0], 1).LineContent.Text, Is.EqualTo("Other message"));
 		}
 
 		[Test]
@@ -60,13 +77,13 @@ namespace Ibralogue.Editor.Tests
 
 			Assert.That(result, Has.Count.EqualTo(2));
 
-			Assert.That(result[0].Lines, Has.Count.EqualTo(1));
-			Assert.That(result[0].Lines[0].Speaker, Is.EqualTo("Foo"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Message"));
+			Assert.That(LineResolver.CollectLines(result[0].Content), Has.Count.EqualTo(1));
+			Assert.That(GetLine(result[0], 0).Speaker, Is.EqualTo("Foo"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Message"));
 
-			Assert.That(result[1].Lines, Has.Count.EqualTo(1));
-			Assert.That(result[1].Lines[0].Speaker, Is.EqualTo("Bar"));
-			Assert.That(result[1].Lines[0].LineContent.Text, Is.EqualTo("Message"));
+			Assert.That(LineResolver.CollectLines(result[1].Content), Has.Count.EqualTo(1));
+			Assert.That(GetLine(result[1], 0).Speaker, Is.EqualTo("Bar"));
+			Assert.That(GetLine(result[1], 0).LineContent.Text, Is.EqualTo("Message"));
 		}
 
 		[Test]
@@ -80,7 +97,7 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Assert.That(result, Has.Count.EqualTo(1));
-			Assert.That(result[0].Choices, Has.Count.EqualTo(2));
+			Assert.That(GetChoices(result[0]), Has.Count.EqualTo(2));
 		}
 
 		[Test]
@@ -103,7 +120,7 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("First line.\nSecond line."));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("First line.\nSecond line."));
 		}
 
 		[Test]
@@ -114,8 +131,8 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Metadata, Contains.Key("mood"));
-			Assert.That(result[0].Lines[0].LineContent.Metadata["mood"], Is.EqualTo("happy"));
+			Assert.That(GetLine(result[0], 0).LineContent.Metadata, Contains.Key("mood"));
+			Assert.That(GetLine(result[0], 0).LineContent.Metadata["mood"], Is.EqualTo("happy"));
 		}
 
 		[Test]
@@ -126,10 +143,11 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Invocations, Has.Count.EqualTo(1));
-			Assert.That(result[0].Lines[0].LineContent.Invocations.Any(i => i.Name == "GetDay"));
-			Assert.That(result[0].Lines[0].LineContent.Invocations[0].Arguments, Has.Count.EqualTo(0));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Today is ."));
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(1));
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "GetDay"));
+			Assert.That(line.LineContent.Invocations[0].Arguments, Has.Count.EqualTo(0));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Today is ."));
 		}
 
 		[Test]
@@ -140,11 +158,12 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Line line = GetLine(result[0], 0);
+			var invocation = line.LineContent.Invocations[0];
 			Assert.That(invocation.Name, Is.EqualTo("FormatGold"));
 			Assert.That(invocation.Arguments, Has.Count.EqualTo(1));
 			Assert.That(invocation.Arguments[0], Is.EqualTo("500"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("You owe  coins."));
+			Assert.That(line.LineContent.Text, Is.EqualTo("You owe  coins."));
 		}
 
 		[Test]
@@ -155,28 +174,28 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Line line = GetLine(result[0], 0);
+			var invocation = line.LineContent.Invocations[0];
 			Assert.That(invocation.Name, Is.EqualTo("Add"));
 			Assert.That(invocation.Arguments, Has.Count.EqualTo(2));
 			Assert.That(invocation.Arguments[0], Is.EqualTo("3"));
 			Assert.That(invocation.Arguments[1], Is.EqualTo("4"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("The answer is ."));
+			Assert.That(line.LineContent.Text, Is.EqualTo("The answer is ."));
 		}
 
 		[Test]
 		public void GlobalVariable_ReplacesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["PLAYERNAME"] = "TestPlayer";
+			VariableStore.SetGlobal("PLAYERNAME", "TestPlayer");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[$PLAYERNAME]\nHello $PLAYERNAME.\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].Speaker, Is.EqualTo("TestPlayer"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello TestPlayer."));
-
-			DialogueGlobals.GlobalVariables.Remove("PLAYERNAME");
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.Speaker, Is.EqualTo("TestPlayer"));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello TestPlayer."));
 		}
 
 		[Test]
@@ -187,8 +206,8 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].Speaker, Is.EqualTo("Foo"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
+			Assert.That(GetLine(result[0], 0).Speaker, Is.EqualTo("Foo"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Hello"));
 		}
 
 		[Test]
@@ -201,9 +220,9 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Assert.That(result, Has.Count.EqualTo(2));
-			Assert.That(result[0].Lines[0].JumpTarget, Is.EqualTo("B"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
-			Assert.That(result[1].Lines[0].JumpTarget, Is.Null);
+			Assert.That(GetLine(result[0], 0).JumpTarget, Is.EqualTo("B"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Hello"));
+			Assert.That(GetLine(result[1], 0).JumpTarget, Is.Null);
 		}
 
 		[Test]
@@ -216,8 +235,8 @@ namespace Ibralogue.Editor.Tests
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
 			Assert.That(result, Has.Count.EqualTo(2));
-			Assert.That(result[0].Lines[0].JumpTarget, Is.EqualTo("B"));
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Hello"));
+			Assert.That(GetLine(result[0], 0).JumpTarget, Is.EqualTo("B"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Hello"));
 		}
 
 		[Test]
@@ -229,75 +248,68 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Choices, Has.Count.EqualTo(1));
-
-			foreach (var kv in result[0].Choices)
-			{
-				Assert.That(kv.Key.ChoiceName, Is.EqualTo("Choice 1"));
-				Assert.That(kv.Key.LeadingConversationName, Is.EqualTo("Target"));
-				Assert.That(kv.Key.Metadata, Contains.Key("tag"));
-				Assert.That(kv.Key.Metadata["tag"], Is.EqualTo("important"));
-			}
+			List<Choice> choices = GetChoices(result[0]);
+			Assert.That(choices, Has.Count.EqualTo(1));
+			Assert.That(choices[0].ChoiceName, Is.EqualTo("Choice 1"));
+			Assert.That(choices[0].LeadingConversationName, Is.EqualTo("Target"));
+			Assert.That(choices[0].Metadata, Contains.Key("tag"));
+			Assert.That(choices[0].Metadata["tag"], Is.EqualTo("important"));
 		}
 
 		[Test]
 		public void GlobalVariable_InFunctionArgument_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["ITEM"] = "Sword";
+			VariableStore.SetGlobal("ITEM", "Sword");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nYou received {{GiveItem($ITEM)}}.\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Line line = GetLine(result[0], 0);
+			var invocation = line.LineContent.Invocations[0];
 			Assert.That(invocation.Name, Is.EqualTo("GiveItem"));
 			Assert.That(invocation.Arguments, Has.Count.EqualTo(1));
 			Assert.That(invocation.Arguments[0], Is.EqualTo("Sword"));
-
-			DialogueGlobals.GlobalVariables.Remove("ITEM");
 		}
 
 		[Test]
 		public void GlobalVariable_InFunctionArgument_WithMultipleArgs_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["TARGET"] = "Dragon";
-			DialogueGlobals.GlobalVariables["DMG"] = "50";
+			VariableStore.SetGlobal("TARGET", "Dragon");
+			VariableStore.SetGlobal("DMG", "50");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nYou hit {{DealDamage($TARGET, $DMG)}}!\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			var invocation = result[0].Lines[0].LineContent.Invocations[0];
+			Line line = GetLine(result[0], 0);
+			var invocation = line.LineContent.Invocations[0];
 			Assert.That(invocation.Arguments, Has.Count.EqualTo(2));
 			Assert.That(invocation.Arguments[0], Is.EqualTo("Dragon"));
 			Assert.That(invocation.Arguments[1], Is.EqualTo("50"));
-
-			DialogueGlobals.GlobalVariables.Remove("TARGET");
-			DialogueGlobals.GlobalVariables.Remove("DMG");
 		}
 
 		[Test]
 		public void GlobalVariable_InMetadata_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["MOOD"] = "angry";
+			VariableStore.SetGlobal("MOOD", "angry");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nGet out of here! ## emotion:$MOOD\n";
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Metadata, Contains.Key("emotion"));
-			Assert.That(result[0].Lines[0].LineContent.Metadata["emotion"], Is.EqualTo("angry"));
-
-			DialogueGlobals.GlobalVariables.Remove("MOOD");
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Metadata, Contains.Key("emotion"));
+			Assert.That(line.LineContent.Metadata["emotion"], Is.EqualTo("angry"));
 		}
 
 		[Test]
 		public void GlobalVariable_InChoiceMetadata_ResolvesCorrectly()
 		{
-			DialogueGlobals.GlobalVariables["QUESTID"] = "main01";
+			VariableStore.SetGlobal("QUESTID", "main01");
 
 			dialogueAsset.Content =
 				"{{ConversationName(A)}}\n[NPC]\nWill you help?\n" +
@@ -305,13 +317,9 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			foreach (var kv in result[0].Choices)
-			{
-				Assert.That(kv.Key.Metadata, Contains.Key("quest"));
-				Assert.That(kv.Key.Metadata["quest"], Is.EqualTo("main01"));
-			}
-
-			DialogueGlobals.GlobalVariables.Remove("QUESTID");
+			List<Choice> choices = GetChoices(result[0]);
+			Assert.That(choices[0].Metadata, Contains.Key("quest"));
+			Assert.That(choices[0].Metadata["quest"], Is.EqualTo("main01"));
 		}
 
 		[Test]
@@ -322,8 +330,9 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("This is {{not a function}}."));
-			Assert.That(result[0].Lines[0].LineContent.Invocations, Has.Count.EqualTo(0));
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Text, Is.EqualTo("This is {{not a function}}."));
+			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(0));
 		}
 
 		[Test]
@@ -334,7 +343,7 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("Price is $100."));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Price is $100."));
 		}
 
 		[Test]
@@ -345,7 +354,7 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("# This is not a comment."));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("# This is not a comment."));
 		}
 
 		[Test]
@@ -356,8 +365,9 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("See section ## for details."));
-			Assert.That(result[0].Lines[0].LineContent.Metadata, Has.Count.EqualTo(0));
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Text, Is.EqualTo("See section ## for details."));
+			Assert.That(line.LineContent.Metadata, Has.Count.EqualTo(0));
 		}
 
 		[Test]
@@ -368,7 +378,461 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(result[0].Lines[0].LineContent.Text, Is.EqualTo("[Not a speaker]"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("[Not a speaker]"));
+		}
+
+		[Test]
+		public void If_TrueBranch_ParsesCorrectly()
+		{
+			VariableStore.SetGlobal("HEALTH", 100.0);
+
+			dialogueAsset.Content =
+				"[Doctor]\n" +
+				"{{If($HEALTH > 50)}}\n" +
+				"[Doctor]\nYou look healthy!\n" +
+				"{{Else}}\n" +
+				"[Doctor]\nYou need rest.\n" +
+				"{{EndIf}}\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Content, Has.Count.EqualTo(2));
+			Assert.That(result[0].Content[1], Is.InstanceOf<RuntimeConditionalBlock>());
+
+			var cond = (RuntimeConditionalBlock)result[0].Content[1];
+			Assert.That(cond.Branches, Has.Count.EqualTo(2));
+		}
+
+		[Test]
+		public void If_ElseIf_Else_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nLet me check...\n" +
+				"{{If($RANK == \"gold\")}}\n" +
+				"[NPC]\nWelcome, gold member!\n" +
+				"{{ElseIf($RANK == \"silver\")}}\n" +
+				"[NPC]\nWelcome, silver member!\n" +
+				"{{Else}}\n" +
+				"[NPC]\nWelcome, visitor.\n" +
+				"{{EndIf}}\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var cond = (RuntimeConditionalBlock)result[0].Content[1];
+			Assert.That(cond.Branches, Has.Count.EqualTo(3));
+			Assert.That(cond.Branches[2].Condition, Is.Null);
+		}
+
+		[Test]
+		public void If_Nested_ParsesCorrectly()
+		{
+			VariableStore.SetGlobal("A", true);
+			VariableStore.SetGlobal("B", true);
+
+			dialogueAsset.Content =
+				"[NPC]\nOuter\n" +
+				"{{If($A)}}\n" +
+				"[NPC]\nA is true\n" +
+				"{{If($B)}}\n" +
+				"[NPC]\nB is also true\n" +
+				"{{EndIf}}\n" +
+				"{{EndIf}}\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var outerCond = (RuntimeConditionalBlock)result[0].Content[1];
+			Assert.That(outerCond.Branches, Has.Count.EqualTo(1));
+
+			var innerContent = outerCond.Branches[0].Body;
+			Assert.That(innerContent[1], Is.InstanceOf<RuntimeConditionalBlock>());
+		}
+
+		[Test]
+		public void Set_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{Set($GOLD, 100)}}\n" +
+				"[NPC]\nHello\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Content[0], Is.InstanceOf<RuntimeSetCommand>());
+			var set = (RuntimeSetCommand)result[0].Content[0];
+			Assert.That(set.VariableName, Is.EqualTo("GOLD"));
+		}
+
+		[Test]
+		public void Global_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{Global($SCORE, 0)}}\n" +
+				"[NPC]\nHello\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Content[0], Is.InstanceOf<RuntimeGlobalDecl>());
+			var global = (RuntimeGlobalDecl)result[0].Content[0];
+			Assert.That(global.VariableName, Is.EqualTo("SCORE"));
+		}
+
+		[Test]
+		public void Set_WithExpression_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"{{Set($HEALTH, $HEALTH - 10)}}\n" +
+				"[NPC]\nOuch!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result[0].Content[0], Is.InstanceOf<RuntimeSetCommand>());
+		}
+
+		[Test]
+		public void VariableStore_GlobalScope_Works()
+		{
+			VariableStore.SetGlobal("NAME", "Alice");
+
+			object value = VariableStore.Resolve(null, "NAME");
+			Assert.That(value, Is.EqualTo("Alice"));
+		}
+
+		[Test]
+		public void VariableStore_LocalScope_Works()
+		{
+			VariableStore.SetLocal("testAsset", "temp", 42.0);
+
+			object value = VariableStore.Resolve("testAsset", "temp");
+			Assert.That(value, Is.EqualTo(42.0));
+
+			Assert.That(VariableStore.Resolve("otherAsset", "temp"), Is.Null);
+		}
+
+		[Test]
+		public void VariableStore_LocalShadowsGlobal()
+		{
+			VariableStore.SetGlobal("X", "global");
+			VariableStore.SetLocal("testAsset", "X", "local");
+
+			Assert.That(VariableStore.Resolve("testAsset", "X"), Is.EqualTo("local"));
+			Assert.That(VariableStore.Resolve(null, "X"), Is.EqualTo("global"));
+		}
+
+		[Test]
+		public void RuntimeVariableResolution_ReflectsCurrentState()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello $NAME!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			VariableStore.SetGlobal("NAME", "Alice");
+			LineResolver.Resolve(lines[0], null);
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello Alice!"));
+
+			VariableStore.SetGlobal("NAME", "Bob");
+			LineResolver.Resolve(lines[0], null);
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello Bob!"));
+		}
+
+		[Test]
+		public void ContinueChoice_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nDo you listen?\n" +
+				"- Nope -> Angry\n" +
+				"- Sure -> >>\n" +
+				"[NPC]\nI thought so.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var choices = GetChoices(result[0]);
+			Assert.That(choices, Has.Count.EqualTo(2));
+			Assert.That(choices[0].LeadingConversationName, Is.EqualTo("Angry"));
+			Assert.That(choices[1].LeadingConversationName, Is.EqualTo(">>"));
+
+			Assert.That(LineResolver.CollectLines(result[0].Content), Has.Count.EqualTo(2));
+		}
+
+		[Test]
+		public void MultipleContinueChoiceGroups_ParseCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nFirst question?\n" +
+				"- No -> Angry\n" +
+				"- Yes -> >>\n" +
+				"[NPC]\nSecond question?\n" +
+				"- No -> Angry\n" +
+				"- Yes -> >>\n" +
+				"[NPC]\nOk then.\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines, Has.Count.EqualTo(3));
+
+			int choiceCount = 0;
+			foreach (RuntimeContentNode node in result[0].Content)
+			{
+				if (node is RuntimeChoicePoint)
+					choiceCount++;
+			}
+			Assert.That(choiceCount, Is.EqualTo(2));
+		}
+
+		[Test]
+		public void SilentLine_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello!\n" +
+				"[>>]\n{{TriggerEffect}}\n" +
+				"[NPC]\nGoodbye!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines, Has.Count.EqualTo(3));
+
+			LineResolver.Resolve(lines[1], null);
+			Assert.That(lines[1].Line.Silent, Is.True);
+			Assert.That(lines[1].Line.Speaker, Is.EqualTo(""));
+		}
+
+		[Test]
+		public void SilentLine_WithSet_ParsesCorrectly()
+		{
+			dialogueAsset.Content =
+				"[>>]\n{{TriggerSetup}}\n" +
+				"[NPC]\nReady!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			var lines = LineResolver.CollectLines(result[0].Content);
+			Assert.That(lines[0].Line.Silent, Is.True);
+			Assert.That(lines[1].Line.Silent, Is.False);
+		}
+
+		[Test]
+		public void LocalizationKey_AutoGenerated()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(Greeting)}}\n[NPC]\nHello!\n[NPC]\nHow are you?\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			Assert.That(lines[0].LocalizationKey, Is.EqualTo("Greeting.line.0"));
+			Assert.That(lines[1].LocalizationKey, Is.EqualTo("Greeting.line.1"));
+			Assert.That(lines[0].SpeakerLocalizationKey, Is.EqualTo("speaker.NPC"));
+		}
+
+		[Test]
+		public void LocalizationKey_CustomOverride()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nHello! ## loc:my_greeting\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			Assert.That(lines[0].LocalizationKey, Is.EqualTo("my_greeting"));
+		}
+
+		[Test]
+		public void LocalizationKey_Choices()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nPick one.\n" +
+				"- Option A -> X\n" +
+				"- Option B -> Y\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			RuntimeChoicePoint cp = LineResolver.FindChoicePoint(result[0].Content);
+			Assert.That(cp.Choices[0].LocalizationKey, Is.EqualTo("A.choice.0"));
+			Assert.That(cp.Choices[1].LocalizationKey, Is.EqualTo("A.choice.1"));
+		}
+
+		[Test]
+		public void CsvParsing_BasicKeyValue()
+		{
+			string csv = "key,text\nGreeting.line.0,Bonjour\nGreeting.line.1,Comment allez-vous?\n";
+			var table = CsvLocalizationProvider.ParseCsv(csv);
+
+			Assert.That(table["Greeting.line.0"], Is.EqualTo("Bonjour"));
+			Assert.That(table["Greeting.line.1"], Is.EqualTo("Comment allez-vous?"));
+		}
+
+		[Test]
+		public void CsvParsing_QuotedFieldsWithNewlines()
+		{
+			string csv = "key,text\nGreeting.line.0,\"Bonjour.\nComment allez-vous?\"\n";
+			var table = CsvLocalizationProvider.ParseCsv(csv);
+
+			Assert.That(table["Greeting.line.0"], Is.EqualTo("Bonjour.\nComment allez-vous?"));
+		}
+
+		[Test]
+		public void CsvParsing_QuotedFieldsWithCommas()
+		{
+			string csv = "key,text\nA.line.0,\"Hello, world\"\n";
+			var table = CsvLocalizationProvider.ParseCsv(csv);
+
+			Assert.That(table["A.line.0"], Is.EqualTo("Hello, world"));
+		}
+
+		[Test]
+		public void FragmentParser_PlainText()
+		{
+			var sentences = FragmentParser.Parse("Hello world.");
+			Assert.That(sentences, Has.Count.EqualTo(1));
+			Assert.That(sentences[0].Fragments[0], Is.InstanceOf<TextNode>());
+			Assert.That(((TextNode)sentences[0].Fragments[0]).Text, Is.EqualTo("Hello world."));
+		}
+
+		[Test]
+		public void FragmentParser_VariablesAndFunctions()
+		{
+			var sentences = FragmentParser.Parse("Hi $NAME, today is {{GetDay}}.");
+			var fragments = sentences[0].Fragments;
+
+			Assert.That(fragments[0], Is.InstanceOf<TextNode>());
+			Assert.That(((TextNode)fragments[0]).Text, Is.EqualTo("Hi "));
+
+			Assert.That(fragments[1], Is.InstanceOf<VariableReferenceNode>());
+			Assert.That(((VariableReferenceNode)fragments[1]).VariableName, Is.EqualTo("NAME"));
+
+			Assert.That(fragments[2], Is.InstanceOf<TextNode>());
+			Assert.That(((TextNode)fragments[2]).Text, Is.EqualTo(", today is "));
+
+			Assert.That(fragments[3], Is.InstanceOf<InvocationNode>());
+			Assert.That(((InvocationNode)fragments[3]).FunctionName, Is.EqualTo("GetDay"));
+
+			Assert.That(fragments[4], Is.InstanceOf<TextNode>());
+			Assert.That(((TextNode)fragments[4]).Text, Is.EqualTo("."));
+		}
+
+		[Test]
+		public void FragmentParser_Multiline()
+		{
+			var sentences = FragmentParser.Parse("Line one.\nLine two.");
+			Assert.That(sentences, Has.Count.EqualTo(2));
+		}
+
+		[Test]
+		public void LocalizedResolution_UsesTranslatedText()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nHello!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			var provider = new DictionaryLocalizationProvider(new Dictionary<string, string>
+			{
+				{ "A.line.0", "Bonjour!" },
+				{ "speaker.NPC", "PNJ" }
+			});
+
+			LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour!"));
+			Assert.That(lines[0].Line.Speaker, Is.EqualTo("PNJ"));
+		}
+
+		[Test]
+		public void LocalizedResolution_FallsBackToOriginal()
+		{
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nHello!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			var provider = new DictionaryLocalizationProvider(new Dictionary<string, string>());
+
+			LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello!"));
+			Assert.That(lines[0].Line.Speaker, Is.EqualTo("NPC"));
+		}
+
+		[Test]
+		public void LocalizedResolution_VariablesInTranslatedText()
+		{
+			VariableStore.SetGlobal("NAME", "Ibrahim");
+
+			dialogueAsset.Content =
+				"{{ConversationName(A)}}\n[NPC]\nHello $NAME!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+			var lines = LineResolver.CollectLines(result[0].Content);
+
+			var provider = new DictionaryLocalizationProvider(new Dictionary<string, string>
+			{
+				{ "A.line.0", "Bonjour $NAME!" }
+			});
+
+			LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour Ibrahim!"));
+		}
+
+		[Test]
+		public void ImageOnOwnLine_BecomesInvocationAtPositionZero()
+		{
+			dialogueAsset.Content =
+				"[NPC]\n{{Image(Portraits/AvaSmiling)}}\nHello!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(0));
+			Assert.That(line.LineContent.Invocations[0].Arguments[0], Is.EqualTo("Portraits/AvaSmiling"));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!"));
+		}
+
+		[Test]
+		public void ImageInline_FiresAtCharacterPosition()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello! {{Image(Portraits/Surprised)}} Whoa!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations.Any(i => i.Name == "Image"), Is.True);
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(7));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello!  Whoa!"));
+		}
+
+		[Test]
+		public void InlineInvocation_HasCorrectCharacterIndex()
+		{
+			dialogueAsset.Content =
+				"[NPC]\nHello {{Audio(boom)}} world!\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Line line = GetLine(result[0], 0);
+			Assert.That(line.LineContent.Invocations, Has.Count.EqualTo(1));
+			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("Audio"));
+			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(6));
+			Assert.That(line.LineContent.Text, Is.EqualTo("Hello  world!"));
+		}
+
+		private class DictionaryLocalizationProvider : ILocalizationProvider
+		{
+			private readonly Dictionary<string, string> _entries;
+
+			public DictionaryLocalizationProvider(Dictionary<string, string> entries)
+			{
+				_entries = entries;
+			}
+
+			public string Resolve(string key)
+			{
+				return _entries.TryGetValue(key, out string value) ? value : null;
+			}
 		}
 	}
 }

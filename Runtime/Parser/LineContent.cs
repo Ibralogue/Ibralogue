@@ -3,14 +3,14 @@ using System.Collections.Generic;
 namespace Ibralogue.Parser
 {
     /// <summary>
-    /// A function invocation embedded in a dialogue line, retaining source location for diagnostics.
+    /// An invocation embedded in a dialogue line, retaining source location for diagnostics.
     /// </summary>
-    public readonly struct FunctionInvocation
+    public readonly struct Invocation
     {
-        /// <summary>The name of the function to invoke.</summary>
+        /// <summary>The name of the invocation to call.</summary>
         public readonly string Name;
 
-        /// <summary>The arguments passed to the function, as raw strings from the source.</summary>
+        /// <summary>The arguments passed to the invocation, as raw strings from the source.</summary>
         public readonly List<string> Arguments;
 
         /// <summary>The character position in the rendered text where this invocation occurs.</summary>
@@ -22,7 +22,7 @@ namespace Ibralogue.Parser
         /// <summary>The source column number for diagnostic reporting.</summary>
         public readonly int Column;
 
-        public FunctionInvocation(string name, List<string> arguments, int characterIndex, int line, int column)
+        public Invocation(string name, List<string> arguments, int characterIndex, int line, int column)
         {
             Name = name;
             Arguments = arguments;
@@ -33,13 +33,12 @@ namespace Ibralogue.Parser
     }
 
     /// <summary>
-    /// The internal contents of a line, including but not limited its text and metadata
+    /// The internal contents of a line, including but not limited its text and metadata.
     /// </summary>
     public struct LineContent
     {
         public string Text;
-        public List<FunctionInvocation> Invocations;
+        public List<Invocation> Invocations;
         public Dictionary<string, string> Metadata;
     }
 }
-

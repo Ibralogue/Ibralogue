@@ -1,7 +1,7 @@
 {
   "name": "com.ibra.ibralogue",
   "displayName": "Ibralogue",
-  "version": "0.15.1",
+  "version": "1.0.0",
   "unity": "2022.3",
   "description": "A powerful and extendable dialogue library for Unity.",
   "licensesUrl": "https://github.com/Ibralogue/Ibralogue/blob/master/LICENSE",
@@ -12,8 +12,7 @@
   ],
   "category": "Framework",
   "dependencies": {
-    "com.unity.textmeshpro": "3.0.6",
-    "com.unity.localization": "1.4.5"
+    "com.unity.textmeshpro": "3.0.6"
   },
   "samples": [
     {

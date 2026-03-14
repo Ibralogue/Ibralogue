@@ -38,16 +38,17 @@ Oh, hey Ava.
 How have you been?
 ```
 
-### Speaker Images
+### Silent Lines
 
-Character portraits can be attached to a dialogue line using the `Image` command. Ibralogue uses [Resources.Load](https://docs.unity3d.com/ScriptReference/Resources.Load.html) to find images, so sprites must be placed in a `Resources` folder.
-
-For a file located at `Assets/Sprites/Resources/Portraits/AvaSmiling.png`:
+Use `[>>]` as the speaker to create a line that runs functions without displaying anything in the dialogue view:
 
 ```text
-[Ava]
-{{Image(Portraits/AvaSmiling)}}
-It's a beautiful day outside!
+[NPC]
+Let me check something...
+[>>]
+{{RunCheck}}
+[NPC]
+All done!
 ```
 
-The `{{Image(...)}}` command must appear on its own line, directly after the speaker tag.
+The `[>>]` line is processed silently by the engine, so any [invocations](invocations.md) on it are called, but no dialogue box or speaker name is shown. This is useful for triggering game logic between visible dialogue lines.

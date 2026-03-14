@@ -10,11 +10,13 @@
       href: choices.md
     - name: Jumps
       href: jumps.md
-    - name: Global Variables
+    - name: Variables
       href: global-variables.md
+    - name: Conditionals
+      href: conditionals.md
     - name: Comments & Metadata
       href: comments.md
-    - name: Function Invocations
+    - name: Invocations
       href: invocations.md
     - name: Includes
       href: includes.md
@@ -34,3 +36,5 @@
       href: pause-and-resume.md
     - name: Events
       href: events.md
+    - name: Localization
+      href: localization.md
