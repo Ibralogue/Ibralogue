@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Ibralogue.Localization | Ibralogue Docs </title>
+    <title>Interface ILocalizationProvider | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Ibralogue.Localization | Ibralogue Docs ">
+    <meta name="title" content="Interface ILocalizationProvider | Ibralogue Docs ">
     <meta name="generator" content="docfx ">
   
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,29 +76,73 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Localization">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.Localization.ILocalizationProvider">
 
-  <h1 id="Ibralogue_Localization" data-uid="Ibralogue.Localization" class="text-break">Namespace Ibralogue.Localization</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">
-Classes
-</h3>
-      <h4><a class="xref" href="Ibralogue.Localization.CsvLocalizationProvider.html">CsvLocalizationProvider</a></h4>
-      <section><p>Built-in localization provider that loads translations from CSV files.
-CSV files follow the format: key,text (RFC 4180 quoting supported).
-Place translation files in a Resources folder using the naming convention
-{AssetName}.{locale} (e.g. MyDialogue.fr, MyDialogue.ja).</p>
-</section>
-    <h3 id="interfaces">
-Interfaces
-</h3>
-      <h4><a class="xref" href="Ibralogue.Localization.ILocalizationProvider.html">ILocalizationProvider</a></h4>
-      <section><p>Provides translated strings for dialogue localization.
+
+
+  <h1 id="Ibralogue_Localization_ILocalizationProvider" data-uid="Ibralogue.Localization.ILocalizationProvider" class="text-break">Interface ILocalizationProvider</h1>
+  <div class="markdown level0 summary"><p>Provides translated strings for dialogue localization.
 Implement this interface to integrate Ibralogue with any localization backend.</p>
-</section>
-
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a>.<a class="xref" href="Ibralogue.Localization.html">Localization</a></h6>
+  <h6><strong>Assembly</strong>: .dll</h6>
+  <h5 id="Ibralogue_Localization_ILocalizationProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ILocalizationProvider</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Localization_ILocalizationProvider_Resolve_System_String_.md&amp;value=---%0Auid%3A%20Ibralogue.Localization.ILocalizationProvider.Resolve(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Localization/ILocalizationProvider.cs/#L14">View Source</a>
+  </span>
+  <a id="Ibralogue_Localization_ILocalizationProvider_Resolve_" data-uid="Ibralogue.Localization.ILocalizationProvider.Resolve*"></a>
+  <h4 id="Ibralogue_Localization_ILocalizationProvider_Resolve_System_String_" data-uid="Ibralogue.Localization.ILocalizationProvider.Resolve(System.String)">Resolve(string)</h4>
+  <div class="markdown level1 summary"><p>Looks up a translated string by localization key.
+Returns null if no translation exists for the key, in which case
+the engine falls back to the original text from the dialogue file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Resolve(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
 </article>
           </div>
@@ -107,6 +151,12 @@ Implement this interface to integrate Ibralogue with any localization backend.</
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Localization_ILocalizationProvider.md&amp;value=---%0Auid%3A%20Ibralogue.Localization.ILocalizationProvider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Localization/ILocalizationProvider.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

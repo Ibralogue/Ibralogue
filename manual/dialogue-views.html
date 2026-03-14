@@ -158,12 +158,12 @@
 </table>
 <p>The <code>OnSetView</code> event fires every time a new dialogue line is displayed. The <code>OnLineComplete</code> event fires when the view finishes its display effect.</p>
 <h4 id="creating-a-custom-view">Creating a Custom View</h4>
-<p>To create your own view, subclass <code>DialogueViewBase</code> and override the relevant methods:</p>
+<p>To create your own view, subclass <code>DialogueViewBase</code> and override the relevant methods. The <code>SetView</code> method receives a <code>Line</code> object containing the speaker, text, image, and metadata for the current line:</p>
 <pre><code class="lang-cs">public class MyCustomView : DialogueViewBase
 {
-    public override void SetView(Conversation conversation, int lineIndex)
+    public override void SetView(Line line)
     {
-        base.SetView(conversation, lineIndex);
+        base.SetView(line);
         // Your custom display logic here
     }
 
@@ -186,6 +186,31 @@
 }
 </code></pre>
 <p>The engine calls <code>SetView</code> when a line should be displayed, waits until <code>IsStillDisplaying</code> returns <code>false</code>, and then waits for the player to advance. <code>ClearView</code> is called before each new line and when the conversation ends.</p>
+<h4 id="invocation-timing-in-animated-views">Invocation Timing in Animated Views</h4>
+<p>When a view reveals text incrementally (like the typewriter or punch views), <a href="invocations.html">invocations</a> placed inline in dialogue text fire at their character position as the text is revealed. For example, <code>{{Audio(boom)}}</code> placed mid-sentence fires when the view reaches that point in the text.</p>
+<p>With views that display text instantly (like the base <code>DialogueViewBase</code>), all invocations fire immediately since the full text is visible from the start.</p>
+<p>Custom views that implement incremental text reveal should update <code>VisibleCharacterCount</code> to enable position-based invocation timing:</p>
+<pre><code class="lang-cs">public override int VisibleCharacterCount
+{
+    get { return sentenceText.maxVisibleCharacters; }
+}
+</code></pre>
+<h4 id="customizing-the-engine-display-loop">Customizing the Engine Display Loop</h4>
+<p>If you need to customize what happens when a line is displayed (beyond what a view provides), you can subclass the engine and override <code>OnDisplayLine</code>:</p>
+<pre><code class="lang-cs">public class MyEngine : SimpleDialogueEngine
+{
+    protected override IEnumerator OnDisplayLine(Line line)
+    {
+        // Custom logic before display
+        Debug.Log($&quot;{line.Speaker} says: {line.LineContent.Text}&quot;);
+
+        // Call base to use the standard view/plugin/function pipeline
+        yield return base.OnDisplayLine(line);
+
+        // Custom logic after display
+    }
+}
+</code></pre>
 
 </article>
           </div>

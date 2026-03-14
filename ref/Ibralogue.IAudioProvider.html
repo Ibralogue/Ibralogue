@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LocalizedDialogueAsset | Ibralogue Docs </title>
+    <title>Interface IAudioProvider | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LocalizedDialogueAsset | Ibralogue Docs ">
+    <meta name="title" content="Interface IAudioProvider | Ibralogue Docs ">
     <meta name="generator" content="docfx ">
   
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,24 +76,72 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Localization.LocalizedDialogueAsset">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.IAudioProvider">
 
 
 
-  <h1 id="Ibralogue_Localization_LocalizedDialogueAsset" data-uid="Ibralogue.Localization.LocalizedDialogueAsset" class="text-break">Class LocalizedDialogueAsset</h1>
-  <div class="markdown level0 summary"></div>
+  <h1 id="Ibralogue_IAudioProvider" data-uid="Ibralogue.IAudioProvider" class="text-break">Interface IAudioProvider</h1>
+  <div class="markdown level0 summary"><p>Provides audio playback for dialogue lines. Implement this interface to
+integrate Ibralogue with any audio backend (Unity AudioSource, FMOD, Wwise, etc.).</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">LocalizedDialogueAsset</span></div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a>.<a class="xref" href="Ibralogue.Localization.html">Localization</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a></h6>
   <h6><strong>Assembly</strong>: .dll</h6>
-  <h5 id="Ibralogue_Localization_LocalizedDialogueAsset_syntax">Syntax</h5>
+  <h5 id="Ibralogue_IAudioProvider_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Serializable]
-public class LocalizedDialogueAsset : LocalizedAsset&lt;DialogueAsset&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IAudioProvider</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_IAudioProvider_Play_System_String_.md&amp;value=---%0Auid%3A%20Ibralogue.IAudioProvider.Play(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/IAudioProvider.cs/#L13">View Source</a>
+  </span>
+  <a id="Ibralogue_IAudioProvider_Play_" data-uid="Ibralogue.IAudioProvider.Play*"></a>
+  <h4 id="Ibralogue_IAudioProvider_Play_System_String_" data-uid="Ibralogue.IAudioProvider.Play(System.String)">Play(string)</h4>
+  <div class="markdown level1 summary"><p>Plays an audio clip identified by the given clip ID (typically a Resources path
+or an identifier understood by the audio backend).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Play(string clipId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">clipId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_IAudioProvider_Stop.md&amp;value=---%0Auid%3A%20Ibralogue.IAudioProvider.Stop%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/IAudioProvider.cs/#L18">View Source</a>
+  </span>
+  <a id="Ibralogue_IAudioProvider_Stop_" data-uid="Ibralogue.IAudioProvider.Stop*"></a>
+  <h4 id="Ibralogue_IAudioProvider_Stop" data-uid="Ibralogue.IAudioProvider.Stop">Stop()</h4>
+  <div class="markdown level1 summary"><p>Stops the currently playing audio.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Stop()</code></pre>
   </div>
 
 </article>
@@ -104,10 +152,10 @@ public class LocalizedDialogueAsset : LocalizedAsset&lt;DialogueAsset&gt;</code>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Localization_LocalizedDialogueAsset.md&amp;value=---%0Auid%3A%20Ibralogue.Localization.LocalizedDialogueAsset%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_IAudioProvider.md&amp;value=---%0Auid%3A%20Ibralogue.IAudioProvider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Localization/LocalizedDialogueAsset.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/IAudioProvider.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

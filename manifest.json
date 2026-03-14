@@ -82,6 +82,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "manual/conditionals.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/conditionals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "manual/conversations.md",
       "output": {
         ".html": {
@@ -182,6 +192,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "manual/localization.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/localization.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "manual/pause-and-resume.md",
       "output": {
         ".html": {
@@ -249,21 +269,21 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Ibralogue.DialogueFunctionAttribute",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.DialogueFunctionAttribute.yml\" sourcestartlinenumber=\"1\">Applied to any method to enable it to be invoked.</p>\n"
+      "Summary": "<p sourcefile=\"ref/Ibralogue.DialogueFunctionAttribute.yml\" sourcestartlinenumber=\"1\">Legacy alias for <xref href=\"Ibralogue.DialogueInvocationAttribute\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.DialogueGlobals.yml",
+      "source_relative_path": "ref/Ibralogue.DialogueInvocationAttribute.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.DialogueGlobals.html"
+          "relative_path": "ref/Ibralogue.DialogueInvocationAttribute.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Ibralogue.DialogueGlobals",
-      "Summary": null
+      "Title": "Ibralogue.DialogueInvocationAttribute",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.DialogueInvocationAttribute.yml\" sourcestartlinenumber=\"1\">Marks a static method as a custom invocation that can be called from dialogue files.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -278,6 +298,20 @@
       "IsMRef": true,
       "Title": "Ibralogue.DialogueLogger",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.DialogueStandardLibrary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.DialogueStandardLibrary.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.DialogueStandardLibrary",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.DialogueStandardLibrary.yml\" sourcestartlinenumber=\"1\">Standard invocations that ship with Ibralogue.\nThese follow the same {{Name(args)}} syntax as the rest of the language\nand can be used inline in dialogue text.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -323,6 +357,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Editor.LocalizationExporter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Editor.LocalizationExporter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.Editor.LocalizationExporter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "ref/Ibralogue.Editor.yml",
       "output": {
         ".html": {
@@ -334,6 +382,20 @@
       "IsMRef": true,
       "Title": "Ibralogue.Editor",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.IAudioProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.IAudioProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.IAudioProvider",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.IAudioProvider.yml\" sourcestartlinenumber=\"1\">Provides audio playback for dialogue lines. Implement this interface to\nintegrate Ibralogue with any audio backend (Unity AudioSource, FMOD, Wwise, etc.).</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -362,20 +424,6 @@
       "IsMRef": true,
       "Title": "Ibralogue.Interactions.CircularInteraction",
       "Summary": "<p sourcefile=\"ref/Ibralogue.Interactions.CircularInteraction.yml\" sourcestartlinenumber=\"1\">Loops through each dialogue one by one.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Interactions.LocalizedBaseInteraction.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.Interactions.LocalizedBaseInteraction.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.Interactions.LocalizedBaseInteraction",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.Interactions.LocalizedBaseInteraction.yml\" sourcestartlinenumber=\"1\">The base class that is inherited over by other interactions. This class is not meant to directly be added to a GameObject.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -421,45 +469,31 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Localization.LocalizedDialogueAsset.yml",
+      "source_relative_path": "ref/Ibralogue.Localization.CsvLocalizationProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Localization.LocalizedDialogueAsset.html"
+          "relative_path": "ref/Ibralogue.Localization.CsvLocalizationProvider.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Ibralogue.Localization.LocalizedDialogueAsset",
-      "Summary": null
+      "Title": "Ibralogue.Localization.CsvLocalizationProvider",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.Localization.CsvLocalizationProvider.yml\" sourcestartlinenumber=\"1\">Built-in localization provider that loads translations from CSV files.\nCSV files follow the format: key,text (RFC 4180 quoting supported).\nPlace translation files in a Resources folder using the naming convention\n{AssetName}.{locale} (e.g. MyDialogue.fr, MyDialogue.ja).</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Localization.LocalizedIbralogueComponent.yml",
+      "source_relative_path": "ref/Ibralogue.Localization.ILocalizationProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "ref/Ibralogue.Localization.LocalizedIbralogueComponent.html"
+          "relative_path": "ref/Ibralogue.Localization.ILocalizationProvider.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Ibralogue.Localization.LocalizedIbralogueComponent",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Localization.UnityEventDialogueAsset.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.Localization.UnityEventDialogueAsset.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.Localization.UnityEventDialogueAsset",
-      "Summary": null
+      "Title": "Ibralogue.Localization.ILocalizationProvider",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.Localization.ILocalizationProvider.yml\" sourcestartlinenumber=\"1\">Provides translated strings for dialogue localization.\nImplement this interface to integrate Ibralogue with any localization backend.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -501,7 +535,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Ibralogue.Parser.Conversation",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.Conversation.yml\" sourcestartlinenumber=\"1\">A Conversation is a block of lines with a name associated with it that can lead to other Conversation's.</p>\n"
+      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.Conversation.yml\" sourcestartlinenumber=\"1\">A named block of dialogue content that the engine walks at runtime.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -533,20 +567,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "ref/Ibralogue.Parser.FunctionInvocation.yml",
-      "output": {
-        ".html": {
-          "relative_path": "ref/Ibralogue.Parser.FunctionInvocation.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Ibralogue.Parser.FunctionInvocation",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.FunctionInvocation.yml\" sourcestartlinenumber=\"1\">A function invocation embedded in a dialogue line, retaining source location for diagnostics.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "ref/Ibralogue.Parser.IMetadata.yml",
       "output": {
         ".html": {
@@ -558,6 +578,20 @@
       "IsMRef": true,
       "Title": "Ibralogue.Parser.IMetadata",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.Parser.Invocation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.Parser.Invocation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.Parser.Invocation",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.Invocation.yml\" sourcestartlinenumber=\"1\">An invocation embedded in a dialogue line, retaining source location for diagnostics.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -585,7 +619,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Ibralogue.Parser.LineContent",
-      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.LineContent.yml\" sourcestartlinenumber=\"1\">The internal contents of a line, including but not limited its text and metadata</p>\n"
+      "Summary": "<p sourcefile=\"ref/Ibralogue.Parser.LineContent.yml\" sourcestartlinenumber=\"1\">The internal contents of a line, including but not limited its text and metadata.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -656,6 +690,34 @@
       "IsMRef": true,
       "Title": "Ibralogue.SimpleDialogueEngine",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.UnityAudioProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.UnityAudioProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.UnityAudioProvider",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.UnityAudioProvider.yml\" sourcestartlinenumber=\"1\">Built-in audio provider that plays clips using a Unity AudioSource.\nClips are loaded via Resources.Load&lt;T&gt;(string) using the clip ID as the path.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "ref/Ibralogue.VariableStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ref/Ibralogue.VariableStore.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Ibralogue.VariableStore",
+      "Summary": "<p sourcefile=\"ref/Ibralogue.VariableStore.yml\" sourcestartlinenumber=\"1\">Centralized variable storage with global and per-asset local scoping.\nResolution order: local (current asset) -&gt; global.</p>\n"
     },
     {
       "type": "ManagedReference",

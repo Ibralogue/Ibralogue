@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class UnityEventDialogueAsset | Ibralogue Docs </title>
+    <title> | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class UnityEventDialogueAsset | Ibralogue Docs ">
+    <meta name="title" content=" | Ibralogue Docs ">
     <meta name="generator" content="docfx ">
   
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,25 +76,90 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.Localization.UnityEventDialogueAsset">
+            <article class="content wrap" id="_content" data-uid="">
 
+<h3 id="conditionals">Conditionals</h3>
+<p>Conditionals let you show or hide dialogue lines based on variable state. They are evaluated at runtime as the engine reaches them, so earlier <code>{{Set(...)}}</code> invocations within the same conversation affect later conditions.</p>
+<h4 id="basic-ifelse">Basic If/Else</h4>
+<pre><code class="lang-text">[Doctor]
+Let me take a look at you.
+{{If($HEALTH &gt; 50)}}
+[Doctor]
+You're in good shape.
+{{Else}}
+[Doctor]
+You need medical attention.
+{{EndIf}}
+</code></pre>
+<p>The <code>{{If(...)}}</code> block is followed by its body, an optional <code>{{Else}}</code> branch, and closed with <code>{{EndIf}}</code>.</p>
+<h4 id="elseif">ElseIf</h4>
+<p>For multiple conditions, use <code>{{ElseIf(...)}}</code>:</p>
+<pre><code class="lang-text">{{If($RANK == &quot;gold&quot;)}}
+[NPC]
+Welcome back, gold member!
+{{ElseIf($RANK == &quot;silver&quot;)}}
+[NPC]
+Welcome, silver member.
+{{Else}}
+[NPC]
+Welcome, visitor.
+{{EndIf}}
+</code></pre>
+<p>Branches are checked in order. The first one whose condition is true is executed. If none match and an <code>{{Else}}</code> branch exists, it runs instead.</p>
+<h4 id="nesting">Nesting</h4>
+<p>Conditional blocks can be nested:</p>
+<pre><code class="lang-text">{{If($QUEST_STARTED)}}
+  {{If($HAS_KEY)}}
+  [Guard]
+  Go right ahead.
+  {{Else}}
+  [Guard]
+  You need the key first.
+  {{EndIf}}
+{{EndIf}}
+</code></pre>
+<p>Indentation is optional and ignored by the parser. Use it for readability.</p>
+<h4 id="expressions">Expressions</h4>
+<p>Conditions support comparisons, boolean logic, and arithmetic.</p>
+<p><strong>Comparison operators:</strong> <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></p>
+<pre><code class="lang-text">{{If($GOLD &gt;= 100)}}
+{{If($NAME != &quot;Nobody&quot;)}}
+</code></pre>
+<p><strong>Boolean operators:</strong> <code>AND</code>, <code>OR</code>, <code>NOT</code></p>
+<pre><code class="lang-text">{{If($HEALTH &gt; 0 AND $MANA &gt; 10)}}
+{{If($IS_FRIENDLY OR $REPUTATION &gt; 50)}}
+{{If(NOT $GAME_OVER)}}
+</code></pre>
+<p><strong>Arithmetic:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></p>
+<p>Arithmetic is available in <code>{{Set(...)}}</code> expressions and conditions:</p>
+<pre><code class="lang-text">{{Set($TOTAL, $PRICE * $QTY)}}
+{{If($HEALTH - $DAMAGE &gt; 0)}}
+</code></pre>
+<p><strong>Parentheses</strong> for grouping:</p>
+<pre><code class="lang-text">{{If(($A OR $B) AND $C)}}
+</code></pre>
+<p><strong>Literal values:</strong></p>
+<ul>
+<li>Strings: <code>&quot;hello&quot;</code></li>
+<li>Numbers: <code>42</code>, <code>3.14</code></li>
+<li>Booleans: <code>true</code>, <code>false</code></li>
+</ul>
+<h4 id="type-coercion">Type Coercion</h4>
+<p>When both sides of a comparison look like numbers, they are compared numerically. Otherwise they are compared as strings.</p>
+<p>For truthiness (used by <code>NOT</code> and bare variables in conditions): <code>null</code>, empty string, <code>&quot;false&quot;</code>, <code>&quot;0&quot;</code>, and <code>0</code> are falsy. Everything else is truthy.</p>
+<h4 id="conditionals-with-set">Conditionals with Set</h4>
+<p>Because conditions are evaluated as the engine reaches them, you can use <code>{{Set(...)}}</code> mid-conversation and have later conditions react:</p>
+<pre><code class="lang-text">[NPC]
+Here, take this key.
+{{Set($HAS_KEY, true)}}
 
-
-  <h1 id="Ibralogue_Localization_UnityEventDialogueAsset" data-uid="Ibralogue.Localization.UnityEventDialogueAsset" class="text-break">Class UnityEventDialogueAsset</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">UnityEventDialogueAsset</span></div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a>.<a class="xref" href="Ibralogue.Localization.html">Localization</a></h6>
-  <h6><strong>Assembly</strong>: .dll</h6>
-  <h5 id="Ibralogue_Localization_UnityEventDialogueAsset_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Serializable]
-public class UnityEventDialogueAsset : UnityEvent&lt;DialogueAsset&gt;</code></pre>
-  </div>
+[Guard]
+Let me check...
+{{If($HAS_KEY)}}
+[Guard]
+You may pass.
+{{EndIf}}
+</code></pre>
 
 </article>
           </div>
@@ -104,10 +169,7 @@ public class UnityEventDialogueAsset : UnityEvent&lt;DialogueAsset&gt;</code></p
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_Localization_UnityEventDialogueAsset.md&amp;value=---%0Auid%3A%20Ibralogue.Localization.UnityEventDialogueAsset%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Localization/LocalizationEvents.cs/#L7" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/conditionals.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>

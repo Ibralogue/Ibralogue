@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title> | Ibralogue Docs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" | Ibralogue Docs ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<h3 id="localization">Localization</h3>
+<p>Ibralogue uses a string-table approach to localization. The <code>.ibra</code> file is the main reference point for dialogue structure and default-locale text. Translations live in separate CSV files that serve to modify only the displayable text.</p>
+<h4 id="how-it-works">How It Works</h4>
+<p>The dialogue file contains all structure (conversations, choices, conditionals, jumps) and the default text:</p>
+<pre><code class="lang-text">{{ConversationName(Greeting)}}
+[NPC]
+Hello, traveller.
+What brings you here?
+- I'm fine -&gt; Fine
+- Not great -&gt; NotGreat
+</code></pre>
+<p>A French translation CSV contains only the text, keyed by auto-generated IDs:</p>
+<pre><code class="lang-csv">key,text
+Greeting.line.0,&quot;Bonjour, voyageur.\nQu'est-ce qui vous amène ici ?&quot;
+Greeting.choice.0,&quot;Ça va&quot;
+Greeting.choice.1,&quot;Pas super&quot;
+speaker.NPC,&quot;PNJ&quot;
+</code></pre>
+<p>At display time, the engine checks the active localization provider. If a translation exists for the current line's key, it replaces the default text. Variables (<code>$NAME</code>) and invocations (<code>{{GetDay}}</code>) in translated text are resolved the same way as in the original.</p>
+<h4 id="localization-keys">Localization Keys</h4>
+<p>Every dialogue line, choice, and speaker name is assigned a key automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Key format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dialogue line</td>
+<td><code>{ConversationName}.line.{index}</code></td>
+<td><code>Greeting.line.0</code></td>
+</tr>
+<tr>
+<td>Choice text</td>
+<td><code>{ConversationName}.choice.{index}</code></td>
+<td><code>Greeting.choice.0</code></td>
+</tr>
+<tr>
+<td>Speaker name</td>
+<td><code>speaker.{originalName}</code></td>
+<td><code>speaker.NPC</code></td>
+</tr>
+</tbody>
+</table>
+<p>To assign a custom key, use the <code>loc</code> metadata tag:</p>
+<pre><code class="lang-text">[NPC]
+Hello, traveller. ## loc:greeting_hello
+</code></pre>
+<p>The custom key <code>greeting_hello</code> is used instead of the auto-generated one.</p>
+<h4 id="exporting-a-template">Exporting a Template</h4>
+<p>Right-click any <code>.ibra</code> file in the Project window and select <strong>Ibralogue &gt; Export Localization Template</strong>. This generates a CSV file alongside the asset containing all keys and their default text, ready to hand to translators.</p>
+<h4 id="setting-up-the-csv-provider">Setting Up the CSV Provider</h4>
+<ol>
+<li><p>Place translation CSV files in a <code>Resources</code> folder, named <code>{AssetName}.{locale}</code>. For example, if your dialogue asset is called <code>MyDialogue</code>, the French translation file would be <code>MyDialogue.fr.csv</code> (imported as <code>MyDialogue.fr</code>).</p>
+</li>
+<li><p>Add a <code>CsvLocalizationProvider</code> component to your engine's GameObject.</p>
+</li>
+<li><p>Assign it to the engine's <code>Localization Provider Component</code> field.</p>
+</li>
+<li><p>Set the locale from code:</p>
+</li>
+</ol>
+<pre><code class="lang-cs">csvProvider.SetLocale(&quot;fr&quot;);
+csvProvider.LoadTable(&quot;MyDialogue&quot;);
+</code></pre>
+<p>When no translation file exists for a locale, or when a key has no entry, the original text from the <code>.ibra</code> file is used as a fallback.</p>
+<h4 id="locale-switching-at-runtime">Locale Switching at Runtime</h4>
+<p>Changing the locale takes effect on the next line displayed. The current line finishes in the old locale, and the next line the player advances to uses the new one. No conversation restart is needed.</p>
+<pre><code class="lang-cs">csvProvider.SetLocale(&quot;ja&quot;);
+csvProvider.LoadTable(&quot;MyDialogue&quot;);
+// Next line displayed will use Japanese translations
+</code></pre>
+<h4 id="custom-providers">Custom Providers</h4>
+<p>To integrate with a different localization backend (Unity Localization, custom databases, etc.), implement the <code>ILocalizationProvider</code> interface:</p>
+<pre><code class="lang-cs">using Ibralogue.Localization;
+
+public class MyProvider : MonoBehaviour, ILocalizationProvider
+{
+    public string Resolve(string key)
+    {
+        // Look up the key in your localization system
+        // Return null to fall back to the original text
+        return MyLocalizationSystem.GetString(key);
+    }
+}
+</code></pre>
+<p>Assign the component to the engine's <code>Localization Provider Component</code> field, or set it from code:</p>
+<pre><code class="lang-cs">engine.LocalizationProvider = myProvider;
+</code></pre>
+<h4 id="translated-text-with-variables-and-invocations">Translated Text with Variables and Invocations</h4>
+<p>Translated strings can contain variable references and invocations. They are parsed and resolved at display time just like the original text:</p>
+<pre><code class="lang-csv">key,text
+Greeting.line.0,&quot;Bonjour, $PLAYERNAME. Aujourd'hui c'est {{GetDay}}.&quot;
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Documentation~/manual/localization.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Ibralogue Docs
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -88,14 +88,35 @@ Classes
       <h4><a class="xref" href="Ibralogue.DialogueEngineBase.html">DialogueEngineBase</a></h4>
       <section></section>
       <h4><a class="xref" href="Ibralogue.DialogueFunctionAttribute.html">DialogueFunctionAttribute</a></h4>
-      <section><p>Applied to any method to enable it to be invoked.</p>
+      <section><p>Legacy alias for <a class="xref" href="Ibralogue.DialogueInvocationAttribute.html">DialogueInvocationAttribute</a>.</p>
 </section>
-      <h4><a class="xref" href="Ibralogue.DialogueGlobals.html">DialogueGlobals</a></h4>
-      <section></section>
+      <h4><a class="xref" href="Ibralogue.DialogueInvocationAttribute.html">DialogueInvocationAttribute</a></h4>
+      <section><p>Marks a static method as a custom invocation that can be called from dialogue files.</p>
+</section>
       <h4><a class="xref" href="Ibralogue.DialogueLogger.html">DialogueLogger</a></h4>
       <section></section>
+      <h4><a class="xref" href="Ibralogue.DialogueStandardLibrary.html">DialogueStandardLibrary</a></h4>
+      <section><p>Standard invocations that ship with Ibralogue.
+These follow the same {{Name(args)}} syntax as the rest of the language
+and can be used inline in dialogue text.</p>
+</section>
       <h4><a class="xref" href="Ibralogue.SimpleDialogueEngine.html">SimpleDialogueEngine</a></h4>
       <section></section>
+      <h4><a class="xref" href="Ibralogue.UnityAudioProvider.html">UnityAudioProvider</a></h4>
+      <section><p>Built-in audio provider that plays clips using a Unity AudioSource.
+Clips are loaded via Resources.Load&lt;T&gt;(string) using the clip ID as the path.</p>
+</section>
+      <h4><a class="xref" href="Ibralogue.VariableStore.html">VariableStore</a></h4>
+      <section><p>Centralized variable storage with global and per-asset local scoping.
+Resolution order: local (current asset) -&gt; global.</p>
+</section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="Ibralogue.IAudioProvider.html">IAudioProvider</a></h4>
+      <section><p>Provides audio playback for dialogue lines. Implement this interface to
+integrate Ibralogue with any audio backend (Unity AudioSource, FMOD, Wwise, etc.).</p>
+</section>
 
 
 </article>

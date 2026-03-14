@@ -78,25 +78,100 @@
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
 
-<h3 id="function-invocations">Function Invocations</h3>
-<p>Function invocations allow you to call static C# methods directly from your dialogue files. They are enclosed in double curly braces: <code>{{FunctionName}}</code>.</p>
-<h4 id="defining-a-dialogue-function">Defining a Dialogue Function</h4>
-<p>Any static method with the <code>[DialogueFunction]</code> attribute can be invoked from Ibralogue:</p>
-<pre><code class="lang-cs">[DialogueFunction]
+<h3 id="invocations">Invocations</h3>
+<p>Everything in <code>{{Name(args)}}</code> syntax is an invocation. There are three kinds: <strong>keyword invocations</strong> that control dialogue structure, <strong>standard invocations</strong> that ship with Ibralogue, and <strong>custom invocations</strong> that you write yourself.</p>
+<h4 id="keyword-invocations">Keyword Invocations</h4>
+<p>Keyword invocations are structural -- they shape which content plays and how the dialogue is organized. They cannot be used inline in text.</p>
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{ConversationName(name)}}</code></td>
+<td>Defines a named conversation block</td>
+</tr>
+<tr>
+<td><code>{{Jump(target)}}</code></td>
+<td>Jumps to another conversation after the current line</td>
+</tr>
+<tr>
+<td><code>{{If(expr)}}</code> / <code>{{ElseIf(expr)}}</code> / <code>{{Else}}</code> / <code>{{EndIf}}</code></td>
+<td>Conditional flow control</td>
+</tr>
+<tr>
+<td><code>{{Set($var, expr)}}</code></td>
+<td>Assigns a variable</td>
+</tr>
+<tr>
+<td><code>{{Global($var, expr)}}</code></td>
+<td>Declares a global variable</td>
+</tr>
+<tr>
+<td><code>{{Include(asset)}}</code></td>
+<td>Includes another dialogue file</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="conversations.html">Conversations</a>, <a href="conditionals.html">Conditionals</a>, and <a href="global-variables.html">Variables</a> for details.</p>
+<h4 id="standard-invocations">Standard Invocations</h4>
+<p>Ibralogue ships with built-in invocations for common tasks. These can be placed on their own line (fires at line start) or inline in text (fires at that point in the text):</p>
+<table>
+<thead>
+<tr>
+<th>Invocation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{Image(path)}}</code></td>
+<td>Changes the speaker portrait via the <code>PortraitImagePlugin</code>.</td>
+</tr>
+<tr>
+<td><code>{{Audio(clipId)}}</code></td>
+<td>Plays an audio clip via the engine's <code>IAudioProvider</code>.</td>
+</tr>
+<tr>
+<td><code>{{Wait(seconds)}}</code></td>
+<td>Pauses the display for the given duration.</td>
+</tr>
+<tr>
+<td><code>{{Speed(multiplier)}}</code></td>
+<td>Changes the text reveal speed. 2 = twice as fast, 0.5 = half speed. Affects animated views only.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-text">[NPC]
+{{Image(Portraits/Happy)}}
+{{Audio(Voiceover/greeting)}}
+Hello there!
+
+[NPC]
+And the winner is... {{Wait(2)}} you!
+
+[NPC]
+Hello! {{Image(Portraits/Surprised)}} I didn't expect that!
+</code></pre>
+<p><code>{{Wait(seconds)}}</code> and <code>{{Speed(multiplier)}}</code> are meaningful with animated <a href="dialogue-views.html">dialogue views</a> like the typewriter or punch views. With views that display text instantly, Wait still inserts a timed pause but Speed has no effect.</p>
+<h4 id="custom-invocations">Custom Invocations</h4>
+<p>Any static C# method with the <code>[DialogueInvocation]</code> attribute can be called from dialogue:</p>
+<pre><code class="lang-cs">[DialogueInvocation]
 public static void Die()
 {
     Debug.Log(&quot;Dead.&quot;);
 }
 </code></pre>
-<h4 id="invoking-from-dialogue">Invoking from Dialogue</h4>
 <pre><code class="lang-text">[NPC]
 Time to die.
 {{Die}}
 </code></pre>
-<p>When this line is displayed, the <code>Die</code> method is called.</p>
-<h4 id="functions-that-return-strings">Functions that Return Strings</h4>
-<p>If a dialogue function returns a <code>string</code>, the return value is inserted directly into the dialogue text at the position of the invocation. This is useful for injecting dynamic content like dates, names, or computed values.</p>
-<pre><code class="lang-cs">[DialogueFunction]
+<h4 id="invocations-that-return-strings">Invocations that Return Strings</h4>
+<p>If an invocation returns a <code>string</code>, the return value is inserted into the dialogue text at the position of the invocation. These always fire before the line is displayed so that the full text is known upfront.</p>
+<pre><code class="lang-cs">[DialogueInvocation]
 public static string GetDay()
 {
     return System.DateTime.Now.DayOfWeek.ToString();
@@ -105,33 +180,23 @@ public static string GetDay()
 <pre><code class="lang-text">[NPC]
 Today is {{GetDay}}.
 </code></pre>
-<p>The player would see something like &quot;Today is Wednesday.&quot; depending on the current day.</p>
-<h4 id="accessing-the-engine-from-a-function">Accessing the Engine from a Function</h4>
-<p>A dialogue function can optionally accept a <code>DialogueEngineBase</code> parameter. When it does, Ibralogue passes the current engine instance, giving the function access to the full engine API.</p>
-<pre><code class="lang-cs">[DialogueFunction]
+<p>The player sees &quot;Today is Wednesday.&quot; (or whichever day it is).</p>
+<h4 id="accessing-the-engine">Accessing the Engine</h4>
+<p>An invocation can optionally accept a <code>DialogueEngineBase</code> parameter to access the engine API:</p>
+<pre><code class="lang-cs">[DialogueInvocation]
 public static void PauseForDrama(DialogueEngineBase engine)
 {
     engine.PauseConversation();
-    // Resume after some delay elsewhere
 }
 </code></pre>
-<p>This works for both void and string-returning functions:</p>
-<pre><code class="lang-cs">[DialogueFunction]
-public static string CurrentSpeaker(DialogueEngineBase engine)
-{
-    var conversation = engine.ParsedConversations[0];
-    return conversation.Lines[0].Speaker;
-}
-</code></pre>
-<p>If the function has no parameters, Ibralogue calls it without arguments as usual.</p>
-<h4 id="using-global-variables-as-arguments">Using Global Variables as Arguments</h4>
-<p><a href="global-variables.html">Global variables</a> are resolved inside function arguments, so you can pass dynamic values:</p>
+<h4 id="variables-as-arguments">Variables as Arguments</h4>
+<p><a href="global-variables.html">Variables</a> are resolved inside invocation arguments:</p>
 <pre><code class="lang-text">[NPC]
 You received {{GiveItem($REWARD)}}.
 </code></pre>
-<p>If <code>REWARD</code> is set to <code>&quot;Sword&quot;</code>, the function <code>GiveItem</code> receives <code>&quot;Sword&quot;</code> as its argument.</p>
+<p>If <code>REWARD</code> is <code>&quot;Sword&quot;</code>, <code>GiveItem</code> receives <code>&quot;Sword&quot;</code>.</p>
 <h4 id="assembly-search">Assembly Search</h4>
-<p>By default, Ibralogue searches for dialogue functions in <code>Assembly-CSharp</code> and its own assembly. If your dialogue functions live in other assemblies, you can configure this on the <code>SimpleDialogueEngine</code> component:</p>
+<p>By default, Ibralogue searches for invocations in <code>Assembly-CSharp</code> and its own assembly. If your invocations live in other assemblies, configure this on the <code>SimpleDialogueEngine</code> component:</p>
 <ul>
 <li><strong>Search All Assemblies</strong>: Enable this to search every loaded assembly.</li>
 <li><strong>Included Assemblies</strong>: Add specific assembly names to the search list.</li>

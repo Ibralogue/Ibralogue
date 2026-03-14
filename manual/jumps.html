@@ -79,7 +79,7 @@
             <article class="content wrap" id="_content" data-uid="">
 
 <h3 id="jumps">Jumps</h3>
-<p>The <code>Jump</code> command lets you automatically move from one conversation to another without requiring a player choice. When the dialogue line finishes displaying, the engine switches to the target conversation.</p>
+<p>The <code>Jump</code> invocation lets you automatically move from one conversation to another without requiring a player choice. When the dialogue line finishes displaying, the engine switches to the target conversation.</p>
 <h4 id="basic-syntax">Basic Syntax</h4>
 <p>Use <code>{{Jump(...)}}</code> on its own line within a dialogue line.</p>
 <pre><code class="lang-text">{{ConversationName(Greeting)}}
@@ -93,7 +93,7 @@ Safe travels, friend.
 </code></pre>
 <p>After the player advances past &quot;Welcome, traveller.&quot;, the engine jumps to the &quot;Farewell&quot; conversation automatically.</p>
 <h4 id="placement">Placement</h4>
-<p>The <code>{{Jump(...)}}</code> command can appear before or after the sentence text, as long as it is inside a dialogue line (after a <code>[Speaker]</code> tag):</p>
+<p>The <code>{{Jump(...)}}</code> invocation can appear before or after the sentence text, as long as it is inside a dialogue line (after a <code>[Speaker]</code> tag):</p>
 <pre><code class="lang-text">[NPC]
 {{Jump(NextConversation)}}
 This line will jump after it finishes.
@@ -104,12 +104,12 @@ This line will also jump after it finishes.
 </code></pre>
 <p>Both forms are equivalent. The jump always happens after the player advances past the line.</p>
 <h4 id="variables-in-jump-targets">Variables in Jump Targets</h4>
-<p>Jump targets support <a href="global-variables.html">global variables</a>:</p>
+<p>Jump targets support <a href="global-variables.html">variables</a>:</p>
 <pre><code class="lang-text">[NPC]
 {{Jump($NEXT_CONVERSATION)}}
 Moving on...
 </code></pre>
-<p>The variable is resolved at parse time, just like variables in dialogue text.</p>
+<p>The variable is resolved at runtime when the line is displayed, just like variables in dialogue text.</p>
 
 </article>
           </div>

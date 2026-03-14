@@ -79,9 +79,9 @@
             <article class="content wrap" id="_content" data-uid="">
 
 <h3 id="choices">Choices</h3>
-<p>Choices let the player pick between options that branch the dialogue into different conversations.</p>
+<p>Choices let the player pick between options that branch the dialogue into different conversations or continue the current one.</p>
 <h4 id="basic-syntax">Basic Syntax</h4>
-<p>A choice is a line starting with <code>-</code>, followed by the choice text, then <code>-&gt;</code>, then the name of the conversation to jump to:</p>
+<p>A choice is a line starting with <code>-</code>, followed by the choice text, then <code>-&gt;</code>, then the target:</p>
 <pre><code class="lang-text">- Choice text -&gt; TargetConversation
 </code></pre>
 <h4 id="example">Example</h4>
@@ -100,6 +100,23 @@ Good to hear!
 I'm sorry to hear that. Hope it gets better.
 </code></pre>
 <p>When the player reaches the choices, they are presented with &quot;I'm fine&quot; and &quot;Not great&quot;. Selecting one jumps to the corresponding conversation.</p>
+<h4 id="continue-choices">Continue Choices</h4>
+<p>Use <code>&gt;&gt;</code> as the target to continue the dialogue without jumping to a different conversation:</p>
+<pre><code class="lang-text">[NPC]
+Do you even listen to me?
+- Nope -&gt; Angry
+- Sure -&gt; &gt;&gt;
+
+[NPC]
+I feel like you don't
+- Yeah, I don't -&gt; Angry
+- Sure -&gt; &gt;&gt;
+
+[NPC]
+... if you say so
+</code></pre>
+<p>When the player selects a <code>&gt;&gt;</code> choice, the dialogue continues to the next line in the same conversation. This avoids needing to create separate conversations for simple &quot;stay on this path&quot; options.</p>
+<p>A conversation can have any number of choice groups, each followed by more dialogue.</p>
 <h4 id="choices-with-metadata">Choices with Metadata</h4>
 <p>Choices support metadata using the same <code>##</code> syntax as dialogue lines:</p>
 <pre><code class="lang-text">- Accept the quest -&gt; QuestAccepted ## quest:main important
@@ -107,7 +124,7 @@ I'm sorry to hear that. Hope it gets better.
 </code></pre>
 <p>The metadata is accessible on the <code>Choice</code> object in code.</p>
 <h4 id="placement">Placement</h4>
-<p>Choices must appear after at least one dialogue line within a conversation. They are always the last thing in a conversation block before the next <code>{{ConversationName(...)}}</code>.</p>
+<p>Choices can appear anywhere after a dialogue line within a conversation. Multiple choice groups can be interspersed with dialogue lines throughout a conversation.</p>
 
 </article>
           </div>

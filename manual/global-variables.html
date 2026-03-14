@@ -78,46 +78,80 @@
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
 
-<h3 id="global-variables">Global Variables</h3>
-<p>Global variables allow you to define values in code that can be referenced in dialogue files. They are useful for things like player names and other values that change at runtime.</p>
-<h4 id="defining-variables">Defining Variables</h4>
-<p>Register variables through <code>DialogueGlobals.GlobalVariables</code>:</p>
-<pre><code class="lang-cs">private void Awake()
-{
-    DialogueGlobals.GlobalVariables.Add(&quot;PLAYERNAME&quot;, &quot;Ibrahim&quot;);
-}
-</code></pre>
-<h4 id="using-variables-in-dialogue">Using Variables in Dialogue</h4>
-<p>Reference a global variable with the <code>$</code> prefix. Variables are resolved anywhere in your dialogue -- text, speaker names, function arguments, metadata values, choices, etc.</p>
+<h3 id="variables">Variables</h3>
+<p>Ibralogue has a flexible variable system with two scopes: <strong>global</strong> variables that persist across all dialogue files, and <strong>local</strong> variables scoped to a single file.</p>
+<p>Variables are resolved at <strong>runtime</strong>, meaning changes to variable values are reflected immediately in any dialogue that references them, without reparsing.</p>
+<h4 id="reading-variables-in-dialogue">Reading Variables in Dialogue</h4>
+<p>Reference any variable with the <code>$</code> prefix. Variables work anywhere in dialogue -- text, speaker names, invocation arguments, metadata values, choices, and jump targets.</p>
 <pre><code class="lang-text">[NPC]
 Hi, $PLAYERNAME.
 [$PLAYERNAME]
 Hi. What's up?
 </code></pre>
-<p>If the variable <code>PLAYERNAME</code> is set to &quot;Ibrahim&quot;, the above would display as:</p>
-<pre><code>NPC: Hi, Ibrahim.
-Ibrahim: Hi. What's up?
+<h4 id="setting-variables-from-code">Setting Variables from Code</h4>
+<p>Register global variables through the <code>VariableStore</code>:</p>
+<pre><code class="lang-cs">VariableStore.SetGlobal(&quot;PLAYERNAME&quot;, &quot;Ibrahim&quot;);
+VariableStore.SetGlobal(&quot;HEALTH&quot;, 100.0);
+VariableStore.SetGlobal(&quot;QUEST_DONE&quot;, false);
 </code></pre>
-<h4 id="variables-in-function-arguments">Variables in Function Arguments</h4>
-<p>Global variables can be passed directly as function arguments:</p>
+<h4 id="setting-variables-from-dialogue">Setting Variables from Dialogue</h4>
+<p>Use <code>{{Set(...)}}</code> to assign a variable from within a dialogue file:</p>
+<pre><code class="lang-text">{{Set($GOLD, 100)}}
+{{Set($NAME, &quot;Alice&quot;)}}
+{{Set($QUEST_DONE, true)}}
+</code></pre>
+<p>The value can be any expression, including references to other variables and arithmetic:</p>
+<pre><code class="lang-text">{{Set($HEALTH, $HEALTH - 10)}}
+{{Set($TOTAL, $BASE_PRICE * $QUANTITY)}}
+{{Set($GREETING, &quot;Hello &quot; + $PLAYERNAME)}}
+</code></pre>
+<p>If the variable already exists in any scope, <code>{{Set(...)}}</code> updates it in place. If it does not exist, a new <strong>local</strong> variable is created, scoped to the current dialogue file.</p>
+<h4 id="global-vs-local-scope">Global vs Local Scope</h4>
+<p>Variables set from C# are always global. Variables created by <code>{{Set(...)}}</code> in a dialogue file are local by default.</p>
+<p>To explicitly declare a variable as global from within dialogue, use <code>{{Global(...)}}</code>:</p>
+<pre><code class="lang-text">{{Global($PLAYER_SCORE, 0)}}
+</code></pre>
+<p>This creates (or updates) a global variable that persists across all dialogue files. If only a name is provided, the variable is registered without a value:</p>
+<pre><code class="lang-text">{{Global($PLAYER_SCORE)}}
+</code></pre>
+<h4 id="resolution-order">Resolution Order</h4>
+<p>When a variable is referenced, Ibralogue checks scopes in this order:</p>
+<ol>
+<li><strong>Local</strong> (current dialogue file)</li>
+<li><strong>Global</strong> (set via <code>VariableStore.SetGlobal</code> or <code>{{Global(...)}}</code>)</li>
+</ol>
+<p>The first match wins. This means a local variable can shadow a global variable of the same name.</p>
+<h4 id="variables-in-invocation-arguments">Variables in Invocation Arguments</h4>
+<p>Variables are resolved inside invocation arguments:</p>
 <pre><code class="lang-text">[NPC]
 You received {{GiveItem($REWARD)}}.
 The $TARGET takes {{FormatDamage($DMG)}} damage!
 </code></pre>
-<p>This lets your dialogue functions receive dynamic values without hardcoding them in the dialogue file.</p>
 <h4 id="variables-in-metadata-and-choices">Variables in Metadata and Choices</h4>
 <p>Variables are also resolved in metadata values and choice text:</p>
 <pre><code class="lang-text">[NPC]
 How do you feel? ## emotion:$MOOD
 - Go to $LOCATION -&gt; $LOCATION ## quest:$QUESTID
 </code></pre>
-<h4 id="updating-variables-at-runtime">Updating Variables at Runtime</h4>
-<p>Since <code>GlobalVariables</code> is a standard dictionary, you can update values at any time:</p>
-<pre><code class="lang-cs">DialogueGlobals.GlobalVariables[&quot;PLAYERNAME&quot;] = &quot;New Name&quot;;
+<h4 id="managing-variables-from-code">Managing Variables from Code</h4>
+<p>The <code>VariableStore</code> API provides full control:</p>
+<pre><code class="lang-cs">// Set a global variable
+VariableStore.SetGlobal(&quot;SCORE&quot;, 100.0);
+
+// Set a file-local variable
+VariableStore.SetLocal(&quot;myDialogue&quot;, &quot;temp&quot;, &quot;hello&quot;);
+
+// Read a variable (checks local first, then global)
+object value = VariableStore.Resolve(&quot;myDialogue&quot;, &quot;SCORE&quot;);
+
+// Clear local variables for a specific asset
+VariableStore.ClearLocals(&quot;myDialogue&quot;);
+
+// Clear all variables
+VariableStore.ClearAll();
 </code></pre>
-<p>The new value will be used the next time the dialogue is parsed.</p>
 <h4 id="missing-variables">Missing Variables</h4>
-<p>If a variable is referenced in a dialogue file but has no entry in the dictionary, Ibralogue will emit a warning and leave the <code>$VARIABLE</code> text as-is.</p>
+<p>If a variable is referenced but has no entry in any scope, the <code>$VARIABLE</code> text is left as-is.</p>
 
 </article>
           </div>

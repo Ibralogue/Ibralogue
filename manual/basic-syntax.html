@@ -103,14 +103,16 @@ Oh, hey Ava.
 [Ava]
 How have you been?
 </code></pre>
-<h3 id="speaker-images">Speaker Images</h3>
-<p>Character portraits can be attached to a dialogue line using the <code>Image</code> command. Ibralogue uses <a href="https://docs.unity3d.com/ScriptReference/Resources.Load.html">Resources.Load</a> to find images, so sprites must be placed in a <code>Resources</code> folder.</p>
-<p>For a file located at <code>Assets/Sprites/Resources/Portraits/AvaSmiling.png</code>:</p>
-<pre><code class="lang-text">[Ava]
-{{Image(Portraits/AvaSmiling)}}
-It's a beautiful day outside!
+<h3 id="silent-lines">Silent Lines</h3>
+<p>Use <code>[&gt;&gt;]</code> as the speaker to create a line that runs functions without displaying anything in the dialogue view:</p>
+<pre><code class="lang-text">[NPC]
+Let me check something...
+[&gt;&gt;]
+{{RunCheck}}
+[NPC]
+All done!
 </code></pre>
-<p>The <code>{{Image(...)}}</code> command must appear on its own line, directly after the speaker tag.</p>
+<p>The <code>[&gt;&gt;]</code> line is processed silently by the engine, so any <a href="invocations.html">invocations</a> on it are called, but no dialogue box or speaker name is shown. This is useful for triggering game logic between visible dialogue lines.</p>
 
 </article>
           </div>

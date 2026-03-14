@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DialogueLogger | Ibralogue Docs </title>
+    <title>Class DialogueStandardLibrary | Ibralogue Docs </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DialogueLogger | Ibralogue Docs ">
+    <meta name="title" content="Class DialogueStandardLibrary | Ibralogue Docs ">
     <meta name="generator" content="docfx ">
   
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,17 +76,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Ibralogue.DialogueLogger">
+            <article class="content wrap" id="_content" data-uid="Ibralogue.DialogueStandardLibrary">
 
 
 
-  <h1 id="Ibralogue_DialogueLogger" data-uid="Ibralogue.DialogueLogger" class="text-break">Class DialogueLogger</h1>
-  <div class="markdown level0 summary"></div>
+  <h1 id="Ibralogue_DialogueStandardLibrary" data-uid="Ibralogue.DialogueStandardLibrary" class="text-break">Class DialogueStandardLibrary</h1>
+  <div class="markdown level0 summary"><p>Standard invocations that ship with Ibralogue.
+These follow the same {{Name(args)}} syntax as the rest of the language
+and can be used inline in dialogue text.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">DialogueLogger</span></div>
+    <div class="level1"><span class="xref">DialogueStandardLibrary</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,26 +117,29 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Ibralogue.html">Ibralogue</a></h6>
   <h6><strong>Assembly</strong>: .dll</h6>
-  <h5 id="Ibralogue_DialogueLogger_syntax">Syntax</h5>
+  <h5 id="Ibralogue_DialogueStandardLibrary_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class DialogueLogger</code></pre>
+    <pre><code class="lang-csharp hljs">public static class DialogueStandardLibrary</code></pre>
   </div>
   <h3 id="methods">Methods
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueLogger_LogError_System_Int32_System_String_Object_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueLogger.LogError(System.Int32%2CSystem.String%2CObject)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueStandardLibrary_Audio_Ibralogue_DialogueEngineBase_System_String_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueStandardLibrary.Audio(Ibralogue.DialogueEngineBase%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/DialogueLogger.cs/#L22">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/DialogueStandardLibrary.cs/#L37">View Source</a>
   </span>
-  <a id="Ibralogue_DialogueLogger_LogError_" data-uid="Ibralogue.DialogueLogger.LogError*"></a>
-  <h4 id="Ibralogue_DialogueLogger_LogError_System_Int32_System_String_Object_" data-uid="Ibralogue.DialogueLogger.LogError(System.Int32,System.String,Object)">LogError(int, string, Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Ibralogue_DialogueStandardLibrary_Audio_" data-uid="Ibralogue.DialogueStandardLibrary.Audio*"></a>
+  <h4 id="Ibralogue_DialogueStandardLibrary_Audio_Ibralogue_DialogueEngineBase_System_String_" data-uid="Ibralogue.DialogueStandardLibrary.Audio(Ibralogue.DialogueEngineBase,System.String)">Audio(DialogueEngineBase, string)</h4>
+  <div class="markdown level1 summary"><p>Plays an audio clip through the engine's audio provider.</p>
+<pre><code class="lang-csharp">[NPC]
+Watch out! {{Audio(SFX/explosion)}}</code></pre>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogError(int line, string message, Object context = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Audio(DialogueEngineBase engine, string clipId)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -146,36 +152,35 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">line</span></td>
+        <td><a class="xref" href="Ibralogue.DialogueEngineBase.html">DialogueEngineBase</a></td>
+        <td><span class="parametername">engine</span></td>
         <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">message</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><span class="parametername">context</span></td>
+        <td><span class="parametername">clipId</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueLogger_LogError_System_String_Object_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueLogger.LogError(System.String%2CObject)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueStandardLibrary_Image_Ibralogue_DialogueEngineBase_System_String_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueStandardLibrary.Image(Ibralogue.DialogueEngineBase%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/DialogueLogger.cs/#L17">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/DialogueStandardLibrary.cs/#L22">View Source</a>
   </span>
-  <a id="Ibralogue_DialogueLogger_LogError_" data-uid="Ibralogue.DialogueLogger.LogError*"></a>
-  <h4 id="Ibralogue_DialogueLogger_LogError_System_String_Object_" data-uid="Ibralogue.DialogueLogger.LogError(System.String,Object)">LogError(string, Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Ibralogue_DialogueStandardLibrary_Image_" data-uid="Ibralogue.DialogueStandardLibrary.Image*"></a>
+  <h4 id="Ibralogue_DialogueStandardLibrary_Image_Ibralogue_DialogueEngineBase_System_String_" data-uid="Ibralogue.DialogueStandardLibrary.Image(Ibralogue.DialogueEngineBase,System.String)">Image(DialogueEngineBase, string)</h4>
+  <div class="markdown level1 summary"><p>Changes the speaker portrait. On its own line, fires at line start.
+Inline in text, fires at that position.</p>
+<pre><code class="lang-csharp">[NPC]
+Hello! {{Image(Portraits/Surprised)}} Whoa!</code></pre>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogError(string message, Object context = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Image(DialogueEngineBase engine, string path)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -188,31 +193,35 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">message</span></td>
+        <td><a class="xref" href="Ibralogue.DialogueEngineBase.html">DialogueEngineBase</a></td>
+        <td><span class="parametername">engine</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><span class="parametername">context</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueLogger_LogWarning_System_Int32_System_Int32_System_String_Object_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueLogger.LogWarning(System.Int32%2CSystem.Int32%2CSystem.String%2CObject)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueStandardLibrary_Speed_Ibralogue_DialogueEngineBase_System_Single_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueStandardLibrary.Speed(Ibralogue.DialogueEngineBase%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/DialogueLogger.cs/#L12">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/DialogueStandardLibrary.cs/#L68">View Source</a>
   </span>
-  <a id="Ibralogue_DialogueLogger_LogWarning_" data-uid="Ibralogue.DialogueLogger.LogWarning*"></a>
-  <h4 id="Ibralogue_DialogueLogger_LogWarning_System_Int32_System_Int32_System_String_Object_" data-uid="Ibralogue.DialogueLogger.LogWarning(System.Int32,System.Int32,System.String,Object)">LogWarning(int, int, string, Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Ibralogue_DialogueStandardLibrary_Speed_" data-uid="Ibralogue.DialogueStandardLibrary.Speed*"></a>
+  <h4 id="Ibralogue_DialogueStandardLibrary_Speed_Ibralogue_DialogueEngineBase_System_Single_" data-uid="Ibralogue.DialogueStandardLibrary.Speed(Ibralogue.DialogueEngineBase,System.Single)">Speed(DialogueEngineBase, float)</h4>
+  <div class="markdown level1 summary"><p>Changes the typewriter speed. A multiplier of 2 is twice as fast,
+0.5 is half speed. Only affects TypewriterDialogueView.</p>
+<pre><code class="lang-csharp">[NPC]
+This is normal. {{Speed(0.3)}} This... is... slow.</code></pre>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogWarning(int line, int column, string message, Object context = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Speed(DialogueEngineBase engine, float multiplier)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -225,41 +234,34 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">line</span></td>
+        <td><a class="xref" href="Ibralogue.DialogueEngineBase.html">DialogueEngineBase</a></td>
+        <td><span class="parametername">engine</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">column</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">message</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">Object</span></td>
-        <td><span class="parametername">context</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">multiplier</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueLogger_LogWarning_System_String_Object_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueLogger.LogWarning(System.String%2CObject)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueStandardLibrary_Wait_Ibralogue_DialogueEngineBase_System_Single_.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueStandardLibrary.Wait(Ibralogue.DialogueEngineBase%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/DialogueLogger.cs/#L7">View Source</a>
+    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/DialogueStandardLibrary.cs/#L54">View Source</a>
   </span>
-  <a id="Ibralogue_DialogueLogger_LogWarning_" data-uid="Ibralogue.DialogueLogger.LogWarning*"></a>
-  <h4 id="Ibralogue_DialogueLogger_LogWarning_System_String_Object_" data-uid="Ibralogue.DialogueLogger.LogWarning(System.String,Object)">LogWarning(string, Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Ibralogue_DialogueStandardLibrary_Wait_" data-uid="Ibralogue.DialogueStandardLibrary.Wait*"></a>
+  <h4 id="Ibralogue_DialogueStandardLibrary_Wait_Ibralogue_DialogueEngineBase_System_Single_" data-uid="Ibralogue.DialogueStandardLibrary.Wait(Ibralogue.DialogueEngineBase,System.Single)">Wait(DialogueEngineBase, float)</h4>
+  <div class="markdown level1 summary"><p>Pauses the text animation for the given number of seconds.</p>
+<pre><code class="lang-csharp">[NPC]
+And the winner is... {{Wait(2)}} you!</code></pre>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogWarning(string message, Object context = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void Wait(DialogueEngineBase engine, float seconds)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -272,13 +274,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">message</span></td>
+        <td><a class="xref" href="Ibralogue.DialogueEngineBase.html">DialogueEngineBase</a></td>
+        <td><span class="parametername">engine</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Object</span></td>
-        <td><span class="parametername">context</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">seconds</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -292,10 +294,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueLogger.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueLogger%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/new/master/apiSpec/new?filename=Ibralogue_DialogueStandardLibrary.md&amp;value=---%0Auid%3A%20Ibralogue.DialogueStandardLibrary%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Parser/DialogueLogger.cs/#L5" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Ibralogue/Ibralogue/blob/master/Runtime/Engine/DialogueStandardLibrary.cs/#L12" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

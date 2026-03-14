@@ -83,15 +83,51 @@
 <h4 id="how-plugins-work">How Plugins Work</h4>
 <p>Any <code>EnginePlugin</code> component on the same GameObject as the <code>SimpleDialogueEngine</code> is automatically discovered. The engine calls into each plugin at two points:</p>
 <ul>
-<li><code>Display(Conversation, int lineIndex)</code> is called every time a new dialogue line is shown.</li>
+<li><code>Display(Line line)</code> is called every time a new dialogue line is shown. The <code>Line</code> object contains the speaker, text, metadata, and other properties for the current line.</li>
 <li><code>Clear()</code> is called when the view is cleared (between lines and at conversation end).</li>
 </ul>
 <h4 id="built-in-portraitimageplugin">Built-in: PortraitImagePlugin</h4>
 <p>Ibralogue includes a <code>PortraitImagePlugin</code> that handles speaker portrait display. Add it to your engine GameObject and assign a Unity UI <code>Image</code> component to its <code>Speaker Portrait</code> field.</p>
-<p>When a dialogue line has a <code>SpeakerImage</code> set (via the <code>{{Image(...)}}</code> command), the plugin displays it. When there is no image, the portrait is hidden.</p>
+<p>The plugin reads the <code>image</code> metadata key from each line. When present, it loads the sprite via <code>Resources.Load</code> and displays it. When absent, the portrait is hidden.</p>
+<p>Set the image in your dialogue file using the <code>Image</code> invocation or metadata:</p>
+<pre><code class="lang-text">[NPC]
+{{Image(Portraits/AvaSmiling)}}
+Hello!
+
+# Or equivalently:
+[NPC]
+Hello! ## image:Portraits/AvaSmiling
+</code></pre>
+<h4 id="audio-provider">Audio Provider</h4>
+<p>Ibralogue supports per-line audio playback through the <code>IAudioProvider</code> interface. When a line has an <code>audio</code> metadata key, the engine calls <code>Play()</code> on the active provider.</p>
+<p><strong>Built-in: UnityAudioProvider</strong></p>
+<p>Add a <code>UnityAudioProvider</code> component (requires an <code>AudioSource</code>) to your engine GameObject. Assign it to the engine's <code>Audio Provider Component</code> field. Clips are loaded from Resources by path:</p>
+<pre><code class="lang-text">[NPC]
+Welcome! ## audio:Voiceover/welcome_001
+</code></pre>
+<p><strong>Custom audio backends (FMOD, Wwise, etc.)</strong></p>
+<p>Implement <code>IAudioProvider</code> for your audio system:</p>
+<pre><code class="lang-cs">using Ibralogue;
+using UnityEngine;
+
+public class FmodAudioProvider : MonoBehaviour, IAudioProvider
+{
+    public void Play(string clipId)
+    {
+        // Play using your audio system
+        FMODUnity.RuntimeManager.PlayOneShot(&quot;event:/&quot; + clipId);
+    }
+
+    public void Stop()
+    {
+        // Stop playback
+    }
+}
+</code></pre>
+<p>Assign the component to the engine's <code>Audio Provider Component</code> field.</p>
 <h4 id="creating-a-custom-plugin">Creating a Custom Plugin</h4>
 <p>Subclass <code>EnginePlugin</code> and implement the two abstract methods:</p>
-<pre><code class="lang-cs">using Ibralogue;
+<pre><code class="lang-cs">using Ibralogue.Parser;
 using Ibralogue.Plugins;
 using UnityEngine;
 
@@ -100,9 +136,8 @@ public class AudioPlugin : EnginePlugin
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip talkSound;
 
-    public override void Display(Conversation conversation, int lineIndex)
+    public override void Display(Line line)
     {
-        // Play a sound when each line appears
         audioSource.PlayOneShot(talkSound);
     }
 
@@ -113,6 +148,15 @@ public class AudioPlugin : EnginePlugin
 }
 </code></pre>
 <p>Place the component on the same GameObject as your <code>SimpleDialogueEngine</code>. It will be picked up automatically.</p>
+<h4 id="per-character-typing-sounds">Per-Character Typing Sounds</h4>
+<p>The <code>TypewriterDialogueView</code> fires an <code>OnTypewriterEffectUpdated</code> event each time characters are revealed. Subscribe to this event to play per-speaker typing sounds:</p>
+<pre><code class="lang-cs">typewriterView.OnTypewriterEffectUpdated.AddListener(() =&gt;
+{
+    // Play a typing sound per character reveal
+    // Use the current speaker to vary the sound
+    audioSource.PlayOneShot(typingClip);
+});
+</code></pre>
 
 </article>
           </div>
