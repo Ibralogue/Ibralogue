@@ -464,10 +464,10 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Checks whether the current line is a standalone command line.
-		/// Matches {{Command(arg)}} with parenthesized arguments, and argument-less
-		/// forms only for known structural keywords (Else, EndIf).
-		/// An unknown {{Name}} alone on a line is treated as an inline function, not a command.
+		/// Checks whether the current line is a standalone structural keyword.
+		/// Only known keywords (ConversationName, If, Set, Jump, etc.) on their
+		/// own line are treated as commands. Everything else falls through to
+		/// text/function handling.
 		/// </summary>
 		private bool IsCommandLine()
 		{
@@ -479,11 +479,9 @@ namespace Ibralogue.Parser
 				peekPos++;
 
 			int nameEnd = peekPos;
-			bool hasArgs = false;
 
 			if (peekPos < _source.Length && _source[peekPos] == '(')
 			{
-				hasArgs = true;
 				while (peekPos < _source.Length && _source[peekPos] != ')' && _source[peekPos] != '\n')
 					peekPos++;
 				if (peekPos < _source.Length && _source[peekPos] == ')')
