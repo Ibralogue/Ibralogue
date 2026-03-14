@@ -19,21 +19,18 @@ namespace Ibralogue.Parser
 	}
 
 	/// <summary>
-	/// A named block of dialogue lines and optional choices.
+	/// A named block of dialogue content including lines, choices, conditionals, and commands.
 	/// </summary>
 	internal class ConversationNode
 	{
 		public readonly string Name;
 		public readonly List<ContentNode> Content;
-		public readonly List<ChoiceNode> Choices;
 		public readonly SourceSpan Span;
 
-		public ConversationNode(string name, List<ContentNode> content, List<ChoiceNode> choices,
-			SourceSpan span)
+		public ConversationNode(string name, List<ContentNode> content, SourceSpan span)
 		{
 			Name = name;
 			Content = content;
-			Choices = choices;
 			Span = span;
 		}
 	}
@@ -155,24 +152,35 @@ namespace Ibralogue.Parser
 	}
 
 	/// <summary>
-	/// A choice option that directs to another conversation.
+	/// A choice option that directs to another conversation or continues with >>.
 	/// </summary>
 	internal class ChoiceNode
 	{
 		public readonly string Text;
 		public readonly string TargetConversation;
 		public readonly Dictionary<string, string> Metadata;
-		public readonly int LineIndex;
 		public readonly SourceSpan Span;
 
 		public ChoiceNode(string text, string targetConversation, Dictionary<string, string> metadata,
-			int lineIndex, SourceSpan span)
+			SourceSpan span)
 		{
 			Text = text;
 			TargetConversation = targetConversation;
 			Metadata = metadata;
-			LineIndex = lineIndex;
 			Span = span;
+		}
+	}
+
+	/// <summary>
+	/// A group of choices presented to the player at a specific point in the content.
+	/// </summary>
+	internal class ChoiceGroupNode : ContentNode
+	{
+		public readonly List<ChoiceNode> Choices;
+
+		public ChoiceGroupNode(List<ChoiceNode> choices, SourceSpan span) : base(span)
+		{
+			Choices = choices;
 		}
 	}
 
