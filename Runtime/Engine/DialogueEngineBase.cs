@@ -174,7 +174,8 @@ namespace Ibralogue
             StopAllCoroutines();
             _displayCoroutine = null;
 
-            dialogueView.ClearView(enginePlugins);
+            dialogueView.ClearView();
+            ClearPlugins();
 
             IAudioProvider audio = AudioProvider;
             if (audio != null)
@@ -263,7 +264,8 @@ namespace Ibralogue
                 }
             }
 
-            dialogueView.ClearView(enginePlugins);
+            dialogueView.ClearView();
+            ClearPlugins();
             AdvanceAndDisplay();
         }
 
@@ -536,7 +538,8 @@ namespace Ibralogue
                 StopAllCoroutines();
                 _displayCoroutine = null;
                 _linePlaying = false;
-                dialogueView.ClearView(enginePlugins);
+                dialogueView.ClearView();
+                ClearPlugins();
                 AdvanceAndDisplay();
                 return;
             }
@@ -738,6 +741,13 @@ namespace Ibralogue
             }
 
             return args;
+        }
+
+        private void ClearPlugins()
+        {
+            if (enginePlugins == null) return;
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.Clear();
         }
 
         /// <summary>

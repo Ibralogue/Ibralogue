@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Ibralogue.Parser;
-using Ibralogue.Plugins;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -54,15 +53,10 @@ namespace Ibralogue.Views
         /// <summary>
         /// Clears all elements in the view.
         /// </summary>
-        public virtual void ClearView(EnginePlugin[] enginePlugins)
+        public virtual void ClearView()
         {
             nameText.text = string.Empty;
             sentenceText.text = string.Empty;
-
-            foreach (EnginePlugin plugin in enginePlugins)
-            {
-                plugin.Clear();
-            }
 
             if (_choiceButtonInstances == null)
                 return;
