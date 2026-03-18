@@ -1,8 +1,27 @@
 ### Dialogue Views
 
-A dialogue view controls how text is presented to the player. Every `SimpleDialogueEngine` requires a view assigned to its `Dialogue View` field.
+A dialogue view controls how text is presented to the player. Assign a view to the engine's `Dialogue View` field, or leave it empty to run in headless mode.
 
 Ibralogue ships with two built-in views. You can also create your own by subclassing `DialogueViewBase`.
+
+#### Headless / Event-Driven Mode
+
+The dialogue view is optional. When no view is assigned, the engine runs the full dialogue pipeline (parsing, variable resolution, invocations, events) without driving any UI. All typed events (`OnLineDisplayed`, `OnChoicesPresented`, `OnChoiceSelected`) still fire normally.
+
+This is useful for:
+- Driving custom UI through events (e.g., UI Toolkit)
+- Non-visual dialogue consumers (analytics, quest tracking, testing)
+- Systems that only need the data, not the presentation
+
+In headless mode, lines complete instantly (no animation) and choices must be submitted programmatically:
+
+```cs
+dialogueEngine.OnChoicesPresented.AddListener((choices) =>
+{
+    // Present choices in your own UI, then:
+    dialogueEngine.SelectChoice(choices[selectedIndex]);
+});
+```
 
 #### TypewriterDialogueView
 

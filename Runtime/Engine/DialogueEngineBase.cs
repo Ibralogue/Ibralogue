@@ -108,6 +108,12 @@ namespace Ibralogue
         [Header("Dialogue Views")]
         [SerializeField] protected DialogueViewBase dialogueView;
 
+        /// <summary>
+        /// True when a dialogue view is assigned. When false, the engine runs
+        /// in headless mode: events still fire but no UI is driven.
+        /// </summary>
+        protected bool HasView => dialogueView != null;
+
         [Header("Auto-Advance")]
         [Tooltip("When greater than zero, lines advance automatically after the display " +
                  "effect finishes plus this delay in seconds. Set to zero to disable. " +
@@ -225,7 +231,7 @@ namespace Ibralogue
             StopAllCoroutines();
             _displayCoroutine = null;
 
-            dialogueView.ClearView();
+            if (HasView) dialogueView.ClearView();
             ClearPlugins();
 
             IAudioProvider audio = AudioProvider;
@@ -254,7 +260,7 @@ namespace Ibralogue
         {
             if (_currentConversation == null || _isPaused) return;
             _isPaused = true;
-            dialogueView.Pause();
+            if (HasView) dialogueView.Pause();
             OnConversationPaused.Invoke();
         }
 
@@ -262,7 +268,7 @@ namespace Ibralogue
         {
             if (_currentConversation == null || !_isPaused) return;
             _isPaused = false;
-            dialogueView.Resume();
+            if (HasView) dialogueView.Resume();
             OnConversationResumed.Invoke();
         }
 
@@ -318,7 +324,7 @@ namespace Ibralogue
                 }
             }
 
-            dialogueView.ClearView();
+            if (HasView) dialogueView.ClearView();
             ClearPlugins();
             AdvanceAndDisplay();
         }
@@ -526,7 +532,7 @@ namespace Ibralogue
 
             InvokeTextProducingFunctions(resolved, line);
 
-            dialogueView.SetView(line);
+            if (HasView) dialogueView.SetView(line);
             _history.Add(line);
             OnLineDisplayed.Invoke(line);
 
@@ -539,7 +545,7 @@ namespace Ibralogue
             int nextPending = 0;
             _pendingWaitSeconds = 0f;
 
-            while (dialogueView.IsStillDisplaying())
+            while (HasView && dialogueView.IsStillDisplaying())
             {
                 if (_isPaused)
                     yield return new WaitUntil(() => !_isPaused);
@@ -590,7 +596,18 @@ namespace Ibralogue
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnChoicesPresented(resolved);
 
-            dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
+            if (HasView) dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
+        }
+
+        /// <summary>
+        /// Submits a choice selection programmatically. Use this in headless/event-driven
+        /// setups where there is no view handling choice buttons, or when driving
+        /// choices from custom UI.
+        /// </summary>
+        public void SelectChoice(Choice choice)
+        {
+            if (!_choicesActive) return;
+            HandleChoiceSelected(choice);
         }
 
         private void HandleChoiceSelected(Choice choice)
@@ -607,7 +624,7 @@ namespace Ibralogue
                 StopAllCoroutines();
                 _displayCoroutine = null;
                 _linePlaying = false;
-                dialogueView.ClearView();
+                if (HasView) dialogueView.ClearView();
                 ClearPlugins();
                 AdvanceAndDisplay();
                 return;
