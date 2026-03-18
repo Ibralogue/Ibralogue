@@ -58,8 +58,9 @@ namespace Ibralogue
 		}
 
 		/// <summary>
-		/// Changes the typewriter speed. A multiplier of 2 is twice as fast,
-		/// 0.5 is half speed. Only affects TypewriterDialogueView.
+		/// Changes the text reveal speed for the current line. A multiplier of 2
+		/// is twice as fast, 0.5 is half speed. Works with any animated view.
+		/// Speed resets to the configured default on the next line.
 		/// <code>
 		/// [NPC]
 		/// This is normal. {{Speed(0.3)}} This... is... slow.
@@ -68,14 +69,9 @@ namespace Ibralogue
 		[DialogueInvocation]
 		public static void Speed(DialogueEngineBase engine, float multiplier)
 		{
-			TypewriterDialogueView typewriter =
-				engine.GetComponentInChildren<TypewriterDialogueView>();
-
-			if (typewriter != null && multiplier > 0f)
-			{
-				float baseDelay = typewriter.GetCharacterDelay();
-				typewriter.SetCharacterDelay(baseDelay / multiplier);
-			}
+			DialogueViewBase view = engine.GetComponentInChildren<DialogueViewBase>();
+			if (view != null)
+				view.SetSpeed(multiplier);
 		}
 
 		/// <summary>

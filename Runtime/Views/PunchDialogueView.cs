@@ -115,6 +115,12 @@ namespace Ibralogue.Views
             base.ClearView();
         }
 
+        public override void SetSpeed(float multiplier)
+        {
+            if (multiplier > 0f)
+                wordDelay = _baseWordDelay / multiplier;
+        }
+
         public void SetWordDelay(float delay)
         {
             wordDelay = Mathf.Max(0f, delay);
