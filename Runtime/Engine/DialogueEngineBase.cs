@@ -124,9 +124,7 @@ namespace Ibralogue
             _cursor = new ContentCursor(conversation.Content);
             _choicesActive = false;
 
-            OnConversationStart.AddListener(PersistentOnConversationStart.Invoke);
-            OnConversationEnd.AddListener(PersistentOnConversationEnd.Invoke);
-
+            PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
             AdvanceAndDisplay();
         }
@@ -152,10 +150,8 @@ namespace Ibralogue
             _choicesActive = false;
             _isPaused = false;
 
+            PersistentOnConversationEnd.Invoke();
             OnConversationEnd.Invoke();
-
-            OnConversationStart.RemoveAllListeners();
-            OnConversationEnd.RemoveAllListeners();
         }
 
         public void PauseConversation()
