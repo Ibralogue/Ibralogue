@@ -89,6 +89,22 @@ Arithmetic is available in `{{Set(...)}}` expressions and conditions:
 {{If(($A OR $B) AND $C)}}
 ```
 
+**Function calls:** Any `[DialogueInvocation]` that returns a value can be called inside expressions:
+
+```text
+{{If(Visited("Tavern"))}}
+[NPC]
+You've been here before.
+{{EndIf}}
+
+{{If(Visited("Tavern") AND $GOLD >= 100)}}
+[NPC]
+Welcome back, and I see you can afford the good stuff.
+{{EndIf}}
+```
+
+See [Invocations](invocations.md) for the full list of standard functions and how to write your own.
+
 **Literal values:**
 
 - Strings: `"hello"`
