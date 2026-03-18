@@ -11,10 +11,16 @@ namespace Ibralogue.Views
         [Header("Punch Settings")]
         [SerializeField] private float wordDelay = 0.2f;
 
+        private float _baseWordDelay;
         private Coroutine _punchCoroutine;
         private bool _skipRequested;
 
         public UnityEvent OnPunchEffectUpdated = new UnityEvent();
+
+        private void Awake()
+        {
+            _baseWordDelay = wordDelay;
+        }
 
         public override int VisibleCharacterCount
         {
@@ -27,6 +33,7 @@ namespace Ibralogue.Views
         public override void SetView(Line line)
         {
             nameText.text = line.Speaker;
+            wordDelay = _baseWordDelay;
 
             if (_punchCoroutine != null)
             {
@@ -106,6 +113,12 @@ namespace Ibralogue.Views
             _isStillDisplaying = false;
             _skipRequested = false;
             base.ClearView();
+        }
+
+        public override void SetSpeed(float multiplier)
+        {
+            if (multiplier > 0f)
+                wordDelay = _baseWordDelay / multiplier;
         }
 
         public void SetWordDelay(float delay)

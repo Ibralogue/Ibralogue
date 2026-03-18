@@ -15,6 +15,8 @@ namespace Ibralogue.Interactions
         [SerializeField] private UnityEvent OnConversationStart = new UnityEvent();
         [SerializeField] private UnityEvent OnConversationEnd = new UnityEvent();
 
+        private bool _eventsAttached;
+
         public virtual void StartDialogue()
         {
             AttachEvents();
@@ -27,8 +29,20 @@ namespace Ibralogue.Interactions
 
         private void AttachEvents()
         {
+            if (_eventsAttached) return;
+
             dialogueEngine.OnConversationStart.AddListener(OnConversationStart.Invoke);
             dialogueEngine.OnConversationEnd.AddListener(OnConversationEnd.Invoke);
+            _eventsAttached = true;
+        }
+
+        private void OnDestroy()
+        {
+            if (!_eventsAttached || dialogueEngine == null) return;
+
+            dialogueEngine.OnConversationStart.RemoveListener(OnConversationStart.Invoke);
+            dialogueEngine.OnConversationEnd.RemoveListener(OnConversationEnd.Invoke);
+            _eventsAttached = false;
         }
     }
 }

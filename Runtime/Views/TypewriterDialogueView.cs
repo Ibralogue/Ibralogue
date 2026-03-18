@@ -11,10 +11,16 @@ namespace Ibralogue.Views
         [SerializeField] private float characterDelay = 0.03f;
         [SerializeField] private int characterWindow = 1;
 
+        private float _baseCharacterDelay;
         private Coroutine _typewriterCoroutine;
         private bool _skipRequested;
 
         public UnityEvent OnTypewriterEffectUpdated = new UnityEvent();
+
+        private void Awake()
+        {
+            _baseCharacterDelay = characterDelay;
+        }
 
         public override int VisibleCharacterCount
         {
@@ -27,6 +33,7 @@ namespace Ibralogue.Views
         public override void SetView(Line line)
         {
             nameText.text = line.Speaker;
+            characterDelay = _baseCharacterDelay;
 
             if (_typewriterCoroutine != null)
             {
@@ -101,6 +108,12 @@ namespace Ibralogue.Views
             _skipRequested = false;
 
             base.ClearView();
+        }
+
+        public override void SetSpeed(float multiplier)
+        {
+            if (multiplier > 0f)
+                characterDelay = _baseCharacterDelay / multiplier;
         }
 
         public void SetCharacterDelay(float delay)

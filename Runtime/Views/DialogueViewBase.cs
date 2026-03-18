@@ -102,6 +102,15 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
+        /// Applies a speed multiplier to the current display effect.
+        /// 2 = twice as fast, 0.5 = half speed. The multiplier is relative to
+        /// the view's configured default and resets automatically on the next line.
+        /// </summary>
+        public virtual void SetSpeed(float multiplier)
+        {
+        }
+
+        /// <summary>
         /// Presents choice buttons to the player. When a choice is selected, the
         /// <paramref name="onChoiceSelected"/> callback is invoked with the chosen option.
         /// </summary>

@@ -627,6 +627,14 @@ namespace Ibralogue
             if (ChoiceFilter != null)
                 resolved = ChoiceFilter(resolved);
 
+            if (resolved == null || resolved.Count == 0)
+            {
+                DialogueLogger.LogWarning("All choices were filtered out. Stopping conversation.");
+                _choicesActive = false;
+                StopConversation();
+                return;
+            }
+
             OnChoicesPresented.Invoke(resolved);
 
             if (enginePlugins != null)
@@ -813,7 +821,8 @@ namespace Ibralogue
         {
             foreach (ResolvedInvocation r in resolved)
             {
-                if (r.Method.ReturnType == typeof(void))
+                if (r.Method.ReturnType == typeof(void)
+                    || typeof(IEnumerator).IsAssignableFrom(r.Method.ReturnType))
                     continue;
 
                 object result = r.Method.Invoke(r.Target, r.Arguments);
