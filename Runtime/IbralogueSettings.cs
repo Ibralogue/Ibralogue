@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace Ibralogue
 {
+	public enum LogLevel
+	{
+		ErrorsOnly,
+		WarningsAndErrors,
+		Verbose
+	}
+
 	/// <summary>
 	/// Project-wide settings for Ibralogue. Create via
 	/// <b>Edit > Project Settings > Ibralogue</b> or place an instance
@@ -11,16 +18,38 @@ namespace Ibralogue
 	{
 		private const string ResourcePath = "IbralogueSettings";
 
+		// --- Import ---
+
 		[Header("Import")]
-		[Tooltip("When enabled, .ibra files are validated through the parser at import time. " +
-		         "Syntax errors are surfaced immediately in the console.")]
+		[Tooltip("Run the parser on .ibra files at import time and surface syntax errors in the console.")]
 		[SerializeField] private bool validateOnImport = true;
 
-		/// <summary>
-		/// When true, the importer runs the parser on every .ibra file at import time
-		/// and surfaces diagnostics in the console.
-		/// </summary>
+		// --- Logging ---
+
+		[Header("Logging")]
+		[Tooltip("Controls which messages Ibralogue writes to the console at runtime.\n\n" +
+		         "Errors Only: Only errors.\n" +
+		         "Warnings And Errors: Warnings and errors.\n" +
+		         "Verbose: All messages including debug info.")]
+		[SerializeField] private LogLevel logLevel = LogLevel.WarningsAndErrors;
+
+		// --- Runtime ---
+
+		[Header("Runtime")]
+		[Tooltip("Clear all VariableStore variables when a new scene is loaded.")]
+		[SerializeField] private bool clearVariablesOnSceneLoad;
+
+		[Tooltip("Clear all VisitTracker records when a new scene is loaded.")]
+		[SerializeField] private bool clearVisitsOnSceneLoad;
+
+		// --- Public API ---
+
 		public bool ValidateOnImport => validateOnImport;
+		public LogLevel LogLevel => logLevel;
+		public bool ClearVariablesOnSceneLoad => clearVariablesOnSceneLoad;
+		public bool ClearVisitsOnSceneLoad => clearVisitsOnSceneLoad;
+
+		// --- Singleton ---
 
 		private static IbralogueSettings _instance;
 
@@ -38,15 +67,23 @@ namespace Ibralogue
 			}
 		}
 
-		/// <summary>
-		/// Returns the settings instance, or falls back to defaults when no asset exists.
-		/// </summary>
+		// --- Static convenience accessors with safe defaults ---
+
 		public static bool ShouldValidateOnImport
 		{
 			get
 			{
-				IbralogueSettings settings = Instance;
-				return settings == null || settings.ValidateOnImport;
+				IbralogueSettings s = Instance;
+				return s == null || s.ValidateOnImport;
+			}
+		}
+
+		public static LogLevel ActiveLogLevel
+		{
+			get
+			{
+				IbralogueSettings s = Instance;
+				return s != null ? s.LogLevel : LogLevel.WarningsAndErrors;
 			}
 		}
 	}

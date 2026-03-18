@@ -29,7 +29,7 @@ namespace Ibralogue.Editor
 
             foreach (Diagnostic diagnostic in diagnostics.Diagnostics)
             {
-                string message = $"[line {diagnostic.Span.Start.Line}] {diagnostic.Message}";
+                string message = $"{dialogue.name}.ibra (line {diagnostic.Span.Start.Line}): {diagnostic.Message}";
 
                 switch (diagnostic.Severity)
                 {
