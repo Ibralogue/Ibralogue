@@ -60,6 +60,25 @@ dialogueEngine.OnChoiceSelected.AddListener((choice) =>
 
 These are public and can be configured in the Inspector or from code.
 
+#### Conversation History
+
+The engine keeps a log of every line displayed. Access it via the `History` property:
+
+```cs
+IReadOnlyList<Line> log = dialogueEngine.History;
+
+foreach (Line line in log)
+    Debug.Log($"{line.Speaker}: {line.LineContent.Text}");
+```
+
+By default, the history is cleared when a conversation stops. To keep it across conversations (for a persistent dialogue log UI), set `PersistHistory` to true:
+
+```cs
+dialogueEngine.PersistHistory = true;
+```
+
+Call `ClearHistory()` to clear it manually.
+
 #### View Events
 
 The dialogue view also exposes events. See the [Dialogue Views](dialogue-views.md) page for `OnSetView` and `OnLineComplete`.
