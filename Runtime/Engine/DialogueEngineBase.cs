@@ -467,7 +467,7 @@ namespace Ibralogue
         /// </summary>
         protected virtual IEnumerator OnDisplayLine(Line line)
         {
-            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
+            IEnumerable<CachedInvocation> dialogueMethods = GetInvocationMethods();
             List<ResolvedInvocation> resolved = ResolveAllInvocations(line, dialogueMethods);
 
             InvokeTextProducingFunctions(resolved, line);
