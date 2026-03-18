@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Ibralogue.Plugins
 {
-    [RequireComponent(typeof(SimpleDialogueEngine))]
+    [RequireComponent(typeof(DialogueEngineBase))]
     public class PortraitImagePlugin : EnginePlugin
     {
         [SerializeField] protected Image speakerPortrait;
