@@ -303,5 +303,54 @@ namespace Ibralogue.Editor.Tests
 
 			Assert.That(evaluator.EvaluateTruthy(node), Is.True);
 		}
+
+		// --- VariableStore internal accessors ---
+
+		[Test]
+		public void VariableStore_Globals_ExposesReadOnlyView()
+		{
+			VariableStore.SetGlobal("SCORE", 42.0);
+
+			Assert.That(VariableStore.Globals, Contains.Key("SCORE"));
+			Assert.That(VariableStore.Globals["SCORE"], Is.EqualTo(42.0));
+		}
+
+		[Test]
+		public void VariableStore_Locals_ExposesReadOnlyView()
+		{
+			VariableStore.SetLocal("testAsset", "TEMP", "hello");
+
+			Assert.That(VariableStore.Locals, Contains.Key("testAsset"));
+			Assert.That(VariableStore.Locals["testAsset"]["TEMP"], Is.EqualTo("hello"));
+		}
+
+		// --- VisitTracker internal accessor ---
+
+		[Test]
+		public void VisitTracker_VisitedKeys_ExposesReadOnlyView()
+		{
+			VisitTracker.Mark("Forest");
+			VisitTracker.Mark("Tavern");
+
+			Assert.That(VisitTracker.VisitedKeys, Has.Count.EqualTo(2));
+			Assert.That(VisitTracker.VisitedKeys, Contains.Item("Forest"));
+			Assert.That(VisitTracker.VisitedKeys, Contains.Item("Tavern"));
+		}
+
+		// --- ImportState with parse cache clearing ---
+
+		[Test]
+		public void VariableStore_ImportState_ClearsExistingBeforeRestore()
+		{
+			VariableStore.SetGlobal("OLD", "value");
+
+			VariableSnapshot snapshot = new VariableSnapshot();
+			snapshot.Globals["NEW"] = "fresh";
+
+			VariableStore.ImportState(snapshot);
+
+			Assert.That(VariableStore.Resolve(null, "OLD"), Is.Null);
+			Assert.That(VariableStore.Resolve(null, "NEW"), Is.EqualTo("fresh"));
+		}
 	}
 }
