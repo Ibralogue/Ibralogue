@@ -58,6 +58,29 @@ namespace Ibralogue
 
         public List<Conversation> ParsedConversations { get; protected set; }
 
+        private readonly List<Line> _history = new List<Line>();
+
+        /// <summary>
+        /// A read-only log of every line displayed by this engine, in order.
+        /// Cleared when a conversation stops unless <see cref="PersistHistory"/>
+        /// is enabled.
+        /// </summary>
+        public IReadOnlyList<Line> History => _history;
+
+        /// <summary>
+        /// When true, the history log is preserved across conversations.
+        /// When false (default), it is cleared each time a conversation stops.
+        /// </summary>
+        public bool PersistHistory { get; set; }
+
+        /// <summary>
+        /// Clears the history log.
+        /// </summary>
+        public void ClearHistory()
+        {
+            _history.Clear();
+        }
+
         protected Conversation _currentConversation;
         protected bool _linePlaying;
         protected bool _isPaused = false;
@@ -212,6 +235,9 @@ namespace Ibralogue
             _cursor = null;
             _choicesActive = false;
             _isPaused = false;
+
+            if (!PersistHistory)
+                _history.Clear();
 
             PersistentOnConversationEnd.Invoke();
             OnConversationEnd.Invoke();
@@ -502,6 +528,7 @@ namespace Ibralogue
             InvokeTextProducingFunctions(resolved, line);
 
             dialogueView.SetView(line);
+            _history.Add(line);
             OnLineDisplayed.Invoke(line);
 
             foreach (EnginePlugin plugin in enginePlugins)
