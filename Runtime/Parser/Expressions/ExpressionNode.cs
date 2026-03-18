@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Ibralogue.Parser.Expressions
 {
 	/// <summary>
@@ -5,6 +7,22 @@ namespace Ibralogue.Parser.Expressions
 	/// </summary>
 	internal abstract class ExpressionNode
 	{
+	}
+
+	/// <summary>
+	/// A function call within an expression: FunctionName(arg1, arg2, ...)
+	/// The function must be a [DialogueInvocation] method that returns a value.
+	/// </summary>
+	internal class FunctionCallNode : ExpressionNode
+	{
+		public readonly string Name;
+		public readonly List<ExpressionNode> Arguments;
+
+		public FunctionCallNode(string name, List<ExpressionNode> arguments)
+		{
+			Name = name;
+			Arguments = arguments;
+		}
 	}
 
 	/// <summary>

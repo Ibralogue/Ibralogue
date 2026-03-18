@@ -102,6 +102,11 @@ namespace Ibralogue.Parser.Expressions
 					AddToken(ExpressionTokenType.RightParen, ")");
 					_position++;
 				}
+				else if (c == ',')
+				{
+					AddToken(ExpressionTokenType.Comma, ",");
+					_position++;
+				}
 				else if (IsAlpha(c))
 				{
 					ReadKeywordOrBool();

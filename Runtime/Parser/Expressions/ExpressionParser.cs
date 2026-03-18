@@ -168,7 +168,14 @@ namespace Ibralogue.Parser.Expressions
 					Advance();
 					string name = token.Lexeme;
 					if (name.Length > 0 && name[0] == '$')
+					{
 						name = name.Substring(1);
+						return new VariableNode(name);
+					}
+
+					if (Current().Type == ExpressionTokenType.LeftParen)
+						return ParseFunctionCall(name);
+
 					return new VariableNode(name);
 
 				case ExpressionTokenType.LeftParen:
@@ -182,6 +189,29 @@ namespace Ibralogue.Parser.Expressions
 				default:
 					throw new System.Exception($"Unexpected token '{token.Lexeme}' at position {token.Position}");
 			}
+		}
+
+		private ExpressionNode ParseFunctionCall(string name)
+		{
+			Advance(); // skip '('
+			List<ExpressionNode> arguments = new List<ExpressionNode>();
+
+			if (Current().Type != ExpressionTokenType.RightParen)
+			{
+				arguments.Add(ParseOr());
+
+				while (Current().Type == ExpressionTokenType.Comma)
+				{
+					Advance();
+					arguments.Add(ParseOr());
+				}
+			}
+
+			if (Current().Type != ExpressionTokenType.RightParen)
+				throw new System.Exception($"Expected ')' after function arguments at position {Current().Position}");
+			Advance();
+
+			return new FunctionCallNode(name, arguments);
 		}
 
 		private ExpressionToken Current()

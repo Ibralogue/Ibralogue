@@ -14,11 +14,20 @@ namespace Ibralogue.Parser.Expressions
 		/// </summary>
 		public delegate object VariableResolver(string name);
 
-		private readonly VariableResolver _resolver;
+		/// <summary>
+		/// Delegate used to invoke a function by name with evaluated arguments.
+		/// Returns the function result, or null if the function is not found.
+		/// </summary>
+		public delegate object FunctionResolver(string name, object[] arguments);
 
-		public ExpressionEvaluator(VariableResolver resolver)
+		private readonly VariableResolver _variableResolver;
+		private readonly FunctionResolver _functionResolver;
+
+		public ExpressionEvaluator(VariableResolver variableResolver,
+			FunctionResolver functionResolver = null)
 		{
-			_resolver = resolver;
+			_variableResolver = variableResolver;
+			_functionResolver = functionResolver;
 		}
 
 		/// <summary>
@@ -31,7 +40,10 @@ namespace Ibralogue.Parser.Expressions
 				return literal.Value;
 
 			if (node is VariableNode variable)
-				return _resolver(variable.Name);
+				return _variableResolver(variable.Name);
+
+			if (node is FunctionCallNode call)
+				return EvaluateFunctionCall(call);
 
 			if (node is UnaryNode unary)
 				return EvaluateUnary(unary);
@@ -40,6 +52,18 @@ namespace Ibralogue.Parser.Expressions
 				return EvaluateBinary(binary);
 
 			throw new Exception("Unknown expression node type");
+		}
+
+		private object EvaluateFunctionCall(FunctionCallNode call)
+		{
+			if (_functionResolver == null)
+				throw new Exception($"Function '{call.Name}' called in expression but no function resolver is available");
+
+			object[] args = new object[call.Arguments.Count];
+			for (int i = 0; i < call.Arguments.Count; i++)
+				args[i] = Evaluate(call.Arguments[i]);
+
+			return _functionResolver(call.Name, args);
 		}
 
 		/// <summary>
