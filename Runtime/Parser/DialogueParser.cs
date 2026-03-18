@@ -70,6 +70,37 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
+		/// Runs the full parser pipeline on raw source text and returns diagnostics
+		/// without logging. Used by the importer for import-time validation.
+		/// </summary>
+		internal static DiagnosticBag Validate(string source, string assetName)
+		{
+			DiagnosticBag diagnostics = new DiagnosticBag();
+
+			try
+			{
+				DialoguePreprocessor preprocessor = new DialoguePreprocessor(diagnostics, assetName);
+				source = preprocessor.Process(source);
+
+				DialogueLexer lexer = new DialogueLexer(source, diagnostics);
+				List<DialogueToken> tokens = lexer.Tokenize();
+
+				DialogueTreeGenerator generator = new DialogueTreeGenerator(tokens, diagnostics);
+				DialogueTree tree = generator.ParseIntoTree();
+
+				DialogueAnalyzer analyzer = new DialogueAnalyzer(diagnostics, assetName);
+				analyzer.Analyze(tree);
+			}
+			catch (System.Exception)
+			{
+				// Swallow parse exceptions during validation; the diagnostics bag
+				// already contains the structured errors.
+			}
+
+			return diagnostics;
+		}
+
+		/// <summary>
 		/// Logs all collected diagnostics through the existing DialogueLogger system.
 		/// </summary>
 		private static void ReportDiagnostics(DiagnosticBag diagnostics)

@@ -63,21 +63,20 @@ namespace Ibralogue.Editor.Tests
 			object receivedOld = "SENTINEL";
 			object receivedNew = "SENTINEL";
 
-			VariableStore.OnVariableChanged += (name, oldVal, newVal) =>
+			System.Action<string, object, object> handler = (name, oldVal, newVal) =>
 			{
 				receivedName = name;
 				receivedOld = oldVal;
 				receivedNew = newVal;
 			};
 
+			VariableStore.OnVariableChanged += handler;
 			VariableStore.SetGlobal("SCORE", 100.0);
+			VariableStore.OnVariableChanged -= handler;
 
 			Assert.That(receivedName, Is.EqualTo("SCORE"));
 			Assert.That(receivedOld, Is.Null);
 			Assert.That(receivedNew, Is.EqualTo(100.0));
-
-			// Clean up static event
-			VariableStore.OnVariableChanged = null;
 		}
 
 		// --- VariableStore ExportState / ImportState ---

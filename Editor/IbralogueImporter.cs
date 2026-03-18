@@ -9,10 +9,6 @@ namespace Ibralogue.Editor
     [ScriptedImporter(1, "ibra")]
     public class IbralogueImporter : ScriptedImporter
     {
-        /// <summary>
-        /// Creates an instance of a scriptable object of type <see cref="DialogueAsset "/> and adds the contents of ctx file to the asset.
-        /// </summary>
-        /// <param name="ctx">The context for importing the asset.</param>
         public override void OnImportAsset(AssetImportContext ctx)
         {
             var dialogue = ScriptableObject.CreateInstance<DialogueAsset>();
@@ -21,6 +17,30 @@ namespace Ibralogue.Editor
 
             ctx.AddObjectToAsset("Dialogue", dialogue);
             ctx.SetMainObject(dialogue);
+
+            if (IbralogueSettings.ShouldValidateOnImport)
+                ValidateDialogue(ctx, dialogue);
+        }
+
+        private static void ValidateDialogue(AssetImportContext ctx, DialogueAsset dialogue)
+        {
+            DiagnosticBag diagnostics = DialogueParser.Validate(
+                dialogue.Content ?? "", dialogue.name ?? "unknown");
+
+            foreach (Diagnostic diagnostic in diagnostics.Diagnostics)
+            {
+                string message = $"[line {diagnostic.Span.Start.Line}] {diagnostic.Message}";
+
+                switch (diagnostic.Severity)
+                {
+                    case DiagnosticSeverity.Error:
+                        ctx.LogImportError(message);
+                        break;
+                    case DiagnosticSeverity.Warning:
+                        ctx.LogImportWarning(message);
+                        break;
+                }
+            }
         }
     }
 }

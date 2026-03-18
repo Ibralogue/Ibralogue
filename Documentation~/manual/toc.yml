@@ -38,3 +38,5 @@
       href: events.md
     - name: Localization
       href: localization.md
+    - name: Project Settings
+      href: project-settings.md
