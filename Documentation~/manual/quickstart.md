@@ -2,7 +2,7 @@
 
 Add an empty GameObject with the `SimpleDialogueEngine` component to your scene. Assign a Dialogue View to its `Dialogue View` field (see [Dialogue Views](dialogue-views.md) for the available options).
 
-Add a button, give it the `SingleInteraction` component, and assign its `Dialogue Engine` reference to your `SimpleDialogueEngine`.
+Add a button, give it the `SingleInteraction` component, and assign its `Dialogue Engine` reference to your engine.
 
 Assign the button component's click callback to `SingleInteraction.StartDialogue`.
 

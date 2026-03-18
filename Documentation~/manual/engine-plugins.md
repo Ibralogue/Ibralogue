@@ -4,10 +4,18 @@ Engine plugins let you hook into the dialogue display lifecycle without modifyin
 
 #### How Plugins Work
 
-Any `EnginePlugin` component on the same GameObject as the `SimpleDialogueEngine` is automatically discovered. The engine calls into each plugin at two points:
+Any `EnginePlugin` component on the same GameObject as the dialogue engine is automatically discovered. The engine calls into each plugin at several points during the conversation lifecycle:
 
-- `Display(Line line)` is called every time a new dialogue line is shown. The `Line` object contains the speaker, text, metadata, and other properties for the current line.
-- `Clear()` is called when the view is cleared (between lines and at conversation end).
+| Method | When it fires |
+|--------|---------------|
+| `Display(Line line)` | Every time a new dialogue line is shown. |
+| `Clear()` | When the view is cleared (between lines and at conversation end). |
+| `OnConversationStart(Conversation)` | When a conversation begins. |
+| `OnConversationEnd()` | When a conversation ends. |
+| `OnChoicesPresented(List<Choice>)` | When choices are shown to the player. |
+| `OnChoiceMade(Choice)` | When the player selects a choice. |
+
+`Display` and `Clear` are abstract and must be implemented. The other four methods are virtual with empty default implementations, so override only the ones you need.
 
 #### Built-in: PortraitImagePlugin
 
@@ -67,9 +75,10 @@ Assign the component to the engine's `Audio Provider Component` field.
 
 #### Creating a Custom Plugin
 
-Subclass `EnginePlugin` and implement the two abstract methods:
+Subclass `EnginePlugin` and implement the abstract methods. Override any virtual lifecycle methods you need:
 
 ```cs
+using System.Collections.Generic;
 using Ibralogue.Parser;
 using Ibralogue.Plugins;
 using UnityEngine;
@@ -88,10 +97,15 @@ public class AudioPlugin : EnginePlugin
     {
         audioSource.Stop();
     }
+
+    public override void OnChoiceMade(Choice choice)
+    {
+        Debug.Log($"Player chose: {choice.ChoiceName}");
+    }
 }
 ```
 
-Place the component on the same GameObject as your `SimpleDialogueEngine`. It will be picked up automatically.
+Place the component on the same GameObject as your dialogue engine. It will be picked up automatically.
 
 #### Per-Character Typing Sounds
 

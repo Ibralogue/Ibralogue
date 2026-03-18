@@ -112,6 +112,35 @@ VariableStore.ClearLocals("myDialogue");
 VariableStore.ClearAll();
 ```
 
+#### Reacting to Variable Changes
+
+The `OnVariableChanged` event fires whenever a variable is set from any source (code or dialogue). The callback receives the variable name, old value, and new value:
+
+```cs
+VariableStore.OnVariableChanged += (name, oldValue, newValue) =>
+{
+    Debug.Log($"{name} changed from {oldValue} to {newValue}");
+};
+```
+
+This is useful for reactive UI, quest state tracking, or achievement systems.
+
+#### Saving and Loading Variable State
+
+The `VariableStore` supports exporting and importing its entire state for save/load systems:
+
+```cs
+// Save
+VariableSnapshot snapshot = VariableStore.ExportState();
+string json = JsonUtility.ToJson(snapshot);
+
+// Load
+VariableSnapshot loaded = JsonUtility.FromJson<VariableSnapshot>(json);
+VariableStore.ImportState(loaded);
+```
+
+`ImportState` clears all existing variables before restoring the snapshot.
+
 #### Missing Variables
 
 If a variable is referenced but has no entry in any scope, the `$VARIABLE` text is left as-is.

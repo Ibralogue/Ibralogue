@@ -13,14 +13,14 @@ These events are configured in the Inspector and survive across conversation swi
 
 Use these for things that should always happen, like showing or hiding the dialogue UI.
 
-#### Transient Events
+#### Conversation Events
 
-These events are code-only (`[HideInInspector]`) and are cleared every time a conversation stops. They are useful for one-off reactions tied to a specific conversation.
+These events can be subscribed to from code. Listeners are **not** cleared between conversations, so you can subscribe once and receive callbacks for every conversation.
 
-| Event | When it fires |
-|-------|---------------|
-| `OnConversationStart` | When a conversation starts. Cleared on stop. |
-| `OnConversationEnd` | When a conversation ends. Cleared on stop. |
+| Event | Type | When it fires |
+|-------|------|---------------|
+| `OnConversationStart` | `UnityEvent` | When a conversation starts. |
+| `OnConversationEnd` | `UnityEvent` | When a conversation ends. |
 
 ```cs
 dialogueEngine.OnConversationStart.AddListener(() =>
@@ -29,7 +29,27 @@ dialogueEngine.OnConversationStart.AddListener(() =>
 });
 ```
 
-Because transient listeners are cleared after each conversation, you do not need to remove them manually.
+#### Typed Dialogue Events
+
+These events pass data to listeners, making it easy for external systems (quests, analytics, voiceover, etc.) to react to dialogue content.
+
+| Event | Type | When it fires |
+|-------|------|---------------|
+| `OnLineDisplayed` | `LineEvent` | After a line is resolved and set on the view. Passes the `Line`. |
+| `OnChoicesPresented` | `ChoiceListEvent` | When choices are shown to the player. Passes `List<Choice>`. |
+| `OnChoiceSelected` | `ChoiceEvent` | When the player picks a choice. Passes the selected `Choice`. |
+
+```cs
+dialogueEngine.OnLineDisplayed.AddListener((line) =>
+{
+    Debug.Log($"{line.Speaker}: {line.LineContent.Text}");
+});
+
+dialogueEngine.OnChoiceSelected.AddListener((choice) =>
+{
+    Debug.Log($"Player chose: {choice.ChoiceName}");
+});
+```
 
 #### Pause and Resume Events
 

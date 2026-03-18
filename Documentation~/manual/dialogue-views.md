@@ -80,9 +80,9 @@ public class MyCustomView : DialogueViewBase
         // Instantly complete your effect
     }
 
-    public override void ClearView(EnginePlugin[] plugins)
+    public override void ClearView()
     {
-        base.ClearView(plugins);
+        base.ClearView();
         // Any additional cleanup
     }
 }
