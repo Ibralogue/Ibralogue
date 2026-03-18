@@ -27,6 +27,8 @@ Ibralogue ships with built-in invocations for common tasks. These can be placed 
 | `{{Audio(clipId)}}` | Plays an audio clip via the engine's `IAudioProvider`. |
 | `{{Wait(seconds)}}` | Pauses the display for the given duration. |
 | `{{Speed(multiplier)}}` | Changes the text reveal speed. 2 = twice as fast, 0.5 = half speed. Affects animated views only. |
+| `{{PauseEngine}}` | Pauses the engine. Call `ResumeConversation()` from code to continue. Use this to hand control to external systems. |
+| `{{ResumeEngine}}` | Resumes a paused engine from within dialogue. |
 | `{{MarkVisited(key)}}` | Marks a key as visited. Check with `Visited("key")` in conditionals. |
 
 ```text

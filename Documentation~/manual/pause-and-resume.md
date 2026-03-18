@@ -27,6 +27,26 @@ if (dialogueEngine.IsConversationPaused())
 }
 ```
 
+#### Pausing from Dialogue
+
+Use the `{{PauseEngine}}` standard invocation to pause directly from a `.ibra` file. The engine halts until `ResumeConversation()` is called from code:
+
+```text
+[NPC]
+Watch this!
+{{PauseEngine}}
+
+[NPC]
+Pretty cool, right?
+```
+
+```cs
+// External system calls this when ready
+dialogueEngine.ResumeConversation();
+```
+
+This is useful when an invocation triggers an animation, cutscene, or minigame and the dialogue should wait for it to finish.
+
 #### Events
 
 The engine fires `OnConversationPaused` when paused and `OnConversationResumed` when resumed. See the [Events](events.md) page for details.
