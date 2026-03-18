@@ -27,19 +27,19 @@ namespace Ibralogue.Editor
             DiagnosticBag diagnostics = DialogueParser.Validate(
                 dialogue.Content ?? "", dialogue.name ?? "unknown");
 
+            bool strict = IbralogueSettings.IsStrictMode;
+
             foreach (Diagnostic diagnostic in diagnostics.Diagnostics)
             {
                 string message = $"{dialogue.name}.ibra (line {diagnostic.Span.Start.Line}): {diagnostic.Message}";
 
-                switch (diagnostic.Severity)
-                {
-                    case DiagnosticSeverity.Error:
-                        ctx.LogImportError(message);
-                        break;
-                    case DiagnosticSeverity.Warning:
-                        ctx.LogImportWarning(message);
-                        break;
-                }
+                bool isError = diagnostic.Severity == DiagnosticSeverity.Error
+                               || (strict && diagnostic.Severity == DiagnosticSeverity.Warning);
+
+                if (isError)
+                    ctx.LogImportError(message);
+                else
+                    ctx.LogImportWarning(message);
             }
         }
     }

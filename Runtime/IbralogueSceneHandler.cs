@@ -1,3 +1,4 @@
+using Ibralogue.Parser;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,9 @@ namespace Ibralogue
 
 			if (settings.ClearVisitsOnSceneLoad)
 				VisitTracker.Clear();
+
+			if (settings.ClearParseCacheOnSceneLoad)
+				DialogueParser.ClearCache();
 		}
 	}
 }
