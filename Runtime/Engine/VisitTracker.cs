@@ -63,17 +63,6 @@ namespace Ibralogue
 				_visited.Add(key);
 		}
 
-		/// <summary>
-		/// Resolves a variable name with the <c>Visited_</c> prefix.
-		/// Returns <c>true</c>/<c>false</c> if the name matches, or null
-		/// if the prefix does not apply.
-		/// </summary>
-		internal static object ResolveVariable(string name)
-		{
-			if (name != null && name.StartsWith("Visited_") && name.Length > 8)
-				return HasVisited(name.Substring(8));
-			return null;
-		}
 	}
 
 	/// <summary>
