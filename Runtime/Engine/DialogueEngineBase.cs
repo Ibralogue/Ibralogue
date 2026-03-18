@@ -56,6 +56,13 @@ namespace Ibralogue
         /// </summary>
         public ChoiceEvent OnChoiceSelected = new ChoiceEvent();
 
+        /// <summary>
+        /// Optional filter applied to choices before they are presented.
+        /// Receives the full resolved list and returns the filtered list.
+        /// Use this to hide, reorder, or modify choices based on game state.
+        /// </summary>
+        public Func<List<Choice>, List<Choice>> ChoiceFilter { get; set; }
+
         public List<Conversation> ParsedConversations { get; protected set; }
 
         private readonly List<Line> _history = new List<Line>();
@@ -426,11 +433,7 @@ namespace Ibralogue
                 {
                     _choicesActive = true;
                     List<Choice> resolved = ResolveChoices(standAloneChoices);
-                    OnChoicesPresented.Invoke(resolved);
-                    if (enginePlugins != null)
-                        foreach (EnginePlugin plugin in enginePlugins)
-                            plugin.OnChoicesPresented(resolved);
-                    dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
+                    PresentChoices(resolved);
                     return;
                 }
 
@@ -489,11 +492,7 @@ namespace Ibralogue
             {
                 _choicesActive = true;
                 List<Choice> resolved = ResolveChoices(choices);
-                OnChoicesPresented.Invoke(resolved);
-                if (enginePlugins != null)
-                    foreach (EnginePlugin plugin in enginePlugins)
-                        plugin.OnChoicesPresented(resolved);
-                dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
+                PresentChoices(resolved);
                 AdvanceToNextDisplayable();
             }
 
@@ -578,6 +577,20 @@ namespace Ibralogue
 
             if (_isPaused)
                 yield return new WaitUntil(() => !_isPaused);
+        }
+
+        private void PresentChoices(List<Choice> resolved)
+        {
+            if (ChoiceFilter != null)
+                resolved = ChoiceFilter(resolved);
+
+            OnChoicesPresented.Invoke(resolved);
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnChoicesPresented(resolved);
+
+            dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
         }
 
         private void HandleChoiceSelected(Choice choice)
