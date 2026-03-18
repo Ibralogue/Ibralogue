@@ -13,7 +13,7 @@ namespace Ibralogue.Editor
         /// <summary>
         /// Creates an Ibralogue file using Unity's <see cref="ProjectWindowUtil.CreateScriptAssetFromTemplateFile(string, string)"/> function.
         /// </summary>
-        [MenuItem("Assets/Create/Ibralogue", false, 50)]
+        [MenuItem("Assets/Create/Ibralogue/Ibralogue Dialogue File", false, 50)]
         public static void CreateDialogue()
         {
             string templateFullPath = GetTemplateFullPath();
