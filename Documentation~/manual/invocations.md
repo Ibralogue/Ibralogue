@@ -119,6 +119,30 @@ public static void PauseForDrama(DialogueEngineBase engine)
 }
 ```
 
+#### Async Invocations
+
+If an invocation returns `IEnumerator`, the engine automatically yields on it, blocking the dialogue until the coroutine finishes. This is useful for cutscenes, animations, or any work that takes time:
+
+```cs
+[DialogueInvocation]
+public IEnumerator PlayCutscene(string name)
+{
+    yield return CutsceneManager.Play(name);
+}
+```
+
+```text
+[>>]
+{{PlayCutscene(intro)}}
+
+[NPC]
+That was something!
+```
+
+The engine pauses the text reveal (if active) while the coroutine runs, then resumes. On silent lines (`[>>]`), the engine waits for the coroutine to finish before advancing.
+
+This is different from `{{Wait(seconds)}}` which only pauses the text animation for a fixed duration, and from `{{PauseEngine}}` which halts the engine until `ResumeConversation()` is called manually. Async invocations express their own duration naturally.
+
 #### Variables as Arguments
 
 [Variables](global-variables.md) are resolved inside invocation arguments:

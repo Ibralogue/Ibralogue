@@ -441,6 +441,11 @@ namespace Ibralogue
 
                     if (line.Line.Silent)
                     {
+                        if (HasAsyncInvocations(line.Line.LineContent.Invocations))
+                        {
+                            StartCoroutine(InvokeFunctionsAsync(line.Line.LineContent.Invocations, line.Line));
+                            return;
+                        }
                         InvokeFunctions(line.Line.LineContent.Invocations, line.Line);
                         continue;
                     }
@@ -576,10 +581,16 @@ namespace Ibralogue
                 while (nextPending < pending.Count &&
                        pending[nextPending].Invocation.CharacterIndex <= visibleChars)
                 {
-                    InvokeSingle(pending[nextPending], line);
+                    object result = InvokeSingle(pending[nextPending], line);
                     nextPending++;
 
-                    if (_pendingWaitSeconds > 0f)
+                    if (result is IEnumerator coroutine)
+                    {
+                        dialogueView.Pause();
+                        yield return coroutine;
+                        dialogueView.Resume();
+                    }
+                    else if (_pendingWaitSeconds > 0f)
                     {
                         dialogueView.Pause();
                         yield return new WaitForSeconds(_pendingWaitSeconds);
@@ -593,10 +604,14 @@ namespace Ibralogue
 
             while (nextPending < pending.Count)
             {
-                InvokeSingle(pending[nextPending], line);
+                object result = InvokeSingle(pending[nextPending], line);
                 nextPending++;
 
-                if (_pendingWaitSeconds > 0f)
+                if (result is IEnumerator remainingCoroutine)
+                {
+                    yield return remainingCoroutine;
+                }
+                else if (_pendingWaitSeconds > 0f)
                 {
                     yield return new WaitForSeconds(_pendingWaitSeconds);
                     _pendingWaitSeconds = 0f;
@@ -813,16 +828,62 @@ namespace Ibralogue
             List<ResolvedInvocation> pending = new List<ResolvedInvocation>();
             foreach (ResolvedInvocation r in resolved)
             {
-                if (r.Method.ReturnType == typeof(void))
+                if (r.Method.ReturnType == typeof(void)
+                    || typeof(IEnumerator).IsAssignableFrom(r.Method.ReturnType))
                     pending.Add(r);
             }
             pending.Sort((a, b) => a.Invocation.CharacterIndex.CompareTo(b.Invocation.CharacterIndex));
             return pending;
         }
 
-        private void InvokeSingle(ResolvedInvocation r, Line line)
+        private object InvokeSingle(ResolvedInvocation r, Line line)
         {
-            r.Method.Invoke(r.Target, r.Arguments);
+            return r.Method.Invoke(r.Target, r.Arguments);
+        }
+
+        private bool HasAsyncInvocations(List<Invocation> invocations)
+        {
+            if (invocations == null || invocations.Count == 0) return false;
+
+            IEnumerable<CachedInvocation> methods = GetInvocationMethods();
+            foreach (Invocation function in invocations)
+            {
+                CachedInvocation? cached = ResolveInvocation(methods, function, true);
+                if (cached != null && typeof(IEnumerator).IsAssignableFrom(cached.Value.Method.ReturnType))
+                    return true;
+            }
+            return false;
+        }
+
+        private IEnumerator InvokeFunctionsAsync(List<Invocation> functionInvocations, Line line)
+        {
+            if (functionInvocations == null || functionInvocations.Count == 0) yield break;
+
+            IEnumerable<CachedInvocation> dialogueMethods = GetInvocationMethods();
+
+            foreach (Invocation function in functionInvocations)
+            {
+                CachedInvocation? cached = ResolveInvocation(dialogueMethods, function);
+                if (cached == null) continue;
+
+                object[] args = BuildInvocationArguments(cached.Value.Method, function);
+                if (args == null) continue;
+
+                object result = cached.Value.Method.Invoke(cached.Value.Target, args);
+
+                if (result is IEnumerator coroutine)
+                {
+                    yield return coroutine;
+                }
+                else if (cached.Value.Method.ReturnType != typeof(void))
+                {
+                    string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
+                    line.LineContent.Text =
+                        line.LineContent.Text.Insert(function.CharacterIndex, insertText);
+                }
+            }
+
+            AdvanceAndDisplay();
         }
 
         /// <summary>
@@ -855,7 +916,8 @@ namespace Ibralogue
             }
         }
 
-        private CachedInvocation? ResolveInvocation(IEnumerable<CachedInvocation> methods, Invocation function)
+        private CachedInvocation? ResolveInvocation(IEnumerable<CachedInvocation> methods,
+            Invocation function, bool silent = false)
         {
             bool nameFound = false;
             int argCount = function.Arguments != null ? function.Arguments.Count : 0;
@@ -876,15 +938,18 @@ namespace Ibralogue
                     return cached;
             }
 
-            if (nameFound)
+            if (!silent)
             {
-                DialogueLogger.LogWarning(function.Line, function.Column,
-                    $"[DialogueInvocation] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
-            }
-            else
-            {
-                DialogueLogger.LogWarning(function.Line, function.Column,
-                    $"No [DialogueInvocation] method found for invocation '{function.Name}'");
+                if (nameFound)
+                {
+                    DialogueLogger.LogWarning(function.Line, function.Column,
+                        $"[DialogueInvocation] '{function.Name}' exists but no overload accepts {argCount} argument(s)");
+                }
+                else
+                {
+                    DialogueLogger.LogWarning(function.Line, function.Column,
+                        $"No [DialogueInvocation] method found for invocation '{function.Name}'");
+                }
             }
 
             return null;
