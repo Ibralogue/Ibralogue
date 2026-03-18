@@ -125,5 +125,71 @@ namespace Ibralogue
 			if (value is bool b) return b ? "true" : "false";
 			return value.ToString();
 		}
+
+		/// <summary>
+		/// Exports a snapshot of all variable state for serialization by a save system.
+		/// </summary>
+		public static VariableSnapshot ExportState()
+		{
+			VariableSnapshot snapshot = new VariableSnapshot();
+
+			foreach (KeyValuePair<string, object> kvp in _globals)
+				snapshot.Globals[kvp.Key] = ToString(kvp.Value);
+
+			foreach (KeyValuePair<string, Dictionary<string, object>> asset in _locals)
+			{
+				Dictionary<string, string> assetScope = new Dictionary<string, string>();
+				foreach (KeyValuePair<string, object> kvp in asset.Value)
+					assetScope[kvp.Key] = ToString(kvp.Value);
+				snapshot.Locals[asset.Key] = assetScope;
+			}
+
+			return snapshot;
+		}
+
+		/// <summary>
+		/// Restores variable state from a previously exported snapshot. Clears all
+		/// existing variables before importing.
+		/// </summary>
+		public static void ImportState(VariableSnapshot snapshot)
+		{
+			if (snapshot == null)
+				throw new ArgumentNullException(nameof(snapshot));
+
+			ClearAll();
+
+			foreach (KeyValuePair<string, string> kvp in snapshot.Globals)
+				_globals[kvp.Key] = ParseStoredValue(kvp.Value);
+
+			foreach (KeyValuePair<string, Dictionary<string, string>> asset in snapshot.Locals)
+			{
+				Dictionary<string, object> scope = new Dictionary<string, object>();
+				foreach (KeyValuePair<string, string> kvp in asset.Value)
+					scope[kvp.Key] = ParseStoredValue(kvp.Value);
+				_locals[asset.Key] = scope;
+			}
+		}
+
+		private static object ParseStoredValue(string value)
+		{
+			if (string.IsNullOrEmpty(value)) return null;
+			if (value == "true") return true;
+			if (value == "false") return false;
+			if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double d))
+				return d;
+			return value;
+		}
+	}
+
+	/// <summary>
+	/// A serializable snapshot of all dialogue variable state. Use with
+	/// <see cref="VariableStore.ExportState"/> and <see cref="VariableStore.ImportState"/>
+	/// to integrate with save/load systems.
+	/// </summary>
+	[Serializable]
+	public class VariableSnapshot
+	{
+		public Dictionary<string, string> Globals = new Dictionary<string, string>();
+		public Dictionary<string, Dictionary<string, string>> Locals = new Dictionary<string, Dictionary<string, string>>();
 	}
 }
