@@ -813,7 +813,8 @@ namespace Ibralogue
         {
             foreach (ResolvedInvocation r in resolved)
             {
-                if (r.Method.ReturnType == typeof(void))
+                if (r.Method.ReturnType == typeof(void)
+                    || typeof(IEnumerator).IsAssignableFrom(r.Method.ReturnType))
                     continue;
 
                 object result = r.Method.Invoke(r.Target, r.Arguments);
