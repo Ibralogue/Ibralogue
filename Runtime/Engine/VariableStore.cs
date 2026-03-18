@@ -13,6 +13,9 @@ namespace Ibralogue
 		private static readonly Dictionary<string, object> _globals = new Dictionary<string, object>();
 		private static readonly Dictionary<string, Dictionary<string, object>> _locals = new Dictionary<string, Dictionary<string, object>>();
 
+		internal static IReadOnlyDictionary<string, object> Globals => _globals;
+		internal static IReadOnlyDictionary<string, Dictionary<string, object>> Locals => _locals;
+
 		/// <summary>
 		/// Invoked whenever a variable is created or changed. Parameters are
 		/// (variableName, oldValue, newValue). oldValue is null for new variables.

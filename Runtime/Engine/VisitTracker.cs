@@ -6,12 +6,14 @@ namespace Ibralogue
 	/// <summary>
 	/// Opt-in visit tracking for dialogue conversations and arbitrary keys.
 	/// Nothing is tracked unless <see cref="Mark"/> is called explicitly.
-	/// Visited state can be checked from dialogue using the <c>$Visited_</c>
-	/// variable prefix (e.g. <c>{{If($Visited_Tavern)}}</c>).
+	/// Visited state can be checked from dialogue using
+	/// <c>{{If(Visited("Tavern"))}}</c>.
 	/// </summary>
 	public static class VisitTracker
 	{
 		private static readonly HashSet<string> _visited = new HashSet<string>();
+
+		internal static IReadOnlyCollection<string> VisitedKeys => _visited;
 
 		/// <summary>
 		/// Marks a key as visited.
