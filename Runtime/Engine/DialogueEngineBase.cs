@@ -69,7 +69,7 @@ namespace Ibralogue
         private bool _choicesActive;
         private float _pendingWaitSeconds;
 
-        private List<MethodInfo> _cachedInvocationMethods;
+        private List<CachedInvocation> _cachedInvocationMethods;
         private bool _invocationCacheDirty = true;
 
         public UnityEvent OnConversationPaused = new UnityEvent();
@@ -578,15 +578,15 @@ namespace Ibralogue
 
         private object ResolveExpressionFunction(string name, object[] arguments)
         {
-            IEnumerable<MethodInfo> methods = GetInvocationMethods();
+            IEnumerable<CachedInvocation> methods = GetInvocationMethods();
             int argCount = arguments != null ? arguments.Length : 0;
 
-            foreach (MethodInfo method in methods)
+            foreach (CachedInvocation cached in methods)
             {
-                if (method.Name != name)
+                if (cached.Method.Name != name)
                     continue;
 
-                ParameterInfo[] parameters = method.GetParameters();
+                ParameterInfo[] parameters = cached.Method.GetParameters();
                 int expectedArgs = parameters.Length;
 
                 if (expectedArgs > 0 && typeof(DialogueEngineBase).IsAssignableFrom(parameters[0].ParameterType))
@@ -629,7 +629,7 @@ namespace Ibralogue
                     argIndex++;
                 }
 
-                return method.Invoke(null, callArgs);
+                return cached.Method.Invoke(cached.Target, callArgs);
             }
 
             DialogueLogger.LogWarning(
@@ -638,15 +638,25 @@ namespace Ibralogue
             return null;
         }
 
+        /// <summary>
+        /// Pairs a method with its invocation target. Target is null for static methods.
+        /// </summary>
+        private struct CachedInvocation
+        {
+            public MethodInfo Method;
+            public object Target;
+        }
+
         private struct ResolvedInvocation
         {
             public Invocation Invocation;
             public MethodInfo Method;
+            public object Target;
             public object[] Arguments;
         }
 
         private List<ResolvedInvocation> ResolveAllInvocations(Line line,
-            IEnumerable<MethodInfo> dialogueMethods)
+            IEnumerable<CachedInvocation> dialogueMethods)
         {
             List<ResolvedInvocation> result = new List<ResolvedInvocation>();
             if (line.LineContent.Invocations == null)
@@ -654,16 +664,17 @@ namespace Ibralogue
 
             foreach (Invocation function in line.LineContent.Invocations)
             {
-                MethodInfo method = ResolveInvocation(dialogueMethods, function);
-                if (method == null) continue;
+                CachedInvocation? cached = ResolveInvocation(dialogueMethods, function);
+                if (cached == null) continue;
 
-                object[] args = BuildInvocationArguments(method, function);
+                object[] args = BuildInvocationArguments(cached.Value.Method, function);
                 if (args == null) continue;
 
                 result.Add(new ResolvedInvocation
                 {
                     Invocation = function,
-                    Method = method,
+                    Method = cached.Value.Method,
+                    Target = cached.Value.Target,
                     Arguments = args
                 });
             }
@@ -678,7 +689,7 @@ namespace Ibralogue
                 if (r.Method.ReturnType == typeof(void))
                     continue;
 
-                object result = r.Method.Invoke(null, r.Arguments);
+                object result = r.Method.Invoke(r.Target, r.Arguments);
                 string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
                 line.LineContent.Text =
                     line.LineContent.Text.Insert(r.Invocation.CharacterIndex, insertText);
@@ -699,7 +710,7 @@ namespace Ibralogue
 
         private void InvokeSingle(ResolvedInvocation r, Line line)
         {
-            r.Method.Invoke(null, r.Arguments);
+            r.Method.Invoke(r.Target, r.Arguments);
         }
 
         /// <summary>
@@ -711,19 +722,19 @@ namespace Ibralogue
             if (functionInvocations == null || functionInvocations.Count == 0)
                 return;
 
-            IEnumerable<MethodInfo> dialogueMethods = GetInvocationMethods();
+            IEnumerable<CachedInvocation> dialogueMethods = GetInvocationMethods();
 
             foreach (Invocation function in functionInvocations)
             {
-                MethodInfo method = ResolveInvocation(dialogueMethods, function);
-                if (method == null) continue;
+                CachedInvocation? cached = ResolveInvocation(dialogueMethods, function);
+                if (cached == null) continue;
 
-                object[] args = BuildInvocationArguments(method, function);
+                object[] args = BuildInvocationArguments(cached.Value.Method, function);
                 if (args == null) continue;
 
-                object result = method.Invoke(null, args);
+                object result = cached.Value.Method.Invoke(cached.Value.Target, args);
 
-                if (method.ReturnType != typeof(void))
+                if (cached.Value.Method.ReturnType != typeof(void))
                 {
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
                     line.LineContent.Text =
@@ -732,25 +743,25 @@ namespace Ibralogue
             }
         }
 
-        private MethodInfo ResolveInvocation(IEnumerable<MethodInfo> methods, Invocation function)
+        private CachedInvocation? ResolveInvocation(IEnumerable<CachedInvocation> methods, Invocation function)
         {
             bool nameFound = false;
             int argCount = function.Arguments != null ? function.Arguments.Count : 0;
 
-            foreach (MethodInfo method in methods)
+            foreach (CachedInvocation cached in methods)
             {
-                if (method.Name != function.Name)
+                if (cached.Method.Name != function.Name)
                     continue;
 
                 nameFound = true;
-                ParameterInfo[] parameters = method.GetParameters();
+                ParameterInfo[] parameters = cached.Method.GetParameters();
                 int expectedArgs = parameters.Length;
 
                 if (expectedArgs > 0 && typeof(DialogueEngineBase).IsAssignableFrom(parameters[0].ParameterType))
                     expectedArgs--;
 
                 if (expectedArgs == argCount)
-                    return method;
+                    return cached;
             }
 
             if (nameFound)
@@ -824,11 +835,14 @@ namespace Ibralogue
             _invocationCacheDirty = true;
         }
 
-        protected IEnumerable<MethodInfo> GetInvocationMethods()
+        protected IEnumerable<CachedInvocation> GetInvocationMethods()
         {
             if (!_invocationCacheDirty && _cachedInvocationMethods != null)
                 return _cachedInvocationMethods;
 
+            _cachedInvocationMethods = new List<CachedInvocation>();
+
+            // Static methods from assemblies
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             if (searchAllAssemblies) assemblies.AddRange(allAssemblies);
@@ -840,13 +854,30 @@ namespace Ibralogue
                         assembly == Assembly.GetExecutingAssembly()) assemblies.Add(assembly);
                 }
 
-            _cachedInvocationMethods = new List<MethodInfo>();
             foreach (Assembly assembly in assemblies)
             {
-                IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
-                    .SelectMany(t => t.GetMethods())
+                IEnumerable<MethodInfo> staticMethods = assembly.GetTypes()
+                    .SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.Static))
                     .Where(m => m.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0);
-                _cachedInvocationMethods.AddRange(allMethods);
+
+                foreach (MethodInfo method in staticMethods)
+                    _cachedInvocationMethods.Add(new CachedInvocation { Method = method, Target = null });
+            }
+
+            // Instance methods on MonoBehaviours attached to this GameObject
+            MonoBehaviour[] components = GetComponents<MonoBehaviour>();
+            foreach (MonoBehaviour component in components)
+            {
+                if (component == null) continue;
+
+                MethodInfo[] methods = component.GetType()
+                    .GetMethods(BindingFlags.Public | BindingFlags.Instance);
+
+                foreach (MethodInfo method in methods)
+                {
+                    if (method.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0)
+                        _cachedInvocationMethods.Add(new CachedInvocation { Method = method, Target = component });
+                }
             }
 
             _invocationCacheDirty = false;
