@@ -13,6 +13,21 @@ using UnityEngine.Events;
 
 namespace Ibralogue
 {
+    /// <summary>
+    /// Serializable UnityEvent that passes a <see cref="Line"/> to listeners.
+    /// </summary>
+    [Serializable] public class LineEvent : UnityEvent<Line> { }
+
+    /// <summary>
+    /// Serializable UnityEvent that passes a list of <see cref="Choice"/> to listeners.
+    /// </summary>
+    [Serializable] public class ChoiceListEvent : UnityEvent<List<Choice>> { }
+
+    /// <summary>
+    /// Serializable UnityEvent that passes a single <see cref="Choice"/> to listeners.
+    /// </summary>
+    [Serializable] public class ChoiceEvent : UnityEvent<Choice> { }
+
     public abstract class DialogueEngineBase : MonoBehaviour
     {
         protected EnginePlugin[] enginePlugins;
@@ -22,6 +37,24 @@ namespace Ibralogue
 
         [HideInInspector] public UnityEvent OnConversationStart = new UnityEvent();
         [HideInInspector] public UnityEvent OnConversationEnd = new UnityEvent();
+
+        /// <summary>
+        /// Fired after a dialogue line has been resolved and is about to be displayed.
+        /// Passes the fully resolved <see cref="Line"/> to listeners.
+        /// </summary>
+        public LineEvent OnLineDisplayed = new LineEvent();
+
+        /// <summary>
+        /// Fired when choices are presented to the player. Passes the full list
+        /// of resolved <see cref="Choice"/> objects.
+        /// </summary>
+        public ChoiceListEvent OnChoicesPresented = new ChoiceListEvent();
+
+        /// <summary>
+        /// Fired when the player selects a choice. Passes the selected
+        /// <see cref="Choice"/> to listeners.
+        /// </summary>
+        public ChoiceEvent OnChoiceSelected = new ChoiceEvent();
 
         public List<Conversation> ParsedConversations { get; protected set; }
 
@@ -336,7 +369,8 @@ namespace Ibralogue
                 {
                     _choicesActive = true;
                     List<Choice> resolved = ResolveChoices(standAloneChoices);
-                    dialogueView.DisplayChoices(resolved, OnChoiceSelected);
+                    OnChoicesPresented.Invoke(resolved);
+                    dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                     return;
                 }
 
@@ -395,7 +429,8 @@ namespace Ibralogue
             {
                 _choicesActive = true;
                 List<Choice> resolved = ResolveChoices(choices);
-                dialogueView.DisplayChoices(resolved, OnChoiceSelected);
+                OnChoicesPresented.Invoke(resolved);
+                dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                 AdvanceToNextDisplayable();
             }
 
@@ -422,6 +457,7 @@ namespace Ibralogue
             InvokeTextProducingFunctions(resolved, line);
 
             dialogueView.SetView(line);
+            OnLineDisplayed.Invoke(line);
 
             foreach (EnginePlugin plugin in enginePlugins)
             {
@@ -472,9 +508,10 @@ namespace Ibralogue
                 yield return new WaitUntil(() => !_isPaused);
         }
 
-        private void OnChoiceSelected(Choice choice)
+        private void HandleChoiceSelected(Choice choice)
         {
             _choicesActive = false;
+            OnChoiceSelected.Invoke(choice);
 
             if (choice.LeadingConversationName == ">>")
             {
