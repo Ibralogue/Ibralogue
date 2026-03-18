@@ -6,7 +6,7 @@ Add a button, give it the `SingleInteraction` component, and assign its `Dialogu
 
 Assign the button component's click callback to `SingleInteraction.StartDialogue`.
 
-For the `Interaction Dialogues` reference, create a new Ibralogue file from the create menu like so:
+For the `Interaction Dialogues` reference, create a new Ibralogue file from **Create > Ibralogue > Ibralogue Dialogue File**:
 
 ![Image Showing The Create Menu in Unity](https://i.ibb.co/F6hcNJz/image.png)
 
