@@ -108,11 +108,33 @@ namespace Ibralogue
         [Header("Dialogue Views")]
         [SerializeField] protected DialogueViewBase dialogueView;
 
+        [Tooltip("Optional separate component for choice display. When set, choices " +
+                 "are handled by this presenter instead of the dialogue view. Assign any " +
+                 "MonoBehaviour implementing IChoicePresenter.")]
+        [SerializeField] private MonoBehaviour choicePresenterComponent;
+
         /// <summary>
         /// True when a dialogue view is assigned. When false, the engine runs
         /// in headless mode: events still fire but no UI is driven.
         /// </summary>
         protected bool HasView => dialogueView != null;
+
+        private IChoicePresenter _choicePresenter;
+
+        private IChoicePresenter ChoicePresenter
+        {
+            get
+            {
+                if (_choicePresenter != null)
+                    return _choicePresenter;
+                if (choicePresenterComponent is IChoicePresenter presenter)
+                {
+                    _choicePresenter = presenter;
+                    return _choicePresenter;
+                }
+                return null;
+            }
+        }
 
         [Header("Auto-Advance")]
         [Tooltip("When greater than zero, lines advance automatically after the display " +
@@ -231,7 +253,7 @@ namespace Ibralogue
             StopAllCoroutines();
             _displayCoroutine = null;
 
-            if (HasView) dialogueView.ClearView();
+            ClearDisplay();
             ClearPlugins();
 
             IAudioProvider audio = AudioProvider;
@@ -324,7 +346,7 @@ namespace Ibralogue
                 }
             }
 
-            if (HasView) dialogueView.ClearView();
+            ClearDisplay();
             ClearPlugins();
             AdvanceAndDisplay();
         }
@@ -596,7 +618,11 @@ namespace Ibralogue
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnChoicesPresented(resolved);
 
-            if (HasView) dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
+            IChoicePresenter presenter = ChoicePresenter;
+            if (presenter != null)
+                presenter.DisplayChoices(resolved, HandleChoiceSelected);
+            else if (HasView)
+                dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
         }
 
         /// <summary>
@@ -624,7 +650,7 @@ namespace Ibralogue
                 StopAllCoroutines();
                 _displayCoroutine = null;
                 _linePlaying = false;
-                if (HasView) dialogueView.ClearView();
+                ClearDisplay();
                 ClearPlugins();
                 AdvanceAndDisplay();
                 return;
@@ -903,6 +929,12 @@ namespace Ibralogue
             }
 
             return args;
+        }
+
+        private void ClearDisplay()
+        {
+            if (HasView) dialogueView.ClearView();
+            ChoicePresenter?.ClearChoices();
         }
 
         private void ClearPlugins()
