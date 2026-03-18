@@ -89,6 +89,29 @@ dialogueEngine.ChoiceFilter = (choices) =>
 
 Set `ChoiceFilter` to `null` to disable filtering. The filter runs after `{{If}}` conditional evaluation, so both systems can work together.
 
+#### Custom Choice Presenter
+
+By default, the dialogue view handles choice display using button prefabs. To use a completely different choice UI (radial menus, gamepad navigation, timed choices), implement `IChoicePresenter` on any MonoBehaviour and assign it to the engine's **Choice Presenter** field:
+
+```cs
+public class RadialChoicePresenter : MonoBehaviour, IChoicePresenter
+{
+    public void DisplayChoices(List<Choice> choices, Action<Choice> onChoiceSelected)
+    {
+        // Build your custom UI, call onChoiceSelected when the player picks one
+    }
+
+    public void ClearChoices()
+    {
+        // Tear down your custom UI
+    }
+}
+```
+
+When a choice presenter is assigned, it takes priority over the view's built-in choice handling. If neither a presenter nor a view is assigned, choices are only available through the `OnChoicesPresented` event and `SelectChoice()`.
+
+Ibralogue ships with `ButtonChoicePresenter`, a standalone version of the default button instantiation logic that can be used independently from any view.
+
 #### Placement
 
 Choices can appear anywhere after a dialogue line within a conversation. Multiple choice groups can be interspersed with dialogue lines throughout a conversation.
