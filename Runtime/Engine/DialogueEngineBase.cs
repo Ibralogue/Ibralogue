@@ -599,6 +599,17 @@ namespace Ibralogue
             if (HasView) dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
         }
 
+        /// <summary>
+        /// Submits a choice selection programmatically. Use this in headless/event-driven
+        /// setups where there is no view handling choice buttons, or when driving
+        /// choices from custom UI.
+        /// </summary>
+        public void SelectChoice(Choice choice)
+        {
+            if (!_choicesActive) return;
+            HandleChoiceSelected(choice);
+        }
+
         private void HandleChoiceSelected(Choice choice)
         {
             _choicesActive = false;
