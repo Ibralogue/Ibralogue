@@ -70,11 +70,16 @@ namespace Ibralogue
 		}
 
 		/// <summary>
-		/// Checks whether a variable exists in any scope.
+		/// Checks whether a variable exists in any scope, including variables
+		/// explicitly set to null.
 		/// </summary>
 		public static bool IsDefined(string assetName, string name)
 		{
-			return Resolve(assetName, name) != null;
+			if (assetName != null && _locals.TryGetValue(assetName, out Dictionary<string, object> scope)
+			    && scope.ContainsKey(name))
+				return true;
+
+			return _globals.ContainsKey(name);
 		}
 
 		/// <summary>
