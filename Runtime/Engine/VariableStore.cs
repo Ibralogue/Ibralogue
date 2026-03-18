@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -13,11 +14,19 @@ namespace Ibralogue
 		private static readonly Dictionary<string, Dictionary<string, object>> _locals = new Dictionary<string, Dictionary<string, object>>();
 
 		/// <summary>
+		/// Invoked whenever a variable is created or changed. Parameters are
+		/// (variableName, oldValue, newValue). oldValue is null for new variables.
+		/// </summary>
+		public static event Action<string, object, object> OnVariableChanged;
+
+		/// <summary>
 		/// Sets a variable in the global scope, accessible from all dialogue files.
 		/// </summary>
 		public static void SetGlobal(string name, object value)
 		{
+			_globals.TryGetValue(name, out object oldValue);
 			_globals[name] = value;
+			OnVariableChanged?.Invoke(name, oldValue, value);
 		}
 
 		/// <summary>
@@ -30,7 +39,9 @@ namespace Ibralogue
 				scope = new Dictionary<string, object>();
 				_locals[assetName] = scope;
 			}
+			scope.TryGetValue(name, out object oldValue);
 			scope[name] = value;
+			OnVariableChanged?.Invoke(name, oldValue, value);
 		}
 
 		/// <summary>
@@ -41,13 +52,17 @@ namespace Ibralogue
 		{
 			if (_locals.TryGetValue(assetName, out Dictionary<string, object> scope) && scope.ContainsKey(name))
 			{
+				scope.TryGetValue(name, out object oldLocal);
 				scope[name] = value;
+				OnVariableChanged?.Invoke(name, oldLocal, value);
 				return;
 			}
 
 			if (_globals.ContainsKey(name))
 			{
+				_globals.TryGetValue(name, out object oldGlobal);
 				_globals[name] = value;
+				OnVariableChanged?.Invoke(name, oldGlobal, value);
 				return;
 			}
 
