@@ -90,6 +90,10 @@ namespace Ibralogue
 
         [SerializeField] private List<string> includedAssemblies = new List<string>();
 
+        [Tooltip("Additional MonoBehaviours to scan for [DialogueInvocation] instance methods. " +
+                 "Components on the engine's own GameObject are always scanned automatically.")]
+        [SerializeField] private MonoBehaviour[] invocationProviders = new MonoBehaviour[0];
+
         /// <summary>
         /// The active localization provider. When set, translated text is used
         /// in place of the original dialogue text. Assign a MonoBehaviour
@@ -864,12 +868,19 @@ namespace Ibralogue
                     _cachedInvocationMethods.Add(new CachedInvocation { Method = method, Target = null });
             }
 
-            // Instance methods on MonoBehaviours attached to this GameObject
-            MonoBehaviour[] components = GetComponents<MonoBehaviour>();
-            foreach (MonoBehaviour component in components)
-            {
-                if (component == null) continue;
+            // Instance methods on MonoBehaviours: same GameObject + explicit providers
+            HashSet<MonoBehaviour> scanned = new HashSet<MonoBehaviour>();
 
+            foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
+                scanned.Add(component);
+
+            if (invocationProviders != null)
+                foreach (MonoBehaviour provider in invocationProviders)
+                    if (provider != null)
+                        scanned.Add(provider);
+
+            foreach (MonoBehaviour component in scanned)
+            {
                 MethodInfo[] methods = component.GetType()
                     .GetMethods(BindingFlags.Public | BindingFlags.Instance);
 
