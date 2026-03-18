@@ -105,7 +105,7 @@ If `REWARD` is `"Sword"`, `GiveItem` receives `"Sword"`.
 
 #### Assembly Search
 
-By default, Ibralogue searches for invocations in `Assembly-CSharp` and its own assembly. If your invocations live in other assemblies, configure this on the `SimpleDialogueEngine` component:
+By default, Ibralogue searches for invocations in `Assembly-CSharp` and its own assembly. If your invocations live in other assemblies, configure this on the dialogue engine component:
 
 - **Search All Assemblies**: Enable this to search every loaded assembly.
 - **Included Assemblies**: Add specific assembly names to the search list.

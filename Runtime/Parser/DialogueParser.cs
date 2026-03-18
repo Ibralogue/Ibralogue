@@ -9,8 +9,12 @@ namespace Ibralogue.Parser
 	/// </summary>
 	public static class DialogueParser
 	{
+		private static readonly Dictionary<DialogueAsset, List<Conversation>> _cache =
+			new Dictionary<DialogueAsset, List<Conversation>>();
+
 		/// <summary>
-		/// Parses a dialogue asset into a list of conversations.
+		/// Parses a dialogue asset into a list of conversations. Results are cached
+		/// so that repeated calls with the same asset skip the parsing pipeline.
 		/// </summary>
 		/// <returns>
 		/// A list of <see cref="Conversation"/> objects representing all conversations in the dialogue file.
@@ -20,6 +24,9 @@ namespace Ibralogue.Parser
 		{
 			if (dialogueAsset == null)
 				throw new ArgumentNullException(nameof(dialogueAsset));
+
+			if (_cache.TryGetValue(dialogueAsset, out List<Conversation> cached))
+				return cached;
 
 			string source = dialogueAsset.Content ?? "";
 			string assetName = dialogueAsset.name ?? "unknown";
@@ -40,7 +47,26 @@ namespace Ibralogue.Parser
 
 			ReportDiagnostics(diagnostics);
 
+			_cache[dialogueAsset] = conversations;
 			return conversations;
+		}
+
+		/// <summary>
+		/// Removes a specific asset from the parse cache, forcing a re-parse
+		/// on the next call to <see cref="ParseDialogue"/>.
+		/// </summary>
+		public static void InvalidateCache(DialogueAsset dialogueAsset)
+		{
+			if (dialogueAsset != null)
+				_cache.Remove(dialogueAsset);
+		}
+
+		/// <summary>
+		/// Clears the entire parse cache.
+		/// </summary>
+		public static void ClearCache()
+		{
+			_cache.Clear();
 		}
 
 		/// <summary>

@@ -1,12 +1,12 @@
 ### Interactions
 
-Interaction components provide a convenient way to start dialogue from Unity events like button clicks, triggers, or other gameplay systems. They sit between your game logic and the `SimpleDialogueEngine`.
+Interaction components provide a convenient way to start dialogue from Unity events like button clicks, triggers, or other gameplay systems. They sit between your game logic and the dialogue engine.
 
 All interactions share a few common fields:
 
 | Field | Description |
 |-------|-------------|
-| `Dialogue Engine` | Reference to the `SimpleDialogueEngine` in your scene. |
+| `Dialogue Engine` | Reference to the dialogue engine (`DialogueEngineBase`) in your scene. |
 | `Interaction Dialogues` | An array of `DialogueAsset` files available to this interaction. |
 | `OnConversationStart` | UnityEvent fired when the dialogue starts. |
 | `OnConversationEnd` | UnityEvent fired when the dialogue ends. |
@@ -39,7 +39,7 @@ This is useful for NPCs whose dialogue progresses over time, like a story told a
 
 #### Example Setup
 
-1. Add a `SimpleDialogueEngine` to a GameObject.
+1. Add a `SimpleDialogueEngine` (or your own engine subclass) to a GameObject.
 2. Add a `CircularInteraction` to your NPC.
 3. Assign the engine reference and populate the `Interaction Dialogues` array with your `.ibra` files.
 4. Wire a trigger or button to call `CircularInteraction.StartDialogue`.

@@ -13,6 +13,21 @@ using UnityEngine.Events;
 
 namespace Ibralogue
 {
+    /// <summary>
+    /// Serializable UnityEvent that passes a <see cref="Line"/> to listeners.
+    /// </summary>
+    [Serializable] public class LineEvent : UnityEvent<Line> { }
+
+    /// <summary>
+    /// Serializable UnityEvent that passes a list of <see cref="Choice"/> to listeners.
+    /// </summary>
+    [Serializable] public class ChoiceListEvent : UnityEvent<List<Choice>> { }
+
+    /// <summary>
+    /// Serializable UnityEvent that passes a single <see cref="Choice"/> to listeners.
+    /// </summary>
+    [Serializable] public class ChoiceEvent : UnityEvent<Choice> { }
+
     public abstract class DialogueEngineBase : MonoBehaviour
     {
         protected EnginePlugin[] enginePlugins;
@@ -22,6 +37,24 @@ namespace Ibralogue
 
         [HideInInspector] public UnityEvent OnConversationStart = new UnityEvent();
         [HideInInspector] public UnityEvent OnConversationEnd = new UnityEvent();
+
+        /// <summary>
+        /// Fired after a dialogue line has been resolved and is about to be displayed.
+        /// Passes the fully resolved <see cref="Line"/> to listeners.
+        /// </summary>
+        public LineEvent OnLineDisplayed = new LineEvent();
+
+        /// <summary>
+        /// Fired when choices are presented to the player. Passes the full list
+        /// of resolved <see cref="Choice"/> objects.
+        /// </summary>
+        public ChoiceListEvent OnChoicesPresented = new ChoiceListEvent();
+
+        /// <summary>
+        /// Fired when the player selects a choice. Passes the selected
+        /// <see cref="Choice"/> to listeners.
+        /// </summary>
+        public ChoiceEvent OnChoiceSelected = new ChoiceEvent();
 
         public List<Conversation> ParsedConversations { get; protected set; }
 
@@ -35,6 +68,9 @@ namespace Ibralogue
         private RuntimeLine _currentRuntimeLine;
         private bool _choicesActive;
         private float _pendingWaitSeconds;
+
+        private List<MethodInfo> _cachedInvocationMethods;
+        private bool _invocationCacheDirty = true;
 
         public UnityEvent OnConversationPaused = new UnityEvent();
         public UnityEvent OnConversationResumed = new UnityEvent();
@@ -121,9 +157,11 @@ namespace Ibralogue
             _cursor = new ContentCursor(conversation.Content);
             _choicesActive = false;
 
-            OnConversationStart.AddListener(PersistentOnConversationStart.Invoke);
-            OnConversationEnd.AddListener(PersistentOnConversationEnd.Invoke);
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnConversationStart(conversation);
 
+            PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
             AdvanceAndDisplay();
         }
@@ -136,11 +174,16 @@ namespace Ibralogue
             StopAllCoroutines();
             _displayCoroutine = null;
 
-            dialogueView.ClearView(enginePlugins);
+            dialogueView.ClearView();
+            ClearPlugins();
 
             IAudioProvider audio = AudioProvider;
             if (audio != null)
                 audio.Stop();
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnConversationEnd();
 
             _linePlaying = false;
             _currentConversation = null;
@@ -149,10 +192,8 @@ namespace Ibralogue
             _choicesActive = false;
             _isPaused = false;
 
+            PersistentOnConversationEnd.Invoke();
             OnConversationEnd.Invoke();
-
-            OnConversationStart.RemoveAllListeners();
-            OnConversationEnd.RemoveAllListeners();
         }
 
         public void PauseConversation()
@@ -223,7 +264,8 @@ namespace Ibralogue
                 }
             }
 
-            dialogueView.ClearView(enginePlugins);
+            dialogueView.ClearView();
+            ClearPlugins();
             AdvanceAndDisplay();
         }
 
@@ -337,7 +379,11 @@ namespace Ibralogue
                 {
                     _choicesActive = true;
                     List<Choice> resolved = ResolveChoices(standAloneChoices);
-                    dialogueView.DisplayChoices(resolved, OnChoiceSelected);
+                    OnChoicesPresented.Invoke(resolved);
+                    if (enginePlugins != null)
+                        foreach (EnginePlugin plugin in enginePlugins)
+                            plugin.OnChoicesPresented(resolved);
+                    dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                     return;
                 }
 
@@ -396,7 +442,11 @@ namespace Ibralogue
             {
                 _choicesActive = true;
                 List<Choice> resolved = ResolveChoices(choices);
-                dialogueView.DisplayChoices(resolved, OnChoiceSelected);
+                OnChoicesPresented.Invoke(resolved);
+                if (enginePlugins != null)
+                    foreach (EnginePlugin plugin in enginePlugins)
+                        plugin.OnChoicesPresented(resolved);
+                dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                 AdvanceToNextDisplayable();
             }
 
@@ -423,6 +473,7 @@ namespace Ibralogue
             InvokeTextProducingFunctions(resolved, line);
 
             dialogueView.SetView(line);
+            OnLineDisplayed.Invoke(line);
 
             foreach (EnginePlugin plugin in enginePlugins)
             {
@@ -473,16 +524,22 @@ namespace Ibralogue
                 yield return new WaitUntil(() => !_isPaused);
         }
 
-        private void OnChoiceSelected(Choice choice)
+        private void HandleChoiceSelected(Choice choice)
         {
             _choicesActive = false;
+            OnChoiceSelected.Invoke(choice);
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnChoiceMade(choice);
 
             if (choice.LeadingConversationName == ">>")
             {
                 StopAllCoroutines();
                 _displayCoroutine = null;
                 _linePlaying = false;
-                dialogueView.ClearView(enginePlugins);
+                dialogueView.ClearView();
+                ClearPlugins();
                 AdvanceAndDisplay();
                 return;
             }
@@ -686,8 +743,27 @@ namespace Ibralogue
             return args;
         }
 
+        private void ClearPlugins()
+        {
+            if (enginePlugins == null) return;
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.Clear();
+        }
+
+        /// <summary>
+        /// Marks the invocation method cache as dirty, forcing a re-scan on the
+        /// next line display. Call this if you add or change assemblies at runtime.
+        /// </summary>
+        public void InvalidateInvocationCache()
+        {
+            _invocationCacheDirty = true;
+        }
+
         protected IEnumerable<MethodInfo> GetInvocationMethods()
         {
+            if (!_invocationCacheDirty && _cachedInvocationMethods != null)
+                return _cachedInvocationMethods;
+
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             if (searchAllAssemblies) assemblies.AddRange(allAssemblies);
@@ -699,16 +775,17 @@ namespace Ibralogue
                         assembly == Assembly.GetExecutingAssembly()) assemblies.Add(assembly);
                 }
 
-            List<MethodInfo> methods = new List<MethodInfo>();
+            _cachedInvocationMethods = new List<MethodInfo>();
             foreach (Assembly assembly in assemblies)
             {
                 IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
                     .Where(m => m.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0);
-                methods.AddRange(allMethods);
+                _cachedInvocationMethods.AddRange(allMethods);
             }
 
-            return methods;
+            _invocationCacheDirty = false;
+            return _cachedInvocationMethods;
         }
 
     }

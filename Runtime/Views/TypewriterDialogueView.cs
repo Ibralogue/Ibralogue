@@ -1,6 +1,5 @@
 using System.Collections;
 using Ibralogue.Parser;
-using Ibralogue.Plugins;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -90,7 +89,7 @@ namespace Ibralogue.Views
             }
         }
 
-        public override void ClearView(EnginePlugin[] enginePlugins)
+        public override void ClearView()
         {
             if (_typewriterCoroutine != null)
             {
@@ -101,7 +100,7 @@ namespace Ibralogue.Views
             _isStillDisplaying = false;
             _skipRequested = false;
 
-            base.ClearView(enginePlugins);
+            base.ClearView();
         }
 
         public void SetCharacterDelay(float delay)
