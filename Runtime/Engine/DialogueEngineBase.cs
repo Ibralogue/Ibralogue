@@ -157,6 +157,10 @@ namespace Ibralogue
             _cursor = new ContentCursor(conversation.Content);
             _choicesActive = false;
 
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnConversationStart(conversation);
+
             PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
             AdvanceAndDisplay();
@@ -175,6 +179,10 @@ namespace Ibralogue
             IAudioProvider audio = AudioProvider;
             if (audio != null)
                 audio.Stop();
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnConversationEnd();
 
             _linePlaying = false;
             _currentConversation = null;
@@ -370,6 +378,9 @@ namespace Ibralogue
                     _choicesActive = true;
                     List<Choice> resolved = ResolveChoices(standAloneChoices);
                     OnChoicesPresented.Invoke(resolved);
+                    if (enginePlugins != null)
+                        foreach (EnginePlugin plugin in enginePlugins)
+                            plugin.OnChoicesPresented(resolved);
                     dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                     return;
                 }
@@ -430,6 +441,9 @@ namespace Ibralogue
                 _choicesActive = true;
                 List<Choice> resolved = ResolveChoices(choices);
                 OnChoicesPresented.Invoke(resolved);
+                if (enginePlugins != null)
+                    foreach (EnginePlugin plugin in enginePlugins)
+                        plugin.OnChoicesPresented(resolved);
                 dialogueView.DisplayChoices(resolved, HandleChoiceSelected);
                 AdvanceToNextDisplayable();
             }
@@ -512,6 +526,10 @@ namespace Ibralogue
         {
             _choicesActive = false;
             OnChoiceSelected.Invoke(choice);
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnChoiceMade(choice);
 
             if (choice.LeadingConversationName == ">>")
             {
