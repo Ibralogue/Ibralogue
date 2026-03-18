@@ -105,6 +105,20 @@ public override int VisibleCharacterCount
 }
 ```
 
+#### Auto-Advance
+
+Set the **Auto-Advance Delay** field on the engine to a value greater than zero to make lines advance automatically after the display effect finishes. The delay is in seconds. Choices still require player input.
+
+This is useful for cutscenes or ambient dialogue where no player interaction is needed.
+
+```cs
+// Enable auto-advance from code
+dialogueEngine.AutoAdvanceDelay = 2.0f;
+
+// Disable it
+dialogueEngine.AutoAdvanceDelay = 0f;
+```
+
 #### Customizing the Engine Display Loop
 
 If you need to customize what happens when a line is displayed (beyond what a view provides), you can subclass the engine and override `OnDisplayLine`:

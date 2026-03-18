@@ -78,6 +78,23 @@ namespace Ibralogue
         [Header("Dialogue Views")]
         [SerializeField] protected DialogueViewBase dialogueView;
 
+        [Header("Auto-Advance")]
+        [Tooltip("When greater than zero, lines advance automatically after the display " +
+                 "effect finishes plus this delay in seconds. Set to zero to disable. " +
+                 "Does not apply when choices are active.")]
+        [SerializeField] private float autoAdvanceDelay;
+
+        /// <summary>
+        /// When greater than zero, lines advance automatically after the display
+        /// effect finishes plus this delay in seconds. Choices still require
+        /// player input. Set to zero to require manual advancement.
+        /// </summary>
+        public float AutoAdvanceDelay
+        {
+            get => autoAdvanceDelay;
+            set => autoAdvanceDelay = Mathf.Max(0f, value);
+        }
+
         [Header("Localization")]
         [SerializeField] private MonoBehaviour localizationProviderComponent;
 
@@ -457,6 +474,14 @@ namespace Ibralogue
             yield return StartCoroutine(OnDisplayLine(line));
 
             _linePlaying = false;
+
+            if (autoAdvanceDelay > 0f && !_choicesActive)
+            {
+                yield return new WaitForSeconds(autoAdvanceDelay);
+                if (_currentConversation != null && !_isPaused && !_choicesActive)
+                    AdvanceAndDisplay();
+            }
+
             yield return null;
         }
 
