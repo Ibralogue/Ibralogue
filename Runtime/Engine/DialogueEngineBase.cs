@@ -627,6 +627,14 @@ namespace Ibralogue
             if (ChoiceFilter != null)
                 resolved = ChoiceFilter(resolved);
 
+            if (resolved == null || resolved.Count == 0)
+            {
+                DialogueLogger.LogWarning("All choices were filtered out. Stopping conversation.");
+                _choicesActive = false;
+                StopConversation();
+                return;
+            }
+
             OnChoicesPresented.Invoke(resolved);
 
             if (enginePlugins != null)
