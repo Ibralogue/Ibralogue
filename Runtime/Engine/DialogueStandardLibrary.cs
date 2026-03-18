@@ -79,6 +79,36 @@ namespace Ibralogue
 		}
 
 		/// <summary>
+		/// Pauses the dialogue engine. The conversation halts until
+		/// <c>ResumeConversation()</c> is called from code. Use this to
+		/// hand control to an external system (cutscene, animation, minigame)
+		/// and resume when it finishes.
+		/// <code>
+		/// [NPC]
+		/// {{PauseEngine}}
+		/// Watch this!
+		/// </code>
+		/// </summary>
+		[DialogueInvocation]
+		public static void PauseEngine(DialogueEngineBase engine)
+		{
+			engine.PauseConversation();
+		}
+
+		/// <summary>
+		/// Resumes a paused dialogue engine from within dialogue.
+		/// Typically not needed since external systems call
+		/// <c>ResumeConversation()</c> directly, but available for
+		/// cases where dialogue itself should trigger the resume
+		/// (e.g., after a timed wait).
+		/// </summary>
+		[DialogueInvocation]
+		public static void ResumeEngine(DialogueEngineBase engine)
+		{
+			engine.ResumeConversation();
+		}
+
+		/// <summary>
 		/// Marks a key as visited. Check from dialogue with
 		/// <c>{{If(Visited("Tavern"))}}</c> or from code with
 		/// <c>VisitTracker.HasVisited("Tavern")</c>.
