@@ -128,9 +128,11 @@ You received {{GiveItem($REWARD)}}.
 
 If `REWARD` is `"Sword"`, `GiveItem` receives `"Sword"`.
 
-#### Assembly Search
+#### Discovery
 
-By default, Ibralogue searches for invocations in `Assembly-CSharp` and its own assembly. If your invocations live in other assemblies, configure this on the dialogue engine component:
+**Static methods** are discovered by scanning assemblies. By default, Ibralogue searches `Assembly-CSharp` and its own assembly. Configure this on the dialogue engine component:
 
 - **Search All Assemblies**: Enable this to search every loaded assembly.
 - **Included Assemblies**: Add specific assembly names to the search list.
+
+**Instance methods** are discovered on MonoBehaviours attached to the engine's own GameObject automatically. For components on other GameObjects, drag them into the engine's **Invocation Providers** array.
