@@ -641,7 +641,7 @@ namespace Ibralogue
         /// <summary>
         /// Pairs a method with its invocation target. Target is null for static methods.
         /// </summary>
-        private struct CachedInvocation
+        protected struct CachedInvocation
         {
             public MethodInfo Method;
             public object Target;
