@@ -46,7 +46,9 @@ Hello! {{Image(Portraits/Surprised)}} I didn't expect that!
 
 #### Custom Invocations
 
-Any static C# method with the `[DialogueInvocation]` attribute can be called from dialogue:
+Any C# method with the `[DialogueInvocation]` attribute can be called from dialogue. Both static methods and instance methods on MonoBehaviours are supported.
+
+**Static invocations** work from anywhere:
 
 ```cs
 [DialogueInvocation]
@@ -60,6 +62,28 @@ public static void Die()
 [NPC]
 Time to die.
 {{Die}}
+```
+
+**Instance invocations** are discovered on MonoBehaviours attached to the same GameObject as the dialogue engine. This lets invocations access serialized fields and scene references directly:
+
+```cs
+public class QuestTracker : MonoBehaviour
+{
+    [SerializeField] private QuestDatabase quests;
+
+    [DialogueInvocation]
+    public bool HasQuest(string questId)
+    {
+        return quests.IsComplete(questId);
+    }
+}
+```
+
+```text
+{{If(HasQuest("FindSword"))}}
+[NPC]
+I see you found the sword.
+{{EndIf}}
 ```
 
 #### Invocations that Return Strings
@@ -104,9 +128,11 @@ You received {{GiveItem($REWARD)}}.
 
 If `REWARD` is `"Sword"`, `GiveItem` receives `"Sword"`.
 
-#### Assembly Search
+#### Discovery
 
-By default, Ibralogue searches for invocations in `Assembly-CSharp` and its own assembly. If your invocations live in other assemblies, configure this on the dialogue engine component:
+**Static methods** are discovered by scanning assemblies. By default, Ibralogue searches `Assembly-CSharp` and its own assembly. Configure this on the dialogue engine component:
 
 - **Search All Assemblies**: Enable this to search every loaded assembly.
 - **Included Assemblies**: Add specific assembly names to the search list.
+
+**Instance methods** are discovered on MonoBehaviours attached to the engine's own GameObject automatically. For components on other GameObjects, drag them into the engine's **Invocation Providers** array.
