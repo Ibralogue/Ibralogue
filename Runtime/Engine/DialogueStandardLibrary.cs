@@ -77,5 +77,37 @@ namespace Ibralogue
 				typewriter.SetCharacterDelay(baseDelay / multiplier);
 			}
 		}
+
+		/// <summary>
+		/// Marks a key as visited. Check from dialogue with
+		/// <c>{{If(Visited("Tavern"))}}</c> or from code with
+		/// <c>VisitTracker.HasVisited("Tavern")</c>.
+		/// <code>
+		/// [NPC]
+		/// {{MarkVisited(Tavern)}}
+		/// Welcome to the tavern!
+		/// </code>
+		/// </summary>
+		[DialogueInvocation]
+		public static void MarkVisited(string key)
+		{
+			VisitTracker.Mark(key);
+		}
+
+		/// <summary>
+		/// Returns true if the given key has been marked as visited.
+		/// Intended for use in conditionals.
+		/// <code>
+		/// {{If(Visited("Tavern"))}}
+		/// [NPC]
+		/// You've been here before.
+		/// {{EndIf}}
+		/// </code>
+		/// </summary>
+		[DialogueInvocation]
+		public static bool Visited(string key)
+		{
+			return VisitTracker.HasVisited(key);
+		}
 	}
 }

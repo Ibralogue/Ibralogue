@@ -59,6 +59,9 @@ namespace Ibralogue.Parser.Expressions
 		/// <summary>)</summary>
 		RightParen,
 
+		/// <summary>,</summary>
+		Comma,
+
 		/// <summary>End of expression input.</summary>
 		EndOfInput
 	}

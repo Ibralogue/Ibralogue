@@ -570,7 +570,72 @@ namespace Ibralogue
         private Parser.Expressions.ExpressionEvaluator CreateEvaluator()
         {
             string assetName = _currentAssetName;
-            return new Parser.Expressions.ExpressionEvaluator(name => VariableStore.Resolve(assetName, name));
+            return new Parser.Expressions.ExpressionEvaluator(
+                name => VariableStore.Resolve(assetName, name),
+                ResolveExpressionFunction
+            );
+        }
+
+        private object ResolveExpressionFunction(string name, object[] arguments)
+        {
+            IEnumerable<MethodInfo> methods = GetInvocationMethods();
+            int argCount = arguments != null ? arguments.Length : 0;
+
+            foreach (MethodInfo method in methods)
+            {
+                if (method.Name != name)
+                    continue;
+
+                ParameterInfo[] parameters = method.GetParameters();
+                int expectedArgs = parameters.Length;
+
+                if (expectedArgs > 0 && typeof(DialogueEngineBase).IsAssignableFrom(parameters[0].ParameterType))
+                    expectedArgs--;
+
+                if (expectedArgs != argCount)
+                    continue;
+
+                object[] callArgs = new object[parameters.Length];
+                int argIndex = 0;
+
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    Type paramType = parameters[i].ParameterType;
+
+                    if (i == 0 && typeof(DialogueEngineBase).IsAssignableFrom(paramType))
+                    {
+                        callArgs[i] = this;
+                        continue;
+                    }
+
+                    object rawValue = arguments[argIndex];
+
+                    try
+                    {
+                        if (rawValue != null && paramType.IsAssignableFrom(rawValue.GetType()))
+                            callArgs[i] = rawValue;
+                        else
+                            callArgs[i] = Convert.ChangeType(
+                                rawValue, paramType, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception ex) when (ex is FormatException || ex is InvalidCastException || ex is OverflowException)
+                    {
+                        DialogueLogger.LogWarning(
+                            $"Failed to convert argument {argIndex} to {paramType.Name} " +
+                            $"for expression function '{name}': {ex.Message}");
+                        return null;
+                    }
+
+                    argIndex++;
+                }
+
+                return method.Invoke(null, callArgs);
+            }
+
+            DialogueLogger.LogWarning(
+                $"No [DialogueInvocation] method found for expression function '{name}' " +
+                $"accepting {argCount} argument(s)");
+            return null;
         }
 
         private struct ResolvedInvocation
