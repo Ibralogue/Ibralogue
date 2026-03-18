@@ -36,6 +36,9 @@ namespace Ibralogue
         private bool _choicesActive;
         private float _pendingWaitSeconds;
 
+        private List<MethodInfo> _cachedInvocationMethods;
+        private bool _invocationCacheDirty = true;
+
         public UnityEvent OnConversationPaused = new UnityEvent();
         public UnityEvent OnConversationResumed = new UnityEvent();
 
@@ -686,8 +689,20 @@ namespace Ibralogue
             return args;
         }
 
+        /// <summary>
+        /// Marks the invocation method cache as dirty, forcing a re-scan on the
+        /// next line display. Call this if you add or change assemblies at runtime.
+        /// </summary>
+        public void InvalidateInvocationCache()
+        {
+            _invocationCacheDirty = true;
+        }
+
         protected IEnumerable<MethodInfo> GetInvocationMethods()
         {
+            if (!_invocationCacheDirty && _cachedInvocationMethods != null)
+                return _cachedInvocationMethods;
+
             List<Assembly> assemblies = new List<Assembly>();
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             if (searchAllAssemblies) assemblies.AddRange(allAssemblies);
@@ -699,16 +714,17 @@ namespace Ibralogue
                         assembly == Assembly.GetExecutingAssembly()) assemblies.Add(assembly);
                 }
 
-            List<MethodInfo> methods = new List<MethodInfo>();
+            _cachedInvocationMethods = new List<MethodInfo>();
             foreach (Assembly assembly in assemblies)
             {
                 IEnumerable<MethodInfo> allMethods = assembly.GetTypes()
                     .SelectMany(t => t.GetMethods())
                     .Where(m => m.GetCustomAttributes(typeof(DialogueInvocationAttribute), true).Length > 0);
-                methods.AddRange(allMethods);
+                _cachedInvocationMethods.AddRange(allMethods);
             }
 
-            return methods;
+            _invocationCacheDirty = false;
+            return _cachedInvocationMethods;
         }
 
     }
