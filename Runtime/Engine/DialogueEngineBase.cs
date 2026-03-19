@@ -826,7 +826,7 @@ namespace Ibralogue
 
             if (enginePlugins != null)
                 foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnChoiceMade(choice);
+                    plugin.OnChoiceSelected(choice);
 
             if (choice.LeadingConversationName == ">>")
             {

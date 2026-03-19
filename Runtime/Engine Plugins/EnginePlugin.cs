@@ -27,6 +27,6 @@ namespace Ibralogue.Plugins
         /// <summary>
         /// Called when the player selects a choice.
         /// </summary>
-        public virtual void OnChoiceMade(Choice choice) { }
+        public virtual void OnChoiceSelected(Choice choice) { }
     }
 }

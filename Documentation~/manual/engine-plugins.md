@@ -13,7 +13,7 @@ Any `EnginePlugin` component on the same GameObject as the dialogue engine is au
 | `OnConversationStart(Conversation)` | When a conversation begins. |
 | `OnConversationEnd()` | When a conversation ends. |
 | `OnChoicesPresented(List<Choice>)` | When choices are shown to the player. |
-| `OnChoiceMade(Choice)` | When the player selects a choice. |
+| `OnChoiceSelected(Choice)` | When the player selects a choice. |
 
 `Display` and `Clear` are abstract and must be implemented. The other four methods are virtual with empty default implementations, so override only the ones you need.
 
@@ -106,7 +106,7 @@ public class AudioPlugin : EnginePlugin
         audioSource.Stop();
     }
 
-    public override void OnChoiceMade(Choice choice)
+    public override void OnChoiceSelected(Choice choice)
     {
         Debug.Log($"Player chose: {choice.ChoiceName}");
     }
