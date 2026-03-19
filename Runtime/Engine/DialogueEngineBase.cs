@@ -399,9 +399,14 @@ namespace Ibralogue
             if (audio != null)
                 audio.Stop();
 
+            // Fire end events before clearing state so listeners can still
+            // read CurrentLine, CurrentSpeaker, and IsConversationActive.
             if (enginePlugins != null)
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnConversationEnd();
+
+            PersistentOnConversationEnd.Invoke();
+            OnConversationEnd.Invoke();
 
             _linePlaying = false;
             CurrentLine = null;
@@ -414,9 +419,6 @@ namespace Ibralogue
 
             if (!PersistHistory)
                 _history.Clear();
-
-            PersistentOnConversationEnd.Invoke();
-            OnConversationEnd.Invoke();
         }
 
         public void PauseConversation()
