@@ -116,6 +116,7 @@ namespace Ibralogue
         private RuntimeLine _currentRuntimeLine;
         private bool _choicesActive;
         private float _pendingWaitSeconds;
+        private int _displayedNodeCount;
 
         private List<CachedInvocation> _cachedInvocationMethods;
         private bool _invocationCacheDirty = true;
@@ -264,6 +265,120 @@ namespace Ibralogue
         }
 
         /// <summary>
+        /// Exports a snapshot of the engine's current position within a conversation.
+        /// Returns null if no conversation is active. Use alongside
+        /// <see cref="VariableStore.ExportState"/> and <see cref="VisitTracker.ExportState"/>
+        /// for complete save/load support.
+        /// </summary>
+        public ConversationProgress ExportProgress()
+        {
+            if (_currentConversation == null) return null;
+
+            int count = _displayedNodeCount;
+
+            // If mid-display or mid-choice, back up by one so the current
+            // node re-displays on restore instead of being skipped.
+            if (_linePlaying || _choicesActive)
+                count = Mathf.Max(0, count - 1);
+
+            return new ConversationProgress
+            {
+                AssetName = _currentAssetName,
+                ConversationName = _currentConversation.Name,
+                DisplayedNodeCount = count
+            };
+        }
+
+        /// <summary>
+        /// Resumes a conversation from a previously exported progress snapshot.
+        /// Variable and visit state should be restored via
+        /// <see cref="VariableStore.ImportState"/> and <see cref="VisitTracker.ImportState"/>
+        /// before calling this method.
+        /// </summary>
+        public void ResumeFromProgress(DialogueAsset asset, ConversationProgress progress)
+        {
+            if (asset == null)
+                throw new ArgumentNullException(nameof(asset));
+            if (progress == null)
+                throw new ArgumentNullException(nameof(progress));
+
+            StopConversation();
+
+            _currentAssetName = asset.name ?? "unknown";
+            ParsedConversations = DialogueParser.ParseDialogue(asset);
+            enginePlugins = GetComponents<EnginePlugin>();
+
+            Conversation conversation = ParsedConversations.Find(
+                c => c.Name == progress.ConversationName);
+
+            if (conversation == null)
+            {
+                DialogueLogger.LogWarning(
+                    $"Conversation '{progress.ConversationName}' not found in " +
+                    $"'{progress.AssetName}'. Starting from the beginning.");
+                StartConversation(asset);
+                return;
+            }
+
+            _currentConversation = conversation;
+            _cursor = new ContentCursor(conversation.Content);
+            _choicesActive = false;
+
+            SkipDisplayableNodes(progress.DisplayedNodeCount);
+
+            if (enginePlugins != null)
+                foreach (EnginePlugin plugin in enginePlugins)
+                    plugin.OnConversationStart(conversation);
+
+            PersistentOnConversationStart.Invoke();
+            OnConversationStart.Invoke();
+            AdvanceAndDisplay();
+        }
+
+        private void SkipDisplayableNodes(int count)
+        {
+            Parser.Expressions.ExpressionEvaluator evaluator = CreateEvaluator();
+            int skipped = 0;
+
+            while (skipped < count)
+            {
+                RuntimeContentNode node = _cursor.Current;
+                if (node == null) break;
+
+                if (node is RuntimeLine || node is RuntimeChoicePoint)
+                {
+                    skipped++;
+                    _displayedNodeCount++;
+                    _cursor.Advance();
+                    continue;
+                }
+
+                if (node is RuntimeSetCommand || node is RuntimeGlobalDecl)
+                {
+                    _cursor.Advance();
+                    continue;
+                }
+
+                if (node is RuntimeConditionalBlock conditional)
+                {
+                    _cursor.Advance();
+                    foreach (RuntimeBranch branch in conditional.Branches)
+                    {
+                        if (branch.Condition == null ||
+                            evaluator.EvaluateTruthy(branch.Condition))
+                        {
+                            _cursor.PushScope(branch.Body);
+                            break;
+                        }
+                    }
+                    continue;
+                }
+
+                _cursor.Advance();
+            }
+        }
+
+        /// <summary>
         /// Stops the currently playing conversation and clears the dialogue box.
         /// </summary>
         public void StopConversation()
@@ -288,6 +403,7 @@ namespace Ibralogue
             _currentRuntimeLine = null;
             _cursor = null;
             _choicesActive = false;
+            _displayedNodeCount = 0;
             _isPaused = false;
 
             if (!PersistHistory)
@@ -455,6 +571,7 @@ namespace Ibralogue
 
                 if (displayable is RuntimeLine line)
                 {
+                    _displayedNodeCount++;
                     _currentRuntimeLine = line;
                     ResolveLineText(line);
 
@@ -483,6 +600,7 @@ namespace Ibralogue
 
                 if (displayable is RuntimeChoicePoint standAloneChoices)
                 {
+                    _displayedNodeCount++;
                     _choicesActive = true;
                     List<Choice> resolved = ResolveChoices(standAloneChoices);
                     PresentChoices(resolved);
