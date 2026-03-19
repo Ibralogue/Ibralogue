@@ -89,6 +89,12 @@ namespace Ibralogue
         }
 
         /// <summary>
+        /// True when a conversation is currently running. False after
+        /// <see cref="StopConversation"/> or before any conversation starts.
+        /// </summary>
+        public bool IsConversationActive => _currentConversation != null;
+
+        /// <summary>
         /// True while a dialogue line is being displayed (typewriter running,
         /// waiting for player input, etc.). False between lines and when no
         /// conversation is active.
@@ -393,9 +399,14 @@ namespace Ibralogue
             if (audio != null)
                 audio.Stop();
 
+            // Fire end events before clearing state so listeners can still
+            // read CurrentLine, CurrentSpeaker, and IsConversationActive.
             if (enginePlugins != null)
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnConversationEnd();
+
+            PersistentOnConversationEnd.Invoke();
+            OnConversationEnd.Invoke();
 
             _linePlaying = false;
             CurrentLine = null;
@@ -408,9 +419,6 @@ namespace Ibralogue
 
             if (!PersistHistory)
                 _history.Clear();
-
-            PersistentOnConversationEnd.Invoke();
-            OnConversationEnd.Invoke();
         }
 
         public void PauseConversation()
