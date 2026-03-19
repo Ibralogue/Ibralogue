@@ -88,6 +88,24 @@ namespace Ibralogue
             _history.Clear();
         }
 
+        /// <summary>
+        /// True while a dialogue line is being displayed (typewriter running,
+        /// waiting for player input, etc.). False between lines and when no
+        /// conversation is active.
+        /// </summary>
+        public bool IsLineActive => _linePlaying;
+
+        /// <summary>
+        /// The line currently being displayed, or null if no line is active.
+        /// </summary>
+        public Line CurrentLine { get; private set; }
+
+        /// <summary>
+        /// The speaker of the currently displayed line, or null if no line
+        /// is active.
+        /// </summary>
+        public string CurrentSpeaker => CurrentLine?.Speaker;
+
         protected Conversation _currentConversation;
         protected bool _linePlaying;
         protected bool _isPaused = false;
@@ -265,6 +283,7 @@ namespace Ibralogue
                     plugin.OnConversationEnd();
 
             _linePlaying = false;
+            CurrentLine = null;
             _currentConversation = null;
             _currentRuntimeLine = null;
             _cursor = null;
@@ -559,6 +578,7 @@ namespace Ibralogue
 
             InvokeTextProducingFunctions(resolved, line);
 
+            CurrentLine = line;
             if (HasView) dialogueView.SetView(line);
             _history.Add(line);
             OnLineDisplayed.Invoke(line);
