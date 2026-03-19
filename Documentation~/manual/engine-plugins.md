@@ -35,18 +35,26 @@ Hello!
 Hello! ## image:Portraits/AvaSmiling
 ```
 
+#### Built-in: AudioLinePlugin
+
+`AudioLinePlugin` automatically plays audio when a dialogue line has an `audio` metadata key. The clip ID is passed to the engine's `IAudioProvider`. Playback stops when the view clears.
+
+Add it to your engine GameObject alongside an `IAudioProvider` implementation:
+
+```text
+[NPC] ## audio:Voiceover/welcome_001
+Welcome!
+```
+
+The metadata key is configurable via the **Metadata Key** field on the plugin (defaults to `audio`).
+
 #### Audio Provider
 
-Ibralogue supports per-line audio playback through the `IAudioProvider` interface. When a line has an `audio` metadata key, the engine calls `Play()` on the active provider.
+Audio playback is handled through the `IAudioProvider` interface. Both the `{{Audio(clipId)}}` invocation and `AudioLinePlugin` use it.
 
 **Built-in: UnityAudioProvider**
 
-Add a `UnityAudioProvider` component (requires an `AudioSource`) to your engine GameObject. Assign it to the engine's `Audio Provider Component` field. Clips are loaded from Resources by path:
-
-```text
-[NPC]
-Welcome! ## audio:Voiceover/welcome_001
-```
+Add a `UnityAudioProvider` component (requires an `AudioSource`) to your engine GameObject. Assign it to the engine's `Audio Provider Component` field. Clips are loaded from Resources by path.
 
 **Custom audio backends (FMOD, Wwise, etc.)**
 
