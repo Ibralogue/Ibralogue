@@ -45,8 +45,8 @@ namespace Ibralogue.Views
         /// </summary>
         public virtual void SetView(Line line)
         {
-            nameText.text = line.Speaker;
-            sentenceText.text = line.LineContent.Text;
+            if (nameText != null) nameText.text = line.Speaker;
+            if (sentenceText != null) sentenceText.text = line.LineContent.Text;
             OnSetView.Invoke();
         }
 
@@ -55,8 +55,8 @@ namespace Ibralogue.Views
         /// </summary>
         public virtual void ClearView()
         {
-            nameText.text = string.Empty;
-            sentenceText.text = string.Empty;
+            if (nameText != null) nameText.text = string.Empty;
+            if (sentenceText != null) sentenceText.text = string.Empty;
 
             if (_choiceButtonInstances == null)
                 return;
@@ -118,6 +118,14 @@ namespace Ibralogue.Views
         {
             _choiceButtonInstances.Clear();
             if (choices == null || choices.Count == 0) return;
+
+            if (choiceButton == null || choiceButtonHolder == null)
+            {
+                DialogueLogger.LogWarning(
+                    "Choice button prefab or holder not assigned on the view. " +
+                    "Use an IChoicePresenter or assign the prefab.");
+                return;
+            }
 
             foreach (Choice choice in choices)
             {

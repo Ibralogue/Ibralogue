@@ -462,6 +462,22 @@ namespace Ibralogue
         }
 
         /// <summary>
+        /// Convenience method that skips the current display effect if a line is
+        /// still playing, or advances to the next line if idle. This is the
+        /// recommended single-call handler for player input (click, key press, tap).
+        /// </summary>
+        public void Advance()
+        {
+            if (_linePlaying)
+            {
+                if (HasView) dialogueView.SkipViewEffect();
+                return;
+            }
+
+            TryDisplayNextLine();
+        }
+
+        /// <summary>
         /// Attempts to display the next line. If the current line is still playing,
         /// this does nothing. Handles jump targets and conversation completion.
         /// </summary>

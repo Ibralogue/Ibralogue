@@ -138,6 +138,71 @@ dialogueEngine.AutoAdvanceDelay = 2.0f;
 dialogueEngine.AutoAdvanceDelay = 0f;
 ```
 
+#### Player Input
+
+Use `Advance()` as your single input handler for player clicks, key presses, or taps. It skips the current display effect if a line is still playing, or advances to the next line if idle:
+
+```cs
+void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Space))
+        dialogueEngine.Advance();
+}
+```
+
+`TryDisplayNextLine()` is still available if you want the old behavior of ignoring input while a line is playing.
+
+#### Custom Views Without TextMeshPro
+
+The base class `nameText` and `sentenceText` fields are optional. If your view uses a different text system (UI Toolkit, custom renderer), leave them unassigned and override `SetView` and `ClearView`:
+
+```cs
+public class UIToolkitView : DialogueViewBase
+{
+    private Label _nameLabel;
+    private Label _textLabel;
+
+    public override void SetView(Line line)
+    {
+        _nameLabel.text = line.Speaker;
+        _textLabel.text = line.LineContent.Text;
+        OnSetView.Invoke();
+    }
+
+    public override void ClearView()
+    {
+        _nameLabel.text = "";
+        _textLabel.text = "";
+    }
+}
+```
+
+#### Chat / Message UI Pattern
+
+The engine calls `ClearView` before each new line. For a chat UI that accumulates messages, override `ClearView` to preserve previous messages:
+
+```cs
+public class ChatView : DialogueViewBase
+{
+    [SerializeField] private Transform messageContainer;
+    [SerializeField] private GameObject messagePrefab;
+
+    public override void SetView(Line line)
+    {
+        var bubble = Instantiate(messagePrefab, messageContainer);
+        bubble.GetComponentInChildren<TMP_Text>().text =
+            $"{line.Speaker}: {line.LineContent.Text}";
+        OnSetView.Invoke();
+    }
+
+    public override void ClearView()
+    {
+        // Keep previous messages. Only override if you need
+        // to clean up transient UI (typing indicators, etc.)
+    }
+}
+```
+
 #### Customizing the Engine Display Loop
 
 If you need to customize what happens when a line is displayed (beyond what a view provides), you can subclass the engine and override `OnDisplayLine`:
