@@ -437,10 +437,7 @@ namespace Ibralogue
             OnConversationResumed.Invoke();
         }
 
-        public bool IsConversationPaused()
-        {
-            return _isPaused;
-        }
+        public bool IsConversationPaused => _isPaused;
 
         /// <summary>
         /// Requests a pause in the display animation for the given duration.

@@ -21,7 +21,7 @@ This resumes a paused conversation from where it left off.
 #### Checking Pause State
 
 ```cs
-if (dialogueEngine.IsConversationPaused())
+if (dialogueEngine.IsConversationPaused)
 {
     // conversation is paused
 }
