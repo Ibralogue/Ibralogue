@@ -89,6 +89,12 @@ namespace Ibralogue
         }
 
         /// <summary>
+        /// True when a conversation is currently running. False after
+        /// <see cref="StopConversation"/> or before any conversation starts.
+        /// </summary>
+        public bool IsConversationActive => _currentConversation != null;
+
+        /// <summary>
         /// True while a dialogue line is being displayed (typewriter running,
         /// waiting for player input, etc.). False between lines and when no
         /// conversation is active.
