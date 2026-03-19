@@ -437,10 +437,7 @@ namespace Ibralogue
             OnConversationResumed.Invoke();
         }
 
-        public bool IsConversationPaused()
-        {
-            return _isPaused;
-        }
+        public bool IsConversationPaused => _isPaused;
 
         /// <summary>
         /// Requests a pause in the display animation for the given duration.
@@ -482,14 +479,15 @@ namespace Ibralogue
                 return;
             }
 
-            TryDisplayNextLine();
+            Next();
         }
 
         /// <summary>
-        /// Attempts to display the next line. If the current line is still playing,
-        /// this does nothing. Handles jump targets and conversation completion.
+        /// Advances to the next line if the current line is finished and no
+        /// choices are active. Does nothing if a line is still playing.
+        /// Use <see cref="Advance"/> for a single-call handler that also skips.
         /// </summary>
-        public void TryDisplayNextLine()
+        public void Next()
         {
             if (_linePlaying) return;
             if (_currentConversation == null) return;
@@ -734,7 +732,7 @@ namespace Ibralogue
             int nextPending = 0;
             _pendingWaitSeconds = 0f;
 
-            while (HasView && dialogueView.IsStillDisplaying())
+            while (HasView && dialogueView.IsStillDisplaying)
             {
                 if (_isPaused)
                     yield return new WaitUntil(() => !_isPaused);
@@ -828,7 +826,7 @@ namespace Ibralogue
 
             if (enginePlugins != null)
                 foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnChoiceMade(choice);
+                    plugin.OnChoiceSelected(choice);
 
             if (choice.LeadingConversationName == ">>")
             {
