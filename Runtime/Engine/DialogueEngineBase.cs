@@ -482,14 +482,15 @@ namespace Ibralogue
                 return;
             }
 
-            TryDisplayNextLine();
+            Next();
         }
 
         /// <summary>
-        /// Attempts to display the next line. If the current line is still playing,
-        /// this does nothing. Handles jump targets and conversation completion.
+        /// Advances to the next line if the current line is finished and no
+        /// choices are active. Does nothing if a line is still playing.
+        /// Use <see cref="Advance"/> for a single-call handler that also skips.
         /// </summary>
-        public void TryDisplayNextLine()
+        public void Next()
         {
             if (_linePlaying) return;
             if (_currentConversation == null) return;

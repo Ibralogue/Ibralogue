@@ -150,7 +150,7 @@ void Update()
 }
 ```
 
-`TryDisplayNextLine()` is still available if you want the old behavior of ignoring input while a line is playing.
+`Next()` is available if you want the old behavior of only advancing when the current line is finished (no skip).
 
 #### Custom Views Without TextMeshPro
 
