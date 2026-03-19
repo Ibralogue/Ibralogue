@@ -732,7 +732,7 @@ namespace Ibralogue
             int nextPending = 0;
             _pendingWaitSeconds = 0f;
 
-            while (HasView && dialogueView.IsStillDisplaying())
+            while (HasView && dialogueView.IsStillDisplaying)
             {
                 if (_isPaused)
                     yield return new WaitUntil(() => !_isPaused);

@@ -23,12 +23,9 @@ namespace Ibralogue.Views
         public UnityEvent OnLineComplete = new UnityEvent();
 
         /// <summary>
-        /// Checks if the view is currently displaying content (e.g., effect in progress).
+        /// True while the view is actively displaying content (e.g., typewriter in progress).
         /// </summary>
-        public virtual bool IsStillDisplaying()
-        {
-            return _isStillDisplaying;
-        }
+        public virtual bool IsStillDisplaying => _isStillDisplaying;
 
         /// <summary>
         /// Returns the number of characters currently visible in the dialogue text.
@@ -94,12 +91,9 @@ namespace Ibralogue.Views
         }
 
         /// <summary>
-        /// Returns whether the current effect is playing.
+        /// True when the display effect is paused.
         /// </summary>
-        public virtual bool IsPaused()
-        {
-            return _isPaused;
-        }
+        public virtual bool IsPaused => _isPaused;
 
         /// <summary>
         /// Applies a speed multiplier to the current display effect.
