@@ -4,13 +4,13 @@ namespace Ibralogue.Examples
 {
     public class ExampleDialogueInput : MonoBehaviour
     {
-        [SerializeField] private SimpleDialogueEngine dialogueEngine;
+        [SerializeField] private DialogueEngineBase dialogueEngine;
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-                dialogueEngine.TryDisplayNextLine();
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space))
-                dialogueEngine.TryDisplayNextLine();
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)
+                || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space))
+                dialogueEngine.Advance();
         }
     }
 }
