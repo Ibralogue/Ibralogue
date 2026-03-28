@@ -101,11 +101,56 @@ article h4 {
 .navbar-brand {
   display: flex;
   align-items: center;
+  gap: 8px;
+  padding: 8px 0;
 }
 
 .navbar-brand > img {
-  height: 28px;
+  height: 24px;
   width: auto;
+}
+
+.brand-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.brand-label {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+
+/* Site-wide nav links (Website, GitHub, Discord) */
+.navbar-site-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar-site-links > li > a {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 15px 14px !important;
+  border-bottom: none !important;
+  transition: color var(--transition);
+}
+
+.navbar-site-links > li > a:hover,
+.navbar-site-links > li > a:focus {
+  color: #fff !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
 }
 
 .navbar-inverse .navbar-nav > li > a,
