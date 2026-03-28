@@ -8,7 +8,7 @@ Variables are resolved at **runtime**, meaning changes to variable values are re
 
 Reference any variable with the `$` prefix. Variables work anywhere in dialogue -- text, speaker names, invocation arguments, metadata values, choices, and jump targets.
 
-```text
+```ibra
 [NPC]
 Hi, $PLAYERNAME.
 [$PLAYERNAME]
@@ -29,7 +29,7 @@ VariableStore.SetGlobal("QUEST_DONE", false);
 
 Use `{{Set(...)}}` to assign a variable from within a dialogue file:
 
-```text
+```ibra
 {{Set($GOLD, 100)}}
 {{Set($NAME, "Alice")}}
 {{Set($QUEST_DONE, true)}}
@@ -37,7 +37,7 @@ Use `{{Set(...)}}` to assign a variable from within a dialogue file:
 
 The value can be any expression, including references to other variables and arithmetic:
 
-```text
+```ibra
 {{Set($HEALTH, $HEALTH - 10)}}
 {{Set($TOTAL, $BASE_PRICE * $QUANTITY)}}
 {{Set($GREETING, "Hello " + $PLAYERNAME)}}
@@ -51,13 +51,13 @@ Variables set from C# are always global. Variables created by `{{Set(...)}}` in 
 
 To explicitly declare a variable as global from within dialogue, use `{{Global(...)}}`:
 
-```text
+```ibra
 {{Global($PLAYER_SCORE, 0)}}
 ```
 
 This creates (or updates) a global variable that persists across all dialogue files. If only a name is provided, the variable is registered without a value:
 
-```text
+```ibra
 {{Global($PLAYER_SCORE)}}
 ```
 
@@ -75,7 +75,7 @@ The first match wins. This means a local variable can shadow a global variable o
 
 Variables are resolved inside invocation arguments:
 
-```text
+```ibra
 [NPC]
 You received {{GiveItem($REWARD)}}.
 The $TARGET takes {{FormatDamage($DMG)}} damage!
@@ -85,7 +85,7 @@ The $TARGET takes {{FormatDamage($DMG)}} damage!
 
 Variables are also resolved in metadata values and choice text:
 
-```text
+```ibra
 [NPC]
 How do you feel? ## emotion:$MOOD
 - Go to $LOCATION -> $LOCATION ## quest:$QUESTID

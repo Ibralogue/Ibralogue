@@ -6,7 +6,7 @@ Ibralogue uses a string-table approach to localization. The `.ibra` file is the 
 
 The dialogue file contains all structure (conversations, choices, conditionals, jumps) and the default text:
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 Hello, traveller.
@@ -39,7 +39,7 @@ Every dialogue line, choice, and speaker name is assigned a key automatically:
 
 To assign a custom key, use the `loc` metadata tag:
 
-```text
+```ibra
 [NPC]
 Hello, traveller. ## loc:greeting_hello
 ```

@@ -10,7 +10,7 @@ Included files are loaded using [Resources.Load](https://docs.unity3d.com/Script
 
 To include all the content of another dialogue file, use `{{Include(...)}}` on its own line:
 
-```text
+```ibra
 [NPC]
 How are you?
 - Fine -> FineResponse
@@ -25,7 +25,7 @@ The contents of `SharedChoices.ibra` are inserted in place of the `{{Include(...
 
 If the included file contains multiple conversations and you only need one, pass the conversation name as a second argument:
 
-```text
+```ibra
 {{Include(SharedChoices, FineResponse)}}
 ```
 
@@ -41,7 +41,7 @@ Circular includes (where file A includes file B which includes file A) are detec
 
 `SharedChoices.ibra` (in a Resources folder):
 
-```text
+```ibra
 {{ConversationName(FineResponse)}}
 [NPC]
 Good to hear!
@@ -53,7 +53,7 @@ I'm sorry. Hope things get better.
 
 `main_dialogue.ibra`:
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 Hello, traveller. How are you?

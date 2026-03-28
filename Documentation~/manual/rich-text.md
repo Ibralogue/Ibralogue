@@ -4,7 +4,7 @@ Ibralogue supports TextMeshPro rich text tags in dialogue text. Tags are passed 
 
 #### Example
 
-```text
+```ibra
 [NPC]
 Why don't we go <color=yellow>fishing</color>?
 [NPC]

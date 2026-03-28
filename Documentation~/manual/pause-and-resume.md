@@ -31,7 +31,7 @@ if (dialogueEngine.IsConversationPaused)
 
 Use the `{{PauseEngine}}` standard invocation to pause directly from a `.ibra` file. The engine halts until `ResumeConversation()` is called from code:
 
-```text
+```ibra
 [NPC]
 Watch this!
 {{PauseEngine}}

@@ -2,7 +2,7 @@
 
 `#` is used to denote comments. Commented lines are ignored by the parser. There are no block comments.
 
-```text
+```ibra
 # Reminder: Need to rephrase this
 [NPC]
 Time to die.
@@ -10,7 +10,7 @@ Time to die.
 
 Comments can also appear between dialogue lines:
 
-```text
+```ibra
 [NPC]
 Hello there.
 # The next line is intentionally dramatic
@@ -22,7 +22,7 @@ We need to talk.
 
 A double-hashtag `##` denotes metadata. Metadata is attached to the dialogue line it appears on and can be accessed from code.
 
-```text
+```ibra
 [NPC]
 Nice to meet you! ## greeting
 ```
@@ -40,7 +40,7 @@ if (dialogueManager.ParsedConversations[0].Lines[0].HasMetadata("greeting"))
 
 One line can carry more than one piece of metadata, separated by spaces:
 
-```text
+```ibra
 [NPC]
 This is a sentence with a lot of metadata. ## cool funny epic sad
 ```
@@ -49,7 +49,7 @@ This is a sentence with a lot of metadata. ## cool funny epic sad
 
 Metadata can also carry key-value pairs, separated by a colon:
 
-```text
+```ibra
 [NPC]
 Today is a sad day. ## emotion:sad
 ```

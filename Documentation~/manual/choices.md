@@ -6,13 +6,13 @@ Choices let the player pick between options that branch the dialogue into differ
 
 A choice is a line starting with `-`, followed by the choice text, then `->`, then the target:
 
-```text
+```ibra
 - Choice text -> TargetConversation
 ```
 
 #### Example
 
-```text
+```ibra
 {{ConversationName(Initial)}}
 [NPC]
 How are you doing today?
@@ -34,7 +34,7 @@ When the player reaches the choices, they are presented with "I'm fine" and "Not
 
 Use `>>` as the target to continue the dialogue without jumping to a different conversation:
 
-```text
+```ibra
 [NPC]
 Do you even listen to me?
 - Nope -> Angry
@@ -57,7 +57,7 @@ A conversation can have any number of choice groups, each followed by more dialo
 
 Choices support metadata using the same `##` syntax as dialogue lines:
 
-```text
+```ibra
 - Accept the quest -> QuestAccepted ## quest:main important
 - Decline -> QuestDeclined ## quest:main
 ```
@@ -81,7 +81,7 @@ dialogueEngine.ChoiceFilter = (choices) =>
 };
 ```
 
-```text
+```ibra
 - Buy the sword -> BuySword ## cost:100
 - Buy the shield -> BuyShield ## cost:50
 - Just looking -> >>

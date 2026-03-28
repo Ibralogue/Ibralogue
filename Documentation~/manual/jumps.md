@@ -6,7 +6,7 @@ The `Jump` invocation lets you automatically move from one conversation to anoth
 
 Use `{{Jump(...)}}` on its own line within a dialogue line.
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 {{Jump(Farewell)}}
@@ -23,13 +23,13 @@ After the player advances past "Welcome, traveller.", the engine jumps to the "F
 
 The `{{Jump(...)}}` invocation can appear before or after the sentence text, as long as it is inside a dialogue line (after a `[Speaker]` tag):
 
-```text
+```ibra
 [NPC]
 {{Jump(NextConversation)}}
 This line will jump after it finishes.
 ```
 
-```text
+```ibra
 [NPC]
 This line will also jump after it finishes.
 {{Jump(NextConversation)}}
@@ -41,7 +41,7 @@ Both forms are equivalent. The jump always happens after the player advances pas
 
 Jump targets support [variables](global-variables.md):
 
-```text
+```ibra
 [NPC]
 {{Jump($NEXT_CONVERSATION)}}
 Moving on...

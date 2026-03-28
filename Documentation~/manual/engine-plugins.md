@@ -25,7 +25,7 @@ The plugin reads the `image` metadata key from each line. When present, it loads
 
 Set the image in your dialogue file using the `Image` invocation or metadata:
 
-```text
+```ibra
 [NPC]
 {{Image(Portraits/AvaSmiling)}}
 Hello!
@@ -41,7 +41,7 @@ Hello! ## image:Portraits/AvaSmiling
 
 Add it to your engine GameObject alongside an `IAudioProvider` implementation:
 
-```text
+```ibra
 [NPC] ## audio:Voiceover/welcome_001
 Welcome!
 ```

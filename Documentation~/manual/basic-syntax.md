@@ -4,7 +4,7 @@
 
 Use square brackets to define speaker names. Everything that follows belongs to that speaker until the next speaker tag is reached.
 
-```text
+```ibra
 [NPC]
 Hi!
 How are you?
@@ -16,7 +16,7 @@ In the example above, "Hi!" and "How are you?" are both part of the same dialogu
 
 To split text into separate dialogue lines that the player advances through one at a time, use the speaker tag again:
 
-```text
+```ibra
 [NPC]
 Hi!
 [NPC]
@@ -29,7 +29,7 @@ Now "Hi!" and "How are you?" are two separate lines. The player will see "Hi!" f
 
 Different speakers are defined the same way:
 
-```text
+```ibra
 [Ava]
 Hey there!
 [Claire]
@@ -42,7 +42,7 @@ How have you been?
 
 Use `[>>]` as the speaker to create a line that runs functions without displaying anything in the dialogue view:
 
-```text
+```ibra
 [NPC]
 Let me check something...
 [>>]

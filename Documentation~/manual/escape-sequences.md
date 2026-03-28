@@ -6,7 +6,7 @@ Ibralogue uses several characters and character sequences as syntax. To use thes
 
 Within a dialogue line, `{{`, `$`, and `##` have special meaning. A backslash prevents them from being interpreted as syntax:
 
-```text
+```ibra
 [NPC]
 The price is \$50 per item.
 Use \{{curly braces}} for templates.
@@ -15,7 +15,7 @@ See section \## for more info.
 
 This displays as:
 
-```text
+```ibra
 NPC: The price is $50 per item.
 NPC: Use {{curly braces}} for templates.
 NPC: See section ## for more info.
@@ -27,7 +27,7 @@ Without the backslashes, `$50` would be treated as a [variable](global-variables
 
 Some syntax is only special at the start of a line: `#` (comments), `##` (metadata), `[` (speaker names), `-` (choices), and `{{` (invocations). A backslash at the start of the line prevents this:
 
-```text
+```ibra
 [NPC]
 \# This is not a comment.
 \[Not a speaker]
@@ -35,7 +35,7 @@ Some syntax is only special at the start of a line: `#` (comments), `##` (metada
 
 This displays as:
 
-```text
+```ibra
 NPC: # This is not a comment.
 NPC: [Not a speaker]
 ```
@@ -44,7 +44,7 @@ NPC: [Not a speaker]
 
 To include a literal backslash in dialogue text, use a double backslash:
 
-```text
+```ibra
 [NPC]
 The file is at C:\\Users\\NPC\\Documents.
 ```

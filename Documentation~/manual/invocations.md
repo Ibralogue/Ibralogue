@@ -31,7 +31,7 @@ Ibralogue ships with built-in invocations for common tasks. These can be placed 
 | `{{ResumeEngine}}` | Resumes a paused engine from within dialogue. |
 | `{{MarkVisited(key)}}` | Marks a key as visited. Check with `Visited("key")` in conditionals. |
 
-```text
+```ibra
 [NPC]
 {{Image(Portraits/Happy)}}
 {{Audio(Voiceover/greeting)}}
@@ -60,7 +60,7 @@ public static void Die()
 }
 ```
 
-```text
+```ibra
 [NPC]
 Time to die.
 {{Die}}
@@ -81,7 +81,7 @@ public class QuestTracker : MonoBehaviour
 }
 ```
 
-```text
+```ibra
 {{If(HasQuest("FindSword"))}}
 [NPC]
 I see you found the sword.
@@ -100,7 +100,7 @@ public static string GetDay()
 }
 ```
 
-```text
+```ibra
 [NPC]
 Today is {{GetDay}}.
 ```
@@ -131,7 +131,7 @@ public IEnumerator PlayCutscene(string name)
 }
 ```
 
-```text
+```ibra
 [>>]
 {{PlayCutscene(intro)}}
 
@@ -147,7 +147,7 @@ This is different from `{{Wait(seconds)}}` which only pauses the text animation 
 
 [Variables](global-variables.md) are resolved inside invocation arguments:
 
-```text
+```ibra
 [NPC]
 You received {{GiveItem($REWARD)}}.
 ```

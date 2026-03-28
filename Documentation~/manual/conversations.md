@@ -6,7 +6,7 @@ A single `.ibra` file can contain multiple conversations. Conversations are name
 
 Use `{{ConversationName(...)}}` on its own line to mark the start of a conversation:
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 Hello, traveller.
@@ -18,7 +18,7 @@ Everything after the `{{ConversationName(...)}}` line belongs to that conversati
 
 #### Multiple Conversations
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 Hello, traveller.
@@ -34,7 +34,7 @@ This file contains two conversations: "Greeting" and "Farewell".
 
 If no `{{ConversationName(...)}}` is specified, the conversation is named "Default". This is fine for simple files that only need one conversation:
 
-```text
+```ibra
 [NPC]
 Hello World!
 ```
@@ -51,7 +51,7 @@ dialogueManager.StartConversation(dialogueAsset, startIndex: 1);
 
 You can jump to a conversation by name directly in a dialogue file using the `{{Jump(...)}}` invocation:
 
-```text
+```ibra
 {{ConversationName(Greeting)}}
 [NPC]
 {{Jump(Farewell)}}

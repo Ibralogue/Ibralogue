@@ -4,7 +4,7 @@ Conditionals let you show or hide dialogue lines based on variable state. They a
 
 #### Basic If/Else
 
-```text
+```ibra
 [Doctor]
 Let me take a look at you.
 {{If($HEALTH > 50)}}
@@ -22,7 +22,7 @@ The `{{If(...)}}` block is followed by its body, an optional `{{Else}}` branch, 
 
 For multiple conditions, use `{{ElseIf(...)}}`:
 
-```text
+```ibra
 {{If($RANK == "gold")}}
 [NPC]
 Welcome back, gold member!
@@ -41,7 +41,7 @@ Branches are checked in order. The first one whose condition is true is executed
 
 Conditional blocks can be nested:
 
-```text
+```ibra
 {{If($QUEST_STARTED)}}
   {{If($HAS_KEY)}}
   [Guard]
@@ -61,14 +61,14 @@ Conditions support comparisons, boolean logic, and arithmetic.
 
 **Comparison operators:** `==`, `!=`, `<`, `>`, `<=`, `>=`
 
-```text
+```ibra
 {{If($GOLD >= 100)}}
 {{If($NAME != "Nobody")}}
 ```
 
 **Boolean operators:** `AND`, `OR`, `NOT`
 
-```text
+```ibra
 {{If($HEALTH > 0 AND $MANA > 10)}}
 {{If($IS_FRIENDLY OR $REPUTATION > 50)}}
 {{If(NOT $GAME_OVER)}}
@@ -78,20 +78,20 @@ Conditions support comparisons, boolean logic, and arithmetic.
 
 Arithmetic is available in `{{Set(...)}}` expressions and conditions:
 
-```text
+```ibra
 {{Set($TOTAL, $PRICE * $QTY)}}
 {{If($HEALTH - $DAMAGE > 0)}}
 ```
 
 **Parentheses** for grouping:
 
-```text
+```ibra
 {{If(($A OR $B) AND $C)}}
 ```
 
 **Function calls:** Any `[DialogueInvocation]` that returns a value can be called inside expressions:
 
-```text
+```ibra
 {{If(Visited("Tavern"))}}
 [NPC]
 You've been here before.
@@ -121,7 +121,7 @@ For truthiness (used by `NOT` and bare variables in conditions): `null`, empty s
 
 Because conditions are evaluated as the engine reaches them, you can use `{{Set(...)}}` mid-conversation and have later conditions react:
 
-```text
+```ibra
 [NPC]
 Here, take this key.
 {{Set($HAS_KEY, true)}}

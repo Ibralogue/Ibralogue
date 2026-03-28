@@ -14,7 +14,7 @@ For the `Interaction Dialogues` reference, create a new Ibralogue file from **Cr
 
 Open the Ibralogue file you have created and it should look something like this:
 
-```text
+```ibra
 [NPC]
 Hello World!
 ```
@@ -23,7 +23,7 @@ The square brackets define a speaker, and the lines that follow are what they sa
 
 To add more lines to the conversation, just add another speaker tag:
 
-```text
+```ibra
 [NPC]
 Hello World!
 [NPC]
