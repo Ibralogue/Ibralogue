@@ -16,7 +16,8 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-nav-docs">
-        {{{_navbar}}}
+        <li><a href="{{_rel}}manual/quickstart.html">Manual</a></li>
+        <li><a href="{{_rel}}ref/Ibralogue.html">Scripting Reference</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-site-links">
         <li><a href="https://ibralogue.github.io/">Website</a></li>
