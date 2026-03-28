@@ -127,6 +127,32 @@ article h4 {
   margin-left: 2px;
 }
 
+/* Docs nav links (Manual, Scripting Reference) rendered from toc.yml */
+.navbar-nav-docs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar-nav-docs > li > a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px 14px !important;
+  border-bottom: none !important;
+  transition: color var(--transition);
+}
+
+.navbar-nav-docs > li > a:hover,
+.navbar-nav-docs > li > a:focus {
+  color: #fff !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
 /* Site-wide nav links (Website, GitHub, Discord) */
 .navbar-site-links {
   display: flex;
@@ -586,6 +612,13 @@ pre code {
 /* Hide the default docfx footer (replaced by custom partial) */
 .footer {
   display: none;
+}
+
+footer {
+  display: block !important;
+  position: static !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .docs-footer {
