@@ -393,6 +393,26 @@ pre code {
   background-color: transparent;
 }
 
+/* ---------- .ibra syntax highlighting ---------- */
+/* Colors match the landing page's highlightIbra.tsx */
+.ib-line {
+  line-height: 1.65;
+  min-height: 1.65em;
+}
+
+.ib-highlighted {
+  display: block;
+}
+
+.ib-punct    { color: #a8a29e; } /* stone-400 */
+.ib-keyword  { color: #7c3aed; } /* violet-600 */
+.ib-section  { color: #186260; } /* teal-600 */
+.ib-speaker  { color: #1d7773; } /* teal-500 */
+.ib-variable { color: #e11d48; } /* rose-600 */
+.ib-text     { color: var(--ink); }
+.ib-comment  { color: #a8a29e; font-style: italic; } /* stone-400 */
+.ib-operator { color: #a78bfa; } /* violet-400 */
+
 /* ---------- Tables ---------- */
 .table {
   border-collapse: separate;
