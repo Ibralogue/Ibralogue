@@ -332,10 +332,13 @@ body .toc {
 /* Adjust sidebar position to match reduced header height */
 .sidefilter {
   top: 60px;
+  z-index: 1;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--surface-dim);
 }
 
 .sidetoc {
-  top: 110px;
+  top: 120px;
 }
 
 article p,
