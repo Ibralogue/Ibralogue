@@ -50,7 +50,7 @@
     ],
 
     "sitemap": {
-      "baseUrl": "https://ibralogue.github.io/Ibralogue",
+      "baseUrl": "https://ibralogue.github.io/docs",
       "changefreq": "weekly",
       "fileOptions": {
         "ref/*": {

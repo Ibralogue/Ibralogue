@@ -1,0 +1,34 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - 'Documentation~/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docfx
+        uses: nikeee/docfx-action@v1.0.0
+        with:
+          args: Documentation~/docfx.json
+
+      - name: Push docs to landing page repo
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_DEPLOY_TOKEN }}
+        run: |
+          git clone https://x-access-token:${GH_TOKEN}@github.com/Ibralogue/ibralogue.github.io.git landing
+          rm -rf landing/public/docs
+          cp -r _site landing/public/docs
+          cd landing
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/docs
+          git diff --staged --quiet && echo "No docs changes" && exit 0
+          git commit -m "docs: update from Ibralogue/Ibralogue@${GITHUB_SHA::7}"
+          git push
