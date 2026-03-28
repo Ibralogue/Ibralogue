@@ -202,17 +202,9 @@ article h4 {
 }
 
 /* Subnav / breadcrumb bar */
+/* Hide the empty breadcrumb subnav — adds visual noise without value */
 .subnav {
-  border-top: none;
-  border-bottom: 1px solid var(--surface-dim);
-  background-color: var(--surface);
-  box-shadow: none;
-}
-
-.breadcrumb {
-  background-color: transparent;
-  font-size: 13px;
-  color: var(--ink-muted);
+  display: none;
 }
 
 /* Navbar toggle (mobile) */
@@ -334,6 +326,16 @@ body .toc {
 .article {
   color: var(--ink);
   line-height: 1.7;
+  margin-top: 70px;
+}
+
+/* Adjust sidebar position to match reduced header height */
+.sidefilter {
+  top: 60px;
+}
+
+.sidetoc {
+  top: 110px;
 }
 
 article p,
