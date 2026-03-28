@@ -1,0 +1,31 @@
+<footer>
+  <div class="docs-footer">
+    <div class="container">
+      <div class="docs-footer-grid">
+        <div class="docs-footer-brand">
+          <p class="docs-footer-title">Ibralogue</p>
+          <p class="docs-footer-desc">A simple, extendable dialogue system library for the Unity Game Engine.</p>
+        </div>
+        <div class="docs-footer-group">
+          <p class="docs-footer-heading">Project</p>
+          <ul>
+            <li><a href="https://ibralogue.github.io/">Website</a></li>
+            <li><a href="https://github.com/Ibralogue/Ibralogue" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://github.com/Ibralogue/Ibralogue/releases" target="_blank" rel="noopener noreferrer">Release Notes</a></li>
+          </ul>
+        </div>
+        <div class="docs-footer-group">
+          <p class="docs-footer-heading">Community</p>
+          <ul>
+            <li><a href="https://discord.gg/xa3zvF6tP7" target="_blank" rel="noopener noreferrer">Discord</a></li>
+            <li><a href="https://www.patreon.com/ibrahh" target="_blank" rel="noopener noreferrer">Patreon</a></li>
+            <li><a href="https://github.com/Ibralogue/Ibralogue/issues/new/choose" target="_blank" rel="noopener noreferrer">Report a Bug</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="docs-footer-legal">
+        <p>MIT License &middot; Unity 2022.3+</p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -553,25 +553,91 @@ pre code {
 }
 
 /* ---------- Footer ---------- */
-.footer {
-  border-top: 1px solid var(--surface-dim);
-  background-color: var(--surface);
-  padding: 20px 0;
-  font-size: 13px;
-  color: var(--ink-muted);
-}
-
-.footer a {
-  color: var(--ink-muted);
-}
-
-.footer a:hover {
-  color: var(--teal-500);
-}
-
 .grad-bottom,
 .grad-top {
   display: none;
+}
+
+/* Hide the default docfx footer (replaced by custom partial) */
+.footer {
+  display: none;
+}
+
+.docs-footer {
+  border-top: 1px solid var(--surface-dim);
+  background-color: var(--surface);
+  padding: 48px 0 0;
+}
+
+.docs-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 640px) {
+  .docs-footer-grid {
+    grid-template-columns: 1.2fr 1fr 1fr;
+  }
+}
+
+.docs-footer-brand {
+  max-width: 280px;
+}
+
+.docs-footer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.docs-footer-desc {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.docs-footer-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.docs-footer-group ul li {
+  margin-bottom: 8px;
+}
+
+.docs-footer-group ul li a {
+  font-size: 14px;
+  color: var(--ink-muted);
+  transition: color var(--transition);
+}
+
+.docs-footer-group ul li a:hover {
+  color: var(--teal-500);
+}
+
+.docs-footer-heading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.docs-footer-legal {
+  margin-top: 32px;
+  padding: 20px 0;
+  border-top: 1px solid var(--surface-dim);
+}
+
+.docs-footer-legal p {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin: 0;
 }
 
 /* ---------- Search results ---------- */
