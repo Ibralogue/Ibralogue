@@ -6,12 +6,8 @@ Ibralogue is a simple and extendable dialogue system library for the Unity Game 
 
 New to Ibralogue? Start here:
 
-- **[Quickstart](manual/quickstart.md)** — set up your first dialogue in under five minutes
-- **[Basic Syntax](manual/basic-syntax.md)** — learn how `.ibra` files work
-
-## Manual
-
-The manual covers everything from writing dialogue to building custom engine plugins.
+- **[Quickstart](manual/quickstart.md)**: set up your first dialogue in under five minutes
+- **[Basic Syntax](manual/basic-syntax.md)**: learn how `.ibra` files work
 
 ### Syntax Guide
 
@@ -41,4 +37,4 @@ The manual covers everything from writing dialogue to building custom engine plu
 
 Full API documentation generated from source:
 
-- **[Scripting Reference](xref:Ibralogue)** — all classes, methods, and properties
+- **[Scripting Reference](xref:Ibralogue)**: all classes, methods, and properties
