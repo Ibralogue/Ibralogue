@@ -13,10 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build docfx
-        uses: nikeee/docfx-action@v1.0.0
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
-          args: Documentation~/docfx.json
+          dotnet-version: 8.0.x
+
+      - name: Install DocFX
+        run: dotnet tool install -g docfx
+
+      - name: Build documentation
+        run: docfx Documentation~/docfx.json
 
       - name: Push docs to landing page repo
         env:
