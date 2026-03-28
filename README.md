@@ -21,7 +21,7 @@ Ibralogue
 
 <p align="center">
   <a href="#about">About</a> •
-  <a href="https://ibralogue.github.io/Ibralogue/index.html">Documentation</a> •
+  <a href="https://ibralogue.github.io/docs/index.html">Documentation</a> •
   <a href="#installation">Installation</a> •
   <a href="#features">Features</a> •
    <a href="https://discord.gg/xa3zvF6tP7">Discord</a>
@@ -32,7 +32,7 @@ Ibralogue
 ## About
 
 Ibralogue is a simple and extendable dialogue system library for Unity. Dialogue is written in `.ibra` files which have their own syntax which you can
-learn more about in the [docs](https://ibralogue.github.io/Ibralogue/manual/basic-syntax.html). For help regarding Ibralogue you can join the [support server](https://discord.gg/xa3zvF6tP7).
+learn more about in the [docs](https://ibralogue.github.io/docs/manual/basic-syntax.html). For help regarding Ibralogue you can join the [support server](https://discord.gg/xa3zvF6tP7).
 
 ## Features
 
