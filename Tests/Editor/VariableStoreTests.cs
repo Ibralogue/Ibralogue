@@ -143,9 +143,9 @@ namespace Ibralogue.Editor.Tests
 
 			var result = DialogueParser.ParseDialogue(asset);
 			var lines = LineResolver.CollectLines(result[0].Content);
-			LineResolver.Resolve(lines[0], null);
+			Line resolved = LineResolver.Resolve(lines[0], null);
 
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello !"));
+			Assert.That(resolved.LineContent.Text, Is.EqualTo("Hello !"));
 
 			Object.DestroyImmediate(asset);
 			DialogueParser.ClearCache();

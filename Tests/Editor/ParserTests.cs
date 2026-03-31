@@ -30,8 +30,7 @@ namespace Ibralogue.Editor.Tests
 		private Line GetLine(Conversation conversation, int index)
 		{
 			List<RuntimeLine> lines = LineResolver.CollectLines(conversation.Content);
-			LineResolver.Resolve(lines[index], null);
-			return lines[index].Line;
+			return LineResolver.Resolve(lines[index], null);
 		}
 
 		private List<Choice> GetChoices(Conversation conversation)
@@ -530,12 +529,12 @@ namespace Ibralogue.Editor.Tests
 			var lines = LineResolver.CollectLines(result[0].Content);
 
 			VariableStore.SetGlobal("NAME", "Alice");
-			LineResolver.Resolve(lines[0], null);
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello Alice!"));
+			Line resolved = LineResolver.Resolve(lines[0], null);
+			Assert.That(resolved.LineContent.Text, Is.EqualTo("Hello Alice!"));
 
 			VariableStore.SetGlobal("NAME", "Bob");
-			LineResolver.Resolve(lines[0], null);
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello Bob!"));
+			resolved = LineResolver.Resolve(lines[0], null);
+			Assert.That(resolved.LineContent.Text, Is.EqualTo("Hello Bob!"));
 		}
 
 		[Test]
@@ -596,9 +595,9 @@ namespace Ibralogue.Editor.Tests
 			var lines = LineResolver.CollectLines(result[0].Content);
 			Assert.That(lines, Has.Count.EqualTo(3));
 
-			LineResolver.Resolve(lines[1], null);
-			Assert.That(lines[1].Line.Silent, Is.True);
-			Assert.That(lines[1].Line.Speaker, Is.EqualTo(""));
+			Line silentLine = LineResolver.Resolve(lines[1], null);
+			Assert.That(silentLine.Silent, Is.True);
+			Assert.That(silentLine.Speaker, Is.EqualTo(""));
 		}
 
 		[Test]
@@ -737,9 +736,9 @@ namespace Ibralogue.Editor.Tests
 				{ "speaker.NPC", "PNJ" }
 			});
 
-			LineResolver.Resolve(lines[0], null, provider);
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour!"));
-			Assert.That(lines[0].Line.Speaker, Is.EqualTo("PNJ"));
+			Line localized = LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(localized.LineContent.Text, Is.EqualTo("Bonjour!"));
+			Assert.That(localized.Speaker, Is.EqualTo("PNJ"));
 		}
 
 		[Test]
@@ -753,9 +752,9 @@ namespace Ibralogue.Editor.Tests
 
 			var provider = new DictionaryLocalizationProvider(new Dictionary<string, string>());
 
-			LineResolver.Resolve(lines[0], null, provider);
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello!"));
-			Assert.That(lines[0].Line.Speaker, Is.EqualTo("NPC"));
+			Line fallback = LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(fallback.LineContent.Text, Is.EqualTo("Hello!"));
+			Assert.That(fallback.Speaker, Is.EqualTo("NPC"));
 		}
 
 		[Test]
@@ -774,8 +773,8 @@ namespace Ibralogue.Editor.Tests
 				{ "A.line.0", "Bonjour $NAME!" }
 			});
 
-			LineResolver.Resolve(lines[0], null, provider);
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Bonjour Ibrahim!"));
+			Line translated = LineResolver.Resolve(lines[0], null, provider);
+			Assert.That(translated.LineContent.Text, Is.EqualTo("Bonjour Ibrahim!"));
 		}
 
 		[Test]
