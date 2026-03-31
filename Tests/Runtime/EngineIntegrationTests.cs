@@ -52,7 +52,7 @@ namespace Ibralogue.Tests
         [UnityTest]
         public IEnumerator Conversation_LinesFireInOrder_ThenEnds()
         {
-            _asset.Content = "[NPC]\nFirst line\nSecond line\n";
+            _asset.Content = "[NPC]\nFirst line\n[NPC]\nSecond line\n";
             List<string> lines = new List<string>();
             bool ended = false;
 
@@ -87,15 +87,25 @@ namespace Ibralogue.Tests
         }
 
         [UnityTest]
-        public IEnumerator StopConversation_WhenInactive_DoesNotFireEndEvent()
+        public IEnumerator StopConversation_AfterEnd_DoesNotFireEndEventTwice()
         {
-            bool ended = false;
-            _engine.OnConversationEnd.AddListener(() => ended = true);
+            _asset.Content = "[NPC]\nHello\n";
+            int endCount = 0;
+            _engine.OnConversationEnd.AddListener(() => endCount++);
 
+            _engine.StartConversation(_asset);
+            yield return null;
+
+            _engine.Next();
+            yield return null;
+
+            Assert.That(endCount, Is.EqualTo(1));
+
+            // Calling stop again when already stopped should not fire a second time
             _engine.StopConversation();
             yield return null;
 
-            Assert.That(ended, Is.False);
+            Assert.That(endCount, Is.EqualTo(1));
         }
 
         // --- History ---
@@ -103,7 +113,7 @@ namespace Ibralogue.Tests
         [UnityTest]
         public IEnumerator History_TracksDisplayedLines()
         {
-            _asset.Content = "[NPC]\nLine A\nLine B\n";
+            _asset.Content = "[NPC]\nLine A\n[NPC]\nLine B\n";
 
             _engine.StartConversation(_asset);
             yield return null;
@@ -233,7 +243,7 @@ namespace Ibralogue.Tests
         public IEnumerator JumpTarget_ResolvesCorrectly()
         {
             _asset.Content =
-                "[NPC]\nBefore jump -> Target\n\n" +
+                "[NPC]\n{{Jump(Target)}}\nBefore jump\n\n" +
                 "{{ConversationName(Target)}}\n[NPC]\nAfter jump\n";
 
             List<string> lines = new List<string>();
@@ -258,8 +268,7 @@ namespace Ibralogue.Tests
         {
             _asset.Content =
                 "{{Global($FLAG, true)}}\n" +
-                "[NPC]\n" +
-                "{{If($FLAG)}}\nFlag is set\n{{Else}}\nFlag is not set\n{{EndIf}}\n";
+                "{{If($FLAG)}}\n[NPC]\nFlag is set\n{{Else}}\n[NPC]\nFlag is not set\n{{EndIf}}\n";
 
             List<string> lines = new List<string>();
             _engine.OnLineDisplayed.AddListener(line => lines.Add(line.LineContent.Text));
@@ -276,8 +285,7 @@ namespace Ibralogue.Tests
         {
             _asset.Content =
                 "{{Global($FLAG, false)}}\n" +
-                "[NPC]\n" +
-                "{{If($FLAG)}}\nFlag is set\n{{Else}}\nFlag is not set\n{{EndIf}}\n";
+                "{{If($FLAG)}}\n[NPC]\nFlag is set\n{{Else}}\n[NPC]\nFlag is not set\n{{EndIf}}\n";
 
             List<string> lines = new List<string>();
             _engine.OnLineDisplayed.AddListener(line => lines.Add(line.LineContent.Text));
@@ -310,7 +318,7 @@ namespace Ibralogue.Tests
         [UnityTest]
         public IEnumerator ExportProgress_ReturnsSnapshotMidConversation()
         {
-            _asset.Content = "[NPC]\nLine 1\nLine 2\nLine 3\n";
+            _asset.Content = "[NPC]\nLine 1\n[NPC]\nLine 2\n[NPC]\nLine 3\n";
 
             _engine.StartConversation(_asset);
             yield return null;
@@ -323,7 +331,7 @@ namespace Ibralogue.Tests
         [UnityTest]
         public IEnumerator ResumeFromProgress_ContinuesFromCorrectPoint()
         {
-            _asset.Content = "[NPC]\nLine 1\nLine 2\nLine 3\n";
+            _asset.Content = "[NPC]\nLine 1\n[NPC]\nLine 2\n[NPC]\nLine 3\n";
 
             _engine.StartConversation(_asset);
             yield return null;
@@ -345,8 +353,6 @@ namespace Ibralogue.Tests
             _engine.ResumeFromProgress(_asset, progress);
             yield return null;
 
-            // Should resume at line 3 (line 2 was the last displayed, so
-            // progress points past it)
             Assert.That(lines, Has.Count.GreaterThanOrEqualTo(1));
             Assert.That(lines[0], Is.EqualTo("Line 3"));
         }
