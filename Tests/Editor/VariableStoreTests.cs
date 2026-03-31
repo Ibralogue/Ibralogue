@@ -136,7 +136,7 @@ namespace Ibralogue.Editor.Tests
 		// --- Undefined variable resolution ---
 
 		[Test]
-		public void UndefinedVariable_LeavesReferenceAsIs()
+		public void UndefinedVariable_ResolvesToEmptyInLineText()
 		{
 			var asset = ScriptableObject.CreateInstance<DialogueAsset>();
 			asset.Content = "[NPC]\nHello $UNDEFINED!\n";
@@ -145,7 +145,7 @@ namespace Ibralogue.Editor.Tests
 			var lines = LineResolver.CollectLines(result[0].Content);
 			LineResolver.Resolve(lines[0], null);
 
-			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello $UNDEFINED!"));
+			Assert.That(lines[0].Line.LineContent.Text, Is.EqualTo("Hello !"));
 
 			Object.DestroyImmediate(asset);
 			DialogueParser.ClearCache();
