@@ -127,6 +127,9 @@ namespace Ibralogue
         private List<CachedInvocation> _cachedInvocationMethods;
         private bool _invocationCacheDirty = true;
 
+        private Parser.Expressions.ExpressionEvaluator _cachedEvaluator;
+        private string _cachedEvaluatorAssetName;
+
         public UnityEvent OnConversationPaused = new UnityEvent();
         public UnityEvent OnConversationResumed = new UnityEvent();
 
@@ -416,6 +419,8 @@ namespace Ibralogue
             _choicesActive = false;
             _displayedNodeCount = 0;
             _isPaused = false;
+            _cachedEvaluator = null;
+            _cachedEvaluatorAssetName = null;
 
             if (!PersistHistory)
                 _history.Clear();
@@ -864,11 +869,16 @@ namespace Ibralogue
 
         private Parser.Expressions.ExpressionEvaluator CreateEvaluator()
         {
+            if (_cachedEvaluator != null && _cachedEvaluatorAssetName == _currentAssetName)
+                return _cachedEvaluator;
+
             string assetName = _currentAssetName;
-            return new Parser.Expressions.ExpressionEvaluator(
+            _cachedEvaluatorAssetName = assetName;
+            _cachedEvaluator = new Parser.Expressions.ExpressionEvaluator(
                 name => VariableStore.Resolve(assetName, name),
                 ResolveExpressionFunction
             );
+            return _cachedEvaluator;
         }
 
         private object ResolveExpressionFunction(string name, object[] arguments)
