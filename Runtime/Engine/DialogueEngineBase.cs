@@ -117,6 +117,7 @@ namespace Ibralogue
         protected bool _isPaused = false;
 
         private Coroutine _displayCoroutine;
+        private Coroutine _asyncInvocationCoroutine;
         private string _currentAssetName;
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
@@ -406,8 +407,9 @@ namespace Ibralogue
         /// </summary>
         public void StopConversation()
         {
-            StopAllCoroutines();
-            _displayCoroutine = null;
+            bool wasActive = _currentConversation != null;
+
+            StopTrackedCoroutines();
 
             ClearDisplay();
             ClearPlugins();
@@ -416,14 +418,18 @@ namespace Ibralogue
             if (audio != null)
                 audio.Stop();
 
-            // Fire end events before clearing state so listeners can still
-            // read CurrentLine, CurrentSpeaker, and IsConversationActive.
-            if (enginePlugins != null)
-                foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnConversationEnd();
+            // Only fire end events when a conversation was actually running.
+            // This prevents spurious events during the first StartConversation
+            // call or when StopConversation is called while already stopped.
+            if (wasActive)
+            {
+                if (enginePlugins != null)
+                    foreach (EnginePlugin plugin in enginePlugins)
+                        plugin.OnConversationEnd();
 
-            PersistentOnConversationEnd.Invoke();
-            OnConversationEnd.Invoke();
+                PersistentOnConversationEnd.Invoke();
+                OnConversationEnd.Invoke();
+            }
 
             _linePlaying = false;
             CurrentLine = null;
@@ -436,6 +442,20 @@ namespace Ibralogue
 
             if (!PersistHistory)
                 _history.Clear();
+        }
+
+        private void StopTrackedCoroutines()
+        {
+            if (_displayCoroutine != null)
+            {
+                StopCoroutine(_displayCoroutine);
+                _displayCoroutine = null;
+            }
+            if (_asyncInvocationCoroutine != null)
+            {
+                StopCoroutine(_asyncInvocationCoroutine);
+                _asyncInvocationCoroutine = null;
+            }
         }
 
         public void PauseConversation()
@@ -618,7 +638,8 @@ namespace Ibralogue
                     {
                         if (HasAsyncInvocations(resolved.LineContent.Invocations))
                         {
-                            StartCoroutine(InvokeFunctionsAsync(resolved.LineContent.Invocations, resolved));
+                            _asyncInvocationCoroutine = StartCoroutine(
+                                InvokeFunctionsAsync(resolved.LineContent.Invocations, resolved));
                             return;
                         }
                         InvokeFunctions(resolved.LineContent.Invocations, resolved);
@@ -847,8 +868,7 @@ namespace Ibralogue
 
             if (choice.LeadingConversationName == ">>")
             {
-                StopAllCoroutines();
-                _displayCoroutine = null;
+                StopTrackedCoroutines();
                 _linePlaying = false;
                 ClearDisplay();
                 ClearPlugins();
