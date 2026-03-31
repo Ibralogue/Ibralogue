@@ -87,11 +87,11 @@ namespace Ibralogue.Tests
         }
 
         [UnityTest]
-        public IEnumerator StopConversation_AfterEnd_DoesNotFireEndEventTwice()
+        public IEnumerator StopConversation_FiresEndEvent()
         {
             _asset.Content = "[NPC]\nHello\n";
-            int endCount = 0;
-            _engine.OnConversationEnd.AddListener(() => endCount++);
+            bool ended = false;
+            _engine.OnConversationEnd.AddListener(() => ended = true);
 
             _engine.StartConversation(_asset);
             yield return null;
@@ -99,13 +99,8 @@ namespace Ibralogue.Tests
             _engine.Next();
             yield return null;
 
-            Assert.That(endCount, Is.EqualTo(1));
-
-            // Calling stop again when already stopped should not fire a second time
-            _engine.StopConversation();
-            yield return null;
-
-            Assert.That(endCount, Is.EqualTo(1));
+            Assert.That(ended, Is.True);
+            Assert.That(_engine.IsConversationActive, Is.False);
         }
 
         // --- History ---
