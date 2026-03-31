@@ -16,6 +16,7 @@ namespace Ibralogue.Editor.Tests
 		{
 			dialogueAsset = ScriptableObject.CreateInstance<DialogueAsset>();
 			VariableStore.ClearAll();
+			DialogueParser.ClearCache();
 		}
 
 		[TearDown]
@@ -23,6 +24,7 @@ namespace Ibralogue.Editor.Tests
 		{
 			Object.DestroyImmediate(dialogueAsset);
 			VariableStore.ClearAll();
+			DialogueParser.ClearCache();
 		}
 
 		private Line GetLine(Conversation conversation, int index)
@@ -818,6 +820,31 @@ namespace Ibralogue.Editor.Tests
 			Assert.That(line.LineContent.Invocations[0].Name, Is.EqualTo("Audio"));
 			Assert.That(line.LineContent.Invocations[0].CharacterIndex, Is.EqualTo(6));
 			Assert.That(line.LineContent.Text, Is.EqualTo("Hello  world!"));
+		}
+
+		// --- Parser caching ---
+
+		[Test]
+		public void ParseDialogue_ReturnsCachedResult()
+		{
+			dialogueAsset.Content = "[NPC]\nHello\n";
+
+			var first = DialogueParser.ParseDialogue(dialogueAsset);
+			var second = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(second, Is.SameAs(first));
+		}
+
+		[Test]
+		public void InvalidateCache_ForcesReparse()
+		{
+			dialogueAsset.Content = "[NPC]\nHello\n";
+
+			var first = DialogueParser.ParseDialogue(dialogueAsset);
+			DialogueParser.InvalidateCache(dialogueAsset);
+			var second = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(second, Is.Not.SameAs(first));
 		}
 
 		private class DictionaryLocalizationProvider : ILocalizationProvider
