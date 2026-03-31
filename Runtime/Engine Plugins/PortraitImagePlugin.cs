@@ -36,8 +36,8 @@ namespace Ibralogue.Plugins
 
             if (sprite != null)
             {
-                speakerPortrait.color = new Color(255, 255, 255, 255);
                 speakerPortrait.sprite = sprite;
+                speakerPortrait.enabled = true;
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Ibralogue.Plugins
 
         private void HidePortrait()
         {
-            speakerPortrait.color = new Color(0, 0, 0, 0);
+            speakerPortrait.enabled = false;
             speakerPortrait.sprite = null;
         }
     }

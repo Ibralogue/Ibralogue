@@ -359,8 +359,25 @@ namespace Ibralogue
                     continue;
                 }
 
-                if (node is RuntimeSetCommand || node is RuntimeGlobalDecl)
+                if (node is RuntimeSetCommand set)
                 {
+                    object value = evaluator.Evaluate(set.Value);
+                    VariableStore.Set(_currentAssetName, set.VariableName, value);
+                    _cursor.Advance();
+                    continue;
+                }
+
+                if (node is RuntimeGlobalDecl global)
+                {
+                    if (global.DefaultValue != null)
+                    {
+                        object value = evaluator.Evaluate(global.DefaultValue);
+                        VariableStore.SetGlobal(global.VariableName, value);
+                    }
+                    else if (!VariableStore.IsDefined(_currentAssetName, global.VariableName))
+                    {
+                        VariableStore.SetGlobal(global.VariableName, null);
+                    }
                     _cursor.Advance();
                     continue;
                 }
@@ -493,9 +510,9 @@ namespace Ibralogue
             if (_currentConversation == null) return;
             if (_choicesActive) return;
 
-            if (_currentRuntimeLine != null)
+            if (CurrentLine != null)
             {
-                string jumpTarget = _currentRuntimeLine.Line.JumpTarget;
+                string jumpTarget = CurrentLine.JumpTarget;
                 if (!string.IsNullOrEmpty(jumpTarget))
                 {
                     JumpTo(jumpTarget);
@@ -591,31 +608,31 @@ namespace Ibralogue
             {
                 RuntimeContentNode displayable = AdvanceToNextDisplayable();
 
-                if (displayable is RuntimeLine line)
+                if (displayable is RuntimeLine runtimeLine)
                 {
                     _displayedNodeCount++;
-                    _currentRuntimeLine = line;
-                    ResolveLineText(line);
+                    _currentRuntimeLine = runtimeLine;
+                    Line resolved = ResolveLineText(runtimeLine);
 
-                    if (line.Line.Silent)
+                    if (resolved.Silent)
                     {
-                        if (HasAsyncInvocations(line.Line.LineContent.Invocations))
+                        if (HasAsyncInvocations(resolved.LineContent.Invocations))
                         {
-                            StartCoroutine(InvokeFunctionsAsync(line.Line.LineContent.Invocations, line.Line));
+                            StartCoroutine(InvokeFunctionsAsync(resolved.LineContent.Invocations, resolved));
                             return;
                         }
-                        InvokeFunctions(line.Line.LineContent.Invocations, line.Line);
+                        InvokeFunctions(resolved.LineContent.Invocations, resolved);
                         continue;
                     }
 
                     RuntimeContentNode peek = PeekNextDisplayable();
                     if (peek is RuntimeChoicePoint choicePoint)
                     {
-                        _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, choicePoint));
+                        _displayCoroutine = StartCoroutine(DisplayDialogue(resolved, choicePoint));
                     }
                     else
                     {
-                        _displayCoroutine = StartCoroutine(DisplayDialogue(line.Line, null));
+                        _displayCoroutine = StartCoroutine(DisplayDialogue(resolved, null));
                     }
                     return;
                 }
@@ -852,9 +869,9 @@ namespace Ibralogue
             SwitchConversation(ParsedConversations[conversationIndex]);
         }
 
-        private void ResolveLineText(RuntimeLine runtimeLine)
+        private Line ResolveLineText(RuntimeLine runtimeLine)
         {
-            LineResolver.Resolve(runtimeLine, _currentAssetName, LocalizationProvider);
+            return LineResolver.Resolve(runtimeLine, _currentAssetName, LocalizationProvider);
         }
 
         private List<Choice> ResolveChoices(RuntimeChoicePoint choicePoint)
