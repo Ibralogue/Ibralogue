@@ -12,10 +12,11 @@ namespace Ibralogue.Parser
 	internal static class LineResolver
 	{
 		/// <summary>
-		/// Rebuilds a line's text, speaker, and jump target from its unresolved
-		/// sentence fragments (or localized text) using the current variable state.
+		/// Builds a fresh <see cref="Line"/> from the unresolved sentence fragments
+		/// (or localized text) using the current variable state. Returns a new
+		/// object each call so the cached parse result is never mutated.
 		/// </summary>
-		public static void Resolve(RuntimeLine runtimeLine, string assetName,
+		public static Line Resolve(RuntimeLine runtimeLine, string assetName,
 			ILocalizationProvider localization = null)
 		{
 			List<SentenceNode> sentences = runtimeLine.Sentences;
@@ -91,15 +92,22 @@ namespace Ibralogue.Parser
 				speaker = ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
 			}
 
-			runtimeLine.Line.Speaker = speaker;
-			runtimeLine.Line.JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName);
-			runtimeLine.Line.LineContent.Text = sb.ToString();
-			runtimeLine.Line.LineContent.Invocations = invocations;
-
 			Dictionary<string, string> resolvedMeta = new Dictionary<string, string>();
 			foreach (KeyValuePair<string, string> kv in runtimeLine.Line.LineContent.Metadata)
 				resolvedMeta[kv.Key] = ResolveVariablesInString(kv.Value, assetName);
-			runtimeLine.Line.LineContent.Metadata = resolvedMeta;
+
+			return new Line
+			{
+				Speaker = speaker,
+				LineContent = new LineContent
+				{
+					Text = sb.ToString(),
+					Invocations = invocations,
+					Metadata = resolvedMeta
+				},
+				JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName),
+				Silent = runtimeLine.Line.Silent
+			};
 		}
 
 		/// <summary>
