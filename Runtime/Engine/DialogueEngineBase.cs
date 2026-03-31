@@ -979,6 +979,7 @@ namespace Ibralogue
 
         private void InvokeTextProducingFunctions(List<ResolvedInvocation> resolved, Line line)
         {
+            LineContent content = line.LineContent;
             foreach (ResolvedInvocation r in resolved)
             {
                 if (r.Method.ReturnType == typeof(void)
@@ -987,9 +988,9 @@ namespace Ibralogue
 
                 object result = r.Method.Invoke(r.Target, r.Arguments);
                 string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                line.LineContent.Text =
-                    line.LineContent.Text.Insert(r.Invocation.CharacterIndex, insertText);
+                content.Text = content.Text.Insert(r.Invocation.CharacterIndex, insertText);
             }
+            line.LineContent = content;
         }
 
         private List<ResolvedInvocation> CollectPendingVoidInvocations(List<ResolvedInvocation> resolved)
@@ -1047,8 +1048,9 @@ namespace Ibralogue
                 else if (cached.Value.Method.ReturnType != typeof(void))
                 {
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                    line.LineContent.Text =
-                        line.LineContent.Text.Insert(function.CharacterIndex, insertText);
+                    LineContent content = line.LineContent;
+                    content.Text = content.Text.Insert(function.CharacterIndex, insertText);
+                    line.LineContent = content;
                 }
             }
 
@@ -1079,8 +1081,9 @@ namespace Ibralogue
                 if (cached.Value.Method.ReturnType != typeof(void))
                 {
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                    line.LineContent.Text =
-                        line.LineContent.Text.Insert(function.CharacterIndex, insertText);
+                    LineContent content = line.LineContent;
+                    content.Text = content.Text.Insert(function.CharacterIndex, insertText);
+                    line.LineContent = content;
                 }
             }
         }

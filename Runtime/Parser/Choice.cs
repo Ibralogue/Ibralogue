@@ -3,14 +3,13 @@
 namespace Ibralogue.Parser
 {
     /// <summary>
-    /// The choice class defines an option that can lead to a conversation.
+    /// Defines a player-facing choice option that can branch to a conversation.
     /// </summary>
     public class Choice: IMetadata
     {
-
-        public string ChoiceName;
-        public string LeadingConversationName;
-        public Dictionary<string, string> Metadata;
+        public string ChoiceName { get; internal set; }
+        public string LeadingConversationName { get; internal set; }
+        public Dictionary<string, string> Metadata { get; internal set; }
         
         public bool HasMetadata(string key) => 
             Metadata.ContainsKey(key);

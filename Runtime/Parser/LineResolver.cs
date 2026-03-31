@@ -91,15 +91,18 @@ namespace Ibralogue.Parser
 				speaker = ResolveVariablesInString(runtimeLine.RawSpeaker, assetName);
 			}
 
-			runtimeLine.Line.Speaker = speaker;
-			runtimeLine.Line.JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName);
-			runtimeLine.Line.LineContent.Text = sb.ToString();
-			runtimeLine.Line.LineContent.Invocations = invocations;
-
 			Dictionary<string, string> resolvedMeta = new Dictionary<string, string>();
 			foreach (KeyValuePair<string, string> kv in runtimeLine.Line.LineContent.Metadata)
 				resolvedMeta[kv.Key] = ResolveVariablesInString(kv.Value, assetName);
-			runtimeLine.Line.LineContent.Metadata = resolvedMeta;
+
+			runtimeLine.Line.Speaker = speaker;
+			runtimeLine.Line.JumpTarget = ResolveVariablesInString(runtimeLine.RawJumpTarget, assetName);
+			runtimeLine.Line.LineContent = new LineContent
+			{
+				Text = sb.ToString(),
+				Invocations = invocations,
+				Metadata = resolvedMeta
+			};
 		}
 
 		/// <summary>
