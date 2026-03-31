@@ -87,20 +87,19 @@ namespace Ibralogue.Tests
         }
 
         [UnityTest]
-        public IEnumerator StopConversation_FiresEndEvent()
+        public IEnumerator StartConversation_WithStartIndex_SelectsConversation()
         {
-            _asset.Content = "[NPC]\nHello\n";
-            bool ended = false;
-            _engine.OnConversationEnd.AddListener(() => ended = true);
+            _asset.Content =
+                "{{ConversationName(First)}}\n[NPC]\nFirst conversation\n\n" +
+                "{{ConversationName(Second)}}\n[NPC]\nSecond conversation\n";
 
-            _engine.StartConversation(_asset);
+            string text = null;
+            _engine.OnLineDisplayed.AddListener(line => text = line.LineContent.Text);
+
+            _engine.StartConversation(_asset, 1);
             yield return null;
 
-            _engine.Next();
-            yield return null;
-
-            Assert.That(ended, Is.True);
-            Assert.That(_engine.IsConversationActive, Is.False);
+            Assert.That(text, Is.EqualTo("Second conversation"));
         }
 
         // --- History ---
@@ -161,9 +160,11 @@ namespace Ibralogue.Tests
                 "{{ConversationName(BranchB)}}\n[NPC]\nYou picked B\n";
 
             List<Choice> presentedChoices = null;
+            Choice selectedChoice = null;
             List<string> lines = new List<string>();
 
             _engine.OnChoicesPresented.AddListener(choices => presentedChoices = choices);
+            _engine.OnChoiceSelected.AddListener(c => selectedChoice = c);
             _engine.OnLineDisplayed.AddListener(line => lines.Add(line.LineContent.Text));
 
             _engine.StartConversation(_asset);
@@ -177,35 +178,38 @@ namespace Ibralogue.Tests
             _engine.SelectChoice(presentedChoices[1]);
             yield return null;
 
+            Assert.That(selectedChoice, Is.Not.Null);
+            Assert.That(selectedChoice.ChoiceName, Is.EqualTo("Option B"));
             Assert.That(lines, Has.Count.EqualTo(2));
             Assert.That(lines[1], Is.EqualTo("You picked B"));
         }
 
         [UnityTest]
-        public IEnumerator ChoiceSelected_Event_Fires()
+        public IEnumerator ContinueChoice_ContinuesSameConversation()
         {
             _asset.Content =
-                "[NPC]\nHello\n- Go -> Next\n\n" +
-                "{{ConversationName(Next)}}\n[NPC]\nDone\n";
+                "[NPC]\nFirst question\n" +
+                "- Continue -> >>\n" +
+                "[NPC]\nAfter continue\n";
 
-            Choice selected = null;
-            _engine.OnChoiceSelected.AddListener(c => selected = c);
+            List<Choice> presentedChoices = null;
+            List<string> lines = new List<string>();
+
+            _engine.OnChoicesPresented.AddListener(c => presentedChoices = c);
+            _engine.OnLineDisplayed.AddListener(line => lines.Add(line.LineContent.Text));
 
             _engine.StartConversation(_asset);
             yield return null;
 
-            List<Choice> choices = null;
-            _engine.OnChoicesPresented.AddListener(c => choices = c);
-            // Re-start to get fresh event binding
-            _engine.StartConversation(_asset);
+            Assert.That(lines[0], Is.EqualTo("First question"));
+            Assert.That(presentedChoices, Has.Count.EqualTo(1));
+            Assert.That(presentedChoices[0].TargetConversation, Is.EqualTo(">>"));
+
+            _engine.SelectChoice(presentedChoices[0]);
             yield return null;
 
-            Assert.That(choices, Is.Not.Null);
-            _engine.SelectChoice(choices[0]);
-            yield return null;
-
-            Assert.That(selected, Is.Not.Null);
-            Assert.That(selected.ChoiceName, Is.EqualTo("Go"));
+            Assert.That(lines, Has.Count.EqualTo(2));
+            Assert.That(lines[1], Is.EqualTo("After continue"));
         }
 
         // --- ChoiceFilter ---
@@ -306,6 +310,52 @@ namespace Ibralogue.Tests
 
             object value = VariableStore.Resolve(_asset.name, "SCORE");
             Assert.That(value, Is.EqualTo(42.0));
+        }
+
+        [UnityTest]
+        public IEnumerator SetCommand_EvaluatesExpression()
+        {
+            _asset.Content =
+                "{{Set($X, 10)}}\n" +
+                "{{Set($X, $X + 5)}}\n" +
+                "[NPC]\nDone\n";
+
+            _engine.StartConversation(_asset);
+            yield return null;
+
+            object value = VariableStore.Resolve(_asset.name, "X");
+            Assert.That(value, Is.EqualTo(15.0));
+        }
+
+        [UnityTest]
+        public IEnumerator GlobalDecl_CreatesGlobalVariable()
+        {
+            _asset.Content =
+                "{{Global($PLAYER_SCORE, 0)}}\n" +
+                "[NPC]\nDone\n";
+
+            _engine.StartConversation(_asset);
+            yield return null;
+
+            // Global should be accessible without specifying an asset name
+            object value = VariableStore.Resolve(null, "PLAYER_SCORE");
+            Assert.That(value, Is.EqualTo(0.0));
+        }
+
+        [UnityTest]
+        public IEnumerator VariableSubstitution_InDisplayedText()
+        {
+            VariableStore.SetGlobal("HERO", "Alice");
+
+            _asset.Content = "[NPC]\nWelcome, $HERO!\n";
+
+            string displayedText = null;
+            _engine.OnLineDisplayed.AddListener(line => displayedText = line.LineContent.Text);
+
+            _engine.StartConversation(_asset);
+            yield return null;
+
+            Assert.That(displayedText, Is.EqualTo("Welcome, Alice!"));
         }
 
         // --- Save / Load ---
