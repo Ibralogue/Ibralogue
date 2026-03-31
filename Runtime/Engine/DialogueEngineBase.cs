@@ -235,13 +235,13 @@ namespace Ibralogue
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
         /// </summary>
-        public void StartConversation(DialogueAsset interactionDialogue, int startIndex = 0)
+        public void StartConversation(DialogueAsset asset, int startIndex = 0)
         {
-            if (interactionDialogue == null)
-                throw new ArgumentNullException(nameof(interactionDialogue));
+            if (asset == null)
+                throw new ArgumentNullException(nameof(asset));
 
-            _currentAssetName = interactionDialogue.name ?? "unknown";
-            ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+            _currentAssetName = asset.name ?? "unknown";
+            ParsedConversations = DialogueParser.ParseDialogue(asset);
 
             if (startIndex < 0 || startIndex >= ParsedConversations.Count)
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
