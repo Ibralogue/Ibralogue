@@ -359,8 +359,25 @@ namespace Ibralogue
                     continue;
                 }
 
-                if (node is RuntimeSetCommand || node is RuntimeGlobalDecl)
+                if (node is RuntimeSetCommand set)
                 {
+                    object value = evaluator.Evaluate(set.Value);
+                    VariableStore.Set(_currentAssetName, set.VariableName, value);
+                    _cursor.Advance();
+                    continue;
+                }
+
+                if (node is RuntimeGlobalDecl global)
+                {
+                    if (global.DefaultValue != null)
+                    {
+                        object value = evaluator.Evaluate(global.DefaultValue);
+                        VariableStore.SetGlobal(global.VariableName, value);
+                    }
+                    else if (!VariableStore.IsDefined(_currentAssetName, global.VariableName))
+                    {
+                        VariableStore.SetGlobal(global.VariableName, null);
+                    }
                     _cursor.Advance();
                     continue;
                 }
