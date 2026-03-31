@@ -63,7 +63,8 @@ namespace Ibralogue
         /// </summary>
         public Func<List<Choice>, List<Choice>> ChoiceFilter { get; set; }
 
-        public List<Conversation> ParsedConversations { get; protected set; }
+        public IReadOnlyList<Conversation> ParsedConversations => _parsedConversations;
+        private List<Conversation> _parsedConversations;
 
         private readonly List<Line> _history = new List<Line>();
 
@@ -241,14 +242,14 @@ namespace Ibralogue
                 throw new ArgumentNullException(nameof(asset));
 
             _currentAssetName = asset.name ?? "unknown";
-            ParsedConversations = DialogueParser.ParseDialogue(asset);
+            _parsedConversations = DialogueParser.ParseDialogue(asset);
 
-            if (startIndex < 0 || startIndex >= ParsedConversations.Count)
+            if (startIndex < 0 || startIndex >= _parsedConversations.Count)
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
             enginePlugins = GetComponents<EnginePlugin>();
-            SwitchConversation(ParsedConversations[startIndex]);
+            SwitchConversation(_parsedConversations[startIndex]);
         }
 
         /// <summary>
@@ -311,10 +312,10 @@ namespace Ibralogue
             StopConversation();
 
             _currentAssetName = asset.name ?? "unknown";
-            ParsedConversations = DialogueParser.ParseDialogue(asset);
+            _parsedConversations = DialogueParser.ParseDialogue(asset);
             enginePlugins = GetComponents<EnginePlugin>();
 
-            Conversation conversation = ParsedConversations.Find(
+            Conversation conversation = _parsedConversations.Find(
                 c => c.Name == progress.ConversationName);
 
             if (conversation == null)
@@ -453,11 +454,11 @@ namespace Ibralogue
         /// </summary>
         public void JumpTo(string conversationName)
         {
-            if (ParsedConversations == null || ParsedConversations.Count == 0)
+            if (_parsedConversations == null || _parsedConversations.Count == 0)
                 throw new InvalidOperationException(
                     "There is no ongoing conversation, therefore the jump cannot be executed");
 
-            Conversation conversation = ParsedConversations.Find(c => c.Name == conversationName);
+            Conversation conversation = _parsedConversations.Find(c => c.Name == conversationName);
 
             if (conversation == null || conversation.Name == null)
                 throw new ArgumentException($"No conversation matching '{conversationName}' found",
@@ -839,9 +840,9 @@ namespace Ibralogue
                 return;
             }
 
-            if (ParsedConversations == null) return;
+            if (_parsedConversations == null) return;
 
-            int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.TargetConversation);
+            int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.TargetConversation);
             if (conversationIndex == -1)
             {
                 DialogueLogger.LogError(0,
@@ -849,7 +850,7 @@ namespace Ibralogue
                 return;
             }
 
-            SwitchConversation(ParsedConversations[conversationIndex]);
+            SwitchConversation(_parsedConversations[conversationIndex]);
         }
 
         private void ResolveLineText(RuntimeLine runtimeLine)
