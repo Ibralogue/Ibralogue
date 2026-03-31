@@ -63,7 +63,8 @@ namespace Ibralogue
         /// </summary>
         public Func<List<Choice>, List<Choice>> ChoiceFilter { get; set; }
 
-        public List<Conversation> ParsedConversations { get; protected set; }
+        public IReadOnlyList<Conversation> ParsedConversations => _parsedConversations;
+        private List<Conversation> _parsedConversations;
 
         private readonly List<Line> _history = new List<Line>();
 
@@ -236,20 +237,20 @@ namespace Ibralogue
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
         /// </summary>
-        public void StartConversation(DialogueAsset interactionDialogue, int startIndex = 0)
+        public void StartConversation(DialogueAsset asset, int startIndex = 0)
         {
-            if (interactionDialogue == null)
-                throw new ArgumentNullException(nameof(interactionDialogue));
+            if (asset == null)
+                throw new ArgumentNullException(nameof(asset));
 
-            _currentAssetName = interactionDialogue.name ?? "unknown";
-            ParsedConversations = DialogueParser.ParseDialogue(interactionDialogue);
+            _currentAssetName = asset.name ?? "unknown";
+            _parsedConversations = DialogueParser.ParseDialogue(asset);
 
-            if (startIndex < 0 || startIndex >= ParsedConversations.Count)
+            if (startIndex < 0 || startIndex >= _parsedConversations.Count)
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
             enginePlugins = GetComponents<EnginePlugin>();
-            SwitchConversation(ParsedConversations[startIndex]);
+            SwitchConversation(_parsedConversations[startIndex]);
         }
 
         /// <summary>
@@ -312,10 +313,10 @@ namespace Ibralogue
             StopConversation();
 
             _currentAssetName = asset.name ?? "unknown";
-            ParsedConversations = DialogueParser.ParseDialogue(asset);
+            _parsedConversations = DialogueParser.ParseDialogue(asset);
             enginePlugins = GetComponents<EnginePlugin>();
 
-            Conversation conversation = ParsedConversations.Find(
+            Conversation conversation = _parsedConversations.Find(
                 c => c.Name == progress.ConversationName);
 
             if (conversation == null)
@@ -490,11 +491,11 @@ namespace Ibralogue
         /// </summary>
         public void JumpTo(string conversationName)
         {
-            if (ParsedConversations == null || ParsedConversations.Count == 0)
+            if (_parsedConversations == null || _parsedConversations.Count == 0)
                 throw new InvalidOperationException(
                     "There is no ongoing conversation, therefore the jump cannot be executed");
 
-            Conversation conversation = ParsedConversations.Find(c => c.Name == conversationName);
+            Conversation conversation = _parsedConversations.Find(c => c.Name == conversationName);
 
             if (conversation == null || conversation.Name == null)
                 throw new ArgumentException($"No conversation matching '{conversationName}' found",
@@ -866,7 +867,7 @@ namespace Ibralogue
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnChoiceSelected(choice);
 
-            if (choice.LeadingConversationName == ">>")
+            if (choice.TargetConversation == ">>")
             {
                 StopTrackedCoroutines();
                 _linePlaying = false;
@@ -876,17 +877,17 @@ namespace Ibralogue
                 return;
             }
 
-            if (ParsedConversations == null) return;
+            if (_parsedConversations == null) return;
 
-            int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+            int conversationIndex = _parsedConversations.FindIndex(c => c.Name == choice.TargetConversation);
             if (conversationIndex == -1)
             {
                 DialogueLogger.LogError(0,
-                    $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\"");
+                    $"No conversation called \"{choice.TargetConversation}\" found for choice \"{choice.ChoiceName}\"");
                 return;
             }
 
-            SwitchConversation(ParsedConversations[conversationIndex]);
+            SwitchConversation(_parsedConversations[conversationIndex]);
         }
 
         private Line ResolveLineText(RuntimeLine runtimeLine)
@@ -1016,6 +1017,7 @@ namespace Ibralogue
 
         private void InvokeTextProducingFunctions(List<ResolvedInvocation> resolved, Line line)
         {
+            LineContent content = line.LineContent;
             foreach (ResolvedInvocation r in resolved)
             {
                 if (r.Method.ReturnType == typeof(void)
@@ -1024,9 +1026,9 @@ namespace Ibralogue
 
                 object result = r.Method.Invoke(r.Target, r.Arguments);
                 string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                line.LineContent.Text =
-                    line.LineContent.Text.Insert(r.Invocation.CharacterIndex, insertText);
+                content.Text = content.Text.Insert(r.Invocation.CharacterIndex, insertText);
             }
+            line.LineContent = content;
         }
 
         private List<ResolvedInvocation> CollectPendingVoidInvocations(List<ResolvedInvocation> resolved)
@@ -1084,8 +1086,9 @@ namespace Ibralogue
                 else if (cached.Value.Method.ReturnType != typeof(void))
                 {
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                    line.LineContent.Text =
-                        line.LineContent.Text.Insert(function.CharacterIndex, insertText);
+                    LineContent content = line.LineContent;
+                    content.Text = content.Text.Insert(function.CharacterIndex, insertText);
+                    line.LineContent = content;
                 }
             }
 
@@ -1116,8 +1119,9 @@ namespace Ibralogue
                 if (cached.Value.Method.ReturnType != typeof(void))
                 {
                     string insertText = Convert.ToString(result, CultureInfo.InvariantCulture) ?? "";
-                    line.LineContent.Text =
-                        line.LineContent.Text.Insert(function.CharacterIndex, insertText);
+                    LineContent content = line.LineContent;
+                    content.Text = content.Text.Insert(function.CharacterIndex, insertText);
+                    line.LineContent = content;
                 }
             }
         }
