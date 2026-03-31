@@ -117,6 +117,7 @@ namespace Ibralogue
         protected bool _isPaused = false;
 
         private Coroutine _displayCoroutine;
+        private Coroutine _asyncInvocationCoroutine;
         private string _currentAssetName;
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
@@ -391,8 +392,7 @@ namespace Ibralogue
         {
             bool wasActive = _currentConversation != null;
 
-            StopAllCoroutines();
-            _displayCoroutine = null;
+            StopTrackedCoroutines();
 
             ClearDisplay();
             ClearPlugins();
@@ -425,6 +425,20 @@ namespace Ibralogue
 
             if (!PersistHistory)
                 _history.Clear();
+        }
+
+        private void StopTrackedCoroutines()
+        {
+            if (_displayCoroutine != null)
+            {
+                StopCoroutine(_displayCoroutine);
+                _displayCoroutine = null;
+            }
+            if (_asyncInvocationCoroutine != null)
+            {
+                StopCoroutine(_asyncInvocationCoroutine);
+                _asyncInvocationCoroutine = null;
+            }
         }
 
         public void PauseConversation()
@@ -607,7 +621,8 @@ namespace Ibralogue
                     {
                         if (HasAsyncInvocations(line.Line.LineContent.Invocations))
                         {
-                            StartCoroutine(InvokeFunctionsAsync(line.Line.LineContent.Invocations, line.Line));
+                            _asyncInvocationCoroutine = StartCoroutine(
+                                InvokeFunctionsAsync(line.Line.LineContent.Invocations, line.Line));
                             return;
                         }
                         InvokeFunctions(line.Line.LineContent.Invocations, line.Line);
@@ -836,8 +851,7 @@ namespace Ibralogue
 
             if (choice.LeadingConversationName == ">>")
             {
-                StopAllCoroutines();
-                _displayCoroutine = null;
+                StopTrackedCoroutines();
                 _linePlaying = false;
                 ClearDisplay();
                 ClearPlugins();
