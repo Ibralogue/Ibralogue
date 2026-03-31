@@ -828,7 +828,7 @@ namespace Ibralogue
                 foreach (EnginePlugin plugin in enginePlugins)
                     plugin.OnChoiceSelected(choice);
 
-            if (choice.LeadingConversationName == ">>")
+            if (choice.TargetConversation == ">>")
             {
                 StopAllCoroutines();
                 _displayCoroutine = null;
@@ -841,11 +841,11 @@ namespace Ibralogue
 
             if (ParsedConversations == null) return;
 
-            int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.LeadingConversationName);
+            int conversationIndex = ParsedConversations.FindIndex(c => c.Name == choice.TargetConversation);
             if (conversationIndex == -1)
             {
                 DialogueLogger.LogError(0,
-                    $"No conversation called \"{choice.LeadingConversationName}\" found for choice \"{choice.ChoiceName}\"");
+                    $"No conversation called \"{choice.TargetConversation}\" found for choice \"{choice.ChoiceName}\"");
                 return;
             }
 

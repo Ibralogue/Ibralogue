@@ -8,7 +8,7 @@ namespace Ibralogue.Parser
     public class Choice: IMetadata
     {
         public string ChoiceName { get; internal set; }
-        public string LeadingConversationName { get; internal set; }
+        public string TargetConversation { get; internal set; }
         public Dictionary<string, string> Metadata { get; internal set; }
         
         public bool HasMetadata(string key) => 

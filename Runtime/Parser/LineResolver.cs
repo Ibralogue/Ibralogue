@@ -171,7 +171,7 @@ namespace Ibralogue.Parser
 				resolved.Add(new Choice
 				{
 					ChoiceName = ResolveVariablesInString(choiceText, assetName),
-					LeadingConversationName = ResolveVariablesInString(data.RawTarget, assetName),
+					TargetConversation = ResolveVariablesInString(data.RawTarget, assetName),
 					Metadata = resolvedMeta
 				});
 			}

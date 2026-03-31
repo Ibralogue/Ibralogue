@@ -251,7 +251,7 @@ namespace Ibralogue.Editor.Tests
 			List<Choice> choices = GetChoices(result[0]);
 			Assert.That(choices, Has.Count.EqualTo(1));
 			Assert.That(choices[0].ChoiceName, Is.EqualTo("Choice 1"));
-			Assert.That(choices[0].LeadingConversationName, Is.EqualTo("Target"));
+			Assert.That(choices[0].TargetConversation, Is.EqualTo("Target"));
 			Assert.That(choices[0].Metadata, Contains.Key("tag"));
 			Assert.That(choices[0].Metadata["tag"], Is.EqualTo("important"));
 		}
@@ -549,8 +549,8 @@ namespace Ibralogue.Editor.Tests
 
 			var choices = GetChoices(result[0]);
 			Assert.That(choices, Has.Count.EqualTo(2));
-			Assert.That(choices[0].LeadingConversationName, Is.EqualTo("Angry"));
-			Assert.That(choices[1].LeadingConversationName, Is.EqualTo(">>"));
+			Assert.That(choices[0].TargetConversation, Is.EqualTo("Angry"));
+			Assert.That(choices[1].TargetConversation, Is.EqualTo(">>"));
 
 			Assert.That(LineResolver.CollectLines(result[0].Content), Has.Count.EqualTo(2));
 		}
