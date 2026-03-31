@@ -203,7 +203,7 @@ namespace Ibralogue.Tests
 
             Assert.That(lines[0], Is.EqualTo("First question"));
             Assert.That(presentedChoices, Has.Count.EqualTo(1));
-            Assert.That(presentedChoices[0].LeadingConversationName, Is.EqualTo(">>"));
+            Assert.That(presentedChoices[0].TargetConversation, Is.EqualTo(">>"));
 
             _engine.SelectChoice(presentedChoices[0]);
             yield return null;
