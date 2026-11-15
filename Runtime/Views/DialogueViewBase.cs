@@ -22,6 +22,31 @@ namespace Ibralogue.Views
         public UnityEvent OnSetView = new UnityEvent();
         public UnityEvent OnLineComplete = new UnityEvent();
 
+        private static float _readingSpeed = 1f;
+
+        /// <summary>
+        /// Multiplies the reveal speed of every view, on top of each view's own
+        /// delay and any <c>{{Speed}}</c> change. Meant for a player-facing text
+        /// speed setting: 2 is twice as fast, 0.5 is half speed, and
+        /// <see cref="float.PositiveInfinity"/> shows each line at once.
+        /// Values of zero or less are ignored.
+        /// </summary>
+        public static float ReadingSpeed
+        {
+            get => _readingSpeed;
+            set
+            {
+                if (value > 0f)
+                    _readingSpeed = value;
+            }
+        }
+
+        /// <summary>
+        /// True when <see cref="ReadingSpeed"/> asks for lines to be shown
+        /// without a reveal effect.
+        /// </summary>
+        protected static bool RevealInstantly => float.IsPositiveInfinity(_readingSpeed);
+
         /// <summary>
         /// True while the view is actively displaying content (e.g., typewriter in progress).
         /// </summary>
