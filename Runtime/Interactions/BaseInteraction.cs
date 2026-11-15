@@ -15,34 +15,69 @@ namespace Ibralogue.Interactions
         [SerializeField] private UnityEvent OnConversationStart = new UnityEvent();
         [SerializeField] private UnityEvent OnConversationEnd = new UnityEvent();
 
-        private bool _eventsAttached;
-
-        public virtual void StartDialogue()
-        {
-            AttachEvents();
-        }
+        /// <summary>
+        /// Picks one of the interaction's dialogues and starts it with <see cref="StartConversation"/>.
+        /// </summary>
+        public abstract void StartDialogue();
 
         public DialogueAsset GetDialogueAsset(int index)
         {
             return InteractionDialogues[index];
         }
 
-        private void AttachEvents()
+        /// <summary>
+        /// Starts a dialogue that belongs to this interaction: the interaction's
+        /// start and end events fire for it and for no other.
+        /// </summary>
+        protected void StartConversation(DialogueAsset asset, int startIndex = 0)
         {
-            if (_eventsAttached) return;
-
-            dialogueEngine.OnConversationStart.AddListener(OnConversationStart.Invoke);
-            dialogueEngine.OnConversationEnd.AddListener(OnConversationEnd.Invoke);
-            _eventsAttached = true;
+            dialogueEngine.StartConversation(asset, startIndex, HandleStarted, HandleEnded);
         }
 
-        private void OnDestroy()
+        /// <summary>
+        /// Carries on a dialogue of this interaction that <see cref="OnInterrupted"/> kept.
+        /// It is the same dialogue to the interaction's listeners, so the start event
+        /// does not fire again.
+        /// </summary>
+        protected void ContinueConversation(DialogueAsset asset, ConversationProgress progress)
         {
-            if (!_eventsAttached || dialogueEngine == null) return;
+            dialogueEngine.ResumeFromProgress(asset, progress, null, HandleEnded);
+        }
 
-            dialogueEngine.OnConversationStart.RemoveListener(OnConversationStart.Invoke);
-            dialogueEngine.OnConversationEnd.RemoveListener(OnConversationEnd.Invoke);
-            _eventsAttached = false;
+        /// <summary>
+        /// Called when another dialogue starts over this interaction's dialogue.
+        /// Return true to keep it for <see cref="ContinueConversation"/>: it has not
+        /// ended, so neither <see cref="OnInteractionEnded"/> nor the end event fire.
+        /// </summary>
+        protected virtual bool OnInterrupted(ConversationProgress progress)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Called when this interaction's dialogue is over, just before its end event.
+        /// </summary>
+        protected virtual void OnInteractionEnded()
+        {
+        }
+
+        private void HandleStarted()
+        {
+            if (this != null)
+                OnConversationStart.Invoke();
+        }
+
+        private void HandleEnded()
+        {
+            if (this == null)
+                return;
+
+            ConversationProgress interrupted = dialogueEngine.InterruptedProgress;
+            if (interrupted != null && OnInterrupted(interrupted))
+                return;
+
+            OnInteractionEnded();
+            OnConversationEnd.Invoke();
         }
     }
 }

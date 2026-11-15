@@ -62,6 +62,18 @@ Both built-in views support skipping the reveal animation. Call `SkipViewEffect(
 dialogueView.SkipViewEffect();
 ```
 
+#### Reading Speed
+
+`DialogueViewBase.ReadingSpeed` is a multiplier applied to the reveal speed of every view, on top of each view's own delay and any `{{Speed}}` change in the dialogue. It is static, so a settings menu can set it once without finding the views in each scene:
+
+```cs
+DialogueViewBase.ReadingSpeed = 1.75f;                    // faster
+DialogueViewBase.ReadingSpeed = 0.6f;                     // slower
+DialogueViewBase.ReadingSpeed = float.PositiveInfinity;   // show each line at once
+```
+
+The default is `1`. Values of zero or less are ignored. Custom views that reveal text over time should multiply their own timing by `ReadingSpeed` and check the protected `RevealInstantly` property to skip their effect.
+
 #### Shared Fields
 
 All views inherit these fields from `DialogueViewBase`:
@@ -138,6 +150,37 @@ dialogueEngine.AutoAdvanceDelay = 2.0f;
 dialogueEngine.AutoAdvanceDelay = 0f;
 ```
 
+The built-in auto-advance belongs to the engine and stops with the conversation. If you write your own instead (for per-dialogue timing, say), it runs on your component, and the engine cannot stop it for you. Stop it when your dialogue ends, using the `onEnd` callback of `StartConversation`, or it will go on to advance whatever dialogue plays next:
+
+```cs
+private Coroutine _autoAdvance;
+
+public void Play(DialogueAsset asset)
+{
+    dialogueEngine.StartConversation(asset, onEnd: () =>
+    {
+        if (_autoAdvance != null)
+            StopCoroutine(_autoAdvance);
+        _autoAdvance = null;
+    });
+
+    if (dialogueEngine.IsConversationActive)
+        _autoAdvance = StartCoroutine(AutoAdvance());
+}
+
+private IEnumerator AutoAdvance()
+{
+    while (dialogueEngine.IsConversationActive)
+    {
+        yield return new WaitUntil(() => !dialogueEngine.IsLineActive);
+        yield return new WaitForSeconds(2f);
+        dialogueEngine.Advance();
+    }
+}
+```
+
+`HasMoreToShow` tells you whether advancing will show another line or end the conversation, which is useful for holding the last line longer or changing a "continue" prompt to "close".
+
 #### Player Input
 
 Use `Advance()` as your single input handler for player clicks, key presses, or taps. It skips the current display effect if a line is still playing, or advances to the next line if idle:
@@ -151,6 +194,8 @@ void Update()
 ```
 
 `Next()` is available if you want the old behavior of only advancing when the current line is finished (no skip).
+
+Advance on the frame a button goes down, not for as long as it is held. When the same button both starts a conversation and advances it (the south button on a gamepad, for instance), polling a held state lets the press that started the conversation advance it as well. With the Input System, use `WasPressedThisFrame()` rather than `IsPressed()`, or ignore input until the button has been released once after the conversation starts.
 
 #### Custom Views Without TextMeshPro
 

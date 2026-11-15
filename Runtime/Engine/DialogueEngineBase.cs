@@ -113,12 +113,30 @@ namespace Ibralogue
         /// </summary>
         public string CurrentSpeaker => CurrentLine?.Speaker;
 
+        /// <summary>
+        /// True when advancing the running conversation would show another line
+        /// or choice, whether in this conversation or in one the current line
+        /// jumps to. False on the last line and when no conversation is active.
+        /// </summary>
+        public bool HasMoreToShow => _currentConversation != null &&
+            (!string.IsNullOrEmpty(CurrentLine?.JumpTarget) || PeekNextDisplayable() != null);
+
+        /// <summary>
+        /// Where the running dialogue had got to, set only while it is being ended
+        /// because another dialogue is starting over it. Null at any other time, so
+        /// an end listener can tell being interrupted from finishing or being stopped.
+        /// It points at the line that was on screen, so that line shows again when
+        /// this is passed to <see cref="ResumeFromProgress"/>.
+        /// </summary>
+        public ConversationProgress InterruptedProgress { get; private set; }
+
         protected Conversation _currentConversation;
         protected bool _linePlaying;
         protected bool _isPaused = false;
 
         private Coroutine _displayCoroutine;
         private Coroutine _asyncInvocationCoroutine;
+        private Action _onEnd;
         private string _currentAssetName;
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
@@ -240,39 +258,105 @@ namespace Ibralogue
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
         /// </summary>
-        public void StartConversation(DialogueAsset asset, int startIndex = 0)
+        /// <param name="onStart">Invoked after <see cref="OnConversationStart"/>, for this dialogue only.</param>
+        /// <param name="onEnd">Invoked after <see cref="OnConversationEnd"/>, for this dialogue only.</param>
+        public void StartConversation(DialogueAsset asset, int startIndex = 0,
+            Action onStart = null, Action onEnd = null)
         {
             if (asset == null)
                 throw new ArgumentNullException(nameof(asset));
 
-            _currentAssetName = asset.name ?? "unknown";
-            _parsedConversations = DialogueParser.ParseDialogue(asset);
+            List<Conversation> parsed = DialogueParser.ParseDialogue(asset);
 
-            if (startIndex < 0 || startIndex >= _parsedConversations.Count)
+            if (startIndex < 0 || startIndex >= parsed.Count)
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
-            enginePlugins = GetComponents<EnginePlugin>();
-            SwitchConversation(_parsedConversations[startIndex]);
+            BeginDialogue(asset, parsed, parsed[startIndex], 0, onStart, onEnd);
         }
 
         /// <summary>
-        /// Switches to a different conversation. Assumes the dialogue file has been parsed.
+        /// Moves the running dialogue to another conversation in the same file,
+        /// as jumps and choices do. The dialogue carries on through the switch,
+        /// so no conversation start or end events fire.
         /// </summary>
         public void SwitchConversation(Conversation conversation)
         {
-            StopConversation();
-            _currentConversation = conversation;
-            _cursor = new ContentCursor(conversation.Content);
-            _choicesActive = false;
+            if (_currentConversation == null)
+                throw new InvalidOperationException(
+                    "There is no ongoing conversation to switch from");
 
-            if (enginePlugins != null)
-                foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnConversationStart(conversation);
+            ClearLine();
+            EnterConversation(conversation);
+            AdvanceAndDisplay();
+        }
+
+        /// <summary>
+        /// Replaces whatever is running with a new dialogue. Called once nothing
+        /// about the request can fail, so a rejected start leaves the engine as it was.
+        /// </summary>
+        private void BeginDialogue(DialogueAsset asset, List<Conversation> parsed,
+            Conversation conversation, int nodesToSkip, Action onStart, Action onEnd)
+        {
+            // An end listener of a dialogue that is being interrupted asked for
+            // another. The dialogue doing the interrupting already has the floor.
+            if (InterruptedProgress != null)
+            {
+                DialogueLogger.LogVerbose(
+                    $"Ignored a request to start '{asset.name}' while another dialogue was taking over.");
+                return;
+            }
+
+            Interrupt();
+
+            _currentAssetName = asset.name ?? "unknown";
+            _parsedConversations = parsed;
+            enginePlugins = GetComponents<EnginePlugin>();
+            _onEnd = onEnd;
+
+            EnterConversation(conversation);
+            SkipDisplayableNodes(nodesToSkip);
+
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.OnConversationStart(conversation);
 
             PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
-            AdvanceAndDisplay();
+            onStart?.Invoke();
+
+            // A start listener may have stopped the dialogue or started another.
+            if (_currentConversation == conversation)
+                AdvanceAndDisplay();
+        }
+
+        /// <summary>
+        /// Ends the running dialogue to make way for another, exposing where it
+        /// had got to for as long as its end events are firing.
+        /// </summary>
+        private void Interrupt()
+        {
+            if (_currentConversation == null)
+                return;
+
+            // Unlike ExportProgress, a line that has finished displaying is shown
+            // again too: the dialogue cutting in will have covered it.
+            InterruptedProgress = ProgressAt(_displayedNodeCount - 1);
+
+            try
+            {
+                StopConversation();
+            }
+            finally
+            {
+                InterruptedProgress = null;
+            }
+        }
+
+        private void EnterConversation(Conversation conversation)
+        {
+            _currentConversation = conversation;
+            _cursor = new ContentCursor(conversation.Content);
+            _displayedNodeCount = 0;
         }
 
         /// <summary>
@@ -285,18 +369,19 @@ namespace Ibralogue
         {
             if (_currentConversation == null) return null;
 
-            int count = _displayedNodeCount;
-
             // If mid-display or mid-choice, back up by one so the current
             // node re-displays on restore instead of being skipped.
-            if (_linePlaying || _choicesActive)
-                count = Mathf.Max(0, count - 1);
+            bool redisplayCurrent = _linePlaying || _choicesActive;
+            return ProgressAt(redisplayCurrent ? _displayedNodeCount - 1 : _displayedNodeCount);
+        }
 
+        private ConversationProgress ProgressAt(int displayedNodeCount)
+        {
             return new ConversationProgress
             {
                 AssetName = _currentAssetName,
                 ConversationName = _currentConversation.Name,
-                DisplayedNodeCount = count
+                DisplayedNodeCount = Mathf.Max(0, displayedNodeCount)
             };
         }
 
@@ -306,44 +391,30 @@ namespace Ibralogue
         /// <see cref="VariableStore.ImportState"/> and <see cref="VisitTracker.ImportState"/>
         /// before calling this method.
         /// </summary>
-        public void ResumeFromProgress(DialogueAsset asset, ConversationProgress progress)
+        /// <param name="onStart">Invoked after <see cref="OnConversationStart"/>, for this dialogue only.</param>
+        /// <param name="onEnd">Invoked after <see cref="OnConversationEnd"/>, for this dialogue only.</param>
+        public void ResumeFromProgress(DialogueAsset asset, ConversationProgress progress,
+            Action onStart = null, Action onEnd = null)
         {
             if (asset == null)
                 throw new ArgumentNullException(nameof(asset));
             if (progress == null)
                 throw new ArgumentNullException(nameof(progress));
 
-            StopConversation();
-
-            _currentAssetName = asset.name ?? "unknown";
-            _parsedConversations = DialogueParser.ParseDialogue(asset);
-            enginePlugins = GetComponents<EnginePlugin>();
-
-            Conversation conversation = _parsedConversations.Find(
-                c => c.Name == progress.ConversationName);
+            List<Conversation> parsed = DialogueParser.ParseDialogue(asset);
+            Conversation conversation = parsed.Find(c => c.Name == progress.ConversationName);
+            int nodesToSkip = progress.DisplayedNodeCount;
 
             if (conversation == null)
             {
                 DialogueLogger.LogWarning(
                     $"Conversation '{progress.ConversationName}' not found in " +
                     $"'{progress.AssetName}'. Starting from the beginning.");
-                StartConversation(asset);
-                return;
+                conversation = parsed[0];
+                nodesToSkip = 0;
             }
 
-            _currentConversation = conversation;
-            _cursor = new ContentCursor(conversation.Content);
-            _choicesActive = false;
-
-            SkipDisplayableNodes(progress.DisplayedNodeCount);
-
-            if (enginePlugins != null)
-                foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnConversationStart(conversation);
-
-            PersistentOnConversationStart.Invoke();
-            OnConversationStart.Invoke();
-            AdvanceAndDisplay();
+            BeginDialogue(asset, parsed, conversation, nodesToSkip, onStart, onEnd);
         }
 
         private void SkipDisplayableNodes(int count)
@@ -408,11 +479,43 @@ namespace Ibralogue
 
         /// <summary>
         /// Stops the currently playing conversation and clears the dialogue box.
+        /// Does nothing when no conversation is running.
         /// </summary>
         public void StopConversation()
         {
-            bool wasActive = _currentConversation != null;
+            if (_currentConversation == null)
+                return;
 
+            ClearLine();
+
+            _currentConversation = null;
+            _cursor = null;
+            _displayedNodeCount = 0;
+            _isPaused = false;
+            _cachedEvaluator = null;
+            _cachedEvaluatorAssetName = null;
+
+            if (!PersistHistory)
+                _history.Clear();
+
+            Action onEnd = _onEnd;
+            _onEnd = null;
+
+            // The end events come last: the engine is already idle, so a listener
+            // can start the next conversation without it being cleared from under it.
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.OnConversationEnd();
+
+            PersistentOnConversationEnd.Invoke();
+            OnConversationEnd.Invoke();
+            onEnd?.Invoke();
+        }
+
+        /// <summary>
+        /// Takes the current line off screen and stops everything it started.
+        /// </summary>
+        private void ClearLine()
+        {
             StopTrackedCoroutines();
 
             ClearDisplay();
@@ -422,32 +525,10 @@ namespace Ibralogue
             if (audio != null)
                 audio.Stop();
 
-            // Only fire end events when a conversation was actually running.
-            // This prevents spurious events during the first StartConversation
-            // call or when StopConversation is called while already stopped.
-            if (wasActive)
-            {
-                if (enginePlugins != null)
-                    foreach (EnginePlugin plugin in enginePlugins)
-                        plugin.OnConversationEnd();
-
-                PersistentOnConversationEnd.Invoke();
-                OnConversationEnd.Invoke();
-            }
-
             _linePlaying = false;
             CurrentLine = null;
-            _currentConversation = null;
             _currentRuntimeLine = null;
-            _cursor = null;
             _choicesActive = false;
-            _displayedNodeCount = 0;
-            _isPaused = false;
-            _cachedEvaluator = null;
-            _cachedEvaluatorAssetName = null;
-
-            if (!PersistHistory)
-                _history.Clear();
         }
 
         private void StopTrackedCoroutines()
@@ -496,7 +577,7 @@ namespace Ibralogue
         /// </summary>
         public void JumpTo(string conversationName)
         {
-            if (_parsedConversations == null || _parsedConversations.Count == 0)
+            if (_currentConversation == null)
                 throw new InvalidOperationException(
                     "There is no ongoing conversation, therefore the jump cannot be executed");
 
@@ -732,7 +813,9 @@ namespace Ibralogue
                 AdvanceToNextDisplayable();
             }
 
-            yield return StartCoroutine(OnDisplayLine(line));
+            // Yielded directly rather than started on its own, so stopping
+            // this coroutine stops the line with it.
+            yield return OnDisplayLine(line);
 
             _linePlaying = false;
 

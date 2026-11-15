@@ -30,6 +30,8 @@ if (savedProgress != null)
 
 `ResumeFromProgress` parses the asset, finds the conversation by name, then walks the content tree forward to the saved position. Variable assignment commands (`{{Set}}`, `{{Global}}`) are skipped during the walk because their effects are already captured in the variable snapshot. Conditionals are re-evaluated using the restored variable state to take the correct branches.
 
+Like `StartConversation`, `ResumeFromProgress` accepts optional `onStart` and `onEnd` callbacks that fire for the resumed dialogue only. The asset is parsed and the conversation looked up before anything changes, so a call that throws leaves a running conversation untouched.
+
 #### What Each Snapshot Contains
 
 | Snapshot | Contents |

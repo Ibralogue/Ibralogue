@@ -18,8 +18,8 @@ namespace Ibralogue.Parser
 		/// </summary>
 		/// <returns>
 		/// A list of <see cref="Conversation"/> objects representing all conversations in the dialogue file.
+		/// There is always at least one: an empty file parses to a single empty conversation.
 		/// </returns>
-		/// <exception cref="ArgumentException">Thrown when the dialogue has no conversations.</exception>
 		public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
 		{
 			if (dialogueAsset == null)
@@ -28,22 +28,9 @@ namespace Ibralogue.Parser
 			if (_cache.TryGetValue(dialogueAsset, out List<Conversation> cached))
 				return cached;
 
-			string source = dialogueAsset.Content ?? "";
-			string assetName = dialogueAsset.name ?? "unknown";
-
 			DiagnosticBag diagnostics = new DiagnosticBag();
-
-			DialoguePreprocessor preprocessor = new DialoguePreprocessor(diagnostics, assetName);
-			source = preprocessor.Process(source);
-
-			DialogueLexer lexer = new DialogueLexer(source, diagnostics);
-			List<DialogueToken> tokens = lexer.Tokenize();
-
-			DialogueTreeGenerator generator = new DialogueTreeGenerator(tokens, diagnostics);
-			DialogueTree tree = generator.ParseIntoTree();
-
-			DialogueAnalyzer analyzer = new DialogueAnalyzer(diagnostics, assetName);
-			List<Conversation> conversations = analyzer.Analyze(tree);
+			List<Conversation> conversations = Parse(
+				dialogueAsset.Content ?? "", dialogueAsset.name ?? "unknown", diagnostics);
 
 			ReportDiagnostics(diagnostics);
 
@@ -70,34 +57,42 @@ namespace Ibralogue.Parser
 		}
 
 		/// <summary>
-		/// Runs the full parser pipeline on raw source text and returns diagnostics
-		/// without logging. Used by the importer for import-time validation.
+		/// Runs the full parser pipeline on raw source text and returns every
+		/// warning and error it found, without logging or caching anything.
+		/// Used by the importer for import-time validation, and by project
+		/// tooling that wants to check dialogue files itself.
 		/// </summary>
-		internal static DiagnosticBag Validate(string source, string assetName)
+		public static IReadOnlyList<Diagnostic> Validate(string source, string assetName)
 		{
 			DiagnosticBag diagnostics = new DiagnosticBag();
 
 			try
 			{
-				DialoguePreprocessor preprocessor = new DialoguePreprocessor(diagnostics, assetName);
-				source = preprocessor.Process(source);
-
-				DialogueLexer lexer = new DialogueLexer(source, diagnostics);
-				List<DialogueToken> tokens = lexer.Tokenize();
-
-				DialogueTreeGenerator generator = new DialogueTreeGenerator(tokens, diagnostics);
-				DialogueTree tree = generator.ParseIntoTree();
-
-				DialogueAnalyzer analyzer = new DialogueAnalyzer(diagnostics, assetName);
-				analyzer.Analyze(tree);
+				Parse(source ?? "", assetName ?? "unknown", diagnostics);
 			}
-			catch (System.Exception)
+			catch (Exception exception)
 			{
-				// Swallow parse exceptions during validation; the diagnostics bag
-				// already contains the structured errors.
+				// Not every stage reports through the bag: a malformed expression
+				// throws, and would throw again when the dialogue is played.
+				diagnostics.ReportError(default, exception.Message);
 			}
 
-			return diagnostics;
+			return diagnostics.Diagnostics;
+		}
+
+		private static List<Conversation> Parse(string source, string assetName, DiagnosticBag diagnostics)
+		{
+			DialoguePreprocessor preprocessor = new DialoguePreprocessor(diagnostics, assetName);
+			source = preprocessor.Process(source);
+
+			DialogueLexer lexer = new DialogueLexer(source, diagnostics);
+			List<DialogueToken> tokens = lexer.Tokenize();
+
+			DialogueTreeGenerator generator = new DialogueTreeGenerator(tokens, diagnostics);
+			DialogueTree tree = generator.ParseIntoTree();
+
+			DialogueAnalyzer analyzer = new DialogueAnalyzer(diagnostics, assetName);
+			return analyzer.Analyze(tree);
 		}
 
 		/// <summary>

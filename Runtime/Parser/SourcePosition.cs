@@ -3,7 +3,7 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// Represents a position in source text, tracking line, column, and absolute offset.
 	/// </summary>
-	internal readonly struct SourcePosition
+	public readonly struct SourcePosition
 	{
 		/// <summary>
 		/// The 1-based line number in the source text.
@@ -36,7 +36,7 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// Represents a range in source text from a start position to an end position.
 	/// </summary>
-	internal readonly struct SourceSpan
+	public readonly struct SourceSpan
 	{
 		public readonly SourcePosition Start;
 		public readonly SourcePosition End;

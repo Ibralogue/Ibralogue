@@ -5,7 +5,7 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// Severity level for a diagnostic message.
 	/// </summary>
-	internal enum DiagnosticSeverity
+	public enum DiagnosticSeverity
 	{
 		Warning,
 		Error
@@ -14,7 +14,7 @@ namespace Ibralogue.Parser
 	/// <summary>
 	/// A structured diagnostic message with source location information.
 	/// </summary>
-	internal readonly struct Diagnostic
+	public readonly struct Diagnostic
 	{
 		public readonly DiagnosticSeverity Severity;
 		public readonly SourceSpan Span;

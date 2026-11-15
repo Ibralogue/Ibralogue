@@ -39,6 +39,12 @@ If no `{{ConversationName(...)}}` is specified, the conversation is named "Defau
 Hello World!
 ```
 
+[Comments](comments.md) and blank lines above the first `{{ConversationName(...)}}` are ignored, so a file can open with notes without creating a "Default" conversation in front of the named one.
+
+#### Empty Files
+
+A file with no dialogue in it, or with nothing but comments, contains a single empty "Default" conversation. Starting it fires the start and end events and displays nothing, so placeholder files are safe to wire up before they are written. The importer reports a warning for them.
+
 #### Starting a Specific Conversation
 
 By default, `StartConversation` begins at the first conversation in the file. You can pass a `startIndex` to start at a different one:
@@ -70,6 +76,8 @@ You can also jump from code at runtime using `JumpTo`:
 dialogueManager.JumpTo("Farewell");
 ```
 
-This stops the current conversation and switches to the named one. The dialogue file must already be parsed (i.e., a conversation must be in progress).
+This moves the running dialogue to the named conversation. A conversation must be in progress, otherwise `JumpTo` throws.
+
+Moving between conversations, whether by `{{Jump(...)}}`, `JumpTo` or a choice, does not end the dialogue. `OnConversationStart` and `OnConversationEnd` fire once for the whole dialogue, not once per conversation. See the [Events](events.md) page for details.
 
 Jumping is also how choices work behind the scenes. See the [Choices](choices.md) page for more.

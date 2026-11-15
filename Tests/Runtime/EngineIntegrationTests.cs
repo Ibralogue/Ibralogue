@@ -465,6 +465,24 @@ namespace Ibralogue.Tests
             Assert.That(_engine.CurrentSpeaker, Is.Null);
         }
 
+        // --- Reading speed ---
+
+        [Test]
+        public void ReadingSpeed_IgnoresValuesThatAreNotPositive()
+        {
+            float original = Views.DialogueViewBase.ReadingSpeed;
+
+            Views.DialogueViewBase.ReadingSpeed = 2f;
+            Views.DialogueViewBase.ReadingSpeed = 0f;
+            Views.DialogueViewBase.ReadingSpeed = -1f;
+            Assert.That(Views.DialogueViewBase.ReadingSpeed, Is.EqualTo(2f));
+
+            Views.DialogueViewBase.ReadingSpeed = float.PositiveInfinity;
+            Assert.That(Views.DialogueViewBase.ReadingSpeed, Is.EqualTo(float.PositiveInfinity));
+
+            Views.DialogueViewBase.ReadingSpeed = original;
+        }
+
         // --- Multi-line speaker blocks ---
 
         [UnityTest]

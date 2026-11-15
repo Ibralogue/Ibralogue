@@ -10,6 +10,8 @@ namespace Ibralogue.Parser
 	/// </summary>
 	internal class DialogueTreeGenerator
 	{
+		private const string DefaultConversationName = "Default";
+
 		private readonly List<DialogueToken> _tokens;
 		private readonly DiagnosticBag _diagnostics;
 		private int _position;
@@ -29,7 +31,9 @@ namespace Ibralogue.Parser
 			SourcePosition start = Current().Span.Start;
 			List<ConversationNode> conversations = new List<ConversationNode>();
 
-			SkipBlankLines();
+			// Comments above the first conversation are not content of their own.
+			// Left in, they would open an unnamed conversation ahead of it.
+			SkipBlankLinesAndComments();
 
 			while (!IsAtEnd())
 			{
@@ -39,6 +43,14 @@ namespace Ibralogue.Parser
 			}
 
 			SourceSpan span = new SourceSpan(start, Previous().Span.End);
+
+			// A file with nothing in it is still a dialogue, just one with nothing to say.
+			if (conversations.Count == 0)
+			{
+				_diagnostics.ReportWarning(span, "Dialogue is empty. Starting it will not show anything.");
+				conversations.Add(new ConversationNode(DefaultConversationName, new List<ContentNode>(), span));
+			}
+
 			return new DialogueTree(conversations, span);
 		}
 
@@ -50,7 +62,7 @@ namespace Ibralogue.Parser
 		private ConversationNode ParseConversation(bool isFirst)
 		{
 			SourcePosition start = Current().Span.Start;
-			string name = "Default";
+			string name = DefaultConversationName;
 
 			if (Check(DialogueTokenType.Command))
 			{
@@ -596,6 +608,12 @@ namespace Ibralogue.Parser
 		private void SkipBlankLines()
 		{
 			while (Check(DialogueTokenType.EndOfLine))
+				Advance();
+		}
+
+		private void SkipBlankLinesAndComments()
+		{
+			while (Check(DialogueTokenType.EndOfLine) || Check(DialogueTokenType.Comment))
 				Advance();
 		}
 

@@ -65,7 +65,7 @@ namespace Ibralogue.Views
                     yield return new WaitUntil(() => !_isPaused);
                 }
 
-                if (_skipRequested)
+                if (_skipRequested || RevealInstantly)
                 {
                     sentenceText.maxVisibleCharacters = totalChars;
                     break;
@@ -86,7 +86,7 @@ namespace Ibralogue.Views
                 sentenceText.maxVisibleCharacters = visibleChars;
                 OnPunchEffectUpdated.Invoke();
 
-                yield return new WaitForSeconds(wordDelay);
+                yield return new WaitForSeconds(wordDelay / ReadingSpeed);
             }
 
             _isStillDisplaying = false;

@@ -63,13 +63,13 @@ namespace Ibralogue.Views
                     yield return new WaitUntil(() => !_isPaused);
                 }
 
-                if (_skipRequested)
+                if (_skipRequested || RevealInstantly)
                 {
                     sentenceText.maxVisibleCharacters = totalChars;
                     break;
                 }
 
-                elapsed += Time.deltaTime;
+                elapsed += Time.deltaTime * ReadingSpeed;
                 int charactersToShow = Mathf.FloorToInt(elapsed / characterDelay) * characterWindow;
 
                 if (charactersToShow > visibleChars)
