@@ -15,34 +15,35 @@ namespace Ibralogue.Interactions
         [SerializeField] private UnityEvent OnConversationStart = new UnityEvent();
         [SerializeField] private UnityEvent OnConversationEnd = new UnityEvent();
 
-        private bool _eventsAttached;
-
-        public virtual void StartDialogue()
-        {
-            AttachEvents();
-        }
+        /// <summary>
+        /// Picks one of the interaction's dialogues and starts it with <see cref="StartConversation"/>.
+        /// </summary>
+        public abstract void StartDialogue();
 
         public DialogueAsset GetDialogueAsset(int index)
         {
             return InteractionDialogues[index];
         }
 
-        private void AttachEvents()
+        /// <summary>
+        /// Starts a dialogue that belongs to this interaction: the interaction's
+        /// start and end events fire for it and for no other.
+        /// </summary>
+        protected void StartConversation(DialogueAsset asset, int startIndex = 0)
         {
-            if (_eventsAttached) return;
-
-            dialogueEngine.OnConversationStart.AddListener(OnConversationStart.Invoke);
-            dialogueEngine.OnConversationEnd.AddListener(OnConversationEnd.Invoke);
-            _eventsAttached = true;
+            dialogueEngine.StartConversation(asset, startIndex, HandleStarted, HandleEnded);
         }
 
-        private void OnDestroy()
+        private void HandleStarted()
         {
-            if (!_eventsAttached || dialogueEngine == null) return;
+            if (this != null)
+                OnConversationStart.Invoke();
+        }
 
-            dialogueEngine.OnConversationStart.RemoveListener(OnConversationStart.Invoke);
-            dialogueEngine.OnConversationEnd.RemoveListener(OnConversationEnd.Invoke);
-            _eventsAttached = false;
+        private void HandleEnded()
+        {
+            if (this != null)
+                OnConversationEnd.Invoke();
         }
     }
 }

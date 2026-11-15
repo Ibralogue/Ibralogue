@@ -9,8 +9,7 @@ namespace Ibralogue.Interactions
     {
         public override void StartDialogue()
         {
-            base.StartDialogue();
-            dialogueEngine.StartConversation(GetDialogueAsset(Random.Range(0, InteractionDialogues.Length)));
+            StartConversation(GetDialogueAsset(Random.Range(0, InteractionDialogues.Length)));
         }
     }
 }

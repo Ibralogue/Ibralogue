@@ -16,8 +16,7 @@ namespace Ibralogue.Interactions
 
         public override void StartDialogue()
         {
-            base.StartDialogue();
-            dialogueEngine.StartConversation(GetDialogueAsset(_iteration));
+            StartConversation(GetDialogueAsset(_iteration));
             if (_iteration == InteractionDialogues.Length - 1)
             {
                 _iteration = _loop ? 0 : _iteration;
