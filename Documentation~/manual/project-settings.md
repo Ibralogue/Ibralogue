@@ -11,6 +11,29 @@ These settings apply across the entire project, regardless of how many dialogue 
 | `Validate On Import` | On | Runs the parser on `.ibra` files at import time. Syntax errors appear immediately in the console. |
 | `Diagnostic Strictness` | Normal | `Normal` logs warnings. `Strict` promotes warnings to errors during import. |
 
+#### Validating from Code
+
+The check the importer runs is available to your own tooling through `DialogueParser.Validate`. It runs the full parser on a source string and returns every warning and error, without logging or caching anything:
+
+```cs
+using System.Collections.Generic;
+using Ibralogue.Parser;
+
+IReadOnlyList<Diagnostic> diagnostics = DialogueParser.Validate(source, assetName);
+
+foreach (Diagnostic diagnostic in diagnostics)
+{
+    string message = $"{assetName} (line {diagnostic.Span.Start.Line}): {diagnostic.Message}";
+
+    if (diagnostic.Severity == DiagnosticSeverity.Error)
+        Debug.LogError(message);
+    else
+        Debug.LogWarning(message);
+}
+```
+
+This is useful for a "validate all dialogue" menu item or a build step that fails on errors.
+
 #### Diagnostics
 
 | Setting | Default | Description |
