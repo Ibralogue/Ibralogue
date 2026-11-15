@@ -245,15 +245,25 @@ namespace Ibralogue
             if (asset == null)
                 throw new ArgumentNullException(nameof(asset));
 
-            _currentAssetName = asset.name ?? "unknown";
-            _parsedConversations = DialogueParser.ParseDialogue(asset);
+            List<Conversation> parsed = DialogueParser.ParseDialogue(asset);
 
-            if (startIndex < 0 || startIndex >= _parsedConversations.Count)
+            if (startIndex < 0 || startIndex >= parsed.Count)
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
+            LoadAsset(asset, parsed);
+            SwitchConversation(parsed[startIndex]);
+        }
+
+        /// <summary>
+        /// Points the engine at a parsed asset. Called once nothing about the
+        /// request can fail, so a rejected start leaves the engine as it was.
+        /// </summary>
+        private void LoadAsset(DialogueAsset asset, List<Conversation> parsed)
+        {
+            _currentAssetName = asset.name ?? "unknown";
+            _parsedConversations = parsed;
             enginePlugins = GetComponents<EnginePlugin>();
-            SwitchConversation(_parsedConversations[startIndex]);
         }
 
         /// <summary>
@@ -313,14 +323,8 @@ namespace Ibralogue
             if (progress == null)
                 throw new ArgumentNullException(nameof(progress));
 
-            StopConversation();
-
-            _currentAssetName = asset.name ?? "unknown";
-            _parsedConversations = DialogueParser.ParseDialogue(asset);
-            enginePlugins = GetComponents<EnginePlugin>();
-
-            Conversation conversation = _parsedConversations.Find(
-                c => c.Name == progress.ConversationName);
+            List<Conversation> parsed = DialogueParser.ParseDialogue(asset);
+            Conversation conversation = parsed.Find(c => c.Name == progress.ConversationName);
 
             if (conversation == null)
             {
@@ -330,6 +334,9 @@ namespace Ibralogue
                 StartConversation(asset);
                 return;
             }
+
+            StopConversation();
+            LoadAsset(asset, parsed);
 
             _currentConversation = conversation;
             _cursor = new ContentCursor(conversation.Content);
