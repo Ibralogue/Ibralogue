@@ -34,6 +34,33 @@ namespace Ibralogue.Interactions
             dialogueEngine.StartConversation(asset, startIndex, HandleStarted, HandleEnded);
         }
 
+        /// <summary>
+        /// Carries on a dialogue of this interaction that <see cref="OnInterrupted"/> kept.
+        /// It is the same dialogue to the interaction's listeners, so the start event
+        /// does not fire again.
+        /// </summary>
+        protected void ContinueConversation(DialogueAsset asset, ConversationProgress progress)
+        {
+            dialogueEngine.ResumeFromProgress(asset, progress, null, HandleEnded);
+        }
+
+        /// <summary>
+        /// Called when another dialogue starts over this interaction's dialogue.
+        /// Return true to keep it for <see cref="ContinueConversation"/>: it has not
+        /// ended, so neither <see cref="OnInteractionEnded"/> nor the end event fire.
+        /// </summary>
+        protected virtual bool OnInterrupted(ConversationProgress progress)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Called when this interaction's dialogue is over, just before its end event.
+        /// </summary>
+        protected virtual void OnInteractionEnded()
+        {
+        }
+
         private void HandleStarted()
         {
             if (this != null)
@@ -42,8 +69,15 @@ namespace Ibralogue.Interactions
 
         private void HandleEnded()
         {
-            if (this != null)
-                OnConversationEnd.Invoke();
+            if (this == null)
+                return;
+
+            ConversationProgress interrupted = dialogueEngine.InterruptedProgress;
+            if (interrupted != null && OnInterrupted(interrupted))
+                return;
+
+            OnInteractionEnded();
+            OnConversationEnd.Invoke();
         }
     }
 }
