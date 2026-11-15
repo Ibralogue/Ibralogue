@@ -29,7 +29,9 @@ namespace Ibralogue.Parser
 			SourcePosition start = Current().Span.Start;
 			List<ConversationNode> conversations = new List<ConversationNode>();
 
-			SkipBlankLines();
+			// Comments above the first conversation are not content of their own.
+			// Left in, they would open an unnamed conversation ahead of it.
+			SkipBlankLinesAndComments();
 
 			while (!IsAtEnd())
 			{
@@ -596,6 +598,12 @@ namespace Ibralogue.Parser
 		private void SkipBlankLines()
 		{
 			while (Check(DialogueTokenType.EndOfLine))
+				Advance();
+		}
+
+		private void SkipBlankLinesAndComments()
+		{
+			while (Check(DialogueTokenType.EndOfLine) || Check(DialogueTokenType.Comment))
 				Advance();
 		}
 
