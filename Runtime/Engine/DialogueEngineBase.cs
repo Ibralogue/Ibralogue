@@ -290,6 +290,15 @@ namespace Ibralogue
         private void BeginDialogue(DialogueAsset asset, List<Conversation> parsed,
             Conversation conversation, int nodesToSkip, Action onStart, Action onEnd)
         {
+            // An end listener of a dialogue that is being interrupted asked for
+            // another. The dialogue doing the interrupting already has the floor.
+            if (InterruptedProgress != null)
+            {
+                DialogueLogger.LogVerbose(
+                    $"Ignored a request to start '{asset.name}' while another dialogue was taking over.");
+                return;
+            }
+
             Interrupt();
 
             _currentAssetName = asset.name ?? "unknown";
