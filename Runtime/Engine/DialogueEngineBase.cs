@@ -732,7 +732,9 @@ namespace Ibralogue
                 AdvanceToNextDisplayable();
             }
 
-            yield return StartCoroutine(OnDisplayLine(line));
+            // Yielded directly rather than started on its own, so stopping
+            // this coroutine stops the line with it.
+            yield return OnDisplayLine(line);
 
             _linePlaying = false;
 
