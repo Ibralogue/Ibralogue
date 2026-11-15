@@ -214,6 +214,79 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
+		public void CommentsAboveFirstConversationName_DoNotOpenAConversation()
+		{
+			dialogueAsset.Content =
+				"# Notes for the writer\n\n# More notes\n" +
+				"{{ConversationName(A)}}\n[Foo]\nHello\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Name, Is.EqualTo("A"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Hello"));
+		}
+
+		[Test]
+		public void CommentsAboveUnnamedConversation_AreIgnored()
+		{
+			dialogueAsset.Content = "# Notes for the writer\n[Foo]\nHello\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Name, Is.EqualTo("Default"));
+			Assert.That(GetLine(result[0], 0).LineContent.Text, Is.EqualTo("Hello"));
+		}
+
+		[Test]
+		public void CommentOnlyDialogue_ParsesToOneEmptyConversation()
+		{
+			dialogueAsset.Content = "# Nothing written yet\n";
+
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
+
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Content, Is.Empty);
+		}
+
+		[Test]
+		public void Validate_CleanSource_ReportsNothing()
+		{
+			var diagnostics = DialogueParser.Validate("[Foo]\nHello\n", "test");
+
+			Assert.That(diagnostics, Is.Empty);
+		}
+
+		[Test]
+		public void Validate_EmptySource_ReportsWarning()
+		{
+			var diagnostics = DialogueParser.Validate("", "test");
+
+			Assert.That(diagnostics, Has.Count.EqualTo(1));
+			Assert.That(diagnostics[0].Severity, Is.EqualTo(DiagnosticSeverity.Warning));
+			Assert.That(diagnostics[0].Message, Does.Contain("empty"));
+		}
+
+		[Test]
+		public void Validate_UnclosedConditional_ReportsErrorWithLine()
+		{
+			var diagnostics = DialogueParser.Validate("[Foo]\nHello\n{{If($X)}}\n[Foo]\nBye\n", "test");
+
+			Assert.That(diagnostics.Any(d => d.Severity == DiagnosticSeverity.Error), Is.True);
+			Assert.That(diagnostics.First(d => d.Severity == DiagnosticSeverity.Error).Message,
+				Does.Contain("EndIf"));
+		}
+
+		[Test]
+		public void Validate_MalformedExpression_ReportsErrorInsteadOfThrowing()
+		{
+			var diagnostics = DialogueParser.Validate("{{If($X ==)}}\n[Foo]\nHello\n{{EndIf}}\n", "test");
+
+			Assert.That(diagnostics.Any(d => d.Severity == DiagnosticSeverity.Error), Is.True);
+		}
+
+		[Test]
 		public void Jump_ParsesCorrectly()
 		{
 			dialogueAsset.Content =
