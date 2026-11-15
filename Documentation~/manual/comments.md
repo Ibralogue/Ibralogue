@@ -8,6 +8,15 @@
 Time to die.
 ```
 
+Comments can sit at the very top of a file, above the first `{{ConversationName(...)}}`:
+
+```ibra
+# Tavern keeper, first meeting
+{{ConversationName(Greeting)}}
+[NPC]
+Welcome in.
+```
+
 Comments can also appear between dialogue lines:
 
 ```ibra
