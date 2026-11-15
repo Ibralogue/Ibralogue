@@ -114,6 +114,14 @@ namespace Ibralogue
         public string CurrentSpeaker => CurrentLine?.Speaker;
 
         /// <summary>
+        /// True when advancing the running conversation would show another line
+        /// or choice, whether in this conversation or in one the current line
+        /// jumps to. False on the last line and when no conversation is active.
+        /// </summary>
+        public bool HasMoreToShow => _currentConversation != null &&
+            (!string.IsNullOrEmpty(CurrentLine?.JumpTarget) || PeekNextDisplayable() != null);
+
+        /// <summary>
         /// Where the running dialogue had got to, set only while it is being ended
         /// because another dialogue is starting over it. Null at any other time, so
         /// an end listener can tell being interrupted from finishing or being stopped.
