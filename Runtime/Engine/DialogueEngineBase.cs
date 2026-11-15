@@ -429,19 +429,6 @@ namespace Ibralogue
             if (audio != null)
                 audio.Stop();
 
-            // Only fire end events when a conversation was actually running.
-            // This prevents spurious events during the first StartConversation
-            // call or when StopConversation is called while already stopped.
-            if (wasActive)
-            {
-                if (enginePlugins != null)
-                    foreach (EnginePlugin plugin in enginePlugins)
-                        plugin.OnConversationEnd();
-
-                PersistentOnConversationEnd.Invoke();
-                OnConversationEnd.Invoke();
-            }
-
             _linePlaying = false;
             CurrentLine = null;
             _currentConversation = null;
@@ -455,6 +442,19 @@ namespace Ibralogue
 
             if (!PersistHistory)
                 _history.Clear();
+
+            // Only fire end events when a conversation was actually running.
+            // They come last: the engine is already idle, so a listener can
+            // start the next conversation without it being cleared from under it.
+            if (wasActive)
+            {
+                if (enginePlugins != null)
+                    foreach (EnginePlugin plugin in enginePlugins)
+                        plugin.OnConversationEnd();
+
+                PersistentOnConversationEnd.Invoke();
+                OnConversationEnd.Invoke();
+            }
         }
 
         private void StopTrackedCoroutines()
