@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Ibralogue.Parser
@@ -33,9 +32,6 @@ namespace Ibralogue.Parser
 				Conversation conversation = AnalyzeConversation(conversationNode);
 				conversations.Add(conversation);
 			}
-
-			if (conversations.Count == 0)
-				throw new ArgumentException("Dialogue has no conversations");
 
 			return conversations;
 		}

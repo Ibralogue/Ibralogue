@@ -18,8 +18,8 @@ namespace Ibralogue.Parser
 		/// </summary>
 		/// <returns>
 		/// A list of <see cref="Conversation"/> objects representing all conversations in the dialogue file.
+		/// There is always at least one: an empty file parses to a single empty conversation.
 		/// </returns>
-		/// <exception cref="ArgumentException">Thrown when the dialogue has no conversations.</exception>
 		public static List<Conversation> ParseDialogue(DialogueAsset dialogueAsset)
 		{
 			if (dialogueAsset == null)

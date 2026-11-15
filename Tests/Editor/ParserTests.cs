@@ -41,13 +41,15 @@ namespace Ibralogue.Editor.Tests
 		}
 
 		[Test]
-		public void EmptyDialogue_Throws_Exception()
+		public void EmptyDialogue_ParsesToOneEmptyConversation()
 		{
 			dialogueAsset.Content = "";
 
-			TestDelegate action = () => DialogueParser.ParseDialogue(dialogueAsset);
+			var result = DialogueParser.ParseDialogue(dialogueAsset);
 
-			Assert.That(action, Throws.ArgumentException);
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Name, Is.EqualTo("Default"));
+			Assert.That(result[0].Content, Is.Empty);
 		}
 
 		[Test]
