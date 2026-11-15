@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor.AssetImporters;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Ibralogue.Parser;
@@ -24,12 +25,12 @@ namespace Ibralogue.Editor
 
         private static void ValidateDialogue(AssetImportContext ctx, DialogueAsset dialogue)
         {
-            DiagnosticBag diagnostics = DialogueParser.Validate(
-                dialogue.Content ?? "", dialogue.name ?? "unknown");
+            IReadOnlyList<Diagnostic> diagnostics = DialogueParser.Validate(
+                dialogue.Content, dialogue.name);
 
             bool strict = IbralogueSettings.IsStrictMode;
 
-            foreach (Diagnostic diagnostic in diagnostics.Diagnostics)
+            foreach (Diagnostic diagnostic in diagnostics)
             {
                 string message = $"{dialogue.name}.ibra (line {diagnostic.Span.Start.Line}): {diagnostic.Message}";
 
