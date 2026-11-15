@@ -113,6 +113,15 @@ namespace Ibralogue
         /// </summary>
         public string CurrentSpeaker => CurrentLine?.Speaker;
 
+        /// <summary>
+        /// Where the running dialogue had got to, set only while it is being ended
+        /// because another dialogue is starting over it. Null at any other time, so
+        /// an end listener can tell being interrupted from finishing or being stopped.
+        /// It points at the line that was on screen, so that line shows again when
+        /// this is passed to <see cref="ResumeFromProgress"/>.
+        /// </summary>
+        public ConversationProgress InterruptedProgress { get; private set; }
+
         protected Conversation _currentConversation;
         protected bool _linePlaying;
         protected bool _isPaused = false;
@@ -281,7 +290,7 @@ namespace Ibralogue
         private void BeginDialogue(DialogueAsset asset, List<Conversation> parsed,
             Conversation conversation, int nodesToSkip, Action onStart, Action onEnd)
         {
-            StopConversation();
+            Interrupt();
 
             _currentAssetName = asset.name ?? "unknown";
             _parsedConversations = parsed;
@@ -303,6 +312,29 @@ namespace Ibralogue
                 AdvanceAndDisplay();
         }
 
+        /// <summary>
+        /// Ends the running dialogue to make way for another, exposing where it
+        /// had got to for as long as its end events are firing.
+        /// </summary>
+        private void Interrupt()
+        {
+            if (_currentConversation == null)
+                return;
+
+            // Unlike ExportProgress, a line that has finished displaying is shown
+            // again too: the dialogue cutting in will have covered it.
+            InterruptedProgress = ProgressAt(_displayedNodeCount - 1);
+
+            try
+            {
+                StopConversation();
+            }
+            finally
+            {
+                InterruptedProgress = null;
+            }
+        }
+
         private void EnterConversation(Conversation conversation)
         {
             _currentConversation = conversation;
@@ -320,18 +352,19 @@ namespace Ibralogue
         {
             if (_currentConversation == null) return null;
 
-            int count = _displayedNodeCount;
-
             // If mid-display or mid-choice, back up by one so the current
             // node re-displays on restore instead of being skipped.
-            if (_linePlaying || _choicesActive)
-                count = Mathf.Max(0, count - 1);
+            bool redisplayCurrent = _linePlaying || _choicesActive;
+            return ProgressAt(redisplayCurrent ? _displayedNodeCount - 1 : _displayedNodeCount);
+        }
 
+        private ConversationProgress ProgressAt(int displayedNodeCount)
+        {
             return new ConversationProgress
             {
                 AssetName = _currentAssetName,
                 ConversationName = _currentConversation.Name,
-                DisplayedNodeCount = count
+                DisplayedNodeCount = Mathf.Max(0, displayedNodeCount)
             };
         }
 
