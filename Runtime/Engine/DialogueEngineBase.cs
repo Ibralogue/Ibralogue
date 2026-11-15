@@ -251,38 +251,57 @@ namespace Ibralogue
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
-            LoadAsset(asset, parsed);
-            SwitchConversation(parsed[startIndex]);
+            BeginDialogue(asset, parsed, parsed[startIndex], 0);
         }
 
         /// <summary>
-        /// Points the engine at a parsed asset. Called once nothing about the
-        /// request can fail, so a rejected start leaves the engine as it was.
-        /// </summary>
-        private void LoadAsset(DialogueAsset asset, List<Conversation> parsed)
-        {
-            _currentAssetName = asset.name ?? "unknown";
-            _parsedConversations = parsed;
-            enginePlugins = GetComponents<EnginePlugin>();
-        }
-
-        /// <summary>
-        /// Switches to a different conversation. Assumes the dialogue file has been parsed.
+        /// Moves the running dialogue to another conversation in the same file,
+        /// as jumps and choices do. The dialogue carries on through the switch,
+        /// so no conversation start or end events fire.
         /// </summary>
         public void SwitchConversation(Conversation conversation)
         {
-            StopConversation();
-            _currentConversation = conversation;
-            _cursor = new ContentCursor(conversation.Content);
-            _choicesActive = false;
+            if (_currentConversation == null)
+                throw new InvalidOperationException(
+                    "There is no ongoing conversation to switch from");
 
-            if (enginePlugins != null)
-                foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnConversationStart(conversation);
+            ClearLine();
+            EnterConversation(conversation);
+            AdvanceAndDisplay();
+        }
+
+        /// <summary>
+        /// Replaces whatever is running with a new dialogue. Called once nothing
+        /// about the request can fail, so a rejected start leaves the engine as it was.
+        /// </summary>
+        private void BeginDialogue(DialogueAsset asset, List<Conversation> parsed,
+            Conversation conversation, int nodesToSkip)
+        {
+            StopConversation();
+
+            _currentAssetName = asset.name ?? "unknown";
+            _parsedConversations = parsed;
+            enginePlugins = GetComponents<EnginePlugin>();
+
+            EnterConversation(conversation);
+            SkipDisplayableNodes(nodesToSkip);
+
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.OnConversationStart(conversation);
 
             PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
-            AdvanceAndDisplay();
+
+            // A start listener may have stopped the dialogue or started another.
+            if (_currentConversation == conversation)
+                AdvanceAndDisplay();
+        }
+
+        private void EnterConversation(Conversation conversation)
+        {
+            _currentConversation = conversation;
+            _cursor = new ContentCursor(conversation.Content);
+            _displayedNodeCount = 0;
         }
 
         /// <summary>
@@ -325,32 +344,18 @@ namespace Ibralogue
 
             List<Conversation> parsed = DialogueParser.ParseDialogue(asset);
             Conversation conversation = parsed.Find(c => c.Name == progress.ConversationName);
+            int nodesToSkip = progress.DisplayedNodeCount;
 
             if (conversation == null)
             {
                 DialogueLogger.LogWarning(
                     $"Conversation '{progress.ConversationName}' not found in " +
                     $"'{progress.AssetName}'. Starting from the beginning.");
-                StartConversation(asset);
-                return;
+                conversation = parsed[0];
+                nodesToSkip = 0;
             }
 
-            StopConversation();
-            LoadAsset(asset, parsed);
-
-            _currentConversation = conversation;
-            _cursor = new ContentCursor(conversation.Content);
-            _choicesActive = false;
-
-            SkipDisplayableNodes(progress.DisplayedNodeCount);
-
-            if (enginePlugins != null)
-                foreach (EnginePlugin plugin in enginePlugins)
-                    plugin.OnConversationStart(conversation);
-
-            PersistentOnConversationStart.Invoke();
-            OnConversationStart.Invoke();
-            AdvanceAndDisplay();
+            BeginDialogue(asset, parsed, conversation, nodesToSkip);
         }
 
         private void SkipDisplayableNodes(int count)
@@ -415,11 +420,39 @@ namespace Ibralogue
 
         /// <summary>
         /// Stops the currently playing conversation and clears the dialogue box.
+        /// Does nothing when no conversation is running.
         /// </summary>
         public void StopConversation()
         {
-            bool wasActive = _currentConversation != null;
+            if (_currentConversation == null)
+                return;
 
+            ClearLine();
+
+            _currentConversation = null;
+            _cursor = null;
+            _displayedNodeCount = 0;
+            _isPaused = false;
+            _cachedEvaluator = null;
+            _cachedEvaluatorAssetName = null;
+
+            if (!PersistHistory)
+                _history.Clear();
+
+            // The end events come last: the engine is already idle, so a listener
+            // can start the next conversation without it being cleared from under it.
+            foreach (EnginePlugin plugin in enginePlugins)
+                plugin.OnConversationEnd();
+
+            PersistentOnConversationEnd.Invoke();
+            OnConversationEnd.Invoke();
+        }
+
+        /// <summary>
+        /// Takes the current line off screen and stops everything it started.
+        /// </summary>
+        private void ClearLine()
+        {
             StopTrackedCoroutines();
 
             ClearDisplay();
@@ -431,30 +464,8 @@ namespace Ibralogue
 
             _linePlaying = false;
             CurrentLine = null;
-            _currentConversation = null;
             _currentRuntimeLine = null;
-            _cursor = null;
             _choicesActive = false;
-            _displayedNodeCount = 0;
-            _isPaused = false;
-            _cachedEvaluator = null;
-            _cachedEvaluatorAssetName = null;
-
-            if (!PersistHistory)
-                _history.Clear();
-
-            // Only fire end events when a conversation was actually running.
-            // They come last: the engine is already idle, so a listener can
-            // start the next conversation without it being cleared from under it.
-            if (wasActive)
-            {
-                if (enginePlugins != null)
-                    foreach (EnginePlugin plugin in enginePlugins)
-                        plugin.OnConversationEnd();
-
-                PersistentOnConversationEnd.Invoke();
-                OnConversationEnd.Invoke();
-            }
         }
 
         private void StopTrackedCoroutines()
@@ -503,7 +514,7 @@ namespace Ibralogue
         /// </summary>
         public void JumpTo(string conversationName)
         {
-            if (_parsedConversations == null || _parsedConversations.Count == 0)
+            if (_currentConversation == null)
                 throw new InvalidOperationException(
                     "There is no ongoing conversation, therefore the jump cannot be executed");
 
