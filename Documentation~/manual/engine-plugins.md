@@ -10,8 +10,8 @@ Any `EnginePlugin` component on the same GameObject as the dialogue engine is au
 |--------|---------------|
 | `Display(Line line)` | Every time a new dialogue line is shown. |
 | `Clear()` | When the view is cleared (between lines and at conversation end). |
-| `OnConversationStart(Conversation)` | When a conversation begins. |
-| `OnConversationEnd()` | When a conversation ends. |
+| `OnConversationStart(Conversation)` | When a dialogue begins. Passes the conversation it begins in. Not called again for jumps and choices. |
+| `OnConversationEnd()` | When a dialogue ends. The engine is already idle at this point. |
 | `OnChoicesPresented(List<Choice>)` | When choices are shown to the player. |
 | `OnChoiceSelected(Choice)` | When the player selects a choice. |
 

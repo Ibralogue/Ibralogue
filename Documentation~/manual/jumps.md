@@ -19,6 +19,8 @@ Safe travels, friend.
 
 After the player advances past "Welcome, traveller.", the engine jumps to the "Farewell" conversation automatically.
 
+A jump is part of the dialogue that is already running. It does not fire `OnConversationEnd` or `OnConversationStart`, and the engine's `History` carries on through it.
+
 #### Placement
 
 The `{{Jump(...)}}` invocation can appear before or after the sentence text, as long as it is inside a dialogue line (after a `[Speaker]` tag):
