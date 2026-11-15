@@ -119,6 +119,7 @@ namespace Ibralogue
 
         private Coroutine _displayCoroutine;
         private Coroutine _asyncInvocationCoroutine;
+        private Action _onEnd;
         private string _currentAssetName;
         private ContentCursor _cursor;
         private RuntimeLine _currentRuntimeLine;
@@ -240,7 +241,10 @@ namespace Ibralogue
         /// <summary>
         /// Starts a dialogue by parsing the asset and beginning the first (or specified) conversation.
         /// </summary>
-        public void StartConversation(DialogueAsset asset, int startIndex = 0)
+        /// <param name="onStart">Invoked after <see cref="OnConversationStart"/>, for this dialogue only.</param>
+        /// <param name="onEnd">Invoked after <see cref="OnConversationEnd"/>, for this dialogue only.</param>
+        public void StartConversation(DialogueAsset asset, int startIndex = 0,
+            Action onStart = null, Action onEnd = null)
         {
             if (asset == null)
                 throw new ArgumentNullException(nameof(asset));
@@ -251,7 +255,7 @@ namespace Ibralogue
                 throw new ArgumentOutOfRangeException(nameof(startIndex),
                     "Expected value is between 0 and conversations count (exclusive)");
 
-            BeginDialogue(asset, parsed, parsed[startIndex], 0);
+            BeginDialogue(asset, parsed, parsed[startIndex], 0, onStart, onEnd);
         }
 
         /// <summary>
@@ -275,13 +279,14 @@ namespace Ibralogue
         /// about the request can fail, so a rejected start leaves the engine as it was.
         /// </summary>
         private void BeginDialogue(DialogueAsset asset, List<Conversation> parsed,
-            Conversation conversation, int nodesToSkip)
+            Conversation conversation, int nodesToSkip, Action onStart, Action onEnd)
         {
             StopConversation();
 
             _currentAssetName = asset.name ?? "unknown";
             _parsedConversations = parsed;
             enginePlugins = GetComponents<EnginePlugin>();
+            _onEnd = onEnd;
 
             EnterConversation(conversation);
             SkipDisplayableNodes(nodesToSkip);
@@ -291,6 +296,7 @@ namespace Ibralogue
 
             PersistentOnConversationStart.Invoke();
             OnConversationStart.Invoke();
+            onStart?.Invoke();
 
             // A start listener may have stopped the dialogue or started another.
             if (_currentConversation == conversation)
@@ -335,7 +341,10 @@ namespace Ibralogue
         /// <see cref="VariableStore.ImportState"/> and <see cref="VisitTracker.ImportState"/>
         /// before calling this method.
         /// </summary>
-        public void ResumeFromProgress(DialogueAsset asset, ConversationProgress progress)
+        /// <param name="onStart">Invoked after <see cref="OnConversationStart"/>, for this dialogue only.</param>
+        /// <param name="onEnd">Invoked after <see cref="OnConversationEnd"/>, for this dialogue only.</param>
+        public void ResumeFromProgress(DialogueAsset asset, ConversationProgress progress,
+            Action onStart = null, Action onEnd = null)
         {
             if (asset == null)
                 throw new ArgumentNullException(nameof(asset));
@@ -355,7 +364,7 @@ namespace Ibralogue
                 nodesToSkip = 0;
             }
 
-            BeginDialogue(asset, parsed, conversation, nodesToSkip);
+            BeginDialogue(asset, parsed, conversation, nodesToSkip, onStart, onEnd);
         }
 
         private void SkipDisplayableNodes(int count)
@@ -439,6 +448,9 @@ namespace Ibralogue
             if (!PersistHistory)
                 _history.Clear();
 
+            Action onEnd = _onEnd;
+            _onEnd = null;
+
             // The end events come last: the engine is already idle, so a listener
             // can start the next conversation without it being cleared from under it.
             foreach (EnginePlugin plugin in enginePlugins)
@@ -446,6 +458,7 @@ namespace Ibralogue
 
             PersistentOnConversationEnd.Invoke();
             OnConversationEnd.Invoke();
+            onEnd?.Invoke();
         }
 
         /// <summary>
